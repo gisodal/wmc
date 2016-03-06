@@ -1,0 +1,13 @@
+#!/bin/bash
+
+FILE=$1
+NAME=${FILE%.*}
+EXTENSION=${FILE##*.}
+
+if [ "$EXTENSION" == "dot" ]; then
+    dot -Tps $FILE -o ${NAME}.ps
+    evince "${NAME}.ps" 2>/dev/null &
+else
+    echo "Usage: ./dot2ps <DOT FILE>" 1>&2
+fi
+

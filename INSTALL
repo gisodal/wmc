@@ -1,0 +1,8 @@
+In order to retreive (and update) all neccesary sources repositories, first run:
+    > ./scripts/sync
+
+To build, run:
+    > make
+
+Binaries will be installed in the '<path/to/source>/bin' folder.
+

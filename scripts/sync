@@ -1,0 +1,29 @@
+#!/bin/bash
+
+DIR=$(cd "$( dirname "$0" )" && cd .. && pwd)
+REPOS=("quine-mccluskey" "bn-to-cnf" "pbdd" "bnc" "bnmc")
+
+cd $DIR
+
+echo -e "\n==== updating repository wmc ====\n"
+git pull
+
+mkdir -p src
+cd src
+
+for ((i=0; i < ${#REPOS[@]}; i++)); do
+    REPO=${REPOS[$i]}
+    if [ -d $REPO ]; then
+        echo -e "\n==== updating repository $REPO ====\n"
+        cd $REPO
+        git pull
+        cd ..
+    else
+        echo -e "\n=== retreiving repository $REPO ====\n"
+        git clone git@github.com:gisodal/${REPO}.git
+        echo
+    fi
+done
+echo
+echo DONE.
+
