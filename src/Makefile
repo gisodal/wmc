@@ -1,4 +1,4 @@
-PROJECTS = quine-mccluskey bn-to-cnf bnc bnc-cudd bnmc
+PROJECTS = quine-mccluskey bn-to-cnf bnc-cudd bnc bnmc
 OPTIONS  = all static install
 SHELL    = /bin/bash
 

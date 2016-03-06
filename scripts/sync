@@ -1,7 +1,10 @@
 #!/bin/bash
-
 DIR=$(cd "$( dirname "$0" )" && cd .. && pwd)
-REPOS=("quine-mccluskey" "bn-to-cnf" "pbdd" "bnc" "bnmc")
+REPOS=("quine-mccluskey" "bn-to-cnf" "bnc-cudd" "bnc" "bnmc")
+SERVER="git@github.com:gisodal"
+if [ $# -gt 0 ]; then
+    SERVER=$1
+fi
 
 cd $DIR
 
@@ -20,7 +23,7 @@ for ((i=0; i < ${#REPOS[@]}; i++)); do
         cd ..
     else
         echo -e "\n=== retreiving repository $REPO ====\n"
-        git clone git@github.com:gisodal/${REPO}.git
+        git clone $SERVER/${REPO}.git
         echo
     fi
 done
