@@ -23,8 +23,12 @@ clean:   OPTIONS = clean
 clean:   build
 
 build:
-	@for PROJECT in $(PROJECTS); do                     \
-		echo -e "\n==== processing $${PROJECT} ====\n"; \
-		$(MAKE) -C $${PROJECT} $(OPTIONS) || exit 1;    \
+	@for PROJECT in $(PROJECTS); do                     						\
+		echo -e "\n==== processing $${PROJECT} ====\n"; 						\
+		if [ $${PROJECT} == bnc-cudd ]; then 									\
+		    $(MAKE) -C $${PROJECT} check && $(MAKE) -C $${PROJECT} $(OPTIONS);  \
+		else 																	\
+			$(MAKE) -C $${PROJECT} $(OPTIONS) || exit 1;    					\
+		fi; 																	\
 	done
 
