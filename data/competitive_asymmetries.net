@@ -1,0 +1,383 @@
+net
+{
+    node_size = (100 20);
+    HR_Color_DiscreteChance = "16";
+    HR_Grid_X = "10";
+    HR_Grid_Y = "10";
+    HR_Grid_GridSnap = "1";
+    HR_Grid_GridShow = "0";
+    HR_Font_Name = "Tahoma";
+    HR_Font_Size = "-9";
+    HR_Font_Weight = "400";
+    HR_Font_Italic = "0";
+    HR_Propagate_Auto = "0";
+    HR_Propagate_AutoSum = "1";
+    HR_Propagate_AutoNormal = "1";
+    HR_Compile_TriangMethod = "0";
+    HR_Compile_Compress = "0";
+    HR_Compile_Approximate = "0";
+    HR_Compile_ApproxEpsilon = "0.00001";
+    HR_Monitor_AutoUpdGraph = "0";
+    HR_Monitor_GraphPrecision = "100";
+    HR_Monitor_OpenGraph = "0";
+    HR_Monitor_InitStates = "5";
+    HR_Monitor_InitSD = "2";
+    HR_Color_DescreteChance = "46";
+    HR_Color_ContinuosChance = "48";
+    HR_Color_Utility = "36";
+    HR_Color_Decision = "17";
+    HR_Groups_UserGroupsNo = "3";
+    HR_Groups_GroupNames = "Copyright\tThreats\tEnvironment";
+    HR_Groups_GroupColors = "133428";
+}
+
+node AntiTrustThreat
+{
+    position = (380 160);
+    states = ("Threat of Anti-Trust Case" "No threat");
+    HR_Grp = "1";
+}
+
+node NYU
+{
+    label = "(c) Baumard, 1997";
+    states = ("Competitive Analysis Belief Network");
+    HR_Grp = "0";
+    HR_Desc = "This network is part of series published in a CD-Rom, with\r\na book entitled \"Competitivite des Systemes d'Information\"\r\n(Paris: masson, fortchoming 1998).\r\nWeb access : www.masson.fr\r\nIt aims at assessing the the anti-trust threat in a given market. The other networks in the book assess the competitiveness of information systems and technologies.";
+    HR_State_0 = "For more info : Philippe.Baumard@dauphine.fr\r\n";
+}
+
+decision Territory
+{
+    position = (0 170);
+    states = ("Saturation" "No saturation");
+    HR_Grp = "2";
+}
+
+node Options
+{
+    position = (120 170);
+    states = ("Move to a new territory" "Defend current territory" "Increase distinction");
+}
+
+node Cashflow
+{
+    position = (120 230);
+    states = ("High" "Moderate" "Negative");
+}
+
+node Action
+{
+    position = (260 200);
+    states = ("Agression" "Persuasion" "Defense" "Dissuasion");
+}
+
+node Relations
+{
+    position = (120 200);
+    states = ("Conflict" "Cooperation" "Avoidance");
+}
+
+decision Market
+{
+    position = (0 230);
+    states = ("New" "Growth" "Maturity" "Decline");
+    HR_Grp = "2";
+}
+
+decision RMS
+{
+    position = (0 210);
+    states = ("Inf 10%leader" "10/40% leader" ">40% leader" "Leader");
+    HR_Grp = "2";
+}
+
+decision Competencies
+{
+    position = (0 190);
+    states = ("Uncomparable" "Distinctive" "Differentiated" "No distinction");
+    HR_Grp = "2";
+}
+
+utility IncreaseDistinction
+{
+    position = (240 50);
+}
+
+node Interdepency
+{
+    position = (130 120);
+    states = ("Domination" "Symbiosis" "Dependancy" "FreePlayers");
+}
+
+decision NumberOfBuyers
+{
+    position = (0 130);
+    states = ("One" "Few" "Many");
+    HR_Grp = "2";
+}
+
+node Asymetry
+{
+    position = (240 100);
+    states = ("High" "Moderate" "None");
+}
+
+decision Information
+{
+    position = (0 70);
+    states = ("Proprietary" "Restricted" "Perfect Avaibility");
+    HR_Grp = "2";
+}
+
+decision ProductDifferentiation
+{
+    position = (0 50);
+    states = ("Extensive" "Moderate" "Low" "None");
+    HR_Grp = "2";
+}
+
+decision EntryExitBarriers
+{
+    position = (0 90);
+    states = ("Legal" "High" "Significant" "None");
+    HR_Grp = "2";
+}
+
+node Competition
+{
+    label = "Competition";
+    position = (130 70);
+    states = ("Intense" "Limited");
+}
+
+decision NumberOfCompetitors
+{
+    position = (0 110);
+    states = ("One" "Two" "Few" "Many");
+    HR_Grp = "2";
+}
+
+node MoveCredibility
+{
+    position = (260 150);
+    states = ("Credible" "Not credible");
+}
+
+potential (AntiTrustThreat | Asymetry RMS)
+{
+ data = ((( 0.25 0.75 )	%  High  Inf 10%leader
+	  ( 0.6 0.4 )	%  High  10/40% leader
+	  ( 0.87 0.13 )	%  High  >40% leader
+	  ( 0.99 0.01 ))	%  High  Leader
+	 (( 0.31 0.69 )	%  Moderate  Inf 10%leader
+	  ( 0.4 0.6 )	%  Moderate  10/40% leader
+	  ( 0.78 0.22 )	%  Moderate  >40% leader
+	  ( 0.85 0.15 ))	%  Moderate  Leader
+	 (( 0.01 0.99 )	%  None  Inf 10%leader
+	  ( 0.15 0.85 )	%  None  10/40% leader
+	  ( 0.25 0.75 )	%  None  >40% leader
+	  ( 0.45 0.55 )));	%  None  Leader
+}
+
+potential (NYU)
+{
+ data = ( 1 );
+}
+
+potential (Territory | Competencies) {}
+
+potential (Options | Territory Relations)
+{
+ data = ((( 0.05 0.33 0.62 )	%  Saturation  Conflict
+	  ( 0.19 0.01 0.8 )	%  Saturation  Cooperation
+	  ( 0.33 0.66 0.01 ))	%  Saturation  Avoidance
+	 (( 0.01 0.66 0.33 )	%  No saturation  Conflict
+	  ( 0.8 0.01 0.19 )	%  No saturation  Cooperation
+	  ( 0.62 0.33 0.05 )));	%  No saturation  Avoidance
+}
+
+potential (Cashflow | Market RMS)
+{
+ data = ((( 0 0 1 )	%  New  Inf 10%leader
+	  ( 0.04 0.095 0.865 )	%  New  10/40% leader
+	  ( 0.085 0.18 0.735 )	%  New  >40% leader
+	  ( 0.125 0.275 0.6 ))	%  New  Leader
+	 (( 0.1625 0.375 0.4625 )	%  Growth  Inf 10%leader
+	  ( 0.2 0.475 0.325 )	%  Growth  10/40% leader
+	  ( 0.23 0.59 0.18 )	%  Growth  >40% leader
+	  ( 0.29 0.665 0.045 ))	%  Growth  Leader
+	 (( 0.045 0.665 0.29 )	%  Maturity  Inf 10%leader
+	  ( 0.175 0.6 0.225 )	%  Maturity  10/40% leader
+	  ( 0.325 0.475 0.2 )	%  Maturity  >40% leader
+	  ( 0.4625 0.375 0.1625 ))	%  Maturity  Leader
+	 (( 0.595 0.285 0.12 )	%  Decline  Inf 10%leader
+	  ( 0.73 0.19 0.08 )	%  Decline  10/40% leader
+	  ( 0.865 0.095 0.04 )	%  Decline  >40% leader
+	  ( 1 0 0 )));	%  Decline  Leader
+}
+
+potential (Action | Options Cashflow)
+{
+ data = ((( 1 0 0 0 )	%  Move to a new territory  High
+	  ( 0.85 0.15 0 0 )	%  Move to a new territory  Moderate
+	  ( 0.1 0.9 0 0 ))	%  Move to a new territory  Negative
+	 (( 0 0 1 0 )	%  Defend current territory  High
+	  ( 0 0 0.6 0.4 )	%  Defend current territory  Moderate
+	  ( 0 0 0 1 ))	%  Defend current territory  Negative
+	 (( 0.32 0.34 0.25 0.09 )	%  Increase distinction  High
+	  ( 0 0.35 0.4 0.25 )	%  Increase distinction  Moderate
+	  ( 0 0.48 0 0.52 )));	%  Increase distinction  Negative
+}
+
+potential (Relations | Competencies RMS)
+{
+ data = ((( 0 0 1 )	%  Uncomparable  Inf 10%leader
+	  ( 0.04 0.095 0.865 )	%  Uncomparable  10/40% leader
+	  ( 0.08 0.19 0.73 )	%  Uncomparable  >40% leader
+	  ( 0.1 0.3 0.6 ))	%  Uncomparable  Leader
+	 (( 0.16 0.38 0.46 )	%  Distinctive  Inf 10%leader
+	  ( 0.2 0.475 0.325 )	%  Distinctive  10/40% leader
+	  ( 0.24 0.57 0.19 )	%  Distinctive  >40% leader
+	  ( 0.29 0.665 0.045 ))	%  Distinctive  Leader
+	 (( 0.045 0.665 0.29 )	%  Differentiated  Inf 10%leader
+	  ( 0.19 0.57 0.24 )	%  Differentiated  10/40% leader
+	  ( 0.325 0.475 0.2 )	%  Differentiated  >40% leader
+	  ( 0.46 0.38 0.16 ))	%  Differentiated  Leader
+	 (( 0.6 0.3 0.1 )	%  No distinction  Inf 10%leader
+	  ( 0.73 0.19 0.08 )	%  No distinction  10/40% leader
+	  ( 0.865 0.095 0.04 )	%  No distinction  >40% leader
+	  ( 1 0 0 )));	%  No distinction  Leader
+}
+
+potential (Market) {}
+
+potential (RMS | Market) {}
+
+potential (Competencies | RMS) {}
+
+potential (IncreaseDistinction | ProductDifferentiation Asymetry)
+{
+ data = (( 2	%  Extensive  High
+	   1	%  Extensive  Moderate
+	   -3 )	%  Extensive  None
+	 ( 4	%  Moderate  High
+	   3	%  Moderate  Moderate
+	   -7 )	%  Moderate  None
+	 ( 6	%  Low  High
+	   5	%  Low  Moderate
+	   -11 )	%  Low  None
+	 ( 8	%  None  High
+	   7	%  None  Moderate
+	   -15 ));	%  None  None
+}
+
+potential (Interdepency | NumberOfCompetitors NumberOfBuyers)
+{
+ data = ((( 0.05 0.9 0.05 0 )	%  One  One
+	  ( 0.6 0.08 0.22 0.1 )	%  One  Few
+	  ( 0.98 0 0.01 0.01 ))	%  One  Many
+	 (( 0.02 0.43 0.5 0.05 )	%  Two  One
+	  ( 0.3 0.38 0.17 0.15 )	%  Two  Few
+	  ( 0.6 0.1 0 0.3 ))	%  Two  Many
+	 (( 0 0.2 0.6 0.2 )	%  Few  One
+	  ( 0.14 0.5 0.05 0.31 )	%  Few  Few
+	  ( 0.25 0.05 0.05 0.65 ))	%  Few  Many
+	 (( 0.01 0.01 0.98 0 )	%  Many  One
+	  ( 0.05 0.3 0.32 0.33 )	%  Many  Few
+	  ( 0 0.05 0.05 0.9 )));	%  Many  Many
+}
+
+potential (NumberOfBuyers | Territory) {}
+
+potential (Asymetry | Competition Interdepency)
+{
+ data = ((( 0.1 0.6 0.3 )	%  Intense  Domination
+	  ( 0 0.43 0.57 )	%  Intense  Symbiosis
+	  ( 0 0.3 0.7 )	%  Intense  Dependancy
+	  ( 0 0 1 ))	%  Intense  FreePlayers
+	 (( 1 0 0 )	%  Limited  Domination
+	  ( 0.7 0.3 0 )	%  Limited  Symbiosis
+	  ( 0.57 0.43 0 )	%  Limited  Dependancy
+	  ( 0.3 0.6 0.1 )));	%  Limited  FreePlayers
+}
+
+potential (Information | EntryExitBarriers) {}
+
+potential (ProductDifferentiation | Information) {}
+
+potential (EntryExitBarriers | NumberOfCompetitors) {}
+
+potential (Competition | ProductDifferentiation EntryExitBarriers Information)
+{
+ data = (((( 0.02 0.98 )	%  Extensive  Legal  Proprietary
+	   ( 0.04 0.96 )	%  Extensive  Legal  Restricted
+	   ( 0.06 0.94 ))	%  Extensive  Legal  Perfect Avaibility
+	  (( 0.08 0.92 )	%  Extensive  High  Proprietary
+	   ( 0.1 0.9 )	%  Extensive  High  Restricted
+	   ( 0.12 0.88 ))	%  Extensive  High  Perfect Avaibility
+	  (( 0.14 0.86 )	%  Extensive  Significant  Proprietary
+	   ( 0.16 0.84 )	%  Extensive  Significant  Restricted
+	   ( 0.18 0.82 ))	%  Extensive  Significant  Perfect Avaibility
+	  (( 0.2 0.8 )	%  Extensive  None  Proprietary
+	   ( 0.22 0.78 )	%  Extensive  None  Restricted
+	   ( 0.24 0.76 )))	%  Extensive  None  Perfect Avaibility
+	 ((( 0.26 0.74 )	%  Moderate  Legal  Proprietary
+	   ( 0.28 0.72 )	%  Moderate  Legal  Restricted
+	   ( 0.3 0.7 ))	%  Moderate  Legal  Perfect Avaibility
+	  (( 0.32 0.68 )	%  Moderate  High  Proprietary
+	   ( 0.34 0.66 )	%  Moderate  High  Restricted
+	   ( 0.36 0.64 ))	%  Moderate  High  Perfect Avaibility
+	  (( 0.38 0.62 )	%  Moderate  Significant  Proprietary
+	   ( 0.4 0.6 )	%  Moderate  Significant  Restricted
+	   ( 0.42 0.58 ))	%  Moderate  Significant  Perfect Avaibility
+	  (( 0.44 0.56 )	%  Moderate  None  Proprietary
+	   ( 0.46 0.54 )	%  Moderate  None  Restricted
+	   ( 0.48 0.52 )))	%  Moderate  None  Perfect Avaibility
+	 ((( 0.52 0.48 )	%  Low  Legal  Proprietary
+	   ( 0.54 0.46 )	%  Low  Legal  Restricted
+	   ( 0.56 0.44 ))	%  Low  Legal  Perfect Avaibility
+	  (( 0.58 0.42 )	%  Low  High  Proprietary
+	   ( 0.6 0.4 )	%  Low  High  Restricted
+	   ( 0.62 0.38 ))	%  Low  High  Perfect Avaibility
+	  (( 0.64 0.36 )	%  Low  Significant  Proprietary
+	   ( 0.66 0.34 )	%  Low  Significant  Restricted
+	   ( 0.68 0.32 ))	%  Low  Significant  Perfect Avaibility
+	  (( 0.7 0.3 )	%  Low  None  Proprietary
+	   ( 0.72 0.28 )	%  Low  None  Restricted
+	   ( 0.74 0.26 )))	%  Low  None  Perfect Avaibility
+	 ((( 0.76 0.24 )	%  None  Legal  Proprietary
+	   ( 0.78 0.22 )	%  None  Legal  Restricted
+	   ( 0.8 0.2 ))	%  None  Legal  Perfect Avaibility
+	  (( 0.82 0.18 )	%  None  High  Proprietary
+	   ( 0.84 0.16 )	%  None  High  Restricted
+	   ( 0.86 0.14 ))	%  None  High  Perfect Avaibility
+	  (( 0.88 0.12 )	%  None  Significant  Proprietary
+	   ( 0.9 0.1 )	%  None  Significant  Restricted
+	   ( 0.92 0.08 ))	%  None  Significant  Perfect Avaibility
+	  (( 0.94 0.06 )	%  None  None  Proprietary
+	   ( 0.96 0.04 )	%  None  None  Restricted
+	   ( 0.98 0.02 ))));	%  None  None  Perfect Avaibility
+}
+
+potential (NumberOfCompetitors | NumberOfBuyers) {}
+
+potential (MoveCredibility | Interdepency Action)
+{
+ data = ((( 1 0 )	%  Domination  Agression
+	  ( 0.9375 0.0625 )	%  Domination  Persuasion
+	  ( 0.875 0.125 )	%  Domination  Defense
+	  ( 0.8125 0.1875 ))	%  Domination  Dissuasion
+	 (( 0.125 0.875 )	%  Symbiosis  Agression
+	  ( 0.5625 0.4375 )	%  Symbiosis  Persuasion
+	  ( 0.28125 0.71875 )	%  Symbiosis  Defense
+	  ( 0.625 0.375 ))	%  Symbiosis  Dissuasion
+	 (( 0 1 )	%  Dependancy  Agression
+	  ( 0.0625 0.9375 )	%  Dependancy  Persuasion
+	  ( 0.125 0.875 )	%  Dependancy  Defense
+	  ( 0.1875 0.8125 ))	%  Dependancy  Dissuasion
+	 (( 0.75 0.25 )	%  FreePlayers  Agression
+	  ( 0.5 0.5 )	%  FreePlayers  Persuasion
+	  ( 0.6875 0.3125 )	%  FreePlayers  Defense
+	  ( 0.4375 0.5625 )));	%  FreePlayers  Dissuasion
+}
