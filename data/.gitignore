@@ -3,3 +3,6 @@
 *.out
 *.dot
 *.ps
+*.wpbdd
+*.map
+*.ac
