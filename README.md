@@ -1,4 +1,4 @@
-# Bayesian Network Weighted Model Counting package
+# Bayesian Network Weighted Model Counting tools
 
 This package contains:
 
