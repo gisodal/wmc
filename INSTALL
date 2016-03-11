@@ -1,8 +1,8 @@
-In order to retreive (and update) all neccesary repositories, run:
-    > ./scripts/git-pull
+In order to retreive (and update) all neccesary repositories, type:
+> ./scripts/git-pull
 
-To build, run:
-    > make
+To build, type:
+> make
 
 Binaries will be installed in the '<path/to/source>/bin' folder.
 

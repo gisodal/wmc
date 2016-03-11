@@ -14,10 +14,10 @@ Note: the repositories for the compilers and model counter will soon be made pub
 ## Installation
 
 In order to retreive (and update) all neccesary repositories, run:
-    > ./scripts/git-pull
+> ./scripts/git-pull
 
 To build, run:
-    > make
+> make
 
 Binaries will be installed in the '<path/to/source>/bin' folder.
 
