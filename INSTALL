@@ -1,5 +1,5 @@
-In order to retreive (and update) all neccesary sources repositories, first run:
-    > ./scripts/sync
+In order to retreive (and update) all neccesary repositories, run:
+    > ./scripts/git-pull
 
 To build, run:
     > make

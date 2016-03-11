@@ -5,9 +5,9 @@ IDIR = include
 BDIR = bin
 LDIR = lib
 
-.PHONY: all clean debug build install
+.PHONY: wmc clean debug build install update pull
 
-all: build
+wmc: build
 
 build:
 	make -C $(SDIR)
@@ -24,4 +24,10 @@ lines:
 clean:
 	$(RM) -r $(LDIR)* $(IDIR) $(BDIR)
 	$(MAKE) -C $(SDIR) clean
+
+update:
+	make -C $(SDIR) update
+
+pull:
+	make -C $(SDIR) pull
 

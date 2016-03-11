@@ -10,3 +10,15 @@ This package contains:
 * Model Counter for inference
 
 Note: the repositories for the compilers and model counter will soon be made publically accessible.
+
+## Installation
+
+In order to retreive (and update) all neccesary repositories, run:
+    > ./scripts/git-pull
+
+To build, run:
+    > make
+
+Binaries will be installed in the '<path/to/source>/bin' folder.
+
+

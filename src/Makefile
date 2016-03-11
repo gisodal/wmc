@@ -1,8 +1,9 @@
-PROJECTS = quine-mccluskey bn-to-cnf bnc-cudd bnc bnmc
+PROJECTS = quine-mccluskey bn-to-cnf bnc-cudd bnc bnmc-dlib bnmc
 OPTIONS  = all static install
 SHELL    = /bin/bash
+MAKEFILE = ~/trunk/gpm/Makefile
 
-.PHONY: all clean debug build install
+.PHONY: all clean debug build install update pull
 
 all:     OPTIONS = all static install
 all:     build
@@ -31,5 +32,24 @@ build:
 		else 													\
 			$(MAKE) -C $${PROJECT} $(OPTIONS) || exit 1;       	\
 		fi; 													\
+	done
+
+$(MAKEFILE):
+	$(error $(MAKEFILE) not found..)
+
+%/Makefile: $(MAKEFILE)
+	@echo UPDATE $@
+	@cp $< $@
+
+update:
+	@for PROJECT in $(PROJECTS); do                     		\
+		echo -e "\n==== processing $${PROJECT} ====\n"; 		\
+		$(MAKE) $${PROJECT}/Makefile;							\
+	done
+
+pull:
+	@for PROJECT in $(PROJECTS); do                     		\
+		echo -e "\n==== processing $${PROJECT} ====\n"; 		\
+		$(MAKE) -C $${PROJECT} pull;							\
 	done
 
