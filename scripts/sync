@@ -1,6 +1,6 @@
 #!/bin/bash
 DIR=$(cd "$( dirname "$0" )" && cd .. && pwd)
-REPOS=("quine-mccluskey" "bn-to-cnf" "bnc-cudd" "bnc" "bnmc")
+REPOS=("quine-mccluskey" "bn-to-cnf" "bnc-cudd" "bnc" "bnmc-dlib" "bnmc")
 SERVER="git@github.com:gisodal"
 if [ $# -gt 0 ]; then
     SERVER=$1
