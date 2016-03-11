@@ -19,6 +19,6 @@ In order to retreive (and update) all neccesary repositories, type:
 To build, type:
 > make
 
-Binaries will be installed in the '<path/to/source>/bin' folder.
+Binaries will be installed in the `<path/to/source>/bin` folder.
 
 
