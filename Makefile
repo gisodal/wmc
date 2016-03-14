@@ -10,24 +10,24 @@ LDIR = lib
 wmc: build
 
 build:
-	make -C $(SDIR)
+	$(MAKE) -C $(SDIR)
 
 debug:
-	make -C $(SDIR) debug
+	$(MAKE) -C $(SDIR) debug
 
 install:
-	make -C $(SDIR) install
+	$(MAKE) -C $(SDIR) install
 
 lines:
-	make -C $(SDIR) lines
+	$(MAKE) -C $(SDIR) lines
 
 clean:
 	$(RM) -r $(LDIR)* $(IDIR) $(BDIR)
 	$(MAKE) -C $(SDIR) clean
 
 update:
-	make -C $(SDIR) update
+	$(MAKE) -C $(SDIR) update
 
 pull:
-	make -C $(SDIR) pull
+	$(MAKE) -C $(SDIR) pull
 

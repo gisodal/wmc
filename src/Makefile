@@ -24,14 +24,22 @@ clean:   OPTIONS = clean
 clean:   build
 
 build:
-	@for PROJECT in $(PROJECTS); do                     		\
-		echo -e "\n==== processing $${PROJECT} ====\n"; 		\
-		if [ $${PROJECT} == bnc-cudd ]; then 					\
-		    $(MAKE) -C $${PROJECT} check 2>/dev/null && 		\
-			$(MAKE) -C $${PROJECT} $(OPTIONS);  				\
-		else 													\
-			$(MAKE) -C $${PROJECT} $(OPTIONS) || exit 1;       	\
-		fi; 													\
+	@for PROJECT in $(PROJECTS); do                     				\
+		echo -e "\n==== processing $${PROJECT} ====\n"; 				\
+		if [ $${PROJECT} == bnc-cudd ]; then 							\
+		    $(MAKE) -C $${PROJECT} check 2>/dev/null && 				\
+			$(MAKE) -C $${PROJECT} $(OPTIONS);  						\
+ 		elif [ $${PROJECT} == bnmc ]; then 								\
+			if [ "$(firstword $(OPTIONS))" == "all" ]; then 			\
+				$(MAKE) -C $${PROJECT} dlib $(OPTIONS) || exit 1;		\
+			elif [ "$(firstword $(OPTIONS))" == "debug" ]; then 		\
+				$(MAKE) -C $${PROJECT} debug-dlib $(OPTIONS) || exit 1;	\
+			else                                                		\
+				$(MAKE) -C $${PROJECT} $(OPTIONS) || exit 1;       		\
+			fi;															\
+		else 															\
+			$(MAKE) -C $${PROJECT} $(OPTIONS) || exit 1;       			\
+		fi; 															\
 	done
 
 $(MAKEFILE):
