@@ -7,30 +7,15 @@ IDIR = include
 BDIR = bin
 LDIR = lib
 
-.PHONY: wmc clean debug build install update pull
+.PHONY: wmc clean
 
 wmc: build
-
-build:
-	@$(MAKE) -s -C $(SDIR)
-
-debug:
-	@$(MAKE) -s -C $(SDIR) debug
-
-install:
-	@$(MAKE) -s -C $(SDIR) install
-
-lines:
-	@$(MAKE) -s -C $(SDIR) lines
 
 clean:
 	@echo "RM $(LDIR)* $(IDIR) $(BDIR)"
 	@$(RM) -r $(LDIR)* $(IDIR) $(BDIR)
 	@$(MAKE) -s -C $(SDIR) clean
 
-update:
-	@$(MAKE) -s -C $(SDIR) update
-
-pull:
-	@$(MAKE) -s -C $(SDIR) pull
+%:
+	@$(MAKE) -s -C $(SDIR) $@
 

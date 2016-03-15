@@ -5,16 +5,7 @@ MAKEFILE = ~/trunk/gpm/Makefile
 
 PREFIX = $(shell cd "$( dirname "$0" )" && cd .. && pwd)
 
-.PHONY: all clean debug build install update pull
-
-all:     OPTIONS = all static install
-all:     build
-
-debug:   OPTIONS = debug debug-static install
-debug:   build
-
-install: OPTIONS = install
-install: build
+.PHONY: update
 
 lines:
 	@for PROJECT in $(PROJECTS); do 							\
@@ -22,27 +13,34 @@ lines:
 	done; 														\
 	find $${DIRS} -maxdepth 1 -type f | xargs wc -l;
 
-clean:   OPTIONS = clean
-clean:   build
 
+debug: OPTIONS = debug debug-static install
+debug:
+	@for PROJECT in $(PROJECTS); do                     	   			\
+		echo "REPOSITORY $${PROJECT}"; 						   			\
+        if [ $${PROJECT} == bnc-cudd ]; then 				   			\
+		    $(MAKE) -s -C $${PROJECT} check 2>/dev/null && 	   			\
+			$(MAKE) -s -C $${PROJECT} $(OPTIONS);  			   			\
+        elif [ $${PROJECT} == bnmc ]; then 					   			\
+			$(MAKE) -s -C $${PROJECT} debug-dlib $(OPTIONS) || exit 1;	\
+    	else 												   			\
+			$(MAKE) -s -C $${PROJECT} $@ $(OPTIONS) || exit 1;       	\
+		fi;													   			\
+	done;
+
+build: OPTIONS = build static install
 build:
-	@for PROJECT in $(PROJECTS); do                     					\
-		echo "REPOSITORY $${PROJECT}"; 										\
-		if [ $${PROJECT} == bnc-cudd ]; then 								\
-		    $(MAKE) -s -C $${PROJECT} check 2>/dev/null && 					\
-			$(MAKE) -s -C $${PROJECT} $(OPTIONS);  							\
- 		elif [ $${PROJECT} == bnmc ]; then 									\
-			if [ "$(firstword $(OPTIONS))" == "all" ]; then 				\
-				$(MAKE) -s -C $${PROJECT} dlib $(OPTIONS) || exit 1;		\
-			elif [ "$(firstword $(OPTIONS))" == "debug" ]; then 			\
-				$(MAKE) -s -C $${PROJECT} debug-dlib $(OPTIONS) || exit 1;	\
-			else                                                			\
-				$(MAKE) -s -C $${PROJECT} $(OPTIONS) || exit 1;       		\
-			fi;																\
-		else 																\
-			$(MAKE) -s -C $${PROJECT} $(OPTIONS) || exit 1;       			\
-		fi; 																\
-	done
+	@for PROJECT in $(PROJECTS); do                     	   			\
+		echo "REPOSITORY $${PROJECT}"; 						   			\
+        if [ $${PROJECT} == bnc-cudd ]; then 				   			\
+		    $(MAKE) -s -C $${PROJECT} check 2>/dev/null && 	   			\
+			$(MAKE) -s -C $${PROJECT} $(OPTIONS);  			   			\
+        elif [ $${PROJECT} == bnmc ]; then 					   			\
+			$(MAKE) -s -C $${PROJECT} dlib $(OPTIONS) || exit 1;		\
+    	else 												   			\
+			$(MAKE) -s -C $${PROJECT} $@ $(OPTIONS) || exit 1;       	\
+		fi;													   			\
+	done;
 
 $(MAKEFILE):
 	$(error $(MAKEFILE) not found..)
@@ -52,14 +50,23 @@ $(MAKEFILE):
 	@cp $< $@
 
 update:
-	@for PROJECT in $(PROJECTS); do                     		\
-		echo "REPOSITORY $${PROJECT}"; 							\
-		$(MAKE) -s $${PROJECT}/Makefile;						\
+	@for PROJECT in $(PROJECTS); do     			\
+		echo "REPOSITORY $${PROJECT}"; 				\
+		$(MAKE) -s $${PROJECT}/Makefile || exit 1;	\
 	done
 
-pull:
-	@for PROJECT in $(PROJECTS); do                     		\
-		echo "REPOSITORY $${PROJECT}"; 							\
-		$(MAKE) -s -C $${PROJECT} pull;							\
+reset:
+	for PROJECT in $(PROJECTS); do     				\
+		echo "REPOSITORY $${PROJECT}"; 				\
+		cd $${PROJECT};								\
+		echo RESET Makefile;						\
+		git checkout Makefile;						\
+		cd ..;										\
+	done
+
+%:
+	@for PROJECT in $(PROJECTS); do     			\
+		echo "REPOSITORY $${PROJECT}"; 				\
+		$(MAKE) -s -C $${PROJECT} $@ || exit 1;		\
 	done
 
