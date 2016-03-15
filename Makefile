@@ -1,3 +1,5 @@
+MAKEFLAGS += --no-print-directory
+
 DIR  = $(shell cd "$( dirname "$0" )" && pwd)
 
 SDIR = src
@@ -10,24 +12,25 @@ LDIR = lib
 wmc: build
 
 build:
-	$(MAKE) -C $(SDIR)
+	@$(MAKE) -s -C $(SDIR)
 
 debug:
-	$(MAKE) -C $(SDIR) debug
+	@$(MAKE) -s -C $(SDIR) debug
 
 install:
-	$(MAKE) -C $(SDIR) install
+	@$(MAKE) -s -C $(SDIR) install
 
 lines:
-	$(MAKE) -C $(SDIR) lines
+	@$(MAKE) -s -C $(SDIR) lines
 
 clean:
-	$(RM) -r $(LDIR)* $(IDIR) $(BDIR)
-	$(MAKE) -C $(SDIR) clean
+	@echo "RM $(LDIR)* $(IDIR) $(BDIR)"
+	@$(RM) -r $(LDIR)* $(IDIR) $(BDIR)
+	@$(MAKE) -s -C $(SDIR) clean
 
 update:
-	$(MAKE) -C $(SDIR) update
+	@$(MAKE) -s -C $(SDIR) update
 
 pull:
-	$(MAKE) -C $(SDIR) pull
+	@$(MAKE) -s -C $(SDIR) pull
 
