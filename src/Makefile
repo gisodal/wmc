@@ -45,28 +45,41 @@ build:
 $(MAKEFILE):
 	$(error $(MAKEFILE) not found..)
 
-%/Makefile: $(MAKEFILE)
-	@echo UPDATE $@
-	@cp $< $@
+%/Makefile: | $(MAKEFILE)
+	@echo UPDATE $@;
+	@cp $< $@;
 
 update:
-	@for PROJECT in $(PROJECTS); do     			\
-		echo "REPOSITORY $${PROJECT}"; 				\
-		$(MAKE) -s $${PROJECT}/Makefile || exit 1;	\
-	done
+	@if [ -f $(MAKEFILE) ]; then 								\
+		for PROJECT in $(PROJECTS); do     						\
+			echo "REPOSITORY $${PROJECT}"; 						\
+			cmp -s $${PROJECT}/Makefile $(MAKEFILE);   			\
+			if [ $$? -ne 0 ]; then 								\
+				cd $${PROJECT};									\
+				echo "UPDATE Makefile";							\
+				cp $(MAKEFILE) Makefile; 						\
+				cd ..; 											\
+			fi;													\
+		done; 													\
+	else 														\
+		echo "$(MAKEFILE) does not exist"; 						\
+		exit 1; 												\
+	fi;
 
 reset:
-	for PROJECT in $(PROJECTS); do     				\
-		echo "REPOSITORY $${PROJECT}"; 				\
-		cd $${PROJECT};								\
-		echo RESET Makefile;						\
-		git checkout Makefile;						\
-		cd ..;										\
+	@for PROJECT in $(PROJECTS); do     						\
+		echo "REPOSITORY $${PROJECT}"; 							\
+		cd $${PROJECT};											\
+		if [ "$$(git diff --name-only Makefile)" != "" ]; then 	\
+			echo RESET Makefile;								\
+			git checkout Makefile;								\
+		fi; 													\
+		cd ..;													\
 	done
 
 %:
-	@for PROJECT in $(PROJECTS); do     			\
-		echo "REPOSITORY $${PROJECT}"; 				\
-		$(MAKE) -s -C $${PROJECT} $@ || exit 1;		\
+	@for PROJECT in $(PROJECTS); do     						\
+		echo "REPOSITORY $${PROJECT}"; 							\
+		$(MAKE) -s -C $${PROJECT} $@ || exit 1;					\
 	done
 
