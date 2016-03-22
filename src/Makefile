@@ -5,7 +5,23 @@ MAKEFILE = ~/trunk/gpm/Makefile
 
 PREFIX = $(shell cd "$( dirname "$0" )" && cd .. && pwd)
 
-.PHONY: update
+.PHONY: all build debug reset update lines
+
+all: build
+
+build: OPTIONS = build static install
+build:
+	@for PROJECT in $(PROJECTS); do     						\
+		echo "REPOSITORY $${PROJECT}"; 							\
+		$(MAKE) -s -C $${PROJECT} $(OPTIONS) || exit 1;			\
+	done
+
+debug: OPTIONS = debug debug-static install
+debug:
+	@for PROJECT in $(PROJECTS); do     						\
+		echo "REPOSITORY $${PROJECT}"; 							\
+		$(MAKE) -s -C $${PROJECT} $(OPTIONS) || exit 1;			\
+	done
 
 lines:
 	@for PROJECT in $(PROJECTS); do 							\
@@ -13,34 +29,6 @@ lines:
 	done; 														\
 	find $${DIRS} -maxdepth 1 -type f | xargs wc -l;
 
-
-debug: OPTIONS = debug debug-static install
-debug:
-	@for PROJECT in $(PROJECTS); do                     	   			\
-		echo "REPOSITORY $${PROJECT}"; 						   			\
-        if [ $${PROJECT} == bnc-cudd ]; then 				   			\
-		    $(MAKE) -s -C $${PROJECT} check 2>/dev/null && 	   			\
-			$(MAKE) -s -C $${PROJECT} $(OPTIONS);  			   			\
-        elif [ $${PROJECT} == bnmc ]; then 					   			\
-			$(MAKE) -s -C $${PROJECT} debug-dlib $(OPTIONS) || exit 1;	\
-    	else 												   			\
-			$(MAKE) -s -C $${PROJECT} $@ $(OPTIONS) || exit 1;       	\
-		fi;													   			\
-	done;
-
-build: OPTIONS = build static install
-build:
-	@for PROJECT in $(PROJECTS); do                     	   			\
-		echo "REPOSITORY $${PROJECT}"; 						   			\
-        if [ $${PROJECT} == bnc-cudd ]; then 				   			\
-		    $(MAKE) -s -C $${PROJECT} check 2>/dev/null && 	   			\
-			$(MAKE) -s -C $${PROJECT} $(OPTIONS);  			   			\
-        elif [ $${PROJECT} == bnmc ]; then 					   			\
-			$(MAKE) -s -C $${PROJECT} dlib $(OPTIONS) || exit 1;		\
-    	else 												   			\
-			$(MAKE) -s -C $${PROJECT} $@ $(OPTIONS) || exit 1;       	\
-		fi;													   			\
-	done;
 
 $(MAKEFILE):
 	$(error $(MAKEFILE) not found..)
@@ -55,7 +43,7 @@ update:
 			echo "REPOSITORY $${PROJECT}"; 						\
 			cmp -s $${PROJECT}/Makefile $(MAKEFILE);   			\
 			if [ $$? -ne 0 ]; then 								\
-				cd $${PROJECT};									\
+				cd $${PROJECT} || continue;						\
 				echo "UPDATE Makefile";							\
 				cp $(MAKEFILE) Makefile; 						\
 				cd ..; 											\
@@ -69,7 +57,7 @@ update:
 reset:
 	@for PROJECT in $(PROJECTS); do     						\
 		echo "REPOSITORY $${PROJECT}"; 							\
-		cd $${PROJECT};											\
+		cd $${PROJECT} || continue;								\
 		if [ "$$(git diff --name-only Makefile)" != "" ]; then 	\
 			echo RESET Makefile;								\
 			git checkout Makefile;								\
