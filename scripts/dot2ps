@@ -6,7 +6,9 @@ EXTENSION=${FILE##*.}
 
 if [ "$EXTENSION" == "dot" ]; then
     dot -Tps $FILE -o ${NAME}.ps
-    evince "${NAME}.ps" 2>/dev/null &
+    if [ $# -gt 1 ]; then
+        evince "${NAME}.ps" 2>/dev/null &
+    fi
 else
     echo "Usage: ./dot2ps <DOT FILE>" 1>&2
 fi

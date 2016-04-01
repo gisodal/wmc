@@ -1,5 +1,6 @@
 MAKEFLAGS += --no-print-directory
 
+
 DIR  = $(shell cd "$( dirname "$0" )" && pwd)
 
 SDIR = src
@@ -17,5 +18,5 @@ clean:
 	@$(MAKE) -s -C $(SDIR) clean
 
 %:
-	@$(MAKE) -s -C $(SDIR) $@
+	@$(MAKE) -C $(SDIR) $@
 
