@@ -1,0 +1,8 @@
+#!/bin/bash
+
+rm *.dot    2>/dev/null
+rm *.wpbdd* 2>/dev/null
+rm *.obdd*  2>/dev/null
+rm *.ord    2>/dev/null
+rm *.ps     2>/dev/null
+
