@@ -5,4 +5,5 @@ rm *.wpbdd* 2>/dev/null
 rm *.obdd*  2>/dev/null
 rm *.ord    2>/dev/null
 rm *.ps     2>/dev/null
+rm *.map    2>/dev/null
 
