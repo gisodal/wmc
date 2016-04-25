@@ -1,4 +1,4 @@
-PROJECTS = exception quine-mccluskey bn-to-cnf bnc dlib bnmc
+PROJECTS = exception quine-mccluskey bn-to-cnf bnc bnmc
 OPTIONS  = all static install
 SHELL    = /bin/bash
 MAKEFILE = ~/trunk/gpm/Makefile
