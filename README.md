@@ -7,6 +7,8 @@ This package contains:
 * BN to Conjunctive Normal Form Compiler
 * BN to WPBDD compiler
 * BN to OBDD compiler (using CUDD)
+* BN to ZBDD compiler (using CUDD)
+* BN to SDD compiler (using SDD)
 * Model Counter for inference
 
 Note: the repositories for the compilers and model counter will soon be made publically accessible.
