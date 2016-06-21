@@ -1,5 +1,5 @@
 In order to retreive (and update) all neccesary repositories, type:
-> ./scripts/git-pull
+> ./scripts/git-pull-all
 
 To build, type:
 > make
