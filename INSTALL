@@ -1,5 +1,8 @@
-In order to retreive (and update) all neccesary repositories, type:
-> ./scripts/git-pull-all
+In order to initialize and clone external repositories, type:
+> ./scripts/git-init-all
+
+To get the latest version of external repositories, type:
+>./scripts/git-pull-all
 
 To build, type:
 > make
