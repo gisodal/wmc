@@ -1,15 +1,20 @@
 [submodule "src/exception"]
 	path = src/exception
-	url = github:gisodal/exception
+    url = github:gisodal/exception
+    ignore = all
 [submodule "src/quine-mccluskey"]
 	path = src/quine-mccluskey
-	url = github:gisodal/quine-mccluskey
+    url = github:gisodal/quine-mccluskey
+    ignore = all
 [submodule "src/bn-to-cnf"]
 	path = src/bn-to-cnf
-	url = github:gisodal/bn-to-cnf
+    url = github:gisodal/bn-to-cnf
+    ignore = all
 [submodule "src/bnc"]
 	path = src/bnc
-	url = github:gisodal/bnc
+    url = github:gisodal/bnc
+    ignore = all
 [submodule "src/bnmc"]
 	path = src/bnmc
-	url = github:gisodal/bnmc
+    url = github:gisodal/bnmc
+    ignore = all
