@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Figure12_4" numsamples="1000">
+	<nodes>
+		<cpt id="Market_Activity">
+			<state id="Up" />
+			<state id="Flat" />
+			<state id="Down" />
+			<probabilities>0.5 0.3 0.2</probabilities>
+		</cpt>
+		<cpt id="Economy_Forecast">
+			<state id="Up" />
+			<state id="Flat" />
+			<state id="Down" />
+			<parents>Market_Activity</parents>
+			<probabilities>0.8 0.1 0.1 0.15 0.7 0.15 0.2 0.2 0.6</probabilities>
+		</cpt>
+		<decision id="Investment">
+			<state id="Choice0" />
+			<state id="Choice1" />
+			<state id="Choice2" />
+		</decision>
+		<utility id="Payoff">
+			<parents>Market_Activity Investment</parents>
+			<utilities>1500 1000 500 100 200 500 -1000 -100 500</utilities>
+		</utility>
+	</nodes>
+	<extensions>
+		<genie version="1.0" name="Figure 12.4" faultnameformat="nodestate">
+			<comment>Figure 12.4: Imperfect information in the investor&apos;s problem.\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</comment>
+			<node id="Market_Activity">
+				<name>Market Activity</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>155 22 245 58</position>
+				<state id="Up" globalid="F4" />
+				<state id="Flat" globalid="F5" />
+				<state id="Down" globalid="F6" />
+			</node>
+			<node id="Economy_Forecast">
+				<name>Economy Forecast</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>26 22 135 58</position>
+				<state id="Up" globalid="F7" />
+				<state id="Flat" globalid="F8" />
+				<state id="Down" globalid="F9" />
+			</node>
+			<node id="Investment">
+				<name>Investment Decision</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>30 102 130 138</position>
+				<state id="Choice0" globalid="F10" />
+				<state id="Choice1" globalid="F11" />
+				<state id="Choice2" globalid="F12" />
+			</node>
+			<node id="Payoff">
+				<name>Payoff</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>162 102 238 138</position>
+			</node>
+			<textbox>
+				<caption>Figure 12.4: Imperfect information in the investor&apos;s problem.\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>22 161 444 209</position>
+			</textbox>
+			<textbox>
+				<caption>To perform the value of information computation on this diagram, select the nodes Economy_Forecast and Investment and choose Network/Value of Information.</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>272 19 440 147</position>
+			</textbox>
+		</genie>
+	</extensions>
+</smile>

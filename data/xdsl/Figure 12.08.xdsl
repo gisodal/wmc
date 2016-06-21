@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Figure12_8" numsamples="1000">
+	<nodes>
+		<cpt id="Market_Activity">
+			<state id="Up" />
+			<state id="Flat" />
+			<state id="Down" />
+			<probabilities>0.5 0.3 0.2</probabilities>
+		</cpt>
+		<decision id="Obtain_Forecast">
+			<state id="Forecast" />
+			<state id="NoForecast" />
+		</decision>
+		<cpt id="Economy_Forecast">
+			<state id="Up" />
+			<state id="Flat" />
+			<state id="Down" />
+			<parents>Obtain_Forecast Market_Activity</parents>
+			<probabilities>0.8 0.1 0.1 0.15 0.7 0.15 0.2 0.2 0.6 0.33333333 0.33333333 0.33333333 0.33333333 0.33333333 0.33333333 0.33333333 0.33333333 0.33333333</probabilities>
+		</cpt>
+		<decision id="Investment">
+			<state id="Choice0" />
+			<state id="Choice1" />
+			<state id="Choice2" />
+			<parents>Obtain_Forecast Economy_Forecast</parents>
+		</decision>
+		<utility id="Payoff">
+			<parents>Market_Activity Investment Obtain_Forecast</parents>
+			<utilities>1500 1500 1000 1000 500 500 100 100 200 200 500 500 -1000 -1000 -100 -100 500 500</utilities>
+		</utility>
+	</nodes>
+	<extensions>
+		<genie version="1.0" name="Figure 12.8" faultnameformat="nodestate">
+			<comment>Figure 12.8: Investment decision tree with the perfect-information alternative (Figures 12.5, 12.6, and 12.7 are auxiliary to this figure; this influence diagram performs value of information computation equivalent to that of the decision tree in the figure).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</comment>
+			<node id="Market_Activity">
+				<name>Market Activity</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>255 22 345 58</position>
+				<state id="Up" globalid="F4" />
+				<state id="Flat" globalid="F5" />
+				<state id="Down" globalid="F6" />
+			</node>
+			<node id="Obtain_Forecast">
+				<name>Obtain Forecast</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>14 22 107 58</position>
+				<state id="Forecast" globalid="F7" />
+				<state id="NoForecast" globalid="F8" />
+			</node>
+			<node id="Economy_Forecast">
+				<name>Economy Forecast</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>126 22 235 58</position>
+				<state id="Up" globalid="F9" />
+				<state id="Flat" globalid="F10" />
+				<state id="Down" globalid="F11" />
+			</node>
+			<node id="Investment">
+				<name>Investment Decision</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>141 102 220 138</position>
+				<state id="Choice0" globalid="F12" />
+				<state id="Choice1" globalid="F13" />
+				<state id="Choice2" globalid="F14" />
+			</node>
+			<node id="Payoff">
+				<name>Payoff</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>262 102 338 138</position>
+			</node>
+			<textbox>
+				<caption>Figure 12.8: Investment decision tree with the perfect-information alternative (Figures 12.5, 12.6, and 12.7 are auxiliary to this figure; this influence diagram performs value of information computation equivalent to that of the decision tree in the figure).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>21 171 455 283</position>
+			</textbox>
+			<textbox>
+				<caption>This is one way of modeling explicity the decision of whether to buy information. Obtain_Forecast indexes Economy_Forecast and screens it away from Investment when no information is bought.</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>362 13 546 157</position>
+			</textbox>
+		</genie>
+	</extensions>
+</smile>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Figure3_10" numsamples="1000">
+	<nodes>
+		<cpt id="Machine_3">
+			<state id="Good" />
+			<state id="Broken" />
+			<probabilities>0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="Report">
+			<state id="Good" />
+			<state id="Broken" />
+			<parents>Machine_3</parents>
+			<probabilities>0.5 0.5 0.5 0.5</probabilities>
+		</cpt>
+		<decision id="Decision">
+			<state id="Replace_3" />
+			<state id="ChangeWorkers" />
+			<parents>Report</parents>
+		</decision>
+		<utility id="Schedule">
+			<parents>Decision Machine_3</parents>
+			<utilities>0 0 0 0</utilities>
+		</utility>
+		<utility id="ExtraCost">
+			<parents>Decision Machine_3</parents>
+			<utilities>0 0 0 0</utilities>
+		</utility>
+		<mau id="Performance">
+			<parents>Schedule ExtraCost</parents>
+			<weights>1 1</weights>
+		</mau>
+	</nodes>
+	<extensions>
+		<genie version="1.0" name="Figure 3.10" faultnameformat="nodestate">
+			<comment>Figure 3.10: Influence diagram for manufacturing-plant manager&apos;s imperfect information (structure only).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</comment>
+			<node id="Machine_3">
+				<name>Machine 3 OK?</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>122 22 198 58</position>
+				<state id="Good" globalid="F3" />
+				<state id="Broken" globalid="F4" />
+			</node>
+			<node id="Report">
+				<name>Engineer&apos;s Report</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>22 22 98 58</position>
+				<state id="Good" globalid="F5" />
+				<state id="Broken" globalid="F6" />
+			</node>
+			<node id="Decision">
+				<name>Manager&apos;s Decision</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>22 102 98 138</position>
+				<state id="Replace_3" globalid="F7" />
+				<state id="ChangeWorkers" globalid="F8" />
+			</node>
+			<node id="Schedule">
+				<name>Schedule</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>122 162 198 198</position>
+			</node>
+			<node id="ExtraCost">
+				<name>Extra Cost</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>213 102 307 138</position>
+			</node>
+			<node id="Performance">
+				<name>Overall Performance</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>219 162 301 198</position>
+			</node>
+			<textbox>
+				<caption>Figure 3.10: Influence diagram for manufacturing-plant manager&apos;s imperfect information (structure only).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>13 220 435 284</position>
+			</textbox>
+		</genie>
+	</extensions>
+</smile>

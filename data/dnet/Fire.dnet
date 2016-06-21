@@ -1,0 +1,122 @@
+// ~->[DNET-1]->~
+
+// File created by Norsys using Netica 1.06b on Mar 29, 1998 at 05:30:10.
+
+bnet Fire {
+autoupdate = TRUE;
+comment = "A very simple belief network used by David Poole to \
+	introduce belief networks in the early days.  Somebody \
+	reports people leaving a building because the fire alarm went \
+	off, but is it because of tampering or is there really a fire \
+	(which would be the case if smoke was observed)? \n\
+	From: Poole, David and Eric Neufeld (1988) \"Sound \
+	probabilistic inference in prolog: An executable \
+	specification of influence diagrams\".";
+whenchanged = 891178207;
+
+visual V1 {
+	defdispform = BELIEFBARS;
+	nodelabeling = TITLE;
+	nodefont = font {shape= "Arial"; size= 10;};
+	linkfont = font {shape= "Arial"; size= 9;};
+	commentfont = font {shape= "Arial"; size= 10;};
+	windowposn = (83, 19, 529, 410);
+	resolution = 72;
+	drawingbounds = (1152, 752);
+	showpagebreaks = FALSE;
+	usegrid = TRUE;
+	gridspace = (6, 6);
+	};
+
+define node tf {
+	kind = NATURE;
+	discrete = TRUE;
+	states = (True, False);
+	};
+
+node Tampering (tf) {
+	chance = CHANCE;
+	parents = ();
+	probs = 
+		// True         False        
+		  (0.02,        0.98);
+	visual V1 {
+		center = (318, 48);
+		height = 1;
+		};
+	};
+
+node Fire (tf) {
+	chance = CHANCE;
+	parents = ();
+	probs = 
+		// True         False        
+		  (0.01,        0.99);
+	visual V1 {
+		center = (138, 48);
+		height = 6;
+		};
+	};
+
+node Alarm (tf) {
+	chance = CHANCE;
+	parents = (Fire, Tampering);
+	probs = 
+		// True         False           // Fire  Tampering 
+		(((0.5,         0.5),           // True  True      
+		  (0.99,        0.00999999)),   // True  False     
+		 ((0.85,        0.15),          // False True      
+		  (1e-4,        0.9999)));      // False False     ;
+	visual V1 {
+		center = (246, 126);
+		height = 5;
+		link 2 {
+			path = ((293, 76), (270, 99));
+			};
+		};
+	};
+
+node Leaving (tf) {
+	chance = CHANCE;
+	parents = (Alarm);
+	probs = 
+		// True         False          // Alarm 
+		 ((0.88,        0.12),         // True  
+		  (0.001,       0.999));       // False ;
+	comment = "Should also have 'Fire' for a parent.";
+	visual V1 {
+		center = (246, 210);
+		height = 3;
+		};
+	};
+
+node Smoke (tf) {
+	chance = CHANCE;
+	parents = (Fire);
+	probs = 
+		// True         False          // Fire  
+		 ((0.9,         0.1),          // True  
+		  (0.01,        0.99));        // False ;
+	visual V1 {
+		center = (72, 126);
+		height = 2;
+		link 1 {
+			path = ((115, 76), (94, 99));
+			};
+		};
+	};
+
+node Report (tf) {
+	chance = CHANCE;
+	parents = (Leaving);
+	probs = 
+		// True         False          // Leaving 
+		 ((0.75,        0.25),         // True    
+		  (0.01,        0.99));        // False   ;
+	visual V1 {
+		center = (246, 294);
+		height = 4;
+		};
+	};
+ElimOrder = (Smoke, Report, Leaving, Tampering, Fire, Alarm);
+};

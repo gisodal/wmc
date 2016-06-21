@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Figure3_19" numsamples="1000">
+	<nodes>
+		<decision id="UsageDecision">
+			<state id="Permit" />
+			<state id="Restrict" />
+			<state id="Ban" />
+		</decision>
+		<utility id="EconomicValue">
+			<parents>UsageDecision</parents>
+			<utilities>0 0 0</utilities>
+		</utility>
+		<cpt id="ExposureRate">
+			<state id="High" />
+			<state id="Low" />
+			<probabilities>0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="CarcinogenicPotential">
+			<state id="High" />
+			<state id="Low" />
+			<state id="None" />
+			<probabilities>0.33333333 0.33333333 0.33333333</probabilities>
+		</cpt>
+		<deterministic id="CancerRisk">
+			<state id="High" />
+			<state id="Low" />
+			<state id="None" />
+			<parents>ExposureRate CarcinogenicPotential</parents>
+			<resultingstates>High High Low Low Low None</resultingstates>
+		</deterministic>
+		<utility id="CancerCost">
+			<parents>UsageDecision CancerRisk</parents>
+			<utilities>0 0 0 0 0 0 0 0 0</utilities>
+		</utility>
+		<mau id="NetValue">
+			<parents>EconomicValue CancerCost</parents>
+			<weights>1 1</weights>
+		</mau>
+	</nodes>
+	<extensions>
+		<genie version="1.0" name="Figure 3.19" faultnameformat="nodestate">
+			<comment>Figure 3.19: Intermediate influence diagram for the toxic-chemical decision.\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</comment>
+			<node id="UsageDecision">
+				<name>Usage Decision</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>157 22 243 58</position>
+				<state id="Permit" globalid="F4" />
+				<state id="Restrict" globalid="F5" />
+				<state id="Ban" globalid="F6" />
+			</node>
+			<node id="EconomicValue">
+				<name>Economic Value</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>288 22 392 58</position>
+			</node>
+			<node id="ExposureRate">
+				<name>Exposure Rate</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>36 62 124 98</position>
+				<state id="High" globalid="F7" />
+				<state id="Low" globalid="F8" />
+			</node>
+			<node id="CarcinogenicPotential">
+				<name>Carcinogenic Potential</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>20 122 141 158</position>
+				<state id="High" globalid="F9" />
+				<state id="Low" globalid="F10" />
+				<state id="None" globalid="F11" />
+			</node>
+			<node id="CancerRisk">
+				<name>Cancer Risk</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>162 102 238 138</position>
+				<state id="High" globalid="F12" />
+				<state id="Low" globalid="F13" />
+				<state id="None" globalid="F14" />
+			</node>
+			<node id="CancerCost">
+				<name>Cancer Cost</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>302 102 378 138</position>
+			</node>
+			<node id="NetValue">
+				<name>Net Value</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>422 62 498 98</position>
+			</node>
+			<textbox>
+				<caption>Figure 3.19: Intermediate influence diagram for the toxic-chemical decision (structure only).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>20 190 427 254</position>
+			</textbox>
+		</genie>
+	</extensions>
+</smile>

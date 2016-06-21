@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Figure3_11" numsamples="1000">
+	<nodes>
+		<cpt id="HurricanePath">
+			<state id="HitsMiami" />
+			<state id="MissesMiami" />
+			<probabilities>0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="Forecast">
+			<state id="WillHitMiami" />
+			<state id="WillMissMiami" />
+			<parents>HurricanePath</parents>
+			<probabilities>0.5 0.5 0.5 0.5</probabilities>
+		</cpt>
+		<decision id="Decision">
+			<state id="Evacuate" />
+			<state id="Stay" />
+			<parents>Forecast</parents>
+		</decision>
+		<utility id="Consequence">
+			<parents>HurricanePath Decision</parents>
+			<utilities>0 0 0 0</utilities>
+		</utility>
+	</nodes>
+	<extensions>
+		<genie version="1.0" name="Figure 3.11" faultnameformat="nodestate">
+			<comment>Figure 3.11: Influence diagram for the evacuation decision.\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</comment>
+			<node id="HurricanePath">
+				<name>Hurricane Path</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>158 22 242 58</position>
+				<state id="HitsMiami" globalid="F3" />
+				<state id="MissesMiami" globalid="F4" />
+			</node>
+			<node id="Forecast">
+				<name>Forecast</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>42 22 118 58</position>
+				<state id="WillHitMiami" globalid="F5" />
+				<state id="WillMissMiami" globalid="F6" />
+			</node>
+			<node id="Decision">
+				<name>Decision</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>42 102 118 138</position>
+				<state id="Evacuate" globalid="F7" />
+				<state id="Stay" globalid="F8" />
+			</node>
+			<node id="Consequence">
+				<name>Consequence</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>156 102 245 138</position>
+			</node>
+			<textbox>
+				<caption>Figure 3.11: Influence diagram for the evacuation decision (structure only).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>16 158 363 238</position>
+			</textbox>
+		</genie>
+	</extensions>
+</smile>

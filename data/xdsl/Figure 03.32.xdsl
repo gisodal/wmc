@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Figure3_32" numsamples="1000">
+	<nodes>
+		<decision id="Continue">
+			<state id="Continue" />
+			<state id="Stop" />
+		</decision>
+		<cpt id="Patent">
+			<state id="PatentAwarded" />
+			<state id="NoPatent" />
+			<probabilities>0.7 0.3</probabilities>
+		</cpt>
+		<decision id="Licence">
+			<state id="Licence" />
+			<state id="Develop" />
+			<parents>Continue Patent</parents>
+		</decision>
+		<cpt id="Demand">
+			<state id="High" />
+			<state id="Medium" />
+			<state id="Low" />
+			<probabilities>0.25 0.55 0.2</probabilities>
+		</cpt>
+		<utility id="Value">
+			<parents>Continue Patent Licence Demand</parents>
+			<utilities>23 23 23 43 21 3 -2 -2 -2 -2 -2 -2 0 0 0 0 0 0 0 0 0 0 0 0</utilities>
+		</utility>
+	</nodes>
+	<extensions>
+		<genie version="1.0" name="Figure 3.32" faultnameformat="nodestate">
+			<comment>Figure 3.32: A research and development decision (an influence diagram for the tree in the textbook).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</comment>
+			<node id="Continue">
+				<name>Continue Development?</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>42 82 118 118</position>
+				<state id="Continue" globalid="F3" />
+				<state id="Stop" globalid="F4" />
+			</node>
+			<node id="Patent">
+				<name>Patent Awarded?</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>262 22 338 58</position>
+				<state id="PatentAwarded" globalid="F5" />
+				<state id="NoPatent" globalid="F6" />
+			</node>
+			<node id="Licence">
+				<name>Licence or Develop</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>162 82 238 118</position>
+				<comment>The choices here are to licence technology or to develop production and marketing to sell product directly.</comment>
+				<state id="Licence" globalid="F7" />
+				<state id="Develop" globalid="F8" />
+			</node>
+			<node id="Demand">
+				<name>Demand for the Product</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>342 82 418 118</position>
+				<state id="High" globalid="F9" />
+				<state id="Medium" globalid="F10" />
+				<state id="Low" globalid="F12" />
+			</node>
+			<node id="Value">
+				<name>Value</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>302 162 378 198</position>
+			</node>
+			<textbox>
+				<caption>Figure 3.32: A research and development decision (an influence diagram for the tree in the textbook).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>24 205 467 269</position>
+			</textbox>
+		</genie>
+	</extensions>
+</smile>

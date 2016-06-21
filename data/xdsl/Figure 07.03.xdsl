@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Figure7_3" numsamples="1000">
+	<nodes>
+		<cpt id="C_a">
+			<state id="True" />
+			<state id="False" />
+			<probabilities>0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="A_a">
+			<state id="True" />
+			<state id="False" />
+			<parents>C_a</parents>
+			<probabilities>0.5 0.5 0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="B_a">
+			<state id="True" />
+			<state id="False" />
+			<parents>C_a</parents>
+			<probabilities>0.5 0.5 0.5 0.5</probabilities>
+		</cpt>
+		<decision id="C_b">
+			<state id="Choice1" />
+			<state id="Choice2" />
+		</decision>
+		<cpt id="B_b">
+			<state id="True" />
+			<state id="False" />
+			<parents>C_b</parents>
+			<probabilities>0.5 0.5 0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="A_b">
+			<state id="True" />
+			<state id="False" />
+			<parents>C_b</parents>
+			<probabilities>0.5 0.5 0.5 0.5</probabilities>
+		</cpt>
+	</nodes>
+	<extensions>
+		<genie version="1.0" name="Figure 7.3" faultnameformat="nodestate">
+			<comment>Figure 7.3: Conditional independence in an influence diagram. In these influence diagrams, A and B are conditionally independent given C. As shown, the conditioning event can be either (a) a chance event or (b) a decision (note that node IDs are indexed as GeNIe requires unique node identifiers; choose View/Node/ByName to see the names).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</comment>
+			<node id="C_a">
+				<name>C</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>100 62 140 98</position>
+				<state id="True" globalid="F3" />
+				<state id="False" globalid="F4" />
+			</node>
+			<node id="A_a">
+				<name>A</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>61 122 99 158</position>
+				<state id="True" globalid="F5" />
+				<state id="False" globalid="F6" />
+			</node>
+			<node id="B_a">
+				<name>B</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>141 122 180 158</position>
+				<state id="True" globalid="F7" />
+				<state id="False" globalid="F8" />
+			</node>
+			<node id="C_b">
+				<name>C</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>261 62 299 98</position>
+				<state id="Choice1" globalid="F9" />
+				<state id="Choice2" globalid="F10" />
+			</node>
+			<node id="B_b">
+				<name>B</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>301 122 340 158</position>
+				<state id="True" globalid="F11" />
+				<state id="False" globalid="F12" />
+			</node>
+			<node id="A_b">
+				<name>A</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>220 122 261 158</position>
+				<state id="True" globalid="F13" />
+				<state id="False" globalid="F14" />
+			</node>
+			<textbox>
+				<caption>Figure 7.3: Conditional independence in an influence diagram. In these influence diagrams, A and B are conditionally independent given C. As shown, the conditioning event can be either (a) a chance event or (b) a decision (note that node IDs are indexed as GeNIe requires unique node identifiers; choose View/Node/ByName to see the names).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>22 180 477 308</position>
+			</textbox>
+			<textbox>
+				<caption>a</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>100 22 110 38</position>
+			</textbox>
+			<textbox>
+				<caption>b</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>261 21 271 37</position>
+			</textbox>
+		</genie>
+	</extensions>
+</smile>

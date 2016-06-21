@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Figure4_3" numsamples="1000">
+	<nodes>
+		<decision id="TradeOrKeep">
+			<state id="TradeTicket" />
+			<state id="KeepTicket" />
+		</decision>
+		<cpt id="WinOrLose">
+			<state id="Win" />
+			<state id="Lose" />
+			<parents>TradeOrKeep</parents>
+			<probabilities>0.2 0.8 0.45 0.55</probabilities>
+		</cpt>
+		<utility id="Value">
+			<parents>TradeOrKeep WinOrLose</parents>
+			<utilities>24 -1 10 0</utilities>
+		</utility>
+	</nodes>
+	<extensions>
+		<genie version="1.0" name="Figure 4.3" faultnameformat="nodestate">
+			<comment>Figure 4.3: A double-risk dilemma (this is an influence diagram of the decision tree in the figure; intermediate stage of decision-tree solution is also pictured in Figure 4.4).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</comment>
+			<node id="TradeOrKeep">
+				<name>Trade or Keep the Ticket?</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>39 22 122 58</position>
+				<state id="TradeTicket" globalid="F3" />
+				<state id="KeepTicket" globalid="F4" />
+			</node>
+			<node id="WinOrLose">
+				<name>Win or Lose?</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>162 42 238 78</position>
+				<state id="Win" globalid="F5" />
+				<state id="Lose" globalid="F6" />
+			</node>
+			<node id="Value">
+				<name>Value</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>117 122 204 158</position>
+			</node>
+			<textbox>
+				<caption>Figure 4.3: A double-risk dilemma (this is an influence diagram of the decision tree in the figure; intermediate stage of decision-tree solution is also pictured in Figure 4.4).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>31 176 506 256</position>
+			</textbox>
+		</genie>
+	</extensions>
+</smile>

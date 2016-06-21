@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Figure3_9" numsamples="1000">
+	<nodes>
+		<cpt id="Result">
+			<state id="WildSuccess" />
+			<state id="Flop" />
+			<probabilities>0.5 0.5</probabilities>
+		</cpt>
+		<decision id="Investment">
+			<state id="Savings" />
+			<state id="Business" />
+		</decision>
+		<utility id="Return">
+			<parents>Investment Result</parents>
+			<utilities>2200 2200 5000 0</utilities>
+		</utility>
+	</nodes>
+	<extensions>
+		<genie version="1.0" name="Figure3.9" faultnameformat="nodestate">
+			<comment>Figure 3.9: Basic risky decision with displayed choices, outcomes, and consequences.\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</comment>
+			<node id="Result">
+				<name>Business Result</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>142 42 218 78</position>
+				<state id="WildSuccess" globalid="F3" />
+				<state id="Flop" globalid="F4" />
+			</node>
+			<node id="Investment">
+				<name>Investment Choice</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>42 102 118 138</position>
+				<state id="Savings" globalid="F5" />
+				<state id="Business" globalid="F6" />
+			</node>
+			<node id="Return">
+				<name>Return</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>142 102 218 138</position>
+			</node>
+			<textbox>
+				<caption>Figure 3.9: Basic risky decision with displayed choices, outcomes, and consequences (the tables are encoded in the model).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>41 235 463 315</position>
+			</textbox>
+			<textbox>
+				<caption>  Outcomes\n------------------------\n  Wild Success\n  Flop</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>232 9 338 89</position>
+			</textbox>
+			<textbox>
+				<caption>  Alternatives\n---------------------\n  Savings\n  Business</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>33 148 129 228</position>
+			</textbox>
+			<textbox>
+				<caption>                 Business   Final Cash\nChoice      Result        Position ($)\n------------------------------------------------------\nSavings    Success       2200\n                 Flop              2200\nBusiness Success        5000\n                 Flop                    0</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>232 93 453 237</position>
+			</textbox>
+		</genie>
+	</extensions>
+</smile>

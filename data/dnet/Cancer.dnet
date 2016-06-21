@@ -1,0 +1,115 @@
+// ~->[DNET-1]->~
+
+// File created by Norsys using Netica 1.06b on Mar 29, 1998 at 05:09:38.
+
+bnet Cancer {
+autoupdate = TRUE;
+comment = "Originally from Cooper84 (PhD thesis), it has appeared in \
+	Spiegelhalter86, Pearl88 (book, p. 196), and Neapolitan90 \
+	(book, p. 179).  \n\
+	The node names are chosen to match historical choices. \n\
+	Neapolitan uses different conditional probabilities; see the \
+	file 'Cancer_Neapolitan'.";
+whenchanged = 891176825;
+
+visual V1 {
+	defdispform = LABELBOX;
+	nodelabeling = NAMETITLE;
+	nodefont = font {shape= "Arial"; size= 12;};
+	linkfont = font {shape= "Arial"; size= 9;};
+	commentfont = font {shape= "Arial"; size= 10;};
+	windowposn = (55, 12, 663, 345);
+	resolution = 72;
+	drawingbounds = (1152, 752);
+	showpagebreaks = FALSE;
+	usegrid = TRUE;
+	gridspace = (6, 6);
+	};
+
+node A {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Present, Absent);
+	parents = ();
+	probs = 
+		// Present      Absent       
+		  (0.2,         0.8);
+	title = "Metastatic Cancer";
+	visual V1 {
+		center = (216, 42);
+		height = 2;
+		};
+	};
+
+node B {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Increased, Not_Increased);
+	parents = (A);
+	probs = 
+		// Increased    Not_Increased   // A       
+		 ((0.8,         0.2),          // Present 
+		  (0.2,         0.8));         // Absent  ;
+	title = "Serum Calcium";
+	visual V1 {
+		center = (102, 138);
+		height = 1;
+		};
+	};
+
+node C {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Present, Absent);
+	parents = (A);
+	probs = 
+		// Present      Absent         // A       
+		 ((0.2,         0.8),          // Present 
+		  (0.05,        0.95));        // Absent  ;
+	title = "Brain Tumor";
+	visual V1 {
+		center = (342, 138);
+		height = 4;
+		};
+	};
+
+node D {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Present, Absent);
+	parents = (C, B);
+	probs = 
+		// Present      Absent          // C       B             
+		(((0.8,         0.2),           // Present Increased     
+		  (0.8,         0.2)),          // Present Not_Increased 
+		 ((0.8,         0.2),           // Absent  Increased     
+		  (0.05,        0.95)));        // Absent  Not_Increased ;
+	title = "Coma";
+	visual V1 {
+		center = (216, 234);
+		height = 3;
+		};
+	};
+
+node E {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Present, Absent);
+	parents = (C);
+	probs = 
+		// Present      Absent         // C       
+		 ((0.8,         0.2),          // Present 
+		  (0.6,         0.4));         // Absent  ;
+	title = "Severe Headaches";
+	comment = "This node is also known as 'Papilledema'.";
+	visual V1 {
+		center = (462, 234);
+		height = 5;
+		};
+	};
+};

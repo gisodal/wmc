@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Figure3_20" numsamples="1000">
+	<nodes>
+		<cpt id="CarcinogenicPotential">
+			<state id="High" />
+			<state id="Low" />
+			<state id="None" />
+			<probabilities>0.33333333 0.33333333 0.33333333</probabilities>
+		</cpt>
+		<cpt id="Test">
+			<state id="HighPotential" />
+			<state id="LowPotential" />
+			<parents>CarcinogenicPotential</parents>
+			<probabilities>0.5 0.5 0.5 0.5 0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="ExposureRate">
+			<state id="High" />
+			<state id="Low" />
+			<probabilities>0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="Survey">
+			<state id="HighExposure" />
+			<state id="LowExposure" />
+			<parents>ExposureRate</parents>
+			<probabilities>0.5 0.5 0.5 0.5</probabilities>
+		</cpt>
+		<decision id="UsageDecision">
+			<state id="Permit" />
+			<state id="Restrict" />
+			<state id="Ban" />
+			<parents>Test Survey</parents>
+		</decision>
+		<utility id="EconomicValue">
+			<parents>UsageDecision</parents>
+			<utilities>0 0 0</utilities>
+		</utility>
+		<deterministic id="CancerRisk">
+			<state id="High" />
+			<state id="Low" />
+			<state id="None" />
+			<parents>ExposureRate CarcinogenicPotential</parents>
+			<resultingstates>High High Low Low Low None</resultingstates>
+		</deterministic>
+		<utility id="CancerCost">
+			<parents>UsageDecision CancerRisk</parents>
+			<utilities>0 0 0 0 0 0 0 0 0</utilities>
+		</utility>
+		<mau id="NetValue">
+			<parents>EconomicValue CancerCost</parents>
+			<weights>1 1</weights>
+		</mau>
+	</nodes>
+	<extensions>
+		<genie version="1.0" name="Figure 3.20" faultnameformat="nodestate">
+			<comment>Figure 3.20: Complete influence diagram for the toxic-chemical decision (structure only).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</comment>
+			<node id="CarcinogenicPotential">
+				<name>Carcinogenic Potential</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>20 162 141 198</position>
+				<state id="High" globalid="F4" />
+				<state id="Low" globalid="F5" />
+				<state id="None" globalid="F6" />
+			</node>
+			<node id="Test">
+				<name>Test</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>16 22 64 58</position>
+				<state id="HighPotential" globalid="F7" />
+				<state id="LowPotential" globalid="F8" />
+			</node>
+			<node id="ExposureRate">
+				<name>Exposure Rate</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>116 122 204 158</position>
+				<state id="High" globalid="F9" />
+				<state id="Low" globalid="F10" />
+			</node>
+			<node id="Survey">
+				<name>Survey</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>74 62 126 98</position>
+				<state id="HighExposure" globalid="F11" />
+				<state id="LowExposure" globalid="F12" />
+			</node>
+			<node id="UsageDecision">
+				<name>Usage Decision</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>217 62 303 98</position>
+				<state id="Permit" globalid="F13" />
+				<state id="Restrict" globalid="F14" />
+				<state id="Ban" globalid="F15" />
+			</node>
+			<node id="EconomicValue">
+				<name>Economic Value</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>328 62 432 98</position>
+			</node>
+			<node id="CancerRisk">
+				<name>Cancer Risk</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>222 142 298 178</position>
+				<state id="High" globalid="F16" />
+				<state id="Low" globalid="F17" />
+				<state id="None" globalid="F18" />
+			</node>
+			<node id="CancerCost">
+				<name>Cancer Cost</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>342 142 418 178</position>
+			</node>
+			<node id="NetValue">
+				<name>Net Value</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>442 102 518 138</position>
+			</node>
+			<textbox>
+				<caption>Figure 3.20: Complete influence diagram for the toxic-chemical decision (structure only).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>24 221 431 285</position>
+			</textbox>
+		</genie>
+	</extensions>
+</smile>

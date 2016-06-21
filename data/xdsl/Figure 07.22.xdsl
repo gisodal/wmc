@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Figure7_22" numsamples="1000">
+	<nodes>
+		<cpt id="Carcinogenic_Potential">
+			<state id="CP_High" />
+			<state id="CP_Low" />
+			<probabilities>0.27 0.73</probabilities>
+		</cpt>
+		<cpt id="Test_Results">
+			<state id="TR_Positive" />
+			<state id="TR_Negative" />
+			<parents>Carcinogenic_Potential</parents>
+			<probabilities>0.82 0.18 0.21 0.79</probabilities>
+		</cpt>
+		<cpt id="Field_Results">
+			<state id="FR_Positive" />
+			<state id="FR_Negative" />
+			<parents>Carcinogenic_Potential</parents>
+			<probabilities>0.95 0.05 0.17 0.83</probabilities>
+		</cpt>
+	</nodes>
+	<extensions>
+		<genie version="1.0" name="Figure 7.22" faultnameformat="nodestate">
+			<comment>Figure 7.22: An influence diagram for a potentially carcinogenic chemical.\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</comment>
+			<node id="Carcinogenic_Potential">
+				<name>Carcinogenic Potential</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>46 66 172 102</position>
+				<state id="CP_High" globalid="F3" />
+				<state id="CP_Low" globalid="F4" />
+			</node>
+			<node id="Test_Results">
+				<name>Test Results</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>167 26 252 62</position>
+				<state id="TR_Positive" globalid="F5" />
+				<state id="TR_Negative" globalid="F6" />
+			</node>
+			<node id="Field_Results">
+				<name>Field Results</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>169 106 250 142</position>
+				<state id="FR_Positive" globalid="F7" />
+				<state id="FR_Negative" globalid="F8" />
+			</node>
+			<textbox>
+				<caption>Figure 7.22: An influence diagram for a potentially carcinogenic chemical.\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>18 165 505 229</position>
+			</textbox>
+		</genie>
+	</extensions>
+</smile>

@@ -1,0 +1,291 @@
+// ~->[DNET-1]->~
+
+bnet Thermostat_A {
+numdimensions = 1;
+comment = 
+	"A time delay decision network for the thermostat-heater control problem. \n\
+	This is a simple example of heater control, with a single heater, single thermal \
+	mass, single sensor, and costs for overheating, underheating, energy and switching \
+	the heater on and off.  It could easily be expanded into a more complex example. \n\
+	From Brent Boerlage.";
+author = "BoerlageB";
+whenchanged = 782877682;
+
+visual V1 {
+	defdispform = LABELBOX;
+	nodelabeling = NAMETITLE;
+	nodefont = font {shape= Geneva; size= 10;};
+	linkfont = font {shape= Geneva; size= 9;};
+	commentfont = font {shape= Geneva; size= 10;};
+	windowposn = (121, 33, 535, 385);
+	resolution = 72;
+	drawingbounds = (1104, 730);
+	showpagebreaks = FALSE;
+	usegrid = TRUE;
+	gridspace = (6, 6);
+	};
+
+node G {
+	kind = NATURE;
+	discrete = FALSE;
+	chance = CHANCE;
+	levels = (20, 25, 30, 35, 40, 45, 50);
+	inputs = (G1);
+	parents = (G);
+	equation = "P (G | G1) = Triangular3Dist (G, G1, 20, 50)";
+	delays = (
+		(ddg));
+	persist = (ddg);
+	title = "    Desired\n\
+		Temperature";
+	whenchanged = 781139224;
+	visual V1 {
+		center = (78, 162);
+		height = 3;
+		link 1 {
+			path = ((63, 147), (48, 132), (78, 102), (108, 132), (93, 147));
+			};
+		};
+	};
+
+node T {
+	kind = NATURE;
+	discrete = FALSE;
+	chance = CHANCE;
+	inputs = (T1, H1, N1);
+	parents = (T, H, N);
+	equation = "T (T1,H1,N1) = T1 + (ddt/c) * (H1 + N1)";
+	delays = (
+		(ddt),
+		(ddt),
+		(ddt));
+	persist = (ddt);
+	title = "Temperature";
+	whenchanged = 777771733;
+	visual V1 {
+		center = (186, 90);
+		height = 4;
+		link 1 {
+			path = ((178, 82), (156, 60), (186, 30), (216, 60), (194, 82));
+			};
+		link 2 {
+			path = ((302, 154), (270, 90), (230, 90));
+			};
+		link 3 {
+			path = ((274, 57), (207, 82));
+			};
+		};
+	};
+
+node H {
+	kind = DECISION;
+	discrete = TRUE;
+	measure = ORDINAL;
+	chance = DETERMIN;
+	states = (Off, On);
+	levels = (0, 4);
+	inputs = (H1, , );
+	parents = (H, T, G);
+	equation = "H (H1, T, G) =  (T > G) ? 0 : 1";
+	delays = (
+		(ddh),
+		(0),
+		(0));
+	persist = (ddh);
+	title = "Heater";
+	whenchanged = 777016955;
+	visual V1 {
+		center = (306, 162);
+		height = 2;
+		link 1 {
+			path = ((334, 162), (348, 162), (348, 120), (324, 120), (309, 154));
+			};
+		link 2 {
+			path = ((196, 99), (240, 132), (289, 154));
+			};
+		};
+	};
+
+node S {
+	kind = NATURE;
+	discrete = TRUE;
+	measure = ORDINAL;
+	chance = DETERMIN;
+	states = (Unchanged, Changed);
+	inputs = (, H1);
+	parents = (H, H);
+	equation = "S (H1, H) =  (H == H1) ? 0 : 1";
+	delays = (
+		(0),
+		(ddh));
+	title = "Switch";
+	whenchanged = 777016925;
+	visual V1 {
+		center = (276, 234);
+		height = 7;
+		link 1 {
+			path = ((298, 171), (276, 192), (276, 226));
+			};
+		link 2 {
+			path = ((306, 171), (306, 204), (284, 226));
+			};
+		};
+	};
+
+node V {
+	kind = UTILITY;
+	discrete = FALSE;
+	measure = RATIO;
+	chance = DETERMIN;
+	parents = (G, S, T, H);
+	equation = "V (G, T, S, H) =  -rs * S  - rh * H +\n\
+		\|  ((T > G)  ?  -ro * (T - G)^2  :  -ru * (G - T)^2)";
+	whenchanged = 782877682;
+	visual V1 {
+		center = (186, 270);
+		height = 5;
+		link 2 {
+			path = ((257, 243), (199, 266));
+			};
+		link 4 {
+			path = ((292, 171), (228, 204), (191, 262));
+			};
+		};
+	};
+
+node N {
+	kind = NATURE;
+	discrete = FALSE;
+	chance = CHANCE;
+	levels = (-10, -8, -6, -5, -4, -2, 0, 3, 6);
+	parents = ();
+	equation = "P (N) = Triangular3Dist (N, -4, -10, 6)";
+	persist = (ddf);
+	title = "Fluctuations";
+	comment = "P (N) = UniformDist (N, -10, 10)\n\n\
+		P (N | N1) = NormalDist (N,\n\
+		\|   N1 + (sqrt(ddg)/(10+sqrt(ddg))) * (0 - N1),\n\
+		\|   (sqrt(ddg)/(10+sqrt(ddg))) * 3)";
+	whenchanged = 781914286;
+	visual V1 {
+		center = (294, 48);
+		height = 6;
+		};
+	};
+
+node c {
+	kind = ASSUME;
+	discrete = FALSE;
+	parents = ();
+	title = "Thermal mass";
+	value = 2;
+	visual V1 {
+		center = (66, 78);
+		height = 1;
+		};
+	};
+
+node ro {
+	kind = ASSUME;
+	discrete = FALSE;
+	parents = ();
+	title = "Cost of Too-hot";
+	whenchanged = 777759594;
+	value = 0.1;
+	visual V1 {
+		center = (61, 234);
+		height = 8;
+		};
+	};
+
+node ru {
+	kind = ASSUME;
+	discrete = FALSE;
+	parents = ();
+	title = "Cost of Too-cold";
+	whenchanged = 777759580;
+	value = 0.1;
+	visual V1 {
+		center = (63, 258);
+		height = 10;
+		};
+	};
+
+node rs {
+	kind = ASSUME;
+	discrete = FALSE;
+	parents = ();
+	title = "Cost of Switching";
+	whenchanged = 777016601;
+	value = 10;
+	visual V1 {
+		center = (66, 282);
+		height = 11;
+		};
+	};
+
+node ddg {
+	kind = ASSUME;
+	discrete = FALSE;
+	parents = ();
+	comment = "Delay time between desired temperature updates.";
+	whenchanged = 777016601;
+	value = 40;
+	visual V1 {
+		center = (42, 48);
+		height = 14;
+		};
+	};
+
+node ddf {
+	kind = ASSUME;
+	discrete = FALSE;
+	parents = ();
+	comment = "Delay time between fluctuation updates.";
+	whenchanged = 777016601;
+	value = 1;
+	visual V1 {
+		center = (42, 24);
+		height = 15;
+		};
+	};
+
+node ddh {
+	kind = ASSUME;
+	discrete = FALSE;
+	parents = ();
+	comment = "Delay time between heater updates.";
+	whenchanged = 777016601;
+	value = 1;
+	visual V1 {
+		center = (84, 48);
+		height = 13;
+		};
+	};
+
+node ddt {
+	kind = ASSUME;
+	discrete = FALSE;
+	parents = ();
+	comment = "Delay time between temperature updates.";
+	whenchanged = 777016601;
+	value = 1;
+	visual V1 {
+		center = (84, 24);
+		height = 12;
+		};
+	};
+
+node rh {
+	kind = ASSUME;
+	discrete = FALSE;
+	parents = ();
+	title = "Cost of Heat";
+	whenchanged = 782876985;
+	value = 1;
+	visual V1 {
+		center = (53, 210);
+		height = 9;
+		};
+	};
+};

@@ -1,0 +1,90 @@
+// ~->[DNET-1]->~
+
+// File created by Norsys using Netica 1.06b on Mar 29, 1998 at 05:44:12.
+
+bnet Neapolitan90_p386 {
+autoupdate = TRUE;
+comment = "From: Neapolitan, Richard E. (1990) Probabilistic Reasoning \
+	in Expert Systems: Theory and Algorithms, John Wiley & Sons, \
+	New York, p. 386.";
+whenchanged = 891179044;
+
+visual V1 {
+	defdispform = LABELBOX;
+	nodelabeling = NAMETITLE;
+	nodefont = font {shape= "Arial"; size= 10;};
+	linkfont = font {shape= "Arial"; size= 9;};
+	commentfont = font {shape= "Arial"; size= 10;};
+	windowposn = (16, 11, 458, 263);
+	resolution = 72;
+	drawingbounds = (1152, 752);
+	showpagebreaks = FALSE;
+	usegrid = TRUE;
+	gridspace = (6, 6);
+	};
+
+node T {
+	kind = DECISION;
+	discrete = TRUE;
+	states = (Have, Dont_Have);
+	parents = ();
+	title = "Operation";
+	visual V1 {
+		center = (102, 54);
+		height = 2;
+		};
+	};
+
+node W {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Gets_Well, Doesnt);
+	parents = (T);
+	probs = 
+		// Gets_Well    Doesnt         // T         
+		 ((0.9,         0.1),          // Have      
+		  (0.2,         0.8));         // Dont_Have ;
+	title = "Results";
+	whenchanged = 891178982;
+	visual V1 {
+		center = (306, 54);
+		height = 4;
+		};
+	};
+
+node B {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Goes_Blind, Doesnt);
+	parents = (T);
+	probs = 
+		// Goes_Blind   Doesnt         // T         
+		 ((0.3,         0.7),          // Have      
+		  (0,           1));           // Dont_Have ;
+	title = "Side Effect";
+	whenchanged = 891178992;
+	visual V1 {
+		center = (102, 150);
+		height = 1;
+		};
+	};
+
+node V {
+	kind = UTILITY;
+	discrete = FALSE;
+	chance = DETERMIN;
+	parents = (B, W);
+	functable = 
+		                  // B          W         
+		 ((0.1,           // Goes_Blind Gets_Well 
+		   0),            // Goes_Blind Doesnt    
+		  (1,             // Doesnt     Gets_Well 
+		   0.3));         // Doesnt     Doesnt    ;
+	visual V1 {
+		center = (306, 150);
+		height = 3;
+		};
+	};
+};

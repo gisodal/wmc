@@ -1,0 +1,210 @@
+// ~->[DNET-1]->~
+
+// File created by Norsys using Netica 1.06b on Mar 29, 1998 at 05:34:42.
+
+bnet Matheson90_Space_Mission {
+autoupdate = TRUE;
+comment = "A classic influence diagram used as an example of how to do \
+	value-of-information calculations.  \n\
+	A decision is to be made whether to send a space mission to \
+	Mars or Venus, where the success of the mission is \
+	uncertain.  \n\
+	Among other things, we find the value of perfect information \
+	on the reliablities of the launch subsystems and the \
+	descender subsystems, which can then be used to decide \
+	whether to do further testing. \n\
+	From Matheson, James E. (1990) \"Using influence diagrams to \
+	value information and control\", in Influence Diagrams, \
+	Belief Nets and Decision Analysis, R. M. Oliver and J. Q. \
+	Smith (eds.), John Wiley & Sons.";
+whenchanged = 891178277;
+
+visual V2 {
+	defdispform = BELIEFBARS;
+	nodelabeling = TITLE;
+	nodefont = font {shape= "Arial"; size= 10;};
+	linkfont = font {shape= "Arial"; size= 9;};
+	commentfont = font {shape= "Arial"; size= 10;};
+	windowposn = (4, 9, 685, 441);
+	resolution = 72;
+	drawingbounds = (1152, 752);
+	showpagebreaks = FALSE;
+	usegrid = TRUE;
+	gridspace = (6, 6);
+	};
+
+node Mars_Descender {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Success, Fail);
+	parents = ();
+	probs = 
+		// Success      Fail         
+		  (0.9230769,   0.07692307);
+	visual V2 {
+		center = (120, 54);
+		height = 6;
+		};
+	};
+
+node Launch {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Success, Fail);
+	parents = ();
+	probs = 
+		// Success      Fail         
+		  (0.65,        0.35);
+	visual V2 {
+		center = (288, 54);
+		height = 5;
+		};
+	};
+
+node Result_Mars {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Success, Fail);
+	parents = (Launch, Mars_Descender);
+	probs = 
+		// Success      Fail            // Launch  Mars_Descender 
+		(((1,           0),             // Success Success        
+		  (0,           1)),            // Success Fail           
+		 ((0,           1),             // Fail    Success        
+		  (0,           1)));           // Fail    Fail           ;
+	visual V2 {
+		center = (216, 132);
+		height = 1;
+		};
+	};
+
+node Venus_Descender {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Success, Fail);
+	parents = ();
+	probs = 
+		// Success      Fail         
+		  (0.9230769,   0.07692307);
+	visual V2 {
+		center = (462, 54);
+		height = 4;
+		};
+	};
+
+node Result_Venus {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Success, Fail);
+	parents = (Launch, Venus_Descender);
+	probs = 
+		// Success      Fail            // Launch  Venus_Descender 
+		(((1,           0),             // Success Success         
+		  (0,           1)),            // Success Fail            
+		 ((0,           1),             // Fail    Success         
+		  (0,           1)));           // Fail    Fail            ;
+	visual V2 {
+		center = (384, 132);
+		height = 3;
+		};
+	};
+
+node Destination {
+	kind = DECISION;
+	discrete = TRUE;
+	states = (Mars, Venus);
+	parents = ();
+	visual V2 {
+		center = (114, 204);
+		height = 7;
+		};
+	};
+
+node Result {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Success, Fail);
+	parents = (Result_Mars, Result_Venus, Destination);
+	probs = 
+		//  Success      Fail             // Result_Mars Result_Venus Destination 
+		((((1,           0),              // Success     Success      Mars        
+		   (1,           0)),             // Success     Success      Venus       
+		  ((1,           0),              // Success     Fail         Mars        
+		   (0,           1))),            // Success     Fail         Venus       
+		 (((0,           1),              // Fail        Success      Mars        
+		   (1,           0)),             // Fail        Success      Venus       
+		  ((0,           1),              // Fail        Fail         Mars        
+		   (0,           1))));           // Fail        Fail         Venus       ;
+	visual V2 {
+		center = (306, 204);
+		height = 2;
+		};
+	};
+
+node U {
+	kind = UTILITY;
+	discrete = FALSE;
+	chance = DETERMIN;
+	parents = (Destination, Result);
+	functable = 
+		                  // Destination Result  
+		 ((50,            // Mars        Success 
+		   10),           // Mars        Fail    
+		  (100,           // Venus       Success 
+		   -10));         // Venus       Fail    ;
+	visual V2 {
+		center = (210, 276);
+		height = 8;
+		};
+	};
+
+node Destination1 {
+	kind = DECISION;
+	discrete = TRUE;
+	states = (Mars, Venus);
+	parents = ();
+	visual V2 {
+		center = (378, 288);
+		height = 10;
+		};
+	};
+
+node Result1 {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Success, Fail);
+	parents = (Destination1);
+	probs = 
+		// Success      Fail           // Destination1 
+		 ((0.6,         0.4),          // Mars         
+		  (0.6,         0.4));         // Venus        ;
+	visual V2 {
+		center = (552, 288);
+		height = 9;
+		};
+	};
+
+node U1 {
+	kind = UTILITY;
+	discrete = FALSE;
+	chance = DETERMIN;
+	parents = (Destination1, Result1);
+	functable = 
+		                  // Destination1 Result1 
+		 ((50,            // Mars         Success 
+		   10),           // Mars         Fail    
+		  (100,           // Venus        Success 
+		   -10));         // Venus        Fail    ;
+	visual V2 {
+		center = (462, 348);
+		height = 11;
+		};
+	};
+};

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Figure12_1" numsamples="1000">
+	<nodes>
+		<cpt id="Market">
+			<state id="Up" />
+			<state id="Same" />
+			<state id="Down" />
+			<probabilities>0.5 0.3 0.2</probabilities>
+		</cpt>
+		<decision id="Investment">
+			<state id="HighRiskStock" />
+			<state id="LowRiskStock" />
+			<state id="SavingsAccount" />
+		</decision>
+		<utility id="Payoff">
+			<parents>Investment Market</parents>
+			<utilities>1500 100 -1000 1000 200 -100 500 500 500</utilities>
+		</utility>
+	</nodes>
+	<extensions>
+		<genie version="1.0" name="Figure 12.1" faultnameformat="nodestate">
+			<comment>Figure 12.1: Influence diagram representation of the investor&apos;s problem.\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</comment>
+			<node id="Market">
+				<name>Market Activity</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>162 25 238 61</position>
+				<state id="Up" globalid="F4" />
+				<state id="Same" globalid="F5" />
+				<state id="Down" globalid="F6" />
+			</node>
+			<node id="Investment">
+				<name>Investment Decision</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>63 85 137 121</position>
+				<state id="HighRiskStock" globalid="F7" />
+				<state id="LowRiskStock" globalid="F8" />
+				<state id="SavingsAccount" globalid="F9" />
+			</node>
+			<node id="Payoff">
+				<name>Payoff</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>162 85 238 121</position>
+			</node>
+			<textbox>
+				<caption>Figure 12.1: Influence diagram representation of the investor&apos;s problem.\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>23 140 452 204</position>
+			</textbox>
+			<textbox>
+				<caption>To perform the value of information computation on this diagram, select the nodes Market and Investment and choose Network/Value of Information.</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>277 22 467 134</position>
+			</textbox>
+		</genie>
+	</extensions>
+</smile>

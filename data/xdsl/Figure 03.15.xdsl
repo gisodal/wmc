@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Figure3_15" numsamples="1000">
+	<nodes>
+		<decision id="Introduce">
+			<state id="Introduce" />
+			<state id="DontIntroduce" />
+		</decision>
+		<decision id="Price">
+			<state id="High" />
+			<state id="Medium" />
+			<state id="Low" />
+			<parents>Introduce</parents>
+		</decision>
+		<cpt id="UnitsSold">
+			<state id="Many" />
+			<state id="Medium" />
+			<state id="Few" />
+			<parents>Price</parents>
+			<probabilities>0.33333333 0.33333333 0.33333333 0.33333333 0.33333333 0.33333333 0.33333333 0.33333333 0.33333333</probabilities>
+		</cpt>
+		<cpt id="FixedCost">
+			<state id="High" />
+			<state id="Medium" />
+			<state id="Low" />
+			<probabilities>0.33333333 0.33333333 0.33333333</probabilities>
+		</cpt>
+		<cpt id="VariableCost">
+			<state id="State0" />
+			<state id="State1" />
+			<probabilities>0.5 0.5</probabilities>
+		</cpt>
+		<utility id="Profit">
+			<parents>UnitsSold Introduce FixedCost VariableCost Price</parents>
+			<utilities>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</utilities>
+		</utility>
+	</nodes>
+	<extensions>
+		<genie version="1.0" name="Figure 3.15" faultnameformat="nodestate">
+			<comment>Figure 3.15: New product decision with additional detail.\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</comment>
+			<node id="Introduce">
+				<name>Introduce Product?</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>22 122 98 158</position>
+				<state id="Introduce" globalid="F3" />
+				<state id="DontIntroduce" globalid="F4" />
+			</node>
+			<node id="Price">
+				<name>Price</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>22 42 98 78</position>
+				<state id="High" globalid="F5" />
+				<state id="Medium" globalid="F6" />
+				<state id="Low" globalid="F8" />
+			</node>
+			<node id="UnitsSold">
+				<name>Units Sold</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>142 22 218 58</position>
+				<state id="Many" globalid="F9" />
+				<state id="Medium" globalid="F10" />
+				<state id="Few" globalid="F11" />
+			</node>
+			<node id="FixedCost">
+				<name>Fixed Cost</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>242 42 318 78</position>
+				<state id="High" globalid="F12" />
+				<state id="Medium" globalid="F13" />
+				<state id="Low" globalid="F14" />
+			</node>
+			<node id="VariableCost">
+				<name>Variable Cost</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>282 102 358 138</position>
+				<state id="State0" globalid="F15" />
+				<state id="State1" globalid="F16" />
+			</node>
+			<node id="Profit">
+				<name>Profit</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>142 122 218 158</position>
+			</node>
+			<textbox>
+				<caption>Figure 3.15: New product decision with additional detail (structure only).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>27 190 428 270</position>
+			</textbox>
+		</genie>
+	</extensions>
+</smile>

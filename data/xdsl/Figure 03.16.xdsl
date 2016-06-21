@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Figure3_16" numsamples="1000">
+	<nodes>
+		<decision id="Introduce">
+			<state id="Introduce" />
+			<state id="DontIntroduce" />
+		</decision>
+		<decision id="Price">
+			<state id="High" />
+			<state id="Medium" />
+			<state id="Low" />
+			<parents>Introduce</parents>
+		</decision>
+		<cpt id="UnitsSold">
+			<state id="Many" />
+			<state id="Medium" />
+			<state id="Few" />
+			<parents>Price</parents>
+			<probabilities>0.33333333 0.33333333 0.33333333 0.33333333 0.33333333 0.33333333 0.33333333 0.33333333 0.33333333</probabilities>
+		</cpt>
+		<cpt id="FixedCost">
+			<state id="High" />
+			<state id="Medium" />
+			<state id="Low" />
+			<probabilities>0.33333333 0.33333333 0.33333333</probabilities>
+		</cpt>
+		<cpt id="UnitVariableCost">
+			<state id="State0" />
+			<state id="State1" />
+			<probabilities>0.5 0.5</probabilities>
+		</cpt>
+		<utility id="Revenue">
+			<parents>UnitsSold Price Introduce</parents>
+			<utilities>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</utilities>
+		</utility>
+		<utility id="Cost">
+			<parents>UnitsSold FixedCost UnitVariableCost Introduce</parents>
+			<utilities>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</utilities>
+		</utility>
+		<mau id="Profit">
+			<parents>Revenue Cost</parents>
+			<weights>1 1</weights>
+		</mau>
+	</nodes>
+	<extensions>
+		<genie version="1.0" name="Figure 3.16" faultnameformat="nodestate">
+			<comment>Figure 3.16: New product decision with calculation nodes for intermediate calculation of cost and revenue.\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</comment>
+			<node id="Introduce">
+				<name>Introduce Product?</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>22 122 98 158</position>
+				<state id="Introduce" globalid="F3" />
+				<state id="DontIntroduce" globalid="F4" />
+			</node>
+			<node id="Price">
+				<name>Price</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>22 22 98 58</position>
+				<state id="High" globalid="F5" />
+				<state id="Medium" globalid="F6" />
+				<state id="Low" globalid="F8" />
+			</node>
+			<node id="UnitsSold">
+				<name>Units Sold</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>162 22 238 58</position>
+				<state id="Many" globalid="F9" />
+				<state id="Medium" globalid="F10" />
+				<state id="Few" globalid="F11" />
+			</node>
+			<node id="FixedCost">
+				<name>Fixed Cost</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>262 62 338 98</position>
+				<state id="High" globalid="F12" />
+				<state id="Medium" globalid="F13" />
+				<state id="Low" globalid="F14" />
+			</node>
+			<node id="UnitVariableCost">
+				<name>Unit Variable Cost</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>331 102 429 138</position>
+				<state id="State0" globalid="F15" />
+				<state id="State1" globalid="F16" />
+			</node>
+			<node id="Revenue">
+				<name>Revenue</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>162 122 238 158</position>
+			</node>
+			<node id="Cost">
+				<name>Cost</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>262 162 338 198</position>
+			</node>
+			<node id="Profit">
+				<name>Profit</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>162 202 238 238</position>
+			</node>
+			<textbox>
+				<caption>Figure 3.16: New product decision with calculation nodes for intermediate calculation of cost and revenue (structure only).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>23 246 424 342</position>
+			</textbox>
+		</genie>
+	</extensions>
+</smile>

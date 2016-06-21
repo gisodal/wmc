@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Figure5_21" numsamples="1000">
+	<nodes>
+		<decision id="Product">
+			<state id="NewProduct" />
+			<state id="OldProduct" />
+		</decision>
+		<cpt id="Delay">
+			<state id="NoDelay" />
+			<state id="Delay" />
+			<probabilities>0.6 0.4</probabilities>
+		</cpt>
+		<cpt id="Ban">
+			<state id="Ban" />
+			<state id="NoBan" />
+			<probabilities>0.3 0.7</probabilities>
+		</cpt>
+		<cpt id="Sales">
+			<state id="SalesHigh" />
+			<state id="SalesLow" />
+			<parents>Delay</parents>
+			<probabilities>0.64 0.36 0.57 0.43</probabilities>
+		</cpt>
+		<utility id="Value">
+			<parents>Product Ban Delay Sales</parents>
+			<utilities>1.35 0.85 1.2 0.75 1.35 0.85 1.2 0.75 0.2 0.2 0.2 0.2 1 1 1 1</utilities>
+		</utility>
+	</nodes>
+	<extensions>
+		<genie version="1.0" name="Figure 5.21" faultnameformat="nodestate">
+			<comment>Figure 5.21: DuMond&apos;s new product decision (this is an influence diagram for the decision tree in the figure).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</comment>
+			<node id="Product">
+				<name>New or Old Product</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>42 82 118 118</position>
+				<state id="NewProduct" globalid="F3" />
+				<state id="OldProduct" globalid="F4" />
+			</node>
+			<node id="Delay">
+				<name>Delay</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>122 22 198 58</position>
+				<state id="NoDelay" globalid="F5" />
+				<state id="Delay" globalid="F6" />
+			</node>
+			<node id="Ban">
+				<name>Ban</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>302 82 378 118</position>
+				<state id="Ban" globalid="F7" />
+				<state id="NoBan" globalid="F8" />
+			</node>
+			<node id="Sales">
+				<name>Sales</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>222 42 298 78</position>
+				<state id="SalesHigh" globalid="F9" />
+				<state id="SalesLow" globalid="F10" />
+			</node>
+			<node id="Value">
+				<name>Value</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>162 122 238 158</position>
+			</node>
+			<textbox>
+				<caption>Figure 5.21: DuMond&apos;s new product decision (this is an influence diagram for the decision tree in the figure).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>30 175 517 239</position>
+			</textbox>
+		</genie>
+	</extensions>
+</smile>

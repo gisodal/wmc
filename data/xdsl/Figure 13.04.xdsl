@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Figure13_4" numsamples="1000">
+	<nodes>
+		<cpt id="Market">
+			<state id="Up" />
+			<state id="Same" />
+			<state id="Down" />
+			<probabilities>0.5 0.3 0.2</probabilities>
+		</cpt>
+		<decision id="Investment">
+			<state id="HighRiskStock" />
+			<state id="LowRiskStock" />
+			<state id="SavingsAccount" />
+		</decision>
+		<utility id="Payoff">
+			<parents>Investment Market</parents>
+			<utilities>1500 100 -1000 1000 200 -100 500 500 500</utilities>
+		</utility>
+	</nodes>
+	<extensions>
+		<genie version="1.0" name="Figure 13.4" faultnameformat="nodestate">
+			<comment>Figure 13.4: Decision tree for the stock market investor.\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</comment>
+			<node id="Market">
+				<name>Market Activity</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>162 22 238 58</position>
+				<state id="Up" globalid="F4" />
+				<state id="Same" globalid="F5" />
+				<state id="Down" globalid="F6" />
+			</node>
+			<node id="Investment">
+				<name>Investment Decision</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>63 82 137 118</position>
+				<state id="HighRiskStock" globalid="F7" />
+				<state id="LowRiskStock" globalid="F8" />
+				<state id="SavingsAccount" globalid="F9" />
+			</node>
+			<node id="Payoff">
+				<name>Payoff</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>162 82 238 118</position>
+			</node>
+			<textbox>
+				<caption>Figure 13.4: Decision tree for the stock market investor.\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>23 140 445 188</position>
+			</textbox>
+		</genie>
+	</extensions>
+</smile>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Figure4_31" numsamples="1000">
+	<nodes>
+		<cpt id="Amount_of_Fun">
+			<state id="Five" />
+			<state id="Four" />
+			<state id="Three" />
+			<state id="Two" />
+			<state id="One" />
+			<probabilities>0.1 0.25 0.4 0.2 0.05</probabilities>
+		</cpt>
+		<cpt id="Amount_of_Work">
+			<state id="Forty" />
+			<state id="ThirtyFour" />
+			<state id="Thirty" />
+			<probabilities>0.35 0.5 0.15</probabilities>
+		</cpt>
+		<decision id="Job_Decision">
+			<state id="ForestJob" />
+			<state id="InTownJob" />
+		</decision>
+		<utility id="Salary">
+			<parents>Job_Decision Amount_of_Work</parents>
+			<utilities>81 81 81 100 40 0</utilities>
+		</utility>
+		<utility id="Fun">
+			<parents>Job_Decision Amount_of_Fun</parents>
+			<utilities>100 90 60 25 0 60 60 60 60 60</utilities>
+		</utility>
+		<mau id="Satisfaction">
+			<parents>Salary Fun</parents>
+			<weights>0.6 0.4</weights>
+		</mau>
+	</nodes>
+	<extensions>
+		<genie version="1.0" name="Figure 4.31" faultnameformat="nodestate">
+			<comment>Figure 4.31: Influence diagram for summer-job example (numerical parameters are taken from Figures 4.32 through 4.36).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</comment>
+			<node id="Amount_of_Fun">
+				<name>Amount Of Fun</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>73 22 168 58</position>
+				<state id="Five" globalid="F6" />
+				<state id="Four" globalid="F7" />
+				<state id="Three" globalid="F8" />
+				<state id="Two" globalid="F9" />
+				<state id="One" globalid="F10" />
+			</node>
+			<node id="Amount_of_Work">
+				<name>Amount of Work</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>70 182 170 218</position>
+				<state id="Forty" globalid="F11" />
+				<state id="ThirtyFour" globalid="F12" />
+				<state id="Thirty" globalid="F13" />
+			</node>
+			<node id="Job_Decision">
+				<name>Job Decision</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>41 103 121 139</position>
+				<state id="ForestJob" globalid="F14" />
+				<state id="InTownJob" globalid="F15" />
+			</node>
+			<node id="Salary">
+				<name>Salary</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>164 144 240 180</position>
+			</node>
+			<node id="Fun">
+				<name>Fun</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>153 62 247 98</position>
+			</node>
+			<node id="Satisfaction">
+				<name>Overall Satisfaction</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>259 102 341 138</position>
+			</node>
+			<textbox>
+				<caption>Figure 4.31: Influence diagram for summer-job example (numerical parameters are taken from Figures 4.32 through 4.36).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>23 246 445 326</position>
+			</textbox>
+		</genie>
+	</extensions>
+</smile>

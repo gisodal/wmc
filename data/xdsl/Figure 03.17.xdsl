@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Figure3_17" numsamples="1000">
+	<nodes>
+		<decision id="BuildNewPlant">
+			<state id="Build" />
+			<state id="DoNotBuild" />
+		</decision>
+		<cpt id="NumberOfCars">
+			<state id="Many" />
+			<state id="Medium" />
+			<state id="Few" />
+			<probabilities>0.33333333 0.33333333 0.33333333</probabilities>
+		</cpt>
+		<cpt id="IndustryGrowth">
+			<state id="High" />
+			<state id="Low" />
+			<probabilities>0.5 0.5</probabilities>
+		</cpt>
+		<deterministic id="RegionalPolutionLevel">
+			<state id="High" />
+			<state id="Low" />
+			<parents>NumberOfCars IndustryGrowth</parents>
+			<resultingstates>High High High High High Low</resultingstates>
+		</deterministic>
+		<cpt id="PlantLicenced">
+			<state id="Yes" />
+			<state id="Not" />
+			<parents>RegionalPolutionLevel</parents>
+			<probabilities>0.5 0.5 0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="NewRegulations">
+			<state id="MoreStrict" />
+			<state id="LessStrict" />
+			<parents>RegionalPolutionLevel</parents>
+			<probabilities>0.5 0.5 0.5 0.5</probabilities>
+		</cpt>
+		<utility id="PlantProfit">
+			<parents>BuildNewPlant PlantLicenced NewRegulations</parents>
+			<utilities>0 0 0 0 0 0 0 0</utilities>
+		</utility>
+	</nodes>
+	<extensions>
+		<genie version="1.0" name="Figure 3.17" faultnameformat="nodestate">
+			<comment>Figure 3.17: Using a calculation node to determine pollution level.\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</comment>
+			<node id="BuildNewPlant">
+				<name>Build New Plant?</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>37 202 123 238</position>
+				<state id="Build" globalid="F3" />
+				<state id="DoNotBuild" globalid="F4" />
+			</node>
+			<node id="NumberOfCars">
+				<name>Number of Cars</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>76 22 165 58</position>
+				<state id="Many" globalid="F5" />
+				<state id="Medium" globalid="F6" />
+				<state id="Few" globalid="F8" />
+			</node>
+			<node id="IndustryGrowth">
+				<name>Industry Growth</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>236 22 325 58</position>
+				<state id="High" globalid="F9" />
+				<state id="Low" globalid="F10" />
+			</node>
+			<node id="RegionalPolutionLevel">
+				<name>Regional Polution Level</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>135 82 266 118</position>
+				<state id="High" globalid="F11" />
+				<state id="Low" globalid="F12" />
+			</node>
+			<node id="PlantLicenced">
+				<name>New Plant Licenced?</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>77 142 164 178</position>
+				<state id="Yes" globalid="F13" />
+				<state id="Not" globalid="F14" />
+			</node>
+			<node id="NewRegulations">
+				<name>New Regulations</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>231 142 329 178</position>
+				<state id="MoreStrict" globalid="F15" />
+				<state id="LessStrict" globalid="F16" />
+			</node>
+			<node id="PlantProfit">
+				<name>Plant Profit</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>162 202 238 238</position>
+			</node>
+			<textbox>
+				<caption>Figure 3.17: Using a calculation node to determine pollution level (structure only).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>28 255 450 319</position>
+			</textbox>
+		</genie>
+	</extensions>
+</smile>

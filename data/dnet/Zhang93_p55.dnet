@@ -1,0 +1,136 @@
+// ~->[DNET-1]->~
+
+// File created by Norsys using Netica 1.05a on Feb 06, 1998 at 05:05:25.
+
+bnet Zhang93_p55 {
+comment = "The 'Two Spy' example of a non-SDDN decision network.\n\
+	Policies must be found for 2 agents which will then go into \
+	enemy territory and not be able to communicate with each \
+	other.  Based on the type of enemy movement they observe, \
+	each must decide whether to send a report back to home base, \
+	knowing they may be dangerously exposed if they do, and that \
+	the report might be useless if the other agent has already \
+	reported.\n\
+	This network contains only dependence information; it has no \
+	numerical probabilities.\n\
+	From Lian Wen (Nevin) Zhang's 1993 PhD thesis, University of \
+	British Columbia (also UBC Computer Science tech. report \
+	94-8, page 55)";
+whochanged = "BoerlageB";
+whenchanged = 767571672;
+
+visual V2 {
+	defdispform = LABELBOX;
+	nodelabeling = TITLE;
+	nodefont = font {shape= "Arial"; size= 10;};
+	linkfont = font {shape= "Arial"; size= 9;};
+	commentfont = font {shape= "Arial"; size= 10;};
+	windowposn = (153, 35, 574, 418);
+	resolution = 72;
+	drawingbounds = (1152, 752);
+	showpagebreaks = FALSE;
+	usegrid = TRUE;
+	gridspace = (6, 6);
+	};
+
+node M {
+	kind = NATURE;
+	discrete = TRUE;
+	numstates = 2;
+	parents = ();
+	title = "Enemy Movement";
+	visual V2 {
+		center = (186, 36);
+		height = 5;
+		};
+	};
+
+node O1 {
+	kind = NATURE;
+	discrete = TRUE;
+	numstates = 2;
+	parents = (M);
+	title = "Observed by Agent 1";
+	visual V2 {
+		center = (84, 90);
+		height = 1;
+		};
+	};
+
+node O2 {
+	kind = NATURE;
+	discrete = TRUE;
+	numstates = 2;
+	parents = (M);
+	title = "Observed by Agent 2";
+	visual V2 {
+		center = (288, 90);
+		height = 6;
+		};
+	};
+
+node R1 {
+	kind = DECISION;
+	discrete = TRUE;
+	numstates = 2;
+	parents = (O1);
+	title = "Agent 1 Reports";
+	visual V2 {
+		center = (84, 150);
+		height = 2;
+		};
+	};
+
+node E1 {
+	kind = NATURE;
+	discrete = TRUE;
+	numstates = 2;
+	parents = (R1);
+	title = "Agent 1 Exposed";
+	visual V2 {
+		center = (84, 216);
+		height = 3;
+		};
+	};
+
+node R2 {
+	kind = DECISION;
+	discrete = TRUE;
+	numstates = 2;
+	parents = (O2);
+	title = "Agent 2 Reports";
+	visual V2 {
+		center = (288, 150);
+		height = 7;
+		};
+	};
+
+node E2 {
+	kind = NATURE;
+	discrete = TRUE;
+	numstates = 2;
+	parents = (R2);
+	title = "Agent 2 Exposed";
+	visual V2 {
+		center = (288, 216);
+		height = 8;
+		};
+	};
+
+node V {
+	kind = UTILITY;
+	discrete = FALSE;
+	parents = (M, R1, E1, R2, E2);
+	title = "Value";
+	visual V2 {
+		center = (186, 276);
+		height = 4;
+		link 2 {
+			path = ((92, 159), (150, 210), (182, 268));
+			};
+		link 4 {
+			path = ((279, 159), (216, 210), (189, 268));
+			};
+		};
+	};
+};

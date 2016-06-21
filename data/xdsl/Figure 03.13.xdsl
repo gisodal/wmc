@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Figure3_13" numsamples="1000">
+	<nodes>
+		<cpt id="WeatherDay1">
+			<state id="Good" />
+			<state id="Adverse" />
+			<probabilities>0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="WeatherDay2">
+			<state id="Good" />
+			<state id="Adverse" />
+			<parents>WeatherDay1</parents>
+			<probabilities>0.5 0.5 0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="ForecastDay2">
+			<state id="Good" />
+			<state id="Adverse" />
+			<parents>WeatherDay2</parents>
+			<probabilities>0.5 0.5 0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="ForecastDay1">
+			<state id="Good" />
+			<state id="Adverse" />
+			<parents>WeatherDay1</parents>
+			<probabilities>0.5 0.5 0.5 0.5</probabilities>
+		</cpt>
+		<decision id="ProtectDay1">
+			<state id="Protect" />
+			<state id="Wait" />
+			<parents>ForecastDay1</parents>
+		</decision>
+		<decision id="ProtectDay2">
+			<state id="Protect" />
+			<state id="Wait" />
+			<parents>ForecastDay2 ProtectDay1 WeatherDay1</parents>
+		</decision>
+		<utility id="CashFlowDay1">
+			<parents>ProtectDay1 WeatherDay1</parents>
+			<utilities>0 0 0 0</utilities>
+		</utility>
+		<utility id="CashFlowDay2">
+			<parents>WeatherDay2 ProtectDay2</parents>
+			<utilities>0 0 0 0</utilities>
+		</utility>
+		<cpt id="WeatherDay3">
+			<state id="Good" />
+			<state id="Adverse" />
+			<parents>WeatherDay2</parents>
+			<probabilities>0.5 0.5 0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="ForecastDay3">
+			<state id="Good" />
+			<state id="Adverse" />
+			<parents>WeatherDay3</parents>
+			<probabilities>0.5 0.5 0.5 0.5</probabilities>
+		</cpt>
+		<decision id="ProtectDay3">
+			<state id="Protect" />
+			<state id="Wait" />
+			<parents>ProtectDay2 ForecastDay3 WeatherDay2</parents>
+		</decision>
+		<utility id="CashFlowDay3">
+			<parents>ProtectDay3 WeatherDay3</parents>
+			<utilities>0 0 0 0</utilities>
+		</utility>
+		<mau id="Node7">
+			<parents>CashFlowDay1 CashFlowDay2 CashFlowDay3</parents>
+			<weights>1 1 1</weights>
+		</mau>
+	</nodes>
+	<extensions>
+		<genie version="1.0" name="Figure 3.13" faultnameformat="nodestate">
+			<comment>Figure 3.13: Influence diagram for farmer&apos;s sequential decision problem.\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</comment>
+			<node id="WeatherDay1">
+				<name>Weather Day 1</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>98 2 183 38</position>
+				<state id="Good" globalid="F3" />
+				<state id="Adverse" globalid="F4" />
+			</node>
+			<node id="WeatherDay2">
+				<name>Weather Day 2</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>278 2 362 38</position>
+				<state id="Good" globalid="F5" />
+				<state id="Adverse" globalid="F6" />
+			</node>
+			<node id="ForecastDay2">
+				<name>Forecast Day 2</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>198 62 282 98</position>
+				<state id="Good" globalid="F7" />
+				<state id="Adverse" globalid="F8" />
+			</node>
+			<node id="ForecastDay1">
+				<name>Forecast Day 1</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>39 62 122 98</position>
+				<state id="Good" globalid="F9" />
+				<state id="Adverse" globalid="F10" />
+			</node>
+			<node id="ProtectDay1">
+				<name>Protect Day 1?</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>42 122 118 158</position>
+				<state id="Protect" globalid="F11" />
+				<state id="Wait" globalid="F12" />
+			</node>
+			<node id="ProtectDay2">
+				<name>Protect Day 2?</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>202 122 278 158</position>
+				<state id="Protect" globalid="F13" />
+				<state id="Wait" globalid="F14" />
+			</node>
+			<node id="CashFlowDay1">
+				<name>Cash Flow Day 1</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>92 182 188 218</position>
+			</node>
+			<node id="CashFlowDay2">
+				<name>Cash Flow Day 2</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>274 182 367 218</position>
+			</node>
+			<node id="WeatherDay3">
+				<name>Weather Day 3</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>439 2 521 38</position>
+				<state id="Good" globalid="F15" />
+				<state id="Adverse" globalid="F16" />
+			</node>
+			<node id="ForecastDay3">
+				<name>Forecast Day 3</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>358 62 442 98</position>
+				<state id="Good" globalid="F17" />
+				<state id="Adverse" globalid="F18" />
+			</node>
+			<node id="ProtectDay3">
+				<name>Protect Day 3?</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>362 122 438 158</position>
+				<state id="Protect" globalid="F19" />
+				<state id="Wait" globalid="F20" />
+			</node>
+			<node id="CashFlowDay3">
+				<name>Cash Flow Day 3</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>434 182 527 218</position>
+			</node>
+			<node id="Node7">
+				<name>Node7</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>382 262 458 298</position>
+			</node>
+			<textbox>
+				<caption>Figure 3.13: Influence diagram for farmer&apos;s sequential decision problem (structure only).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>8 261 378 341</position>
+			</textbox>
+		</genie>
+	</extensions>
+</smile>

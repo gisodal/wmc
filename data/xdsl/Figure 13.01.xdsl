@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Figure13_1" numsamples="1000">
+	<nodes>
+		<cpt id="Uncertain_Event">
+			<state id="Outcome1" />
+			<state id="Outcome2" />
+			<probabilities>0.5 0.5</probabilities>
+		</cpt>
+		<decision id="Game_Choice">
+			<state id="Game_1" />
+			<state id="Game_2" />
+		</decision>
+		<utility id="Return">
+			<parents>Game_Choice Uncertain_Event</parents>
+			<utilities>30 -1 2000 -1900</utilities>
+		</utility>
+	</nodes>
+	<extensions>
+		<genie version="1.0" name="Figure 13.1" faultnameformat="nodestate">
+			<comment>Figure 13.1: Two lottery games. Which game would you choose?\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</comment>
+			<node id="Uncertain_Event">
+				<name>Uncertain Event</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>151 22 249 58</position>
+				<state id="Outcome1" globalid="F3" />
+				<state id="Outcome2" globalid="F4" />
+			</node>
+			<node id="Game_Choice">
+				<name>Game Choice</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>38 42 123 78</position>
+				<state id="Game_1" globalid="F5" />
+				<state id="Game_2" globalid="F6" />
+			</node>
+			<node id="Return">
+				<name>Return on Investment</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>162 82 238 118</position>
+			</node>
+			<textbox>
+				<caption>Figure 13.1: Two lottery games. Which game would you choose?\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>20 147 442 211</position>
+			</textbox>
+		</genie>
+	</extensions>
+</smile>

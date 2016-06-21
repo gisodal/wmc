@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Figure3_14" numsamples="1000">
+	<nodes>
+		<cpt id="Revenue">
+			<state id="High" />
+			<state id="Medium" />
+			<state id="Low" />
+			<probabilities>0.33333333 0.33333333 0.33333333</probabilities>
+		</cpt>
+		<decision id="Introduce">
+			<state id="Introduce" />
+			<state id="DontIntroduce" />
+		</decision>
+		<cpt id="Cost">
+			<state id="High" />
+			<state id="Medium" />
+			<state id="Low" />
+			<probabilities>0.33333333 0.33333333 0.33333333</probabilities>
+		</cpt>
+		<utility id="Profit">
+			<parents>Revenue Introduce Cost</parents>
+			<utilities>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</utilities>
+		</utility>
+	</nodes>
+	<extensions>
+		<genie version="1.0" name="Figure 3.14" faultnameformat="nodestate">
+			<comment>Figure 3.14: Simple influence diagram for new product decision.\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</comment>
+			<node id="Revenue">
+				<name>Revenue</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>102 22 178 58</position>
+				<state id="High" globalid="F4" />
+				<state id="Medium" globalid="F5" />
+				<state id="Low" globalid="F6" />
+			</node>
+			<node id="Introduce">
+				<name>Introduce Product?</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>42 82 118 118</position>
+				<state id="Introduce" globalid="F7" />
+				<state id="DontIntroduce" globalid="F8" />
+			</node>
+			<node id="Cost">
+				<name>Cost</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>202 22 278 58</position>
+				<state id="High" globalid="F9" />
+				<state id="Medium" globalid="F10" />
+				<state id="Low" globalid="F11" />
+			</node>
+			<node id="Profit">
+				<name>Profit</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>142 82 218 118</position>
+			</node>
+			<textbox>
+				<caption>Figure 3.14: Simple influence diagram for new product decision (structure only).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>27 142 400 222</position>
+			</textbox>
+		</genie>
+	</extensions>
+</smile>

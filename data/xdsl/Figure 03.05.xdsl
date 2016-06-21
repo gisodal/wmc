@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Figure3_5" numsamples="1000">
+	<nodes>
+		<cpt id="Success">
+			<state id="Success" />
+			<state id="Failure" />
+			<probabilities>0.5 0.5</probabilities>
+		</cpt>
+		<decision id="Invest">
+			<state id="Invest" />
+			<state id="DontInvest" />
+		</decision>
+		<utility id="Return">
+			<parents>Success Invest</parents>
+			<utilities>0 0 0 0</utilities>
+		</utility>
+	</nodes>
+	<extensions>
+		<genie version="1.0" name="Figure 3.5" faultnameformat="nodestate">
+			<comment>Figure 3.5: Influence diagram of venture capitalist&apos;s decision.\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</comment>
+			<node id="Success">
+				<name>Venture Succeeds or Fails</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>142 22 218 58</position>
+				<state id="Success" globalid="F3" />
+				<state id="Failure" globalid="F4" />
+			</node>
+			<node id="Invest">
+				<name>Invest?</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>42 82 118 118</position>
+				<state id="Invest" globalid="F5" />
+				<state id="DontInvest" globalid="F6" />
+			</node>
+			<node id="Return">
+				<name>Return on Investment</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>142 82 218 118</position>
+			</node>
+			<textbox>
+				<caption>Figure 3.5: Influence diagram of venture capitalist&apos;s decision (structure only).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>18 132 373 212</position>
+			</textbox>
+		</genie>
+	</extensions>
+</smile>

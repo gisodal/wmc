@@ -1,0 +1,311 @@
+// ~->[DNET-1]->~
+
+// File created by Norsys using Netica 1.05a on Feb 06, 1998 at 05:04:02.
+
+bnet SpiegelhalterDLC93 {
+comment = "A 20 node example of a belief net for medical diagnosis. \n\
+	This file does not contain the numerical probabilities \
+	(except those few given in the paper). \n\
+	This, together with the paper, provide a good worked out \
+	example for clique tree (i.e. join tree) compiling and \
+	propagation. \n\
+	From: Spiegelhalter, David J., A. Philip Dawid, Steffen L. \
+	Lauritzen and Robert G. Cowell (1993) \"Bayesian analysis in \
+	expert systems\" in Statistical Science, 8(3), 219-283.";
+whenchanged = 785710983;
+
+visual V1 {
+	defdispform = LABELBOX;
+	nodelabeling = NAMETITLE;
+	nodefont = font {shape= "Arial"; size= 10;};
+	linkfont = font {shape= "Arial"; size= 9;};
+	commentfont = font {shape= "Arial"; size= 10;};
+	windowposn = (41, 91, 633, 458);
+	resolution = 72;
+	drawingbounds = (1104, 730);
+	showpagebreaks = FALSE;
+	usegrid = TRUE;
+	gridspace = (6, 6);
+	};
+
+node n1 {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (yes, no);
+	parents = ();
+	title = "Birth\nasphyxia?";
+	visual V1 {
+		center = (258, 36);
+		height = 5;
+		};
+	};
+
+node n2 {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (PFC, TGA, Fallot, PAIVS, TAPVD, Lung);
+	parents = (n1);
+	title = "Disease?";
+	visual V1 {
+		center = (258, 90);
+		height = 1;
+		};
+	};
+
+node n9 {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (yes, no);
+	parents = (n2);
+	title = "Sick?";
+	visual V1 {
+		center = (492, 156);
+		height = 3;
+		link 1 {
+			path = ((290, 100), (461, 147));
+			};
+		};
+	};
+
+node n3 {
+	kind = NATURE;
+	discrete = FALSE;
+	chance = CHANCE;
+	levels = (0, 4, 11, 30);
+	parents = (n2, n9);
+	title = "Age at\npresentation";
+	visual V1 {
+		center = (492, 90);
+		height = 4;
+		};
+	};
+
+node n8 {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Normal, Low, High);
+	parents = (n2);
+	title = "Lung\nflow?";
+	visual V1 {
+		center = (402, 156);
+		height = 6;
+		};
+	};
+
+node n7 {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Normal, Oedema, Abnormal);
+	parents = (n2);
+	title = "Lung\nparenchema?";
+	visual V1 {
+		center = (312, 156);
+		height = 18;
+		};
+	};
+
+node n6 {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (None, Mild, Complete, Transp);
+	parents = (n2);
+	title = "Cardiac\nmixing";
+	visual V1 {
+		center = (222, 156);
+		height = 10;
+		};
+	};
+
+node n5 {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Lt_to_Rt, None, Rt_to_Lt);
+	parents = (n2);
+	title = "Duct\nflow";
+	visual V1 {
+		center = (132, 156);
+		height = 16;
+		link 1 {
+			path = ((244, 99), (159, 143));
+			};
+		};
+	};
+
+node n4 {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (yes, no);
+	parents = (n2);
+	probs = 
+		// yes          no             // n2     
+		 ((0.1,         0.9),          // PFC    
+		  (0.1,         0.9),          // TGA    
+		  (0.1,         0.9),          // Fallot 
+		  (0.9,         0.1),          // PAIVS  
+		  (0.05,        0.95),         // TAPVD  
+		  (0.1,         0.9));         // Lung   ;
+	title = "LVH?";
+	visual V1 {
+		center = (54, 156);
+		height = 17;
+		link 1 {
+			path = ((234, 99), (79, 148));
+			};
+		};
+	};
+
+node n14 {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (yes, no);
+	parents = (n7, n9);
+	title = "Grunting?";
+	visual V1 {
+		center = (492, 222);
+		height = 8;
+		};
+	};
+
+node n13 {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Normal, Oligaemic, Plethoric, Grd_Glass, Asy_Patchy);
+	parents = (n7, n8);
+	title = "Chest\nX-ray?";
+	visual V1 {
+		center = (402, 222);
+		height = 9;
+		};
+	};
+
+node n11 {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (None, Moderate, Severe);
+	parents = (n6, n7);
+	title = "Hypoxia\nin O2?";
+	visual V1 {
+		center = (222, 222);
+		height = 11;
+		};
+	};
+
+node n12 {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Normal, Low, High);
+	parents = (n7);
+	title = "CO2?";
+	visual V1 {
+		center = (312, 222);
+		height = 19;
+		};
+	};
+
+node n10 {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Equal, Unequal);
+	parents = (n5, n6);
+	title = "Hypoxia\ndistribution?";
+	visual V1 {
+		center = (132, 222);
+		height = 15;
+		};
+	};
+
+node n15 {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (yes, no);
+	parents = (n4);
+	probs = 
+		// yes          no             // n4  
+		 ((0.9,         0.1),          // yes 
+		  (0.05,        0.95));        // no  ;
+	title = "LVH\nreport?";
+	visual V1 {
+		center = (54, 294);
+		height = 14;
+		};
+	};
+
+node n20 {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (yes, no);
+	parents = (n14);
+	title = "Grunting\nreport?";
+	visual V1 {
+		center = (492, 294);
+		height = 2;
+		};
+	};
+
+node n19 {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Normal, Oligaemic, Plethoric, Grd_Glass, Asy_Patchy);
+	parents = (n13);
+	title = "X-ray\nreport?";
+	visual V1 {
+		center = (402, 294);
+		height = 7;
+		};
+	};
+
+node n17 {
+	kind = NATURE;
+	discrete = FALSE;
+	chance = CHANCE;
+	levels = (-INFINITY, 5, 12, INFINITY);
+	parents = (n11);
+	title = "Right\nup. quad. O2?";
+	visual V1 {
+		center = (222, 294);
+		height = 12;
+		};
+	};
+
+node n16 {
+	kind = NATURE;
+	discrete = FALSE;
+	chance = CHANCE;
+	levels = (-INFINITY, 5, 12, INFINITY);
+	parents = (n10, n11);
+	title = "Lower\nbody O2?";
+	visual V1 {
+		center = (132, 294);
+		height = 13;
+		};
+	};
+
+node n18 {
+	kind = NATURE;
+	discrete = FALSE;
+	chance = CHANCE;
+	levels = (-INFINITY, 7.5, INFINITY);
+	parents = (n12);
+	title = "CO2\nreport?";
+	visual V1 {
+		center = (312, 294);
+		height = 20;
+		};
+	};
+};

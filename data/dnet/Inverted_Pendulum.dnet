@@ -1,0 +1,317 @@
+// ~->[DNET-1]->~
+
+// File created by Norsys using Netica 1.05a on Feb 06, 1998 at 05:01:40.
+
+bnet Inverted_Pendulum {
+numdimensions = 1;
+comment = "A time delay decision network for the control problem known \
+	as 'inverted pendulum', or 'pole balancing' in which the \
+	bottom of a pole is moved around (in 1 dimension for this \
+	network) so that the pole doesn't tip over. \n\
+	Problem described in Miller, W. Thomas, Richard S. Sutton and \
+	Paul J. Werbos (1990) Neural Networks for Control, MIT Press, \
+	Cambridge, MA. Decision network from Brent Boerlage.";
+author = "BoerlageB";
+whenchanged = 783526002;
+
+visual V1 {
+	defdispform = LABELBOX;
+	nodelabeling = NAMETITLE;
+	nodefont = font {shape= "Arial"; size= 10;};
+	linkfont = font {shape= "Arial"; size= 9;};
+	commentfont = font {shape= "Arial"; size= 10;};
+	windowposn = (6, 5, 551, 374);
+	resolution = 72;
+	drawingbounds = (1656, 730);
+	showpagebreaks = FALSE;
+	usegrid = TRUE;
+	gridspace = (6, 6);
+	};
+
+node dd {
+	kind = ASSUME;
+	discrete = FALSE;
+	levels = (0, INFINITY);
+	parents = ();
+	title = "Delay";
+	comment = "Time slice interval.";
+	value = 0.02;
+	visual V1 {
+		center = (414, 66);
+		height = 12;
+		};
+	};
+
+node ddc {
+	kind = ASSUME;
+	discrete = FALSE;
+	levels = (0, INFINITY);
+	parents = ();
+	title = "Duration of\nDesired Position";
+	comment = "Time interval between changes in desired position.";
+	value = 1;
+	visual V1 {
+		center = (432, 102);
+		height = 11;
+		};
+	};
+
+node csd {
+	kind = ASSUME;
+	discrete = FALSE;
+	parents = ();
+	title = "Cost of Misposition";
+	comment = "Used in calculation of the utility, V.";
+	value = 1;
+	visual V1 {
+		center = (450, 162);
+		height = 17;
+		};
+	};
+
+node g {
+	kind = ASSUME;
+	discrete = FALSE;
+	parents = ();
+	title = "Gravity";
+	comment = "Acceleration due to gravity";
+	value = 9.81;
+	visual V1 {
+		center = (420, 304);
+		height = 16;
+		};
+	};
+
+node lp {
+	kind = ASSUME;
+	discrete = FALSE;
+	levels = (0, INFINITY);
+	parents = ();
+	title = "Length Pole";
+	comment = "Distance from pivot to pole's center of mass.";
+	value = 0.5;
+	visual V1 {
+		center = (432, 274);
+		height = 15;
+		};
+	};
+
+node mp {
+	kind = ASSUME;
+	discrete = FALSE;
+	levels = (0, INFINITY);
+	parents = ();
+	title = "Mass Pole";
+	comment = "Mass of the pole.";
+	value = 0.1;
+	visual V1 {
+		center = (430, 244);
+		height = 14;
+		};
+	};
+
+node mc {
+	kind = ASSUME;
+	discrete = FALSE;
+	levels = (0, INFINITY);
+	parents = ();
+	title = "Mass Cart";
+	comment = "Combined mass of pole and cart.";
+	value = 1.1;
+	visual V1 {
+		center = (430, 214);
+		height = 13;
+		};
+	};
+
+node gx {
+	kind = NATURE;
+	discrete = FALSE;
+	levels = (-1, 1);
+	inputs = (gx1);
+	parents = (gx);
+	equation = "P (gx | gx1) = Triangular3Dist (gx, gx1, -1, 1)";
+	delays = (
+		(ddc));
+	persist = (ddc);
+	title = "Desired Position";
+	comment = "Control input.\nDesired position (ie, x value) of pole.";
+	visual V1 {
+		center = (120, 306);
+		height = 2;
+		link 1 {
+			path = ((114, 298), (102, 282), (120, 264), (138, 282), (126, 298));
+			};
+		};
+	};
+
+node x {
+	kind = NATURE;
+	discrete = FALSE;
+	inputs = (x1, xd1);
+	parents = (x, xd);
+	equation = "x (x1, xd1) = x1 + dd * xd1";
+	delays = (
+		(dd),
+		(dd));
+	title = "Position";
+	comment = "Displacement of cart.\nPositive is displacement to the \
+		right.";
+	visual V1 {
+		center = (288, 240);
+		height = 5;
+		link 1 {
+			path = ((282, 232), (270, 216), (288, 198), (306, 216), (294, 232));
+			};
+		};
+	};
+
+node e {
+	kind = NATURE;
+	discrete = FALSE;
+	parents = (x, gx);
+	equation = "e (x, gx) = x - gx";
+	persist = (dd);
+	title = "Error";
+	visual V1 {
+		center = (240, 306);
+		height = 3;
+		link 1 {
+			path = ((283, 249), (246, 298));
+			};
+		};
+	};
+
+node xd {
+	kind = NATURE;
+	discrete = FALSE;
+	inputs = (xdd1, xd1);
+	parents = (xdd, xd);
+	equation = "xd (xd1, xdd1) = xd1 + dd * xdd1";
+	delays = (
+		(dd),
+		(dd));
+	title = "Velocity";
+	visual V1 {
+		center = (180, 240);
+		height = 1;
+		link 2 {
+			path = ((174, 232), (162, 216), (180, 198), (198, 216), (186, 232));
+			};
+		};
+	};
+
+node ad {
+	kind = NATURE;
+	discrete = FALSE;
+	inputs = (add1, ad1);
+	parents = (add, ad);
+	equation = "ad (ad1, add1) = ad1 + dd * add1";
+	delays = (
+		(dd),
+		(dd));
+	title = "Angular\nVelocity";
+	visual V1 {
+		center = (216, 72);
+		height = 9;
+		link 2 {
+			path = ((204, 57), (192, 42), (216, 18), (240, 42), (228, 57));
+			};
+		};
+	};
+
+node a {
+	kind = NATURE;
+	discrete = FALSE;
+	inputs = (ad1, a1);
+	parents = (ad, a);
+	equation = "a (a1, ad1) = a1 + dd * ad1";
+	delays = (
+		(dd),
+		(dd));
+	title = "Angle";
+	comment = "Angle between pole and vertical.\n\
+		Positive is clockwise rotation of pole.";
+	visual V1 {
+		center = (336, 72);
+		height = 10;
+		link 2 {
+			path = ((330, 64), (318, 48), (336, 30), (354, 48), (342, 64));
+			};
+		};
+	};
+
+node F {
+	kind = DECISION;
+	discrete = TRUE;
+	levels = (-10, 10);
+	parents = (xd, e, ad, a);
+	title = "Force";
+	comment = "Force applied to bottom of pole.\n\
+		Positive is force to the right (ie, positive x).";
+	visual V1 {
+		center = (240, 162);
+		height = 4;
+		link 1 {
+			path = ((186, 232), (216, 198), (235, 171));
+			};
+		};
+	};
+
+node V {
+	kind = UTILITY;
+	discrete = FALSE;
+	parents = (e, a);
+	equation = "V (e, a) = - abs(a) - csd * abs(e)";
+	visual V1 {
+		center = (336, 306);
+		height = 6;
+		};
+	};
+
+node add {
+	kind = NATURE;
+	discrete = FALSE;
+	parents = (F, ad, a);
+	equation = "add (F, ad, a) = \n\
+		\|  (mc * g * sin(a) - \n\
+		\|              cos(a) * (F + mp * lp * ad^2 * sin(a))) /\n\
+		\|  (4 * mc * lp / 3 - mp * lp * cos(a)^2)";
+	title = "Angular\nAcceleration";
+	visual V1 {
+		center = (72, 72);
+		height = 8;
+		link 1 {
+			path = ((223, 153), (103, 90));
+			};
+		link 2 {
+			path = ((186, 57), (144, 36), (102, 57));
+			};
+		link 3 {
+			path = ((312, 78), (210, 108), (108, 81));
+			};
+		};
+	};
+
+node xdd {
+	kind = NATURE;
+	discrete = FALSE;
+	parents = (F, ad, a);
+	equation = "xdd (a, ad, F) =  F / mc + \n\
+		\|  (mp/mc) * lp * (ad^2 * sin(a) - \n\
+		\|      cos(a) * ((mc * g * sin(a) - \n\
+		\|          cos(a) * (F + mp * lp * ad^2 * sin(a))) /\n\
+		\|         (4 * mc * lp / 3 - mp * lp * cos(a)^2)))";
+	title = "Acceleration";
+	visual V1 {
+		center = (60, 240);
+		height = 7;
+		link 2 {
+			path = ((196, 87), (84, 168), (62, 232));
+			};
+		link 3 {
+			path = ((320, 81), (144, 168), (69, 232));
+			};
+		};
+	};
+};

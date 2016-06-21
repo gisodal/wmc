@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Figure7_21" numsamples="1000">
+	<nodes>
+		<cpt id="Disease">
+			<state id="Present" />
+			<state id="Absent" />
+			<probabilities>0.02 0.98</probabilities>
+		</cpt>
+		<cpt id="Test_Results">
+			<state id="Positive" />
+			<state id="Negative" />
+			<parents>Disease</parents>
+			<probabilities>0.95 0.05 0.005 0.995</probabilities>
+		</cpt>
+	</nodes>
+	<extensions>
+		<genie version="1.0" name="Figure 7.21" faultnameformat="nodestate">
+			<comment>Figure 7.21: A probability tree representing the diagnostic performance of a medical test (this is a Bayesian network equivalent to the probability tree in the figure).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</comment>
+			<node id="Disease">
+				<name>Disease</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>42 22 118 58</position>
+				<state id="Present" globalid="F3" />
+				<state id="Absent" globalid="F4" />
+			</node>
+			<node id="Test_Results">
+				<name>Test Results</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>158 22 243 58</position>
+				<state id="Positive" globalid="F5" />
+				<state id="Negative" globalid="F6" />
+			</node>
+			<textbox>
+				<caption>Figure 7.21: A probability tree representing the diagnostic performance of a medical test (this is a Bayesian network equivalent to the probability tree in the figure).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>22 77 413 189</position>
+			</textbox>
+		</genie>
+	</extensions>
+</smile>

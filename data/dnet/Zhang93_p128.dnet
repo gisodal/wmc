@@ -1,0 +1,226 @@
+// ~->[DNET-1]->~
+
+// File created by Norsys using Netica 1.05a on Feb 06, 1998 at 05:05:09.
+
+bnet Zhang93_p128 {
+comment = "Example of a separable (termed 'abnormal' by Zhang) decision \
+	network.\n\
+	Also shows the 2 networks it can be separated into.\n\
+	These networks contains only dependence information; they \
+	have no numerical probabilities.\n\
+	From Lian Wen (Nevin) Zhang's 1993 PhD thesis, University of \
+	British Columbia (also UBC Computer Science tech. report \
+	94-8, p.128)";
+whochanged = "BoerlageB";
+whenchanged = 767636431;
+
+visual V4 {
+	defdispform = LABELBOX;
+	nodelabeling = TITLE;
+	nodefont = font {shape= "Arial"; size= 10;};
+	linkfont = font {shape= "Arial"; size= 9;};
+	commentfont = font {shape= "Arial"; size= 10;};
+	windowposn = (90, 4, 554, 458);
+	resolution = 72;
+	drawingbounds = (1152, 752);
+	showpagebreaks = FALSE;
+	usegrid = TRUE;
+	gridspace = (6, 6);
+	};
+
+node A {
+	kind = NATURE;
+	discrete = TRUE;
+	numstates = 2;
+	parents = ();
+	visual V4 {
+		center = (216, 36);
+		height = 18;
+		};
+	};
+
+node B {
+	kind = NATURE;
+	discrete = TRUE;
+	numstates = 2;
+	parents = (A);
+	visual V4 {
+		center = (216, 120);
+		height = 1;
+		};
+	};
+
+node D {
+	kind = DECISION;
+	discrete = TRUE;
+	numstates = 2;
+	parents = (A);
+	visual V4 {
+		center = (144, 72);
+		height = 2;
+		};
+	};
+
+node E {
+	kind = DECISION;
+	discrete = TRUE;
+	numstates = 2;
+	parents = (A);
+	visual V4 {
+		center = (288, 72);
+		height = 5;
+		};
+	};
+
+node F {
+	kind = NATURE;
+	discrete = TRUE;
+	numstates = 2;
+	parents = (E, B);
+	visual V4 {
+		center = (288, 120);
+		height = 4;
+		};
+	};
+
+node V {
+	kind = UTILITY;
+	discrete = FALSE;
+	parents = (B, F);
+	visual V4 {
+		center = (252, 174);
+		height = 7;
+		};
+	};
+
+node C {
+	kind = NATURE;
+	discrete = TRUE;
+	numstates = 2;
+	parents = (D, B);
+	visual V4 {
+		center = (144, 120);
+		height = 3;
+		};
+	};
+
+node U {
+	kind = UTILITY;
+	discrete = FALSE;
+	parents = (B, C);
+	visual V4 {
+		center = (180, 174);
+		height = 6;
+		};
+	};
+
+node A2 {
+	kind = NATURE;
+	discrete = TRUE;
+	numstates = 2;
+	parents = ();
+	visual V4 {
+		center = (246, 240);
+		height = 11;
+		};
+	};
+
+node B2 {
+	kind = NATURE;
+	discrete = TRUE;
+	numstates = 2;
+	parents = (A2);
+	visual V4 {
+		center = (246, 324);
+		height = 12;
+		};
+	};
+
+node E1 {
+	kind = DECISION;
+	discrete = TRUE;
+	numstates = 2;
+	parents = (A2);
+	visual V4 {
+		center = (318, 276);
+		height = 9;
+		};
+	};
+
+node F1 {
+	kind = NATURE;
+	discrete = TRUE;
+	numstates = 2;
+	inputs = (E1, x_1);
+	parents = (E1, B2);
+	visual V4 {
+		center = (318, 324);
+		height = 8;
+		};
+	};
+
+node V1 {
+	kind = UTILITY;
+	discrete = FALSE;
+	inputs = (B2, x_1);
+	parents = (B2, F1);
+	visual V4 {
+		center = (282, 378);
+		height = 10;
+		};
+	};
+
+node A1 {
+	kind = NATURE;
+	discrete = TRUE;
+	numstates = 2;
+	parents = ();
+	visual V4 {
+		center = (186, 240);
+		height = 13;
+		};
+	};
+
+node B1 {
+	kind = NATURE;
+	discrete = TRUE;
+	numstates = 2;
+	parents = (A1);
+	visual V4 {
+		center = (186, 324);
+		height = 14;
+		};
+	};
+
+node D1 {
+	kind = DECISION;
+	discrete = TRUE;
+	numstates = 2;
+	parents = (A1);
+	visual V4 {
+		center = (114, 276);
+		height = 15;
+		};
+	};
+
+node C1 {
+	kind = NATURE;
+	discrete = TRUE;
+	numstates = 2;
+	parents = (D1, B1);
+	visual V4 {
+		center = (114, 324);
+		height = 16;
+		};
+	};
+
+node U1 {
+	kind = UTILITY;
+	discrete = FALSE;
+	parents = (B1, C1);
+	visual V4 {
+		center = (150, 378);
+		height = 17;
+		};
+	};
+};

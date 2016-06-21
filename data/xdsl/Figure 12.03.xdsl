@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Figure12_3" numsamples="1000">
+	<nodes>
+		<cpt id="Market">
+			<state id="Up" />
+			<state id="Same" />
+			<state id="Down" />
+			<probabilities>0.5 0.3 0.2</probabilities>
+		</cpt>
+		<decision id="Consult_Clairvoyant">
+			<state id="Consult" />
+			<state id="DontConsult" />
+		</decision>
+		<cpt id="Information">
+			<state id="Up" />
+			<state id="Same" />
+			<state id="Down" />
+			<parents>Consult_Clairvoyant Market</parents>
+			<probabilities>1 0 0 0 1 0 0 0 1 0.33333333 0.33333333 0.33333333 0.33333333 0.33333333 0.33333333 0.33333333 0.33333333 0.33333333</probabilities>
+		</cpt>
+		<decision id="Investment">
+			<state id="HighRiskStock" />
+			<state id="LowRiskStock" />
+			<state id="SavingsAccount" />
+			<parents>Consult_Clairvoyant Information</parents>
+		</decision>
+		<utility id="Payoff">
+			<parents>Investment Market Consult_Clairvoyant</parents>
+			<utilities>1500 1500 100 100 -1000 -1000 1000 1000 200 200 -100 -100 500 500 500 500 500 500</utilities>
+		</utility>
+	</nodes>
+	<extensions>
+		<genie version="1.0" name="Figure 12.3" faultnameformat="nodestate">
+			<comment>Figure 12.3: Investment decision tree with the perfect-information alternative (this influence diagram performs value of information computation equivalent to that of the decision tree in the figure).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</comment>
+			<node id="Market">
+				<name>Market Activity</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>242 62 318 98</position>
+				<state id="Up" globalid="F4" />
+				<state id="Same" globalid="F5" />
+				<state id="Down" globalid="F6" />
+			</node>
+			<node id="Consult_Clairvoyant">
+				<name>Consult Clairvoyant</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>26 22 134 58</position>
+				<state id="Consult" globalid="F7" />
+				<state id="DontConsult" globalid="F8" />
+			</node>
+			<node id="Information">
+				<name>Information</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>162 22 238 58</position>
+				<state id="Up" globalid="F9" />
+				<state id="Same" globalid="F10" />
+				<state id="Down" globalid="F11" />
+			</node>
+			<node id="Investment">
+				<name>Investment Decision</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>103 122 177 158</position>
+				<state id="HighRiskStock" globalid="F12" />
+				<state id="LowRiskStock" globalid="F13" />
+				<state id="SavingsAccount" globalid="F14" />
+			</node>
+			<node id="Payoff">
+				<name>Payoff</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>242 122 318 158</position>
+			</node>
+			<textbox>
+				<caption>Figure 12.3: Investment decision tree with the perfect-information alternative (this influence diagram performs value of information computation equivalent to that of the decision tree in the figure).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>18 187 463 267</position>
+			</textbox>
+			<textbox>
+				<caption>This is one way of modeling explicity the decision of whether to buy information. The node Information screens the information about the Market node from the investment decision when no information is bought.</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>333 20 517 164</position>
+			</textbox>
+		</genie>
+	</extensions>
+</smile>

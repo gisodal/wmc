@@ -1,0 +1,259 @@
+// ~->[DNET-1]->~
+
+// File created by Norsys using Netica 1.06b on Mar 29, 1998 at 05:12:55.
+
+bnet Car_Buyer {
+autoupdate = TRUE;
+comment = "An example influence diagram for Joe, who has to decide \
+	whether to buy a certain used car which may be a 'peach' or a \
+	'lemon'.  He has the option of doing some tests beforehand, \
+	and of buying it with a guarantee or not.\n\
+	This is the classic example of an influence diagram derived \
+	from a decision problem with a very asymmetric decision tree, \
+	since if Joe decides not to test then the test results have \
+	no meaning, etc.\n\
+	This problem was posed (in decision tree representation) by \
+	Howard62, and is described as an influence diagram in Qi94 \
+	and in SmithHM93.";
+whenchanged = 891177067;
+
+visual V1 {
+	defdispform = LABELBOX;
+	nodelabeling = NAMETITLE;
+	nodefont = font {shape= "Arial"; size= 10;};
+	linkfont = font {shape= "Arial"; size= 9;};
+	commentfont = font {shape= "Arial"; size= 10;};
+	windowposn = (40, 22, 676, 387);
+	resolution = 72;
+	drawingbounds = (1152, 752);
+	showpagebreaks = FALSE;
+	usegrid = TRUE;
+	gridspace = (6, 6);
+	};
+
+node CC {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Peach, Lemon);
+	parents = ();
+	probs = 
+		// Peach        Lemon        
+		  (0.8,         0.2);
+	title = "Condition";
+	visual V1 {
+		center = (96, 264);
+		height = 2;
+		};
+	};
+
+node T1 {
+	kind = DECISION;
+	discrete = TRUE;
+	chance = DETERMIN;
+	states = (NoTest, Steering, Fuel_Elect, Transmission);
+	parents = ();
+	title = "Do Test 1?";
+	visual V1 {
+		center = (96, 60);
+		height = 1;
+		};
+	};
+
+node R1 {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (NoResult, NoDefects, OneDefect, TwoDefects);
+	parents = (T1, CC);
+	probs = 
+		// NoResult     NoDefects    OneDefect    TwoDefects      // T1           CC    
+		(((1,           0,           0,           0),             // NoTest       Peach 
+		  (1,           0,           0,           0)),            // NoTest       Lemon 
+		 ((0,           0.9,         0.1,         0),             // Steering     Peach 
+		  (0,           0.4,         0.6,         0)),            // Steering     Lemon 
+		 ((0,           0.8,         0.2,         0),             // Fuel_Elect   Peach 
+		  (0,           0.1333333,   0.5333334,   0.3333333)),    // Fuel_Elect   Lemon 
+		 ((0,           0.9,         0.1,         0),             // Transmission Peach 
+		  (0,           0.4,         0.6,         0)));           // Transmission Lemon ;
+	title = "Test 1 Result";
+	visual V1 {
+		center = (96, 174);
+		height = 3;
+		};
+	};
+
+node T2 {
+	kind = DECISION;
+	discrete = TRUE;
+	chance = DETERMIN;
+	states = (NoTest, Differential);
+	parents = (T1, R1);
+	title = "Do Test 2?";
+	visual V1 {
+		center = (306, 60);
+		height = 4;
+		};
+	};
+
+node R2 {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (NoResult, NoDefects, OneDefect);
+	parents = (T1, R1, T2, CC);
+	probs = 
+		//   NoResult     NoDefects    OneDefect         // T1           R1         T2           CC    
+		(((((1,           0,           0),               // NoTest       NoResult   NoTest       Peach 
+		    (1,           0,           0)),              // NoTest       NoResult   NoTest       Lemon 
+		   ((1,           0,           0),               // NoTest       NoResult   Differential Peach 
+		    (1,           0,           0))),             // NoTest       NoResult   Differential Lemon 
+		  (((1,           0,           0),               // NoTest       NoDefects  NoTest       Peach 
+		    (1,           0,           0)),              // NoTest       NoDefects  NoTest       Lemon 
+		   ((1,           0,           0),               // NoTest       NoDefects  Differential Peach 
+		    (1,           0,           0))),             // NoTest       NoDefects  Differential Lemon 
+		  (((1,           0,           0),               // NoTest       OneDefect  NoTest       Peach 
+		    (1,           0,           0)),              // NoTest       OneDefect  NoTest       Lemon 
+		   ((1,           0,           0),               // NoTest       OneDefect  Differential Peach 
+		    (1,           0,           0))),             // NoTest       OneDefect  Differential Lemon 
+		  (((1,           0,           0),               // NoTest       TwoDefects NoTest       Peach 
+		    (1,           0,           0)),              // NoTest       TwoDefects NoTest       Lemon 
+		   ((1,           0,           0),               // NoTest       TwoDefects Differential Peach 
+		    (1,           0,           0)))),            // NoTest       TwoDefects Differential Lemon 
+		 ((((1,           0,           0),               // Steering     NoResult   NoTest       Peach 
+		    (1,           0,           0)),              // Steering     NoResult   NoTest       Lemon 
+		   ((1,           0,           0),               // Steering     NoResult   Differential Peach 
+		    (1,           0,           0))),             // Steering     NoResult   Differential Lemon 
+		  (((1,           0,           0),               // Steering     NoDefects  NoTest       Peach 
+		    (1,           0,           0)),              // Steering     NoDefects  NoTest       Lemon 
+		   ((1,           0,           0),               // Steering     NoDefects  Differential Peach 
+		    (1,           0,           0))),             // Steering     NoDefects  Differential Lemon 
+		  (((1,           0,           0),               // Steering     OneDefect  NoTest       Peach 
+		    (1,           0,           0)),              // Steering     OneDefect  NoTest       Lemon 
+		   ((1,           0,           0),               // Steering     OneDefect  Differential Peach 
+		    (1,           0,           0))),             // Steering     OneDefect  Differential Lemon 
+		  (((1,           0,           0),               // Steering     TwoDefects NoTest       Peach 
+		    (1,           0,           0)),              // Steering     TwoDefects NoTest       Lemon 
+		   ((1,           0,           0),               // Steering     TwoDefects Differential Peach 
+		    (1,           0,           0)))),            // Steering     TwoDefects Differential Lemon 
+		 ((((1,           0,           0),               // Fuel_Elect   NoResult   NoTest       Peach 
+		    (1,           0,           0)),              // Fuel_Elect   NoResult   NoTest       Lemon 
+		   ((1,           0,           0),               // Fuel_Elect   NoResult   Differential Peach 
+		    (1,           0,           0))),             // Fuel_Elect   NoResult   Differential Lemon 
+		  (((1,           0,           0),               // Fuel_Elect   NoDefects  NoTest       Peach 
+		    (1,           0,           0)),              // Fuel_Elect   NoDefects  NoTest       Lemon 
+		   ((1,           0,           0),               // Fuel_Elect   NoDefects  Differential Peach 
+		    (1,           0,           0))),             // Fuel_Elect   NoDefects  Differential Lemon 
+		  (((1,           0,           0),               // Fuel_Elect   OneDefect  NoTest       Peach 
+		    (1,           0,           0)),              // Fuel_Elect   OneDefect  NoTest       Lemon 
+		   ((1,           0,           0),               // Fuel_Elect   OneDefect  Differential Peach 
+		    (1,           0,           0))),             // Fuel_Elect   OneDefect  Differential Lemon 
+		  (((1,           0,           0),               // Fuel_Elect   TwoDefects NoTest       Peach 
+		    (1,           0,           0)),              // Fuel_Elect   TwoDefects NoTest       Lemon 
+		   ((1,           0,           0),               // Fuel_Elect   TwoDefects Differential Peach 
+		    (1,           0,           0)))),            // Fuel_Elect   TwoDefects Differential Lemon 
+		 ((((1,           0,           0),               // Transmission NoResult   NoTest       Peach 
+		    (1,           0,           0)),              // Transmission NoResult   NoTest       Lemon 
+		   ((1,           0,           0),               // Transmission NoResult   Differential Peach 
+		    (1,           0,           0))),             // Transmission NoResult   Differential Lemon 
+		  (((1,           0,           0),               // Transmission NoDefects  NoTest       Peach 
+		    (1,           0,           0)),              // Transmission NoDefects  NoTest       Lemon 
+		   ((0,           0.8888889,   0.1111111),       // Transmission NoDefects  Differential Peach 
+		    (0,           0.6666667,   0.3333333))),     // Transmission NoDefects  Differential Lemon 
+		  (((1,           0,           0),               // Transmission OneDefect  NoTest       Peach 
+		    (1,           0,           0)),              // Transmission OneDefect  NoTest       Lemon 
+		   ((0,           1,           0),               // Transmission OneDefect  Differential Peach 
+		    (0,           0.4444444,   0.5555556))),     // Transmission OneDefect  Differential Lemon 
+		  (((1,           0,           0),               // Transmission TwoDefects NoTest       Peach 
+		    (1,           0,           0)),              // Transmission TwoDefects NoTest       Lemon 
+		   ((1,           0,           0),               // Transmission TwoDefects Differential Peach 
+		    (1,           0,           0)))));           // Transmission TwoDefects Differential Lemon ;
+	title = "Test 2 Result";
+	visual V1 {
+		center = (306, 174);
+		height = 5;
+		};
+	};
+
+node B {
+	kind = DECISION;
+	discrete = TRUE;
+	chance = DETERMIN;
+	states = (DontBuy, Buy, BuyGuaranteed);
+	parents = (T1, R1, T2, R2);
+	title = "Buy It?";
+	visual V1 {
+		center = (504, 60);
+		height = 6;
+		link 1 {
+			path = ((111, 51), (168, 18), (426, 18), (488, 51));
+			};
+		};
+	};
+
+node V {
+	kind = UTILITY;
+	discrete = FALSE;
+	measure = RATIO;
+	chance = DETERMIN;
+	parents = (T1, T2, B, CC);
+	functable = 
+		                    // T1           T2           B             CC    
+		((((0,               // NoTest       NoTest       DontBuy       Peach 
+		    0),              // NoTest       NoTest       DontBuy       Lemon 
+		   (60,              // NoTest       NoTest       Buy           Peach 
+		    -100),           // NoTest       NoTest       Buy           Lemon 
+		   (20,              // NoTest       NoTest       BuyGuaranteed Peach 
+		    40)),            // NoTest       NoTest       BuyGuaranteed Lemon 
+		  ((@imposs,         // NoTest       Differential DontBuy       Peach 
+		    @imposs),        // NoTest       Differential DontBuy       Lemon 
+		   (@imposs,         // NoTest       Differential Buy           Peach 
+		    @imposs),        // NoTest       Differential Buy           Lemon 
+		   (@imposs,         // NoTest       Differential BuyGuaranteed Peach 
+		    @imposs))),      // NoTest       Differential BuyGuaranteed Lemon 
+		 (((-9,              // Steering     NoTest       DontBuy       Peach 
+		    -9),             // Steering     NoTest       DontBuy       Lemon 
+		   (51,              // Steering     NoTest       Buy           Peach 
+		    -109),           // Steering     NoTest       Buy           Lemon 
+		   (11,              // Steering     NoTest       BuyGuaranteed Peach 
+		    31)),            // Steering     NoTest       BuyGuaranteed Lemon 
+		  ((@imposs,         // Steering     Differential DontBuy       Peach 
+		    @imposs),        // Steering     Differential DontBuy       Lemon 
+		   (@imposs,         // Steering     Differential Buy           Peach 
+		    @imposs),        // Steering     Differential Buy           Lemon 
+		   (@imposs,         // Steering     Differential BuyGuaranteed Peach 
+		    @imposs))),      // Steering     Differential BuyGuaranteed Lemon 
+		 (((-13,             // Fuel_Elect   NoTest       DontBuy       Peach 
+		    -13),            // Fuel_Elect   NoTest       DontBuy       Lemon 
+		   (47,              // Fuel_Elect   NoTest       Buy           Peach 
+		    -113),           // Fuel_Elect   NoTest       Buy           Lemon 
+		   (7,               // Fuel_Elect   NoTest       BuyGuaranteed Peach 
+		    27)),            // Fuel_Elect   NoTest       BuyGuaranteed Lemon 
+		  ((@imposs,         // Fuel_Elect   Differential DontBuy       Peach 
+		    @imposs),        // Fuel_Elect   Differential DontBuy       Lemon 
+		   (@imposs,         // Fuel_Elect   Differential Buy           Peach 
+		    @imposs),        // Fuel_Elect   Differential Buy           Lemon 
+		   (@imposs,         // Fuel_Elect   Differential BuyGuaranteed Peach 
+		    @imposs))),      // Fuel_Elect   Differential BuyGuaranteed Lemon 
+		 (((-10,             // Transmission NoTest       DontBuy       Peach 
+		    -10),            // Transmission NoTest       DontBuy       Lemon 
+		   (50,              // Transmission NoTest       Buy           Peach 
+		    -110),           // Transmission NoTest       Buy           Lemon 
+		   (10,              // Transmission NoTest       BuyGuaranteed Peach 
+		    30)),            // Transmission NoTest       BuyGuaranteed Lemon 
+		  ((-14,             // Transmission Differential DontBuy       Peach 
+		    -14),            // Transmission Differential DontBuy       Lemon 
+		   (46,              // Transmission Differential Buy           Peach 
+		    -114),           // Transmission Differential Buy           Lemon 
+		   (6,               // Transmission Differential BuyGuaranteed Peach 
+		    26))));          // Transmission Differential BuyGuaranteed Lemon ;
+	title = "Profit";
+	comment = "The -1000 entries in the functable should be @imposs, but \
+		there is currently no way to constrain decisions, so we use \
+		-1000.";
+	visual V1 {
+		center = (504, 174);
+		height = 7;
+		};
+	};
+};

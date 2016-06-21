@@ -1,0 +1,122 @@
+// ~->[DNET-1]->~
+
+// File created by Norsys using Netica 1.05a on Feb 06, 1998 at 05:03:28.
+
+bnet Separable1 {
+comment = "The simplest example of a separable (termed 'abnormal' by \
+	Zhang) decision net, and the 2 nets it can be separated \
+	into. \n\
+	This network shows only dependencies, and does not include \
+	any numerical relationships. \n\
+	From Brent Boerlage.";
+whenchanged = 797460501;
+
+visual V5 {
+	defdispform = LABELBOX;
+	nodelabeling = TITLE;
+	nodefont = font {shape= "Arial"; size= 10;};
+	linkfont = font {shape= "Arial"; size= 9;};
+	commentfont = font {shape= "Arial"; size= 10;};
+	windowposn = (70, 88, 382, 414);
+	resolution = 72;
+	drawingbounds = (1152, 752);
+	showpagebreaks = FALSE;
+	usegrid = TRUE;
+	gridspace = (6, 6);
+	};
+
+node D {
+	kind = DECISION;
+	discrete = TRUE;
+	numstates = 2;
+	parents = ();
+	visual V5 {
+		center = (42, 36);
+		height = 2;
+		};
+	};
+
+node A {
+	kind = NATURE;
+	discrete = TRUE;
+	numstates = 2;
+	parents = ();
+	visual V5 {
+		center = (150, 36);
+		height = 3;
+		};
+	};
+
+node U {
+	kind = UTILITY;
+	discrete = FALSE;
+	parents = (D, A);
+	visual V5 {
+		center = (90, 108);
+		height = 1;
+		};
+	};
+
+node V {
+	kind = UTILITY;
+	discrete = FALSE;
+	parents = (A);
+	visual V5 {
+		center = (210, 108);
+		height = 4;
+		};
+	};
+
+node A1 {
+	kind = NATURE;
+	discrete = TRUE;
+	numstates = 2;
+	parents = ();
+	visual V5 {
+		center = (150, 180);
+		height = 8;
+		};
+	};
+
+node D1 {
+	kind = DECISION;
+	discrete = TRUE;
+	numstates = 2;
+	parents = ();
+	visual V5 {
+		center = (42, 180);
+		height = 7;
+		};
+	};
+
+node U1 {
+	kind = UTILITY;
+	discrete = FALSE;
+	parents = (D1, A1);
+	visual V5 {
+		center = (90, 252);
+		height = 5;
+		};
+	};
+
+node A2 {
+	kind = NATURE;
+	discrete = TRUE;
+	numstates = 2;
+	parents = ();
+	visual V5 {
+		center = (210, 180);
+		height = 9;
+		};
+	};
+
+node V2 {
+	kind = UTILITY;
+	discrete = FALSE;
+	parents = (A2);
+	visual V5 {
+		center = (210, 252);
+		height = 6;
+		};
+	};
+};

@@ -1,0 +1,153 @@
+// ~->[DNET-1]->~
+
+// File created by Norsys using Netica 1.05a on Feb 06, 1998 at 05:03:49.
+
+bnet Separable2 {
+comment = "A simple example of a separable (termed 'abnormal' by Zhang) \
+	decision net, and the 2 nets it can be separated into. \n\
+	See Separable1 for an even simpler example. \n\
+	This network shows only dependencies, and does not include \
+	any numerical relationships. \n\
+	From Brent Boerlage.";
+whenchanged = 797460384;
+
+visual V3 {
+	defdispform = LABELBOX;
+	nodelabeling = TITLE;
+	nodefont = font {shape= "Arial"; size= 10;};
+	linkfont = font {shape= "Arial"; size= 9;};
+	commentfont = font {shape= "Arial"; size= 10;};
+	windowposn = (10, 19, 609, 375);
+	resolution = 72;
+	drawingbounds = (1152, 752);
+	showpagebreaks = FALSE;
+	usegrid = TRUE;
+	gridspace = (6, 6);
+	};
+
+node F {
+	kind = NATURE;
+	discrete = TRUE;
+	numstates = 2;
+	parents = ();
+	visual V3 {
+		center = (198, 66);
+		height = 3;
+		};
+	};
+
+node B {
+	kind = NATURE;
+	discrete = TRUE;
+	numstates = 2;
+	parents = ();
+	visual V3 {
+		center = (54, 66);
+		height = 1;
+		};
+	};
+
+node D {
+	kind = DECISION;
+	discrete = TRUE;
+	numstates = 2;
+	parents = (B);
+	visual V3 {
+		center = (54, 150);
+		height = 9;
+		};
+	};
+
+node V {
+	kind = UTILITY;
+	discrete = FALSE;
+	parents = (F, D);
+	visual V3 {
+		center = (126, 240);
+		height = 4;
+		link 1 {
+			path = ((198, 75), (198, 150), (132, 232));
+			};
+		};
+	};
+
+node U {
+	kind = UTILITY;
+	discrete = FALSE;
+	parents = (B, F);
+	visual V3 {
+		center = (126, 150);
+		height = 2;
+		};
+	};
+
+node F1 {
+	kind = NATURE;
+	discrete = TRUE;
+	numstates = 2;
+	parents = ();
+	visual V3 {
+		center = (492, 66);
+		height = 7;
+		};
+	};
+
+node B1 {
+	kind = NATURE;
+	discrete = TRUE;
+	numstates = 2;
+	parents = ();
+	visual V3 {
+		center = (348, 66);
+		height = 5;
+		};
+	};
+
+node U1 {
+	kind = UTILITY;
+	discrete = FALSE;
+	parents = (B1, F1);
+	visual V3 {
+		center = (420, 150);
+		height = 6;
+		link 1 {
+			path = ((354, 75), (413, 142));
+			};
+		link 2 {
+			path = ((486, 75), (427, 142));
+			};
+		};
+	};
+
+node D2 {
+	kind = DECISION;
+	discrete = TRUE;
+	numstates = 2;
+	parents = ();
+	visual V3 {
+		center = (348, 150);
+		height = 10;
+		};
+	};
+
+node F2 {
+	kind = NATURE;
+	discrete = TRUE;
+	numstates = 2;
+	parents = ();
+	visual V3 {
+		center = (492, 150);
+		height = 11;
+		};
+	};
+
+node V2 {
+	kind = UTILITY;
+	discrete = FALSE;
+	parents = (F2, D2);
+	visual V3 {
+		center = (420, 240);
+		height = 8;
+		};
+	};
+};

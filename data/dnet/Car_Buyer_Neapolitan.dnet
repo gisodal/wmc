@@ -1,0 +1,150 @@
+// ~->[DNET-1]->~
+
+// File created by Norsys using Netica 1.06b on Mar 29, 1998 at 05:22:07.
+
+bnet Car_Buyer_Neapolitan {
+autoupdate = TRUE;
+comment = "Car buying example from Neapolitan90, p.380. This is a \
+	simpler version inspired by\n\
+	\tthe car buyer example of Howard62, p. 702.";
+whenchanged = 891177535;
+
+visual V1 {
+	defdispform = LABELBOX;
+	nodelabeling = NAMETITLE;
+	nodefont = font {shape= "Arial"; size= 10;};
+	linkfont = font {shape= "Arial"; size= 9;};
+	commentfont = font {shape= "Arial"; size= 10;};
+	windowposn = (17, 15, 474, 340);
+	resolution = 72;
+	drawingbounds = (1152, 752);
+	showpagebreaks = FALSE;
+	usegrid = TRUE;
+	gridspace = (6, 6);
+	};
+
+node C {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Good, Lemon);
+	parents = ();
+	probs = 
+		// Good         Lemon        
+		  (0.8,         0.2);
+	title = "Condition";
+	visual V1 {
+		center = (90, 42);
+		height = 2;
+		};
+	};
+
+node D {
+	kind = DECISION;
+	discrete = TRUE;
+	states = (None, First, Both);
+	parents = ();
+	title = "Do Tests?";
+	visual V1 {
+		center = (282, 42);
+		height = 4;
+		};
+	};
+
+node T {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Not_Done, Positive, Negative);
+	parents = (C, D);
+	probs = 
+		// Not_Done     Positive     Negative        // C     D     
+		(((1,           0,           0),             // Good  None  
+		  (0,           0.9,         0.1),           // Good  First 
+		  (0,           0.9,         0.1)),          // Good  Both  
+		 ((1,           0,           0),             // Lemon None  
+		  (0,           0.4,         0.6),           // Lemon First 
+		  (0,           0.4,         0.6)));         // Lemon Both  ;
+	title = "First Test";
+	visual V1 {
+		center = (90, 138);
+		height = 1;
+		};
+	};
+
+node S {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Not_Done, Positive, Negative);
+	parents = (T, C, D);
+	probs = 
+		//  Not_Done     Positive     Negative         // T        C     D     
+		((((1,           0,           0),              // Not_Done Good  None  
+		   (@imposs,     @imposs,     @imposs),        // Not_Done Good  First 
+		   (@imposs,     @imposs,     @imposs)),       // Not_Done Good  Both  
+		  ((1,           0,           0),              // Not_Done Lemon None  
+		   (@imposs,     @imposs,     @imposs),        // Not_Done Lemon First 
+		   (@imposs,     @imposs,     @imposs))),      // Not_Done Lemon Both  
+		 (((@imposs,     @imposs,     @imposs),        // Positive Good  None  
+		   (1,           0,           0),              // Positive Good  First 
+		   (0,           0.8888889,   0.1111111)),     // Positive Good  Both  
+		  ((@imposs,     @imposs,     @imposs),        // Positive Lemon None  
+		   (1,           0,           0),              // Positive Lemon First 
+		   (0,           0.3333333,   0.6666667))),    // Positive Lemon Both  
+		 (((@imposs,     @imposs,     @imposs),        // Negative Good  None  
+		   (1,           0,           0),              // Negative Good  First 
+		   (0,           1,           0)),             // Negative Good  Both  
+		  ((@imposs,     @imposs,     @imposs),        // Negative Lemon None  
+		   (1,           0,           0),              // Negative Lemon First 
+		   (0,           0.4444444,   0.5555556))));   // Negative Lemon Both  ;
+	title = "Second Test";
+	visual V1 {
+		center = (282, 138);
+		height = 3;
+		};
+	};
+
+node B {
+	kind = DECISION;
+	discrete = TRUE;
+	states = (Buy, Dont_Buy);
+	parents = (D, T, S);
+	title = "Buy It?";
+	visual V1 {
+		center = (138, 228);
+		height = 5;
+		};
+	};
+
+node V {
+	kind = UTILITY;
+	discrete = FALSE;
+	chance = DETERMIN;
+	parents = (C, D, B);
+	functable = 
+		                   // C     D     B        
+		(((60,             // Good  None  Buy      
+		   0),             // Good  None  Dont_Buy 
+		  (51,             // Good  First Buy      
+		   -9),            // Good  First Dont_Buy 
+		  (47,             // Good  Both  Buy      
+		   -13)),          // Good  Both  Dont_Buy 
+		 ((-100,           // Lemon None  Buy      
+		   0),             // Lemon None  Dont_Buy 
+		  (-109,           // Lemon First Buy      
+		   -9),            // Lemon First Dont_Buy 
+		  (-113,           // Lemon Both  Buy      
+		   -13)));         // Lemon Both  Dont_Buy ;
+	visual V1 {
+		center = (330, 228);
+		height = 6;
+		link 1 {
+			path = ((96, 51), (222, 198), (314, 224));
+			};
+		link 2 {
+			path = ((298, 52), (378, 96), (378, 198), (344, 219));
+			};
+		};
+	};
+};

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Figure7_8" numsamples="1000">
+	<nodes>
+		<decision id="A_or_B">
+			<state id="A" />
+			<state id="B" />
+		</decision>
+		<cpt id="Prospects">
+			<state id="Low" />
+			<state id="Medium" />
+			<state id="High" />
+			<parents>A_or_B</parents>
+			<probabilities>0.24 0.47 0.29 0.25 0.35 0.4</probabilities>
+		</cpt>
+		<utility id="Outcome">
+			<parents>A_or_B Prospects</parents>
+			<utilities>20 35 50 -9 0 95</utilities>
+		</utility>
+	</nodes>
+	<extensions>
+		<genie version="1.0" name="Figure 7.8" faultnameformat="nodestate">
+			<comment>Figure 7.8: A choice between two uncertain prospects (this is an influence diagram equivalent to the tree in the figure).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</comment>
+			<node id="A_or_B">
+				<name>Choice Between A and B</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>42 22 118 58</position>
+				<state id="A" globalid="F3" />
+				<state id="B" globalid="F4" />
+			</node>
+			<node id="Prospects">
+				<name>Prospects</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>162 42 238 78</position>
+				<state id="Low" globalid="F5" />
+				<state id="Medium" globalid="F6" />
+				<state id="High" globalid="F8" />
+			</node>
+			<node id="Outcome">
+				<name>Financial Outcome</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>102 102 178 138</position>
+			</node>
+			<textbox>
+				<caption>Figure 7.8: A choice between two uncertain prospects (this is an influence diagram equivalent to the tree in the figure).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>26 152 466 216</position>
+			</textbox>
+		</genie>
+	</extensions>
+</smile>

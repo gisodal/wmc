@@ -1,0 +1,83 @@
+// ~->[DNET-1]->~
+
+// File created by Norsys using Netica 1.06b on Mar 29, 1998 at 05:28:46.
+
+bnet False_Barrier {
+autoupdate = TRUE;
+comment = "From Boerlage, Brent (1994) \"Link Strength in Bayesian \
+	Networks\", Tech. Report , Dept. of Computer Science, Univ. \
+	of British Columbia";
+author = "BoerlageB";
+whenchanged = 891178123;
+
+visual V1 {
+	defdispform = BELIEFBARS;
+	nodelabeling = TITLE;
+	nodefont = font {shape= "Arial"; size= 10;};
+	linkfont = font {shape= "Arial"; size= 9;};
+	commentfont = font {shape= "Arial"; size= 10;};
+	windowposn = (80, 3, 490, 274);
+	resolution = 72;
+	drawingbounds = (800, 720);
+	showpagebreaks = FALSE;
+	usegrid = TRUE;
+	gridspace = (6, 6);
+	};
+
+define node tf {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (True, False);
+	parents = ();
+	probs = 
+		// True         False        
+		  (0.5,         0.5);
+	};
+
+node A (tf) {
+	visual V1 {
+		center = (84, 102);
+		height = 3;
+		};
+	};
+
+node B (tf) {
+	visual V1 {
+		center = (168, 36);
+		height = 1;
+		};
+	};
+
+node C (tf) {
+	parents = (A, B);
+	probs = 
+		// True         False           // A     B     
+		(((0.75,        0.25),          // True  True  
+		  (0.25,        0.75)),         // True  False 
+		 ((0.25,        0.75),          // False True  
+		  (0.75,        0.25)));        // False False ;
+	visual V1 {
+		center = (168, 174);
+		height = 4;
+		};
+	};
+
+node D (tf) {
+	parents = (B, C);
+	probs = 
+		// True         False           // B     C     
+		(((1,           0),             // True  True  
+		  (0,           1)),            // True  False 
+		 ((0,           1),             // False True  
+		  (1,           0)));           // False False ;
+	visual V1 {
+		center = (294, 102);
+		height = 2;
+		link 2 {
+			path = ((216, 147), (247, 130));
+			};
+		};
+	};
+ElimOrder = (A, B, C, D);
+};

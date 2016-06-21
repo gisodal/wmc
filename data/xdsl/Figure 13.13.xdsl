@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Figure5_6" numsamples="1000">
+	<nodes>
+		<decision id="Purchase">
+			<state id="Purchase" />
+			<state id="DontPurchase" />
+		</decision>
+		<cpt id="Operating_Costs">
+			<state id="S_253" />
+			<state id="S_237" />
+			<probabilities>0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="Capacity">
+			<state id="P_45" />
+			<state id="P_55" />
+			<probabilities>0.52 0.48</probabilities>
+		</cpt>
+		<cpt id="Hours">
+			<state id="H_650" />
+			<state id="H_900" />
+			<parents>Capacity</parents>
+			<probabilities>0.45 0.55 0.36 0.64</probabilities>
+		</cpt>
+		<utility id="Value">
+			<parents>Purchase Operating_Costs Capacity Hours</parents>
+			<utilities>-9725 -4225 6525 18275 675 10175 16925 32675 4200 4200 4200 4200 4200 4200 4200 4200</utilities>
+		</utility>
+	</nodes>
+	<extensions>
+		<genie version="1.0" name="Figure 5.6" faultnameformat="nodestate">
+			<comment>Figure 5.6: Decision tree for Eagle Airlines with uncertainty for three variables. Profit is calculated with all other variables held at their base values (the same tree with p=0.5 is in Figure 5.7; this is an influence diagram for the decision tree in the figure; p=0.5, q=0.52, r=0.45, s=0.8r=0.36; an extended influence diagram is pictured in Figures 5.1 and 5.5).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</comment>
+			<node id="Purchase">
+				<name>Purchase Piper Seneca</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>62 82 138 118</position>
+				<comment>Not purchasing Seneca will allow to invest the money ($52,500) in the bank at 8% interest and yield $4,200.</comment>
+				<state id="Purchase" globalid="F3" />
+				<state id="DontPurchase" globalid="F4" />
+			</node>
+			<node id="Operating_Costs">
+				<name>Operating Costs</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>133 22 227 58</position>
+				<state id="S_253" globalid="F5" />
+				<state id="S_237" globalid="F6" />
+			</node>
+			<node id="Capacity">
+				<name>Capacity of Scheduled Flights</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>243 22 318 58</position>
+				<state id="P_45" globalid="F7" />
+				<state id="P_55" globalid="F8" />
+			</node>
+			<node id="Hours">
+				<name>Hours Flown</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>282 82 358 118</position>
+				<state id="H_650" globalid="F9" />
+				<state id="H_900" globalid="F10" />
+			</node>
+			<node id="Value">
+				<name>Value</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>182 122 258 158</position>
+			</node>
+			<textbox>
+				<caption>Figure 13.13: Eagle Airlines&apos; decision tree (this is actually an influence diagram equivalent to the tree in the figure).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>28 185 450 249</position>
+			</textbox>
+		</genie>
+	</extensions>
+</smile>

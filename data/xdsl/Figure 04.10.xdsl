@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Figure4_10" numsamples="1000">
+	<nodes>
+		<decision id="TakeUmbrella">
+			<state id="Take" />
+			<state id="DontTake" />
+		</decision>
+		<cpt id="Weather">
+			<state id="Sunshine" />
+			<state id="Rain" />
+			<probabilities>0.5 0.5</probabilities>
+		</cpt>
+		<utility id="Consequences">
+			<parents>TakeUmbrella Weather</parents>
+			<utilities>80 80 100 0</utilities>
+		</utility>
+	</nodes>
+	<extensions>
+		<genie version="1.0" name="Figure 4.10" faultnameformat="nodestate">
+			<comment>Figure 4.10: Influence diagram of the umbrella problem (decision tree versions are also pictured in Figures 4.9 and 4.11), p=0.5.\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</comment>
+			<node id="TakeUmbrella">
+				<name>Take Umbrella</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>40 102 121 138</position>
+				<state id="Take" globalid="F3" />
+				<state id="DontTake" globalid="F4" />
+			</node>
+			<node id="Weather">
+				<name>Weather</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>162 22 238 58</position>
+				<state id="Sunshine" globalid="F5" />
+				<state id="Rain" globalid="F6" />
+			</node>
+			<node id="Consequences">
+				<name>Consequences</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>154 102 247 138</position>
+			</node>
+			<textbox>
+				<caption>Figure 4.10: Influence diagram of the umbrella problem (decision tree versions are also pictured in Figures 4.9 and 4.11), p=0.5.\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>22 167 500 231</position>
+			</textbox>
+		</genie>
+	</extensions>
+</smile>

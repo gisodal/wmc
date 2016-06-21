@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Figure4_27" numsamples="1000">
+	<nodes>
+		<decision id="Accept2B">
+			<state id="Accept_2" />
+			<state id="Counter_5" />
+		</decision>
+		<cpt id="Texaco_Reaction">
+			<state id="Accept_5" />
+			<state id="Refuse" />
+			<state id="Counter_3" />
+			<probabilities>0.17 0.5 0.33</probabilities>
+		</cpt>
+		<decision id="Pennzoil_Reaction">
+			<state id="Refuse" />
+			<state id="Accept_3" />
+			<parents>Accept2B Texaco_Reaction</parents>
+		</decision>
+		<cpt id="Court_Decision">
+			<state id="High" />
+			<state id="Medium" />
+			<state id="Low" />
+			<probabilities>0.2 0.5 0.3</probabilities>
+		</cpt>
+		<decision id="Law_Firm_Choice">
+			<state id="Firm_A" />
+			<state id="Firm_B" />
+			<parents>Pennzoil_Reaction</parents>
+		</decision>
+		<utility id="Settlement">
+			<parents>Accept2B Texaco_Reaction Pennzoil_Reaction Law_Firm_Choice Court_Decision</parents>
+			<utilities>2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 5 5 5 5 5 5 5 5 5 5 5 5 10.5 5.2 0 10.3 5 0 10.5 5.2 0 10.3 5 0 10.5 5.2 0 10.3 5 0 3 3 3 3 3 3</utilities>
+		</utility>
+	</nodes>
+	<extensions>
+		<genie version="1.0" name="Figure 4.27" faultnameformat="nodestate">
+			<comment>Figure 4.27: A decision tree comparing two law firms (actually, this is an influence diagram equivalent to the tree in the figure). Firm A charges less than Firm B if Pennzoil is awarded damages in court.\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</comment>
+			<node id="Accept2B">
+				<name>Accept $2 Billion?</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>83 22 158 58</position>
+				<state id="Accept_2" globalid="F3" />
+				<state id="Counter_5" globalid="F4" />
+			</node>
+			<node id="Texaco_Reaction">
+				<name>Texaco Reaction</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>289 22 392 58</position>
+				<state id="Accept_5" globalid="F5" />
+				<state id="Refuse" globalid="F6" />
+				<state id="Counter_3" globalid="F8" />
+			</node>
+			<node id="Pennzoil_Reaction">
+				<name>Pennzoil Reaction</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>68 122 172 158</position>
+				<state id="Refuse" globalid="F9" />
+				<state id="Accept_3" globalid="F10" />
+			</node>
+			<node id="Court_Decision">
+				<name>Final Court Decision</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>394 62 487 98</position>
+				<state id="High" globalid="F11" />
+				<state id="Medium" globalid="F12" />
+				<state id="Low" globalid="F13" />
+			</node>
+			<node id="Law_Firm_Choice">
+				<name>Law Firm Choice</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>190 183 290 219</position>
+				<state id="Firm_A" globalid="F14" />
+				<state id="Firm_B" globalid="F15" />
+			</node>
+			<node id="Settlement">
+				<name>Settlement Amount</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>297 122 384 158</position>
+			</node>
+			<textbox>
+				<caption>Figure 4.27: A decision tree comparing two law firms (actually, this is an influence diagram equivalent to the tree in the figure). Firm A charges less than Firm B if Pennzoil is awarded damages in court.\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>28 235 500 315</position>
+			</textbox>
+		</genie>
+	</extensions>
+</smile>

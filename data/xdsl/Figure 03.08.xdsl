@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Figure3_8" numsamples="1000">
+	<nodes>
+		<cpt id="A">
+			<state id="True" />
+			<state id="False" />
+			<probabilities>0.5 0.5</probabilities>
+		</cpt>
+		<decision id="B">
+			<state id="Choice1" />
+			<state id="Choice2" />
+		</decision>
+		<cpt id="C">
+			<state id="True" />
+			<state id="False" />
+			<parents>A B</parents>
+			<probabilities>0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="H">
+			<state id="True" />
+			<state id="False" />
+			<probabilities>0.5 0.5</probabilities>
+		</cpt>
+		<cpt id="E">
+			<state id="True" />
+			<state id="False" />
+			<probabilities>0.5 0.5</probabilities>
+		</cpt>
+		<decision id="G">
+			<state id="Choice1" />
+			<state id="Choice2" />
+		</decision>
+		<decision id="I">
+			<state id="Choice1" />
+			<state id="Choice2" />
+			<parents>G H</parents>
+		</decision>
+		<decision id="D">
+			<state id="Choice1" />
+			<state id="Choice2" />
+		</decision>
+		<utility id="F">
+			<parents>D E</parents>
+			<utilities>0 0 0 0</utilities>
+		</utility>
+	</nodes>
+	<extensions>
+		<genie version="1.0" name="Figure 3.8" faultnameformat="nodestate">
+			<comment>Figure 3.8: Representing influence with arrows. Arrows into chance and consequence nodes represent relevance, and arrows into decision nodes represent sequence.\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</comment>
+			<node id="A">
+				<name>A</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>21 42 60 78</position>
+				<state id="True" globalid="F3" />
+				<state id="False" globalid="F4" />
+			</node>
+			<node id="B">
+				<name>B</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>101 42 140 78</position>
+				<state id="Choice1" globalid="F5" />
+				<state id="Choice2" globalid="F6" />
+			</node>
+			<node id="C">
+				<name>C</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>60 102 100 138</position>
+				<state id="True" globalid="F7" />
+				<state id="False" globalid="F8" />
+			</node>
+			<node id="H">
+				<name>H</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>101 148 141 184</position>
+				<state id="True" globalid="F9" />
+				<state id="False" globalid="F10" />
+			</node>
+			<node id="E">
+				<name>E</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>260 68 303 104</position>
+				<state id="True" globalid="F11" />
+				<state id="False" globalid="F12" />
+			</node>
+			<node id="G">
+				<name>G</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>22 148 60 184</position>
+				<state id="Choice1" globalid="F13" />
+				<state id="Choice2" globalid="F14" />
+			</node>
+			<node id="I">
+				<name>I</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>61 208 101 244</position>
+				<state id="Choice1" globalid="F15" />
+				<state id="Choice2" globalid="F16" />
+			</node>
+			<node id="D">
+				<name>D</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>181 68 222 104</position>
+				<state id="Choice1" globalid="F17" />
+				<state id="Choice2" globalid="F18" />
+			</node>
+			<node id="F">
+				<name>F</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>212 128 271 164</position>
+			</node>
+			<textbox>
+				<caption>Figure 3.8: Representing influence with arrows. Arrows into chance and consequence nodes represent relevance, and arrows into decision nodes represent sequence (structure only - do not update the model).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>150 184 457 328</position>
+			</textbox>
+			<textbox>
+				<caption>Relevance</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>40 7 116 23</position>
+			</textbox>
+			<textbox>
+				<caption>Sequence</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>201 30 272 46</position>
+			</textbox>
+		</genie>
+	</extensions>
+</smile>

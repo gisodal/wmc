@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Figure3_6" numsamples="1000">
+	<nodes>
+		<cpt id="Success">
+			<state id="Success" />
+			<state id="Failure" />
+			<probabilities>0.5 0.5</probabilities>
+		</cpt>
+		<decision id="Invest">
+			<state id="Invest" />
+			<state id="DontInvest" />
+		</decision>
+		<utility id="Return">
+			<parents>Invest Success</parents>
+			<utilities>0 0 0 0</utilities>
+		</utility>
+		<utility id="IndustryGrowth">
+			<parents>Invest Success</parents>
+			<utilities>0 0 0 0</utilities>
+		</utility>
+		<mau id="Satisfaction">
+			<parents>Return IndustryGrowth</parents>
+			<weights>1 1</weights>
+		</mau>
+	</nodes>
+	<extensions>
+		<genie version="1.0" name="Figure 3.6" faultnameformat="nodestate">
+			<comment>Figure 3.6: The venture capitalist&apos;s decision with two objectives.\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</comment>
+			<node id="Success">
+				<name>Venture Succeeds or Fails</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>142 22 218 58</position>
+				<state id="Success" globalid="F3" />
+				<state id="Failure" globalid="F4" />
+			</node>
+			<node id="Invest">
+				<name>Invest?</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>22 22 98 58</position>
+				<state id="Invest" globalid="F5" />
+				<state id="DontInvest" globalid="F6" />
+			</node>
+			<node id="Return">
+				<name>Return on Investment</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>22 82 98 118</position>
+			</node>
+			<node id="IndustryGrowth">
+				<name>Computer Industry Growth</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>133 82 227 118</position>
+			</node>
+			<node id="Satisfaction">
+				<name>Overall Satisfaction</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>82 142 158 178</position>
+			</node>
+			<textbox>
+				<caption>Figure 3.6: The venture capitalist&apos;s decision with two objectives (structure only).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>15 190 437 254</position>
+			</textbox>
+		</genie>
+	</extensions>
+</smile>

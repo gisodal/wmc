@@ -1,0 +1,125 @@
+// ~->[DNET-1]->~
+
+// File created by Norsys using Netica 1.05a on Feb 06, 1998 at 05:04:55.
+
+bnet Zhang93_p121 {
+comment = "Example decision network to demonstrate 'removable' links \
+	and nodes, which are a generalization of the barren nodes in \
+	influence diagrams.\n\
+	This network contains only dependence information; it has no \
+	numerical probabilities. \n\
+	From Lian Wen (Nevin) Zhang's 1993 PhD thesis, University of \
+	British Columbia (also UBC Computer Science tech. report \
+	94-8, p.121)";
+whochanged = "BoerlageB";
+whenchanged = 767569345;
+
+visual V1 {
+	defdispform = LABELBOX;
+	nodelabeling = TITLE;
+	nodefont = font {shape= "Arial"; size= 10;};
+	linkfont = font {shape= "Arial"; size= 9;};
+	commentfont = font {shape= "Arial"; size= 10;};
+	windowposn = (300, 0, 630, 220);
+	resolution = 72;
+	drawingbounds = (1152, 752);
+	showpagebreaks = FALSE;
+	usegrid = TRUE;
+	gridspace = (6, 6);
+	};
+
+node C1 {
+	kind = NATURE;
+	discrete = TRUE;
+	numstates = 2;
+	parents = ();
+	visual V1 {
+		center = (36, 126);
+		height = 6;
+		};
+	};
+
+node D1 {
+	kind = DECISION;
+	discrete = TRUE;
+	numstates = 2;
+	parents = (C1);
+	visual V1 {
+		center = (102, 36);
+		height = 3;
+		link 1 {
+			path = ((42, 118), (97, 45));
+			};
+		};
+	};
+
+node V1 {
+	kind = UTILITY;
+	discrete = FALSE;
+	parents = (C1, D1);
+	visual V1 {
+		center = (36, 66);
+		height = 5;
+		};
+	};
+
+node D2 {
+	kind = DECISION;
+	discrete = TRUE;
+	numstates = 2;
+	parents = (D1, C1);
+	visual V1 {
+		center = (102, 162);
+		height = 7;
+		};
+	};
+
+node C3 {
+	kind = NATURE;
+	discrete = TRUE;
+	numstates = 2;
+	parents = (D2, C1);
+	visual V1 {
+		center = (138, 96);
+		height = 2;
+		link 1 {
+			path = ((107, 153), (134, 106));
+			};
+		};
+	};
+
+node C2 {
+	kind = NATURE;
+	discrete = TRUE;
+	numstates = 2;
+	parents = (D1);
+	visual V1 {
+		center = (252, 36);
+		height = 4;
+		};
+	};
+
+node D3 {
+	kind = DECISION;
+	discrete = TRUE;
+	numstates = 2;
+	parents = (C2, D2, C3);
+	visual V1 {
+		center = (204, 96);
+		height = 1;
+		link 2 {
+			path = ((115, 154), (191, 106));
+			};
+		};
+	};
+
+node V2 {
+	kind = UTILITY;
+	discrete = FALSE;
+	parents = (C2, D3, D2);
+	visual V1 {
+		center = (252, 162);
+		height = 8;
+		};
+	};
+};

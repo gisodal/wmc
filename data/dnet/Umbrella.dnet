@@ -1,0 +1,85 @@
+// ~->[DNET-1]->~
+
+// File created by Norsys using Netica 1.06b on Mar 29, 1998 at 06:23:27.
+
+bnet Umbrella {
+autoupdate = TRUE;
+comment = "A basic 4 node influence diagram for tutorial purposes.\n\
+	Makes the decision of whether to take an umbrella given the \
+	weather forecast.\n\
+	From Ross Shachter.";
+whenchanged = 891181237;
+
+visual V1 {
+	defdispform = LABELBOX;
+	nodelabeling = TITLE;
+	nodefont = font {shape= "Arial"; size= 10;};
+	linkfont = font {shape= "Arial"; size= 9;};
+	commentfont = font {shape= "Arial"; size= 10;};
+	windowposn = (300, 0, 709, 250);
+	resolution = 72;
+	drawingbounds = (1152, 752);
+	showpagebreaks = FALSE;
+	usegrid = TRUE;
+	gridspace = (6, 6);
+	};
+
+node Weather {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Sunshine, Rain);
+	parents = ();
+	probs = 
+		// Sunshine     Rain         
+		  (0.7,         0.3);
+	visual V1 {
+		center = (270, 48);
+		height = 4;
+		};
+	};
+
+node Forecast {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Sunny, Cloudy, Rainy);
+	parents = (Weather);
+	probs = 
+		// Sunny        Cloudy       Rainy          // Weather  
+		 ((0.7,         0.2,         0.1),          // Sunshine 
+		  (0.15,        0.25,        0.6));         // Rain     ;
+	visual V1 {
+		center = (102, 48);
+		height = 2;
+		};
+	};
+
+node Decide_Umbrella {
+	kind = DECISION;
+	discrete = TRUE;
+	states = (Take_It, Leave_At_Home);
+	parents = (Forecast);
+	visual V1 {
+		center = (102, 132);
+		height = 1;
+		};
+	};
+
+node Satisfaction {
+	kind = UTILITY;
+	discrete = FALSE;
+	chance = DETERMIN;
+	parents = (Weather, Decide_Umbrella);
+	functable = 
+		                  // Weather  Decide_Umbrella 
+		 ((20,            // Sunshine Take_It         
+		   100),          // Sunshine Leave_At_Home   
+		  (70,            // Rain     Take_It         
+		   0));           // Rain     Leave_At_Home   ;
+	visual V1 {
+		center = (270, 132);
+		height = 3;
+		};
+	};
+};

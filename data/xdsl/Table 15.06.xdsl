@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Table15_6" numsamples="1000">
+	<nodes>
+		<decision id="Site_Choice">
+			<state id="Site_1" />
+			<state id="Site_2" />
+			<state id="Site_3" />
+			<state id="Site_4" />
+		</decision>
+		<utility id="Direct_Parking">
+			<parents>Site_Choice</parents>
+			<utilities>0 1 0 0</utilities>
+		</utility>
+		<utility id="Commercial_Proximity">
+			<parents>Site_Choice</parents>
+			<utilities>0 1 0.67 1</utilities>
+		</utility>
+		<utility id="Employment_Proximity">
+			<parents>Site_Choice</parents>
+			<utilities>0.5 1 0 1</utilities>
+		</utility>
+		<utility id="Heavy_Traffic">
+			<parents>Site_Choice</parents>
+			<utilities>0.33 0.33 1 0</utilities>
+		</utility>
+		<utility id="Bus_Route_Proximity">
+			<parents>Site_Choice</parents>
+			<utilities>0 0.5 0.5 1</utilities>
+		</utility>
+		<utility id="Residential_Proximity">
+			<parents>Site_Choice</parents>
+			<utilities>1 0 1 0.5</utilities>
+		</utility>
+		<mau id="Total_Access">
+			<parents>Direct_Parking Commercial_Proximity Employment_Proximity Heavy_Traffic Bus_Route_Proximity Residential_Proximity</parents>
+			<weights>0.08 0.23 0.15 0.23 0.15 0.16</weights>
+		</mau>
+		<utility id="Patron_Parking">
+			<parents>Site_Choice</parents>
+			<utilities>1 0 1 1</utilities>
+		</utility>
+		<utility id="Off_Site_Parking">
+			<parents>Site_Choice</parents>
+			<utilities>0 1 0.33 0.33</utilities>
+		</utility>
+		<utility id="Bookmobile_Parking">
+			<parents>Site_Choice</parents>
+			<utilities>1 0 1 1</utilities>
+		</utility>
+		<mau id="Total_Parking">
+			<parents>Patron_Parking Off_Site_Parking Bookmobile_Parking</parents>
+			<weights>0.2 0.6 0.2</weights>
+		</mau>
+		<utility id="Auto_Circulation">
+			<parents>Site_Choice</parents>
+			<utilities>0 0.75 1 0</utilities>
+		</utility>
+		<utility id="Adjacent_Parking">
+			<parents>Site_Choice</parents>
+			<utilities>0 0 1 0</utilities>
+		</utility>
+		<utility id="Bus_Patterns">
+			<parents>Site_Choice</parents>
+			<utilities>1 1 1 0</utilities>
+		</utility>
+		<mau id="Total_Traffic_Impact">
+			<parents>Auto_Circulation Adjacent_Parking Bus_Patterns</parents>
+			<weights>0.47 0.29 0.24</weights>
+		</mau>
+		<utility id="Image_Scale_Visibility">
+			<parents>Site_Choice</parents>
+			<utilities>0 1 0 0</utilities>
+		</utility>
+		<utility id="Enhance_Adjacent_Uses">
+			<parents>Site_Choice</parents>
+			<utilities>0 1 1 1</utilities>
+		</utility>
+		<utility id="Adj_Uses_Enhance_Lib">
+			<parents>Site_Choice</parents>
+			<utilities>0 1 1 0</utilities>
+		</utility>
+		<utility id="Downtown_Plan_Fit">
+			<parents>Site_Choice</parents>
+			<utilities>1 0 1 1</utilities>
+		</utility>
+		<utility id="Lost_Devel_Options">
+			<parents>Site_Choice</parents>
+			<utilities>1 0 0 0</utilities>
+		</utility>
+		<mau id="Total_Land_Use">
+			<parents>Image_Scale_Visibility Enhance_Adjacent_Uses Adj_Uses_Enhance_Lib Downtown_Plan_Fit Lost_Devel_Options</parents>
+			<weights>0.13 0.13 0.38 0.13 0.23</weights>
+		</mau>
+		<utility id="Initial">
+			<parents>Site_Choice</parents>
+			<utilities>1 0 1 1</utilities>
+		</utility>
+		<utility id="Expansion">
+			<parents>Site_Choice</parents>
+			<utilities>0 0 0 1</utilities>
+		</utility>
+		<utility id="Mixed_Use">
+			<parents>Site_Choice</parents>
+			<utilities>0 1 1 1</utilities>
+		</utility>
+		<utility id="Construction_Staging">
+			<parents>Site_Choice</parents>
+			<utilities>1 0 0 1</utilities>
+		</utility>
+		<utility id="Public_Open_Space">
+			<parents>Site_Choice</parents>
+			<utilities>1 0 0 0</utilities>
+		</utility>
+		<mau id="Total_Site_Size">
+			<parents>Initial Expansion Mixed_Use Construction_Staging Public_Open_Space</parents>
+			<weights>0.38 0.13 0.25 0.12 0.12</weights>
+		</mau>
+		<utility id="Patron_Acceptance">
+			<parents>Site_Choice</parents>
+			<utilities>1 0.33 0.67 0</utilities>
+		</utility>
+		<utility id="DT_Community_Support">
+			<parents>Site_Choice</parents>
+			<utilities>1 0.67 0.33 0</utilities>
+		</utility>
+		<utility id="Perceived_Safety">
+			<parents>Site_Choice</parents>
+			<utilities>1 0.33 1 0</utilities>
+		</utility>
+		<utility id="Public_Ownership">
+			<parents>Site_Choice</parents>
+			<utilities>0 1 1 0</utilities>
+		</utility>
+		<utility id="Private_Opportunity">
+			<parents>Site_Choice</parents>
+			<utilities>1 0 1 1</utilities>
+		</utility>
+		<mau id="Total_Public_Support">
+			<parents>Patron_Acceptance DT_Community_Support Perceived_Safety Public_Ownership Private_Opportunity</parents>
+			<weights>0.25 0.25 0.25 0.17 0.08</weights>
+		</mau>
+		<utility id="Operating_Costs">
+			<parents>Site_Choice</parents>
+			<utilities>0 1 1 1</utilities>
+		</utility>
+		<utility id="Use_of_Existing_Building">
+			<parents>Site_Choice</parents>
+			<utilities>1 0 0 0</utilities>
+		</utility>
+		<utility id="No_General_Fund_S">
+			<parents>Site_Choice</parents>
+			<utilities>0 1 1 1</utilities>
+		</utility>
+		<utility id="Tax_Roll_Impact_Removal">
+			<parents>Site_Choice</parents>
+			<utilities>0 1 1 0</utilities>
+		</utility>
+		<utility id="Tax_Roll_Impact_Added">
+			<parents>Site_Choice</parents>
+			<utilities>0 1 1 1</utilities>
+		</utility>
+		<mau id="Total_Related_Costs">
+			<parents>Operating_Costs Use_of_Existing_Building No_General_Fund_S Tax_Roll_Impact_Removal Tax_Roll_Impact_Added</parents>
+			<weights>0.2 0.2 0.3 0.1 0.2</weights>
+		</mau>
+		<mau id="Total_Value">
+			<parents>Total_Site_Size Total_Access Total_Parking Total_Traffic_Impact Total_Land_Use Total_Public_Support Total_Related_Costs</parents>
+			<weights>0.211 0.206 0.053 0.045 0.08400000000000001 0.19 0.211</weights>
+		</mau>
+	</nodes>
+	<extensions>
+		<genie version="1.0" name="Table 15.6" faultnameformat="nodestate">
+			<comment>Table 15.6: Matrix of weights and utilities for four library sites (this is actually an influence diagram equivalent to the table; as weights in the diagram run between 0 and 1, the final result in the node Total_Value is also in the interval between 0 and 1).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</comment>
+			<submodel id="SiteSize">
+				<name>Site Size</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" width="3" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>22 82 98 118</position>
+				<window>-217 -78 295 141</window>
+				<node id="Initial">
+					<name>Initial</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>2 22 78 58</position>
+				</node>
+				<node id="Expansion">
+					<name>Expansion (Horizontal)</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>82 42 158 78</position>
+				</node>
+				<node id="Mixed_Use">
+					<name>Mixed_Use</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>162 22 238 58</position>
+				</node>
+				<node id="Construction_Staging">
+					<name>Construction Staging</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>239 42 362 78</position>
+				</node>
+				<node id="Public_Open_Space">
+					<name>Public Open Space</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>360 22 481 58</position>
+				</node>
+				<node id="Total_Site_Size">
+					<name>Total Site Size</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>128 142 232 178</position>
+				</node>
+			</submodel>
+			<submodel id="Access">
+				<name>Access</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" width="3" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>102 142 178 178</position>
+				<window>-175 -22 327 227</window>
+				<node id="Direct_Parking">
+					<name>Direct Parking</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>11 22 110 58</position>
+				</node>
+				<node id="Commercial_Proximity">
+					<name>Commercial Proximity</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>77 62 203 98</position>
+				</node>
+				<node id="Employment_Proximity">
+					<name>Employment Proximity</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>133 22 268 58</position>
+				</node>
+				<node id="Heavy_Traffic">
+					<name>Heavy Traffic</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>233 62 327 98</position>
+				</node>
+				<node id="Bus_Route_Proximity">
+					<name>Bus Route Proximity</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>300 22 420 58</position>
+				</node>
+				<node id="Residential_Proximity">
+					<name>Residential Proximity</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>337 62 463 98</position>
+				</node>
+				<node id="Total_Access">
+					<name>Total Access</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>212 162 308 198</position>
+				</node>
+			</submodel>
+			<submodel id="Parking">
+				<name>Parking</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" width="3" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>142 82 218 118</position>
+				<window>-124 -27 284 179</window>
+				<node id="Patron_Parking">
+					<name>Patron Parking</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>12 22 108 58</position>
+				</node>
+				<node id="Off_Site_Parking">
+					<name>Off Site Parking</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>128 22 232 58</position>
+				</node>
+				<node id="Bookmobile_Parking">
+					<name>Bookmobile Parking</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>240 22 360 58</position>
+				</node>
+				<node id="Total_Parking">
+					<name>Total Parking</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>135 102 225 138</position>
+				</node>
+			</submodel>
+			<submodel id="Traffic_Impact">
+				<name>Traffic Impact</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" width="3" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>197 142 283 178</position>
+				<window>-115 -7 259 180</window>
+				<node id="Auto_Circulation">
+					<name>Auto Circulation</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>10 22 110 58</position>
+				</node>
+				<node id="Adjacent_Parking">
+					<name>Adjacent Parking</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>128 22 233 58</position>
+				</node>
+				<node id="Bus_Patterns">
+					<name>Bus Patterns</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>257 22 343 58</position>
+				</node>
+				<node id="Total_Traffic_Impact">
+					<name>Total Traffic Impact</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>121 102 240 138</position>
+				</node>
+			</submodel>
+			<submodel id="Land_Use">
+				<name>Land Use/Design</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" width="3" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>242 82 318 118</position>
+				<window>-153 57 391 283</window>
+				<node id="Image_Scale_Visibility">
+					<name>Image Scale Visibility</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>17 22 144 58</position>
+				</node>
+				<node id="Enhance_Adjacent_Uses">
+					<name>Enhance Adjacent Uses</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>106 62 255 98</position>
+				</node>
+				<node id="Adj_Uses_Enhance_Lib">
+					<name>Adjacent_Uses_Enhance_Library</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>289 62 432 98</position>
+				</node>
+				<node id="Downtown_Plan_Fit">
+					<name>Downtown Plan Fit</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>221 22 340 58</position>
+				</node>
+				<node id="Lost_Devel_Options">
+					<name>Lost Development Options</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>400 22 521 58</position>
+				</node>
+				<node id="Total_Land_Use">
+					<name>Total Land Use</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>230 142 331 178</position>
+				</node>
+			</submodel>
+			<submodel id="Public_Support">
+				<name>Public Support</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" width="3" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>298 142 386 178</position>
+				<window>-45 -35 429 189</window>
+				<node id="Patron_Acceptance">
+					<name>Patron Acceptance</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>20 22 141 58</position>
+				</node>
+				<node id="DT_Community_Support">
+					<name>DT/Community Support</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>90 62 230 98</position>
+				</node>
+				<node id="Perceived_Safety">
+					<name>Perceived Safety</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>165 22 275 58</position>
+				</node>
+				<node id="Public_Ownership">
+					<name>Public Ownership</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>244 62 357 98</position>
+				</node>
+				<node id="Private_Opportunity">
+					<name>Private Opportunity</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>321 22 440 58</position>
+				</node>
+				<node id="Total_Public_Support">
+					<name>Total Public Support</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>199 142 321 178</position>
+				</node>
+			</submodel>
+			<submodel id="Related_Costs">
+				<name>Related Costs</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" width="3" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>337 82 423 118</position>
+				<window>-175 41 355 285</window>
+				<node id="Operating_Costs">
+					<name>Operating Costs</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>8 22 113 58</position>
+				</node>
+				<node id="Use_of_Existing_Building">
+					<name>Use of Existing Building</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>90 62 230 98</position>
+				</node>
+				<node id="No_General_Fund_S">
+					<name>No General Fund $</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>176 22 305 58</position>
+				</node>
+				<node id="Tax_Roll_Impact_Removal">
+					<name>Tax Roll Impact, Removal</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>265 62 416 98</position>
+				</node>
+				<node id="Tax_Roll_Impact_Added">
+					<name>Tax Roll Impact, Added</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>350 22 490 58</position>
+				</node>
+				<node id="Total_Related_Costs">
+					<name>Total Related Costs</name>
+					<interior color="e5f6f7" />
+					<outline color="0000bb" />
+					<font color="000000" name="MS Sans Serif" size="8" />
+					<position>220 162 340 198</position>
+				</node>
+			</submodel>
+			<node id="Site_Choice">
+				<name>Site Choice</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>142 22 218 58</position>
+				<state id="Site_1" globalid="F5" />
+				<state id="Site_2" globalid="F6" />
+				<state id="Site_3" globalid="F7" />
+				<state id="Site_4" globalid="F8" />
+			</node>
+			<node id="Total_Value">
+				<name>Total Value</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>191 222 289 258</position>
+			</node>
+			<textbox>
+				<caption>Table 15.6: Matrix of weights and utilities for four library sites (this is actually an influence diagram equivalent to the table; as weights in the diagram run between 0 and 1, the final result in the node Total_Value is also in the interval between 0 and 1).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.\nThe original source of the data is: Robertson, Sherwood and Architects (1987), Preliminary Draft Report: Eugene Public Library Selection Study. Executive Summary. Eugene, OR: Robertson/Sherwood.</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>21 270 576 414</position>
+			</textbox>
+			<textbox>
+				<caption>The seven submodels contain calculations of utilities of different attributes. Double-click on the submodel icon to examine the individual attribute calculations.\nTry navigating the model through the tree view as well!</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>427 60 582 236</position>
+			</textbox>
+		</genie>
+	</extensions>
+</smile>

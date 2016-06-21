@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<smile version="1.0" id="Figure3_7" numsamples="1000">
+	<nodes>
+		<decision id="SystemChoice">
+			<state id="SystemA" />
+			<state id="SystemB" />
+		</decision>
+		<utility id="Acceptance">
+			<parents>SystemChoice</parents>
+			<utilities>0 0</utilities>
+		</utility>
+		<utility id="Effectiveness">
+			<parents>SystemChoice</parents>
+			<utilities>0 0</utilities>
+		</utility>
+		<utility id="TimeToImplement">
+			<parents>SystemChoice</parents>
+			<utilities>0 0</utilities>
+		</utility>
+		<utility id="Cost">
+			<parents>SystemChoice</parents>
+			<utilities>0 0</utilities>
+		</utility>
+		<mau id="Performance">
+			<parents>Effectiveness TimeToImplement Acceptance Cost</parents>
+			<weights>1 1 1 1</weights>
+		</mau>
+	</nodes>
+	<extensions>
+		<genie version="1.0" name="Figure 3.7" faultnameformat="nodestate">
+			<comment>Figure 3.7: Multiple objectives in selecting a bomb-detection system.\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</comment>
+			<node id="SystemChoice">
+				<name>Bomb-Detection System Choice</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>156 22 244 58</position>
+				<state id="SystemA" globalid="F3" />
+				<state id="SystemB" globalid="F4" />
+			</node>
+			<node id="Acceptance">
+				<name>Passenger Acceptance</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>218 82 302 118</position>
+			</node>
+			<node id="Effectiveness">
+				<name>Detection Effectiveness</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>18 82 103 118</position>
+			</node>
+			<node id="TimeToImplement">
+				<name>Time to Implement</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>107 82 214 118</position>
+			</node>
+			<node id="Cost">
+				<name>Cost</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>302 82 378 118</position>
+			</node>
+			<node id="Performance">
+				<name>Overall Performance</name>
+				<interior color="e5f6f7" />
+				<outline color="0000bb" />
+				<font color="000000" name="MS Sans Serif" size="8" />
+				<position>159 142 242 178</position>
+			</node>
+			<textbox>
+				<caption>Figure 3.7: Multiple objectives in selecting a bomb-detection system (structure only).\nRobert T. Clemen, Making Hard Decisions: An Introduction to Decision Analysis, Second Edition. Duxbury Press, 1996.</caption>
+				<font color="000000" name="MS Sans Serif" size="10" bold="true" />
+				<position>21 193 443 257</position>
+			</textbox>
+		</genie>
+	</extensions>
+</smile>

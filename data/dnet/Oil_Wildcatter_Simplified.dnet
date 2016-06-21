@@ -1,0 +1,144 @@
+// ~->[DNET-1]->~
+
+// File created by Norsys using Netica 1.06b on Mar 29, 1998 at 05:52:01.
+
+bnet Oil_Wildcatter_Simplified {
+autoupdate = TRUE;
+comment = "An influence diagram with decisions of whether to do seismic \
+	tests for oil, and whether to drill for oil, in order to \
+	maximize profits. \n\
+	Same as Oil_Wildcatter, but with some nodes absorbed ('summed \
+	out'). \n\
+	In wide usage, but originally from Raiffa68.";
+whenchanged = 891179350;
+
+visual V1 {
+	defdispform = LABELBOX;
+	nodelabeling = TITLE;
+	nodefont = font {shape= "Arial"; size= 10;};
+	linkfont = font {shape= "Arial"; size= 9;};
+	commentfont = font {shape= "Arial"; size= 10;};
+	windowposn = (37, 175, 446, 543);
+	resolution = 72;
+	drawingbounds = (1104, 730);
+	showpagebreaks = FALSE;
+	usegrid = TRUE;
+	gridspace = (6, 6);
+	};
+
+node Oil {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Dry, Wet, Soaking);
+	parents = ();
+	probs = 
+		// Dry          Wet          Soaking      
+		  (0.5,         0.3,         0.2);
+	title = "Amount of Oil";
+	visual V1 {
+		center = (90, 48);
+		height = 1;
+		};
+	};
+
+node Structure {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (None, Open, Closed);
+	parents = (Oil);
+	probs = 
+		// None         Open         Closed         // Oil     
+		 ((0.6,         0.3,         0.1),          // Dry     
+		  (0.3,         0.4,         0.3),          // Wet     
+		  (0.1,         0.4,         0.5));         // Soaking ;
+	title = "Seismic\nStructure";
+	visual V1 {
+		center = (276, 48);
+		height = 6;
+		};
+	};
+
+node Test {
+	kind = DECISION;
+	discrete = TRUE;
+	chance = DETERMIN;
+	states = (Do_test, No_test);
+	parents = ();
+	title = "Test?";
+	visual V1 {
+		center = (96, 138);
+		height = 5;
+		};
+	};
+
+node Result {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = DETERMIN;
+	states = (None, Open, Closed, No_result);
+	parents = (Test, Structure);
+	functable = 
+		                     // Test    Structure 
+		 ((None,             // Do_test None      
+		   Open,             // Do_test Open      
+		   Closed),          // Do_test Closed    
+		  (No_result,        // No_test None      
+		   No_result,        // No_test Open      
+		   No_result));      // No_test Closed    ;
+	equation = "Result (Test, Structure) = \n\
+		(Test == Do_test) ? Structure : No_result";
+	title = "Test Result";
+	visual V1 {
+		center = (276, 138);
+		height = 2;
+		};
+	};
+
+node Drill {
+	kind = DECISION;
+	discrete = TRUE;
+	chance = DETERMIN;
+	states = (Drill, Dont_drill);
+	parents = (Test, Result);
+	title = "Drill?";
+	visual V1 {
+		center = (276, 222);
+		height = 3;
+		};
+	};
+
+node Profit {
+	kind = UTILITY;
+	discrete = FALSE;
+	measure = RATIO;
+	chance = DETERMIN;
+	parents = (Drill, Oil, Test);
+	functable = 
+		                   // Drill      Oil     Test    
+		(((-80,            // Drill      Dry     Do_test 
+		   -70),           // Drill      Dry     No_test 
+		  (40,             // Drill      Wet     Do_test 
+		   50),            // Drill      Wet     No_test 
+		  (190,            // Drill      Soaking Do_test 
+		   200)),          // Drill      Soaking No_test 
+		 ((-10,            // Dont_drill Dry     Do_test 
+		   0),             // Dont_drill Dry     No_test 
+		  (-10,            // Dont_drill Wet     Do_test 
+		   0),             // Dont_drill Wet     No_test 
+		  (-10,            // Dont_drill Soaking Do_test 
+		   0)));           // Dont_drill Soaking No_test ;
+	title = "Profit";
+	visual V1 {
+		center = (276, 282);
+		height = 4;
+		link 2 {
+			path = ((82, 58), (42, 102), (42, 282), (250, 282));
+			};
+		link 3 {
+			path = ((99, 148), (144, 258), (250, 278));
+			};
+		};
+	};
+};

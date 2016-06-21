@@ -1,0 +1,121 @@
+// ~->[DNET-1]->~
+
+// File created by Norsys using Netica 1.06b on Mar 29, 1998 at 05:54:53.
+
+bnet Puterman90_p337 {
+autoupdate = TRUE;
+comment = "From Puterman, Martin L. (1990) \"Markov Decision Processes\"\
+	\| in Handbooks in OR & MS, Vol.2: Stochastic Models, D. P. \
+	Heyman and M. J. Sobel (eds.), Elsevier Science Publishers \
+	B.V., North-Holland.";
+whenchanged = 891179624;
+
+visual V1 {
+	defdispform = LABELBOX;
+	nodelabeling = TITLE;
+	nodefont = font {shape= "Arial"; size= 10;};
+	linkfont = font {shape= "Arial"; size= 9;};
+	commentfont = font {shape= "Arial"; size= 10;};
+	windowposn = (87, 18, 503, 304);
+	resolution = 72;
+	drawingbounds = (1152, 752);
+	showpagebreaks = FALSE;
+	usegrid = TRUE;
+	gridspace = (6, 6);
+	};
+
+node S {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (s1, s2);
+	parents = ();
+	probs = 
+		// s1           s2           
+		  (0.5,         0.5);
+	visual V1 {
+		center = (120, 48);
+		height = 6;
+		};
+	};
+
+node A {
+	kind = DECISION;
+	discrete = TRUE;
+	states = (a1, a2);
+	parents = (S);
+	visual V1 {
+		center = (120, 120);
+		height = 1;
+		};
+	};
+
+node R {
+	kind = UTILITY;
+	discrete = FALSE;
+	chance = DETERMIN;
+	parents = (S, A);
+	functable = 
+		                  // S  A  
+		 ((5,             // s1 a1 
+		   10),           // s1 a2 
+		  (-1,            // s2 a1 
+		   -1e23));       // s2 a2 ;
+	visual V1 {
+		center = (120, 192);
+		height = 2;
+		link 1 {
+			path = ((114, 58), (84, 102), (84, 150), (113, 183));
+			};
+		};
+	};
+
+node S1 {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (s1, s2);
+	parents = (S, A);
+	probs = 
+		// s1           s2              // S  A  
+		(((0.5,         0.5),           // s1 a1 
+		  (0,           1)),            // s1 a2 
+		 ((0,           1),             // s2 a1 
+		  (0.5,         0.5)));         // s2 a2 ;
+	visual V1 {
+		center = (270, 48);
+		height = 5;
+		};
+	};
+
+node A1 {
+	kind = DECISION;
+	discrete = TRUE;
+	states = (a1, a2);
+	parents = (S1);
+	visual V1 {
+		center = (270, 120);
+		height = 3;
+		};
+	};
+
+node R1 {
+	kind = UTILITY;
+	discrete = FALSE;
+	chance = DETERMIN;
+	parents = (S1, A1);
+	functable = 
+		                  // S1 A1 
+		 ((5,             // s1 a1 
+		   10),           // s1 a2 
+		  (-1,            // s2 a1 
+		   -1e23));       // s2 a2 ;
+	visual V1 {
+		center = (270, 192);
+		height = 4;
+		link 1 {
+			path = ((265, 58), (240, 102), (240, 150), (264, 183));
+			};
+		};
+	};
+};
