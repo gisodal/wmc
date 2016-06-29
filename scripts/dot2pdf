@@ -1,0 +1,36 @@
+#!/bin/bash
+
+FILE=$1
+NAME=${FILE%.*}
+EXTENSION=${FILE##*.}
+EXPORT=eps
+
+if [ "$EXTENSION" == "dot" ]; then
+    dot -T$EXPORT $FILE -o ${NAME}.$EXPORT
+    mkdir -p tex
+    OUTPUT=tex/paper.tex
+    cp ${NAME}.$EXPORT tex/image.eps
+    echo -n '\documentclass{article}
+    \usepackage{graphicx}
+    \usepackage[margin=0.5in]{geometry}
+    \begin{document}
+        \pagenumbering{gobble}
+        \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{' > $OUTPUT
+        echo -n "image.eps" >> $OUTPUT
+        echo '}
+    \end{document}' >> $OUTPUT
+
+    cd tex
+    pdflatex paper.tex 1>/dev/null
+    cd ..
+    cp tex/paper.pdf ${NAME}.pdf
+    rm -rf tex
+    echo ${NAME}.pdf created..
+
+    if [ $# -gt 1 ]; then
+        mupdf ${NAME}.pdf 2>/dev/null &
+    fi
+else
+    echo "Usage: ./dot2ps <DOT FILE>" 1>&2
+fi
+

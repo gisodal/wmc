@@ -3,9 +3,10 @@
 FILE=$1
 NAME=${FILE%.*}
 EXTENSION=${FILE##*.}
+EXPORT=eps
 
 if [ "$EXTENSION" == "dot" ]; then
-    dot -Tps $FILE -o ${NAME}.ps
+    dot -T$EXPORT $FILE -o ${NAME}.$EXPORT
     if [ $# -gt 1 ]; then
         evince "${NAME}.ps" 2>/dev/null &
     fi
