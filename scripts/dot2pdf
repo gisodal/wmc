@@ -12,12 +12,15 @@ if [ "$EXTENSION" == "dot" ]; then
     cp ${NAME}.$EXPORT tex/image.eps
     echo -n '\documentclass{article}
     \usepackage{graphicx}
+    \usepackage{pdflscape}
     \usepackage[margin=0.5in]{geometry}
     \begin{document}
         \pagenumbering{gobble}
-        \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{' > $OUTPUT
+        \begin{landscape}
+                \includegraphics[width=\linewidth,height=\textwidth,keepaspectratio]{' > $OUTPUT
         echo -n "image.eps" >> $OUTPUT
         echo '}
+        \end{landscape}
     \end{document}' >> $OUTPUT
 
     cd tex
@@ -28,7 +31,7 @@ if [ "$EXTENSION" == "dot" ]; then
     echo ${NAME}.pdf created..
 
     if [ $# -gt 1 ]; then
-        mupdf ${NAME}.pdf 2>/dev/null &
+        evince ${NAME}.pdf 2>/dev/null &
     fi
 else
     echo "Usage: ./dot2ps <DOT FILE>" 1>&2
