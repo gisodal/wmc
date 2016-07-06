@@ -17,7 +17,7 @@ if [ "$EXTENSION" == "dot" ]; then
     \begin{document}
         \pagenumbering{gobble}
         \begin{landscape}
-                \includegraphics[width=\linewidth,height=\textwidth,keepaspectratio]{' > $OUTPUT
+                \includegraphics[width=\linewidth,height=0.99\textwidth,keepaspectratio]{' > $OUTPUT
         echo -n "image.eps" >> $OUTPUT
         echo '}
         \end{landscape}
