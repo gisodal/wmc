@@ -8,7 +8,7 @@
 dlname='libgsl.so.19'
 
 # Names of this library.
-library_names='libgsl.so.19.2.0 libgsl.so.19 libgsl.so'
+library_names='libgsl.so.19.1.0 libgsl.so.19 libgsl.so'
 
 # The name of the static archive.
 old_library='libgsl.a'
@@ -23,8 +23,8 @@ dependency_libs=' -lm'
 weak_library_names=''
 
 # Version information for libgsl.
-current=21
-age=2
+current=20
+age=1
 revision=0
 
 # Is this an already installed library?
