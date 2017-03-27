@@ -1,0 +1,2 @@
+partition 1
+Age,BirthAsphyxia,CO2,CO2Report,CardiacMixing,ChestXray,Disease,DuctFlow,Grunting,GruntingReport,HypDistrib,HypoxiaInO2,LVH,LVHreport,LowerBodyO2,LungFlow,LungParench,RUQO2,Sick,XrayReport:ChestXray,CO2Report,CO2,LungParench,XrayReport,LungFlow,Disease,Grunting,GruntingReport,Sick,Age,LVH,LVHreport,BirthAsphyxia,DuctFlow,CardiacMixing,HypoxiaInO2,HypDistrib,LowerBodyO2,RUQO2:

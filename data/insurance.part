@@ -1,0 +1,2 @@
+partition 1
+Accident,Age,Airbag,AntiTheft,Antilock,CarValue,Cushioning,DrivHist,DrivQuality,DrivingSkill,GoodStudent,HomeBase,ILiCost,MakeModel,MedCost,Mileage,OtherCar,OtherCarCost,PropCost,RiskAversion,RuggedAuto,SeniorTrain,SocioEcon,Theft,ThisCarCost,ThisCarDam,VehicleYear:OtherCar,SocioEcon,Theft,AntiTheft,RiskAversion,HomeBase,CarValue,Age,GoodStudent,VehicleYear,MakeModel,Antilock,Airbag,Mileage,RuggedAuto,SeniorTrain,DrivingSkill,DrivHist,DrivQuality,Accident,Cushioning,MedCost,ThisCarDam,ThisCarCost,ILiCost,OtherCarCost,PropCost:

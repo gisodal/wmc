@@ -1,0 +1,5 @@
+partition 4
+aar_mod,dg25,dgv1059,dgv5980,exptgens,forfrugt,jordn,jordtype,komm,ksort,mod_nmin,nedbarea,ngodn,ngodnn,ngodnt,ngtilg,nmin,nopt,nplac,nprot,ntilg,pesticid,potnmin,protein,rokap,saatid,srtprot:srtprot,sort,komm,nedbarea,jordtype,aar_mod,nmin,mod_nmin,potnmin,jordn,forfrugt,exptgens,ngodnt,pesticid,nopt,rokap,ngodnn,ngodn,nplac,dg25,ngtilg,nprot,ntilg,saatid,dgv1059,dgv5980,ksort,protein,keraks,srtsize,aks_vgt:
+aks_m2,aks_vgt,antplnt,frspdag,jordinf,keraks,markgrm,partigerm,s2225,s2528,saakern,saamng,slt22,sort,sorttkv,srtsize,tkv,tkvs,udb:tkvs,saamng,saakern,saatid,frspdag,jordinf,partigerm,markgrm,antplnt,dgv1059,aks_m2,sorttkv,ntilg,keraks,tkv,dgv5980,aks_vgt,udb,slt22,srtsize,s2225,s2528,sort:
+bgbyg:dgv5980,bgbyg,dgv1059:
+spndx:spndx,ksort,dgv5980,ntilg:
