@@ -1,39 +1,66 @@
 #!/bin/bash
 
 FILE=$1
-NAME=${FILE%.*}
-EXTENSION=${FILE##*.}
-EXPORT=eps
+DOT=${FILE##*/}
+FILENAME=${DOT%.*}
+EXTENSION=${DOT##*.}
 
-if [ "$EXTENSION" == "dot" ]; then
-    dot -T$EXPORT $FILE -o ${NAME}.$EXPORT
-    mkdir -p tex
-    OUTPUT=tex/paper.tex
-    cp ${NAME}.$EXPORT tex/image.eps
-    echo -n '\documentclass{article}
-    \usepackage{graphicx}
-    \usepackage{pdflscape}
-    \usepackage[margin=0.5in]{geometry}
-    \begin{document}
-        \pagenumbering{gobble}
-        \begin{landscape}
-                \includegraphics[width=\linewidth,height=0.99\textwidth,keepaspectratio]{' > $OUTPUT
-        echo -n "image.eps" >> $OUTPUT
-        echo '}
-        \end{landscape}
-    \end{document}' >> $OUTPUT
-
-    cd tex
-    pdflatex paper.tex 1>/dev/null
-    cd ..
-    cp tex/paper.pdf ${NAME}.pdf
-    rm -rf tex
-    echo ${NAME}.pdf created..
-
-    if [ $# -gt 1 ]; then
-        evince ${NAME}.pdf 2>/dev/null &
-    fi
-else
-    echo "Usage: ./dot2ps <DOT FILE>" 1>&2
+if [ $# -ne 1 -o "$EXTENSION" != "dot" ]; then
+    echo "Usage: dot2pdf <DOT FILE>" 1>&2
+    exit 1
 fi
+
+if [ ! -f $FILE ]; then
+    echo "Dot file '$FILE' does not exist" 1>&2
+    exit 1
+fi
+
+# determine script variables
+DIR=$(dirname $FILE)
+EXPORT=eps
+TMPDIR=$DIR/TMPDIR-dot2pdf-$RANDOM
+EPS=$TMPDIR/image.$EXPORT
+TEX=$TMPDIR/$FILENAME.tex
+PDF=$TMPDIR/$FILENAME.pdf
+
+if [ -d "$TMPDIR" ]; then
+    echo "Output directory '$TMPDIR' already exist" 1>&2
+    exit 1
+fi
+mkdir $TMPDIR
+
+# convert dot file to eps
+dot -T$EXPORT $FILE -o $EPS
+if [ $? -ne 0 ]; then
+    echo "Dot could not create '$EPS'" 1>&2
+    rm -rf $TMPDIR
+    exit 1
+fi
+
+# create tex file with eps as image
+echo -n '\documentclass{article}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{pdflscape}
+\usepackage[margin=0.5in]{geometry}
+\begin{document}
+    \pagenumbering{gobble}
+    \begin{landscape}
+            \includegraphics[width=\linewidth,height=0.99\textwidth,keepaspectratio]{' > $TEX
+    echo -n "$EPS" >> $TEX
+    echo '}
+    \end{landscape}
+\end{document}' >> $TEX
+
+# compile tex to pdf
+pdflatex -halt-on-error -file-line-error -interaction=nonstopmode -output-directory="$TMPDIR" $TEX 1>/dev/null
+if [ $? -ne 0 ]; then
+    echo "pdflatex could not create '$PDF'" 1>&2
+    rm -rf $TMPDIR
+    exit 1
+fi
+
+# copy pdf to input file directory
+cp $PDF $DIR
+rm -rf $TMPDIR
 
