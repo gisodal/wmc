@@ -1,0 +1,9 @@
+partition 8
+melduga,meldugm:sort,meldugm,fungicid,meldugsan,melduga:
+fungicid:fungicid:
+meldugsan:meldugsan:
+rustm,sort:sort,rustm:
+s2528:s2528:
+slt22:slt22:
+s2225:s2225:
+areal,gt25,lt22,rusta,rustan,udbrsv:fungicid,rustan,rustm,rusta,udbrsv,melduga,areal,slt22,s2225,gt25,s2528,lt22:
