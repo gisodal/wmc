@@ -3,19 +3,19 @@ net
 }
 node a
 {
-  states = ( "a0" "a1" );
+  states = ( "a0" "a1" "a2" );
 }
 node b
 {
-  states = ( "b0" "b1" "b2" );
+  states = ( "b0" "b1" );
 }
 
 potential ( a )
 {
-  data = ( 0.5 0.5 );
+  data = ( 0.1 0.1 0.8 );
 }
 potential ( b | a )
 {
-  data = ((0.4 0.4 0.2)(0.4 0.4 0.2)) ;
+  data = ((0.5 0.5)(0.5 0.5)(0 1)) ;
 }
 
