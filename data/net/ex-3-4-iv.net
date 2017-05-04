@@ -1,0 +1,255 @@
+net
+{
+    node_size = (100 40);
+    HRUNTIME_Monitor_InitStates = "5";
+    HRUNTIME_Monitor_OpenGraph = "0";
+    HRUNTIME_Monitor_GraphPrecision = "100";
+    HRUNTIME_Monitor_AutoUpdGraph = "0";
+    HRUNTIME_Compile_ApproxEpsilon = "0.00001";
+    HRUNTIME_Compile_Approximate = "0";
+    HRUNTIME_Compile_Compress = "0";
+    HRUNTIME_Compile_TriangMethod = "0";
+    HRUNTIME_Propagate_AutoNormal = "1";
+    HRUNTIME_Propagate_AutoSum = "1";
+    HRUNTIME_Propagate_Auto = "0";
+    HRUNTIME_Font_Italic = "0";
+    HRUNTIME_Font_Weight = "400";
+    HRUNTIME_Font_Size = "-12";
+    HRUNTIME_Font_Name = "Arial";
+    HRUNTIME_Grid_GridShow = "0";
+    HRUNTIME_Grid_GridSnap = "1";
+    HRUNTIME_Grid_Y = "10";
+    HRUNTIME_Grid_X = "10";
+}
+
+node R1
+{
+    label = "";
+    position = (270 330);
+    states = ("a" "b" "c");
+}
+
+node R2
+{
+    label = "";
+    position = (270 230);
+    states = ("a" "b" "c");
+}
+
+node R3
+{
+    label = "";
+    position = (270 150);
+    states = ("a" "b" "c");
+}
+
+node R4
+{
+    label = "";
+    position = (270 70);
+    states = ("a" "b" "c");
+}
+
+node Words
+{
+    label = "";
+    position = (0 150);
+    states = ("aaaaa" "aaaab" "aaaba" "aaabb" "aabaa" "aabab" "aabba" "aabbb" "abaaa" "abaab" "ababa" "ababb" "abbaa" "abbab" "abbba" "abbbb" "baaaa" "baaab" "baaba" "baabb" "babaa" "babab" "babba" "babbb" "bbaaa" "bbaab" "bbaba" "bbabb" "bbbaa" "bbbab" "bbbba" "bbbbb");
+}
+
+node R5
+{
+    label = "";
+    position = (270 0);
+    states = ("a" "b" "c");
+}
+
+potential (R1 | Words)
+{
+    data
+     = (( 0.8 0.1 0.1 )	%  Words=aaaaa
+	( 0.8 0.1 0.1 )	%  Words=aaaab
+	( 0.8 0.1 0.1 )	%  Words=aaaba
+	( 0.8 0.1 0.1 )	%  Words=aaabb
+	( 0.8 0.1 0.1 )	%  Words=aabaa
+	( 0.8 0.1 0.1 )	%  Words=aabab
+	( 0.8 0.1 0.1 )	%  Words=aabba
+	( 0.8 0.1 0.1 )	%  Words=aabbb
+	( 0.8 0.1 0.1 )	%  Words=abaaa
+	( 0.8 0.1 0.1 )	%  Words=abaab
+	( 0.8 0.1 0.1 )	%  Words=ababa
+	( 0.8 0.1 0.1 )	%  Words=ababb
+	( 0.8 0.1 0.1 )	%  Words=abbaa
+	( 0.8 0.1 0.1 )	%  Words=abbab
+	( 0.8 0.1 0.1 )	%  Words=abbba
+	( 0.8 0.1 0.1 )	%  Words=abbbb
+	( 0.15 0.8 0.05 )	%  Words=baaaa
+	( 0.15 0.8 0.05 )	%  Words=baaab
+	( 0.15 0.8 0.05 )	%  Words=baaba
+	( 0.15 0.8 0.05 )	%  Words=baabb
+	( 0.15 0.8 0.05 )	%  Words=babaa
+	( 0.15 0.8 0.05 )	%  Words=babab
+	( 0.15 0.8 0.05 )	%  Words=babba
+	( 0.15 0.8 0.05 )	%  Words=babbb
+	( 0.15 0.8 0.05 )	%  Words=bbaaa
+	( 0.15 0.8 0.05 )	%  Words=bbaab
+	( 0.15 0.8 0.05 )	%  Words=bbaba
+	( 0.15 0.8 0.05 )	%  Words=bbabb
+	( 0.15 0.8 0.05 )	%  Words=bbbaa
+	( 0.15 0.8 0.05 )	%  Words=bbbab
+	( 0.15 0.8 0.05 )	%  Words=bbbba
+	( 0.15 0.8 0.05 ));	%  Words=bbbbb
+}
+
+potential (R2 | Words)
+{
+    data
+     = (( 0.8 0.1 0.1 )	%  Words=aaaaa
+	( 0.8 0.1 0.1 )	%  Words=aaaab
+	( 0.8 0.1 0.1 )	%  Words=aaaba
+	( 0.8 0.1 0.1 )	%  Words=aaabb
+	( 0.8 0.1 0.1 )	%  Words=aabaa
+	( 0.8 0.1 0.1 )	%  Words=aabab
+	( 0.8 0.1 0.1 )	%  Words=aabba
+	( 0.8 0.1 0.1 )	%  Words=aabbb
+	( 0.15 0.8 0.05 )	%  Words=abaaa
+	( 0.15 0.8 0.05 )	%  Words=abaab
+	( 0.15 0.8 0.05 )	%  Words=ababa
+	( 0.15 0.8 0.05 )	%  Words=ababb
+	( 0.15 0.8 0.05 )	%  Words=abbaa
+	( 0.15 0.8 0.05 )	%  Words=abbab
+	( 0.15 0.8 0.05 )	%  Words=abbba
+	( 0.15 0.8 0.05 )	%  Words=abbbb
+	( 0.8 0.1 0.1 )	%  Words=baaaa
+	( 0.8 0.1 0.1 )	%  Words=baaab
+	( 0.8 0.1 0.1 )	%  Words=baaba
+	( 0.8 0.1 0.1 )	%  Words=baabb
+	( 0.8 0.1 0.1 )	%  Words=babaa
+	( 0.8 0.1 0.1 )	%  Words=babab
+	( 0.8 0.1 0.1 )	%  Words=babba
+	( 0.8 0.1 0.1 )	%  Words=babbb
+	( 0.15 0.8 0.05 )	%  Words=bbaaa
+	( 0.15 0.8 0.05 )	%  Words=bbaab
+	( 0.15 0.8 0.05 )	%  Words=bbaba
+	( 0.15 0.8 0.05 )	%  Words=bbabb
+	( 0.15 0.8 0.05 )	%  Words=bbbaa
+	( 0.15 0.8 0.05 )	%  Words=bbbab
+	( 0.15 0.8 0.05 )	%  Words=bbbba
+	( 0.15 0.8 0.05 ));	%  Words=bbbbb
+}
+
+potential (R3 | Words)
+{
+    data
+     = (( 0.8 0.1 0.1 )	%  Words=aaaaa
+	( 0.8 0.1 0.1 )	%  Words=aaaab
+	( 0.8 0.1 0.1 )	%  Words=aaaba
+	( 0.8 0.1 0.1 )	%  Words=aaabb
+	( 0.15 0.8 0.05 )	%  Words=aabaa
+	( 0.15 0.8 0.05 )	%  Words=aabab
+	( 0.15 0.8 0.05 )	%  Words=aabba
+	( 0.15 0.8 0.05 )	%  Words=aabbb
+	( 0.8 0.1 0.1 )	%  Words=abaaa
+	( 0.8 0.1 0.1 )	%  Words=abaab
+	( 0.8 0.1 0.1 )	%  Words=ababa
+	( 0.8 0.1 0.1 )	%  Words=ababb
+	( 0.15 0.8 0.05 )	%  Words=abbaa
+	( 0.15 0.8 0.05 )	%  Words=abbab
+	( 0.15 0.8 0.05 )	%  Words=abbba
+	( 0.15 0.8 0.05 )	%  Words=abbbb
+	( 0.8 0.1 0.1 )	%  Words=baaaa
+	( 0.8 0.1 0.1 )	%  Words=baaab
+	( 0.8 0.1 0.1 )	%  Words=baaba
+	( 0.8 0.1 0.1 )	%  Words=baabb
+	( 0.15 0.8 0.05 )	%  Words=babaa
+	( 0.15 0.8 0.05 )	%  Words=babab
+	( 0.15 0.8 0.05 )	%  Words=babba
+	( 0.15 0.8 0.05 )	%  Words=babbb
+	( 0.8 0.1 0.1 )	%  Words=bbaaa
+	( 0.8 0.1 0.1 )	%  Words=bbaab
+	( 0.8 0.1 0.1 )	%  Words=bbaba
+	( 0.8 0.1 0.1 )	%  Words=bbabb
+	( 0.15 0.8 0.05 )	%  Words=bbbaa
+	( 0.15 0.8 0.05 )	%  Words=bbbab
+	( 0.15 0.8 0.05 )	%  Words=bbbba
+	( 0.15 0.8 0.05 ));	%  Words=bbbbb
+}
+
+potential (R4 | Words)
+{
+    data
+     = (( 0.8 0.1 0.1 )	%  Words=aaaaa
+	( 0.8 0.1 0.1 )	%  Words=aaaab
+	( 0.15 0.8 0.05 )	%  Words=aaaba
+	( 0.15 0.8 0.05 )	%  Words=aaabb
+	( 0.8 0.1 0.1 )	%  Words=aabaa
+	( 0.8 0.1 0.1 )	%  Words=aabab
+	( 0.15 0.8 0.05 )	%  Words=aabba
+	( 0.15 0.8 0.05 )	%  Words=aabbb
+	( 0.8 0.1 0.1 )	%  Words=abaaa
+	( 0.8 0.1 0.1 )	%  Words=abaab
+	( 0.15 0.8 0.05 )	%  Words=ababa
+	( 0.15 0.8 0.05 )	%  Words=ababb
+	( 0.8 0.1 0.1 )	%  Words=abbaa
+	( 0.8 0.1 0.1 )	%  Words=abbab
+	( 0.15 0.8 0.05 )	%  Words=abbba
+	( 0.15 0.8 0.05 )	%  Words=abbbb
+	( 0.8 0.1 0.1 )	%  Words=baaaa
+	( 0.8 0.1 0.1 )	%  Words=baaab
+	( 0.15 0.8 0.05 )	%  Words=baaba
+	( 0.15 0.8 0.05 )	%  Words=baabb
+	( 0.8 0.1 0.1 )	%  Words=babaa
+	( 0.8 0.1 0.1 )	%  Words=babab
+	( 0.15 0.8 0.05 )	%  Words=babba
+	( 0.15 0.8 0.05 )	%  Words=babbb
+	( 0.8 0.1 0.1 )	%  Words=bbaaa
+	( 0.8 0.1 0.1 )	%  Words=bbaab
+	( 0.15 0.8 0.05 )	%  Words=bbaba
+	( 0.15 0.8 0.05 )	%  Words=bbabb
+	( 0.8 0.1 0.1 )	%  Words=bbbaa
+	( 0.8 0.1 0.1 )	%  Words=bbbab
+	( 0.15 0.8 0.05 )	%  Words=bbbba
+	( 0.15 0.8 0.05 ));	%  Words=bbbbb
+}
+
+potential (Words)
+{
+    data = ( 0.017 0.021 0.019 0.019 0.045 0.068 0.045 0.068 0.033 0.04 0.037 0.038 0.011 0.016 0.01 0.015 0.011 0.014 0.01 0.01 0.031 0.046 0.031 0.045 0.05 0.06 0.056 0.057 0.016 0.023 0.015 0.023 );
+}
+
+potential (R5 | Words)
+{
+    data
+     = (( 0.8 0.1 0.1 )	%  Words=aaaaa
+	( 0.15 0.8 0.05 )	%  Words=aaaab
+	( 0.8 0.1 0.1 )	%  Words=aaaba
+	( 0.15 0.8 0.05 )	%  Words=aaabb
+	( 0.8 0.1 0.1 )	%  Words=aabaa
+	( 0.15 0.8 0.05 )	%  Words=aabab
+	( 0.8 0.1 0.1 )	%  Words=aabba
+	( 0.15 0.8 0.05 )	%  Words=aabbb
+	( 0.8 0.1 0.1 )	%  Words=abaaa
+	( 0.15 0.8 0.05 )	%  Words=abaab
+	( 0.8 0.1 0.1 )	%  Words=ababa
+	( 0.15 0.8 0.05 )	%  Words=ababb
+	( 0.8 0.1 0.1 )	%  Words=abbaa
+	( 0.15 0.8 0.05 )	%  Words=abbab
+	( 0.8 0.1 0.1 )	%  Words=abbba
+	( 0.15 0.8 0.05 )	%  Words=abbbb
+	( 0.8 0.1 0.1 )	%  Words=baaaa
+	( 0.15 0.8 0.05 )	%  Words=baaab
+	( 0.8 0.1 0.1 )	%  Words=baaba
+	( 0.15 0.8 0.05 )	%  Words=baabb
+	( 0.8 0.1 0.1 )	%  Words=babaa
+	( 0.15 0.8 0.05 )	%  Words=babab
+	( 0.8 0.1 0.1 )	%  Words=babba
+	( 0.15 0.8 0.05 )	%  Words=babbb
+	( 0.8 0.1 0.1 )	%  Words=bbaaa
+	( 0.15 0.8 0.05 )	%  Words=bbaab
+	( 0.8 0.1 0.1 )	%  Words=bbaba
+	( 0.15 0.8 0.05 )	%  Words=bbabb
+	( 0.8 0.1 0.1 )	%  Words=bbbaa
+	( 0.15 0.8 0.05 )	%  Words=bbbab
+	( 0.8 0.1 0.1 )	%  Words=bbbba
+	( 0.15 0.8 0.05 ));	%  Words=bbbbb
+}

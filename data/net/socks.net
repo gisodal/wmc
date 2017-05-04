@@ -1,0 +1,246 @@
+net
+{
+    node_size = (100 40);
+    HR_Node_Label_Style = "0";
+    HR_Desc = "This example illustrates how to model a known relation between a number of nodes into a network. In this example, we have four socks two of type t1, and two of type t2. This relation cannot be modelled directly. But by introducing the constraint variable, we can create exactly that relation.\n\nWhen in run mode, one should simply set the state of the constraint to \"yes\". When this is done, it will be illegal to enter evidence which states that there exists e.g., three socks of type t1.";
+    HR_OOBN_FitExpand = "1";
+    HR_Zoom_ZoomFactor = "100";
+    HR_Color_Interface = "21";
+    HR_Color_Instance = "0";
+    HR_Color_ContinuousChance = "32";
+    HR_Compile_MaxMinimalSeparators = "100000";
+    HR_Grid_X = "10";
+    HR_Grid_Y = "10";
+    HR_Grid_GridSnap = "1";
+    HR_Grid_GridShow = "0";
+    HR_Font_Name = "Arial";
+    HR_Font_Size = "-12";
+    HR_Font_Weight = "400";
+    HR_Font_Italic = "0";
+    HR_Propagate_Auto = "0";
+    HR_Propagate_AutoSum = "1";
+    HR_Propagate_AutoNormal = "1";
+    HR_Compile_TriangMethod = "0";
+    HR_Compile_Compress = "0";
+    HR_Compile_Approximate = "0";
+    HR_Compile_ApproxEpsilon = "0.00001";
+    HR_Monitor_AutoUpdGraph = "0";
+    HR_Monitor_GraphPrecision = "100";
+    HR_Monitor_OpenGraph = "0";
+    HR_Monitor_InitStates = "5";
+    HR_Monitor_InitSD = "2";
+    HR_Color_DiscreteChance = "16";
+    HR_Color_ContinuosChance = "48";
+    HR_Color_Utility = "36";
+    HR_Color_Decision = "17";
+    HR_Groups_UserGroupsNo = "0";
+    HR_Groups_GroupNames = "test\t";
+    HR_Groups_GroupColors = "47";
+    HRUNTIME_Grid_X = "10";
+    HRUNTIME_Grid_Y = "10";
+    HRUNTIME_Grid_GridSnap = "1";
+    HRUNTIME_Grid_GridShow = "0";
+    HRUNTIME_Font_Name = "Arial";
+    HRUNTIME_Font_Size = "-12";
+    HRUNTIME_Font_Weight = "400";
+    HRUNTIME_Font_Italic = "0";
+    HRUNTIME_Propagate_Auto = "0";
+    HRUNTIME_Propagate_AutoSum = "1";
+    HRUNTIME_Propagate_AutoNormal = "1";
+    HRUNTIME_Compile_TriangMethod = "0";
+    HRUNTIME_Compile_Compress = "0";
+    HRUNTIME_Compile_Approximate = "0";
+    HRUNTIME_Compile_ApproxEpsilon = "0.00001";
+    HRUNTIME_Monitor_AutoUpdGraph = "0";
+    HRUNTIME_Monitor_GraphPrecision = "100";
+    HRUNTIME_Monitor_OpenGraph = "0";
+    HRUNTIME_Monitor_InitStates = "5";
+}
+
+node node13
+{
+    label = "S3";
+    position = (617 121);
+    states = ("t1" "t2");
+}
+
+node node10
+{
+    label = "P3";
+    position = (561 32);
+    states = ("p1" "p2");
+}
+
+node node11
+{
+    label = "C3";
+    position = (673 33);
+    states = ("c1" "c2");
+}
+
+node node12
+{
+    label = "S4";
+    position = (851 123);
+    states = ("t1" "t2");
+}
+
+node node4
+{
+    label = "P4";
+    position = (802 33);
+    states = ("p1" "p2");
+}
+
+node node5
+{
+    label = "C4";
+    position = (911 32);
+    states = ("c1" "c2");
+}
+
+node node9
+{
+    label = "C2";
+    position = (428 31);
+    states = ("c1" "c2");
+}
+
+node node8
+{
+    label = "P2";
+    position = (310 30);
+    states = ("p1" "p2");
+}
+
+node node7
+{
+    label = "C1";
+    position = (176 31);
+    states = ("c1" "c2");
+}
+
+node node6
+{
+    label = "P1";
+    position = (60 30);
+    states = ("p1" "p2");
+}
+
+node node3
+{
+    label = "S2";
+    position = (368 124);
+    states = ("t1" "t2");
+}
+
+node node2
+{
+    label = "S1";
+    position = (121 121);
+    states = ("t1" "t2");
+}
+
+node node1
+{
+    label = "Constraint";
+    position = (491 294);
+    states = ("y" "n");
+}
+
+potential (node13 | node11 node10)
+{
+    data
+     = ((( 1 0 )	%  node11=c1  node10=p1
+	 ( 0.5 0.5 ))	%  node11=c1  node10=p2
+	(( 0.5 0.5 )	%  node11=c2  node10=p1
+	 ( 0 1 )));	%  node11=c2  node10=p2
+}
+
+potential (node10)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (node11)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (node12 | node5 node4)
+{
+    data
+     = ((( 1 0 )	%  node5=c1  node4=p1
+	 ( 0.5 0.5 ))	%  node5=c1  node4=p2
+	(( 0.5 0.5 )	%  node5=c2  node4=p1
+	 ( 0 1 )));	%  node5=c2  node4=p2
+}
+
+potential (node4)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (node5)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (node9)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (node8)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (node7)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (node6)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (node3 | node9 node8)
+{
+    data
+     = ((( 1 0 )	%  node9=c1  node8=p1
+	 ( 0.5 0.5 ))	%  node9=c1  node8=p2
+	(( 0.5 0.5 )	%  node9=c2  node8=p1
+	 ( 0 1 )));	%  node9=c2  node8=p2
+}
+
+potential (node2 | node7 node6)
+{
+    data
+     = ((( 1 0 )	%  node7=c1  node6=p1
+	 ( 0.5 0.5 ))	%  node7=c1  node6=p2
+	(( 0.5 0.5 )	%  node7=c2  node6=p1
+	 ( 0 1 )));	%  node7=c2  node6=p2
+}
+
+potential (node1 | node3 node13 node12 node2)
+{
+    data
+     = ((((( 0 1 )	%  node3=t1  node13=t1  node12=t1  node2=t1
+	   ( 0 1 ))	%  node3=t1  node13=t1  node12=t1  node2=t2
+	  (( 0 1 )	%  node3=t1  node13=t1  node12=t2  node2=t1
+	   ( 1 0 )))	%  node3=t1  node13=t1  node12=t2  node2=t2
+	 ((( 0 1 )	%  node3=t1  node13=t2  node12=t1  node2=t1
+	   ( 1 0 ))	%  node3=t1  node13=t2  node12=t1  node2=t2
+	  (( 1 0 )	%  node3=t1  node13=t2  node12=t2  node2=t1
+	   ( 0 1 ))))	%  node3=t1  node13=t2  node12=t2  node2=t2
+	(((( 0 1 )	%  node3=t2  node13=t1  node12=t1  node2=t1
+	   ( 1 0 ))	%  node3=t2  node13=t1  node12=t1  node2=t2
+	  (( 1 0 )	%  node3=t2  node13=t1  node12=t2  node2=t1
+	   ( 0 1 )))	%  node3=t2  node13=t1  node12=t2  node2=t2
+	 ((( 1 0 )	%  node3=t2  node13=t2  node12=t1  node2=t1
+	   ( 0 1 ))	%  node3=t2  node13=t2  node12=t1  node2=t2
+	  (( 0 1 )	%  node3=t2  node13=t2  node12=t2  node2=t1
+	   ( 0 1 )))));	%  node3=t2  node13=t2  node12=t2  node2=t2
+}

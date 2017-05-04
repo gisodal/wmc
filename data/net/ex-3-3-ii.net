@@ -1,0 +1,235 @@
+net
+{
+    node_size = (80 40);
+    HRUNTIME_Grid_X = "10";
+    HRUNTIME_Grid_Y = "10";
+    HRUNTIME_Grid_GridSnap = "1";
+    HRUNTIME_Grid_GridShow = "0";
+    HRUNTIME_Font_Name = "Arial";
+    HRUNTIME_Font_Size = "-12";
+    HRUNTIME_Font_Weight = "400";
+    HRUNTIME_Font_Italic = "0";
+    HRUNTIME_Propagate_Auto = "0";
+    HRUNTIME_Propagate_AutoSum = "1";
+    HRUNTIME_Propagate_AutoNormal = "1";
+    HRUNTIME_Compile_TriangMethod = "0";
+    HRUNTIME_Compile_Compress = "0";
+    HRUNTIME_Compile_Approximate = "0";
+    HRUNTIME_Compile_ApproxEpsilon = "0.00001";
+    HRUNTIME_Monitor_AutoUpdGraph = "0";
+    HRUNTIME_Monitor_GraphPrecision = "100";
+    HRUNTIME_Monitor_OpenGraph = "0";
+    HRUNTIME_Monitor_InitStates = "5";
+}
+
+node Ml
+{
+    label = "Male";
+    position = (20 10);
+    states = ("A" "a");
+}
+
+node Dm1
+{
+    label = "Dam";
+    position = (20 120);
+    states = ("AA" "Aa");
+}
+
+node Sire
+{
+    label = "";
+    position = (0 200);
+    states = ("A");
+}
+
+node Da
+{
+    label = "Dam";
+    position = (0 290);
+    states = ("AA" "Aa");
+}
+
+node Female
+{
+    label = "";
+    position = (450 240);
+    states = ("AA" "Aa" "aa");
+}
+
+node GeneD_1
+{
+    label = "GeneD";
+    position = (140 290);
+    states = ("A" "a");
+}
+
+node GeneS_1
+{
+    label = "GeneS";
+    position = (140 200);
+    states = ("A");
+}
+
+node MutD_1
+{
+    label = "MutD";
+    position = (280 290);
+    states = ("A" "a");
+}
+
+node MutS_1
+{
+    label = "MutS ";
+    position = (280 200);
+    states = ("A" "a");
+}
+
+node Fem
+{
+    label = "Female";
+    position = (300 0);
+    states = ("AA" "Aa");
+}
+
+node Dm
+{
+    label = "Dam";
+    position = (230 120);
+    states = ("AA" "Aa");
+}
+
+node Sr
+{
+    label = "Sire";
+    position = (380 120);
+    states = ("A");
+}
+
+node MutD
+{
+    label = "";
+    position = (280 360);
+    states = ("A" "a");
+}
+
+node GeneD
+{
+    label = "";
+    position = (110 360);
+    states = ("A" "a");
+}
+
+node Male
+{
+    label = "";
+    position = (450 360);
+    states = ("A" "a");
+}
+
+node Dam
+{
+    label = "";
+    position = (0 360);
+    states = ("AA" "Aa");
+}
+
+potential (Ml | Dm1)
+{
+    data
+     = (( 0.999 0.001 )	%  Dm1=AA
+	( 0.4995 0.5005 ));	%  Dm1=Aa
+}
+
+potential (Dm1)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (Sire)
+{
+    data = ( 1 );
+}
+
+potential (Da)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (Female | MutD_1 MutS_1)
+{
+    data
+     = ((( 1 0 0 )	%  MutD_1=A  MutS_1=A
+	 ( 0 1 0 ))	%  MutD_1=A  MutS_1=a
+	(( 0 1 0 )	%  MutD_1=a  MutS_1=A
+	 ( 0 0 1 )));	%  MutD_1=a  MutS_1=a
+}
+
+potential (GeneD_1 | Da)
+{
+    data
+     = (( 1 0 )	%  Da=AA
+	( 0.5 0.5 ));	%  Da=Aa
+}
+
+potential (GeneS_1 | Sire)
+{
+    data
+     = (( 1 ));	%  Sire=A
+}
+
+potential (MutD_1 | GeneD_1)
+{
+    data
+     = (( 0.999 0.001 )	%  GeneD_1=A
+	( 0 1 ));	%  GeneD_1=a
+}
+
+potential (MutS_1 | GeneS_1)
+{
+    data
+     = (( 0.999 0.001 ));	%  GeneS_1=A
+}
+
+potential (Fem | Dm Sr)
+{
+    data
+     = ((( 0.998 0.002 ))	%  Dm=AA  Sr=A
+	(( 0.4993 0.5007 )));	%  Dm=Aa  Sr=A
+}
+
+potential (Dm)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (Sr)
+{
+    data = ( 1 );
+}
+
+potential (MutD | GeneD)
+{
+    data
+     = (( 0.999 0.001 )	%  GeneD=A
+	( 0 1 ));	%  GeneD=a
+}
+
+potential (GeneD | Dam)
+{
+    data
+     = (( 1 0 )	%  Dam=AA
+	( 0.5 0.5 ));	%  Dam=Aa
+}
+
+potential (Male | MutD)
+{
+    data
+     = (( 1 0 )	%  MutD=A
+	( 0 1 ));	%  MutD=a
+}
+
+potential (Dam)
+{
+    data = ( 0.5 0.5 );
+}

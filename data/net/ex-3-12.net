@@ -1,0 +1,208 @@
+net
+{
+    node_size = (100 40);
+    HRUNTIME_Monitor_InitStates = "5";
+    HRUNTIME_Monitor_OpenGraph = "0";
+    HRUNTIME_Monitor_GraphPrecision = "100";
+    HRUNTIME_Monitor_AutoUpdGraph = "0";
+    HRUNTIME_Compile_ApproxEpsilon = "0.00001";
+    HRUNTIME_Compile_Approximate = "0";
+    HRUNTIME_Compile_Compress = "0";
+    HRUNTIME_Compile_TriangMethod = "0";
+    HRUNTIME_Propagate_AutoNormal = "1";
+    HRUNTIME_Propagate_AutoSum = "1";
+    HRUNTIME_Propagate_Auto = "0";
+    HRUNTIME_Font_Italic = "0";
+    HRUNTIME_Font_Weight = "400";
+    HRUNTIME_Font_Size = "-12";
+    HRUNTIME_Font_Name = "Arial";
+    HRUNTIME_Grid_GridShow = "0";
+    HRUNTIME_Grid_GridSnap = "1";
+    HRUNTIME_Grid_Y = "10";
+    HRUNTIME_Grid_X = "10";
+}
+
+node Ot
+{
+    label = "";
+    position = (1 555);
+    states = ("y");
+}
+
+node Fe
+{
+    label = "";
+    position = (0 459);
+    states = ("y" "n");
+}
+
+node Ha_Ot
+{
+    label = "Ha-Ot";
+    position = (219 555);
+    states = ("n" "mld" "mod" "sev");
+}
+
+node Ho
+{
+    label = "";
+    position = (4 355);
+    states = ("y" "n");
+}
+
+node Ha_Fe
+{
+    label = "Ha-Fe";
+    position = (219 459);
+    states = ("no" "mld" "mod" "sev");
+}
+
+node Ni
+{
+    label = "";
+    position = (2 243);
+    states = ("y" "n");
+}
+
+node Ha_Ho
+{
+    label = "Ha-Ho";
+    position = (219 355);
+    states = ("no" "mld" "mod" "sev");
+}
+
+node Bt
+{
+    label = "";
+    position = (3 133);
+    states = ("y" "n");
+}
+
+node Ha_Ni
+{
+    label = "Ha-Ni";
+    position = (219 243);
+    states = ("no" "mld" "mod" "sev");
+}
+
+node As
+{
+    label = "";
+    position = (6 0);
+    states = ("y" "n");
+}
+
+node Ha_Bt
+{
+    label = "Ha-Bt";
+    position = (219 133);
+    states = ("no" "mld" "mod" "sev");
+}
+
+node Ha
+{
+    label = "";
+    position = (219 0);
+    states = ("no" "mld" "mod" "sev");
+}
+
+potential (Ot)
+{
+    data = ( 1 );
+}
+
+potential (Fe)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (Ha_Ot | Ot)
+{
+    data
+     = (( 0.93 0.04 0.02 0.01 ));	%  Ot=y
+}
+
+potential (Ho)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (Ha_Fe | Fe Ha_Ot)
+{
+    data
+     = ((( 0.1 0.8 0.1 0 )	%  Fe=y  Ha_Ot=n
+	 ( 0 0.3 0.6 0.1 )	%  Fe=y  Ha_Ot=mld
+	 ( 0 0 0.8 0.2 )	%  Fe=y  Ha_Ot=mod
+	 ( 0 0 0 1 ))	%  Fe=y  Ha_Ot=sev
+	(( 1 0 0 0 )	%  Fe=n  Ha_Ot=n
+	 ( 0 1 0 0 )	%  Fe=n  Ha_Ot=mld
+	 ( 0 0 1 0 )	%  Fe=n  Ha_Ot=mod
+	 ( 0 0 0 1 )));	%  Fe=n  Ha_Ot=sev
+}
+
+potential (Ni)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (Ha_Ho | Ho Ha_Fe)
+{
+    data
+     = ((( 0.1 0.8 0.1 0 )	%  Ho=y  Ha_Fe=no
+	 ( 0 0.3 0.6 0.1 )	%  Ho=y  Ha_Fe=mld
+	 ( 0 0 0.8 0.2 )	%  Ho=y  Ha_Fe=mod
+	 ( 0 0 0 1 ))	%  Ho=y  Ha_Fe=sev
+	(( 1 0 0 0 )	%  Ho=n  Ha_Fe=no
+	 ( 0 1 0 0 )	%  Ho=n  Ha_Fe=mld
+	 ( 0 0 1 0 )	%  Ho=n  Ha_Fe=mod
+	 ( 0 0 0 1 )));	%  Ho=n  Ha_Fe=sev
+}
+
+potential (Bt)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (Ha_Ni | Ni Ha_Ho)
+{
+    data
+     = ((( 0.1 0.8 0.1 0 )	%  Ni=y  Ha_Ho=no
+	 ( 0 0.3 0.6 0.1 )	%  Ni=y  Ha_Ho=mld
+	 ( 0 0 0.8 0.2 )	%  Ni=y  Ha_Ho=mod
+	 ( 0 0 0 1 ))	%  Ni=y  Ha_Ho=sev
+	(( 1 0 0 0 )	%  Ni=n  Ha_Ho=no
+	 ( 0 1 0 0 )	%  Ni=n  Ha_Ho=mld
+	 ( 0 0 1 0 )	%  Ni=n  Ha_Ho=mod
+	 ( 0 0 0 1 )));	%  Ni=n  Ha_Ho=sev
+}
+
+potential (As)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (Ha_Bt | Bt Ha_Ni)
+{
+    data
+     = ((( 0.3 0.2 0.2 0.3 )	%  Bt=y  Ha_Ni=no
+	 ( 0 0.4 0.2 0.4 )	%  Bt=y  Ha_Ni=mld
+	 ( 0 0 0.3 0.7 )	%  Bt=y  Ha_Ni=mod
+	 ( 0 0 0 1 ))	%  Bt=y  Ha_Ni=sev
+	(( 1 0 0 0 )	%  Bt=n  Ha_Ni=no
+	 ( 0 1 0 0 )	%  Bt=n  Ha_Ni=mld
+	 ( 0 0 1 0 )	%  Bt=n  Ha_Ni=mod
+	 ( 0 0 0 1 )));	%  Bt=n  Ha_Ni=sev
+}
+
+potential (Ha | As Ha_Bt)
+{
+    data
+     = ((( 1 0 0 0 )	%  As=y  Ha_Bt=no
+	 ( 0.7 0.3 0 0 )	%  As=y  Ha_Bt=mld
+	 ( 0.1 0.7 0.2 0 )	%  As=y  Ha_Bt=mod
+	 ( 0 0.1 0.7 0.2 ))	%  As=y  Ha_Bt=sev
+	(( 1 0 0 0 )	%  As=n  Ha_Bt=no
+	 ( 0 1 0 0 )	%  As=n  Ha_Bt=mld
+	 ( 0 0 1 0 )	%  As=n  Ha_Bt=mod
+	 ( 0 0 0 1 )));	%  As=n  Ha_Bt=sev
+}

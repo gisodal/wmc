@@ -1,0 +1,223 @@
+net
+{
+    node_size = (100 40);
+    HR_Node_Label_Style = "0";
+    HR_Desc = "The golf.net network converted into an influence diagram";
+    HR_OOBN_FitExpand = "1";
+    HR_Zoom_ZoomFactor = "100";
+    HR_Color_Interface = "21";
+    HR_Color_Instance = "0";
+    HR_Color_ContinuousChance = "32";
+    HR_Compile_MaxMinimalSeparators = "100000";
+    HR_Grid_X = "10";
+    HR_Grid_Y = "10";
+    HR_Grid_GridSnap = "1";
+    HR_Grid_GridShow = "0";
+    HR_Font_Name = "Arial";
+    HR_Font_Size = "-12";
+    HR_Font_Weight = "400";
+    HR_Font_Italic = "0";
+    HR_Propagate_Auto = "0";
+    HR_Propagate_AutoSum = "1";
+    HR_Propagate_AutoNormal = "1";
+    HR_Compile_TriangMethod = "0";
+    HR_Compile_Compress = "0";
+    HR_Compile_Approximate = "0";
+    HR_Compile_ApproxEpsilon = "0.00001";
+    HR_Monitor_AutoUpdGraph = "0";
+    HR_Monitor_GraphPrecision = "100";
+    HR_Monitor_OpenGraph = "0";
+    HR_Monitor_InitStates = "5";
+    HR_Monitor_InitSD = "2";
+    HR_Color_DiscreteChance = "16";
+    HR_Color_ContinuosChance = "48";
+    HR_Color_Utility = "36";
+    HR_Color_Decision = "17";
+    HR_Groups_UserGroupsNo = "0";
+    HR_Groups_GroupNames = "test\t";
+    HR_Groups_GroupColors = "47";
+    HRUNTIME_Monitor_InitStates = "5";
+    HRUNTIME_Monitor_OpenGraph = "0";
+    HRUNTIME_Monitor_GraphPrecision = "100";
+    HRUNTIME_Monitor_AutoUpdGraph = "0";
+    HRUNTIME_Compile_ApproxEpsilon = "0.00001";
+    HRUNTIME_Compile_Approximate = "0";
+    HRUNTIME_Compile_Compress = "0";
+    HRUNTIME_Compile_TriangMethod = "0";
+    HRUNTIME_Propagate_AutoNormal = "1";
+    HRUNTIME_Propagate_AutoSum = "1";
+    HRUNTIME_Propagate_Auto = "0";
+    HRUNTIME_Font_Italic = "0";
+    HRUNTIME_Font_Weight = "400";
+    HRUNTIME_Font_Size = "-12";
+    HRUNTIME_Font_Name = "Arial";
+    HRUNTIME_Grid_GridShow = "0";
+    HRUNTIME_Grid_GridSnap = "1";
+    HRUNTIME_Grid_Y = "10";
+    HRUNTIME_Grid_X = "10";
+}
+
+node Result
+{
+    label = "";
+    position = (339 30);
+    states = ("miss" "145" "160" "180" "200" "220" "240" "265" "290");
+}
+
+node Length
+{
+    label = "";
+    position = (555 182);
+    states = ("145" "160" "180" "200" "220" "240" "265" "290");
+}
+
+node Miss
+{
+    label = "";
+    position = (90 89);
+    states = ("y" "n");
+}
+
+node Slope
+{
+    label = "";
+    position = (460 294);
+    states = ("none" "downhill" "uphill");
+}
+
+node W_length
+{
+    label = "W-length";
+    position = (393 178);
+    states = ("160" "180" "200" "220" "240" "265");
+}
+
+node Wind
+{
+    label = "";
+    position = (265 306);
+    states = ("none" "with" "against");
+}
+
+node C_length
+{
+    label = "C-length";
+    position = (230 187);
+    states = ("180" "200" "220" "240");
+}
+
+decision Club
+{
+    position = (60 340);
+    states = ("spn" "dvr");
+}
+
+utility Strokes
+{
+    position = (500 30);
+}
+
+potential (Result | Miss Length)
+{
+    data
+     = ((( 1 0 0 0 0 0 0 0 0 )	%  Miss=y  Length=145
+	 ( 1 0 0 0 0 0 0 0 0 )	%  Miss=y  Length=160
+	 ( 1 0 0 0 0 0 0 0 0 )	%  Miss=y  Length=180
+	 ( 1 0 0 0 0 0 0 0 0 )	%  Miss=y  Length=200
+	 ( 1 0 0 0 0 0 0 0 0 )	%  Miss=y  Length=220
+	 ( 1 0 0 0 0 0 0 0 0 )	%  Miss=y  Length=240
+	 ( 1 0 0 0 0 0 0 0 0 )	%  Miss=y  Length=265
+	 ( 1 0 0 0 0 0 0 0 0 ))	%  Miss=y  Length=290
+	(( 0 1 0 0 0 0 0 0 0 )	%  Miss=n  Length=145
+	 ( 0 0 1 0 0 0 0 0 0 )	%  Miss=n  Length=160
+	 ( 0 0 0 1 0 0 0 0 0 )	%  Miss=n  Length=180
+	 ( 0 0 0 0 1 0 0 0 0 )	%  Miss=n  Length=200
+	 ( 0 0 0 0 0 1 0 0 0 )	%  Miss=n  Length=220
+	 ( 0 0 0 0 0 0 1 0 0 )	%  Miss=n  Length=240
+	 ( 0 0 0 0 0 0 0 1 0 )	%  Miss=n  Length=265
+	 ( 0 0 0 0 0 0 0 0 1 )));	%  Miss=n  Length=290
+}
+
+potential (Length | W_length Slope)
+{
+    data
+     = ((( 0 1 0 0 0 0 0 0 )	%  W_length=160  Slope=none
+	 ( 1 0 0 0 0 0 0 0 )	%  W_length=160  Slope=downhill
+	 ( 0 0 1 0 0 0 0 0 ))	%  W_length=160  Slope=uphill
+	(( 0 0 1 0 0 0 0 0 )	%  W_length=180  Slope=none
+	 ( 0 1 0 0 0 0 0 0 )	%  W_length=180  Slope=downhill
+	 ( 0 0 0 1 0 0 0 0 ))	%  W_length=180  Slope=uphill
+	(( 0 0 0 1 0 0 0 0 )	%  W_length=200  Slope=none
+	 ( 0 0 1 0 0 0 0 0 )	%  W_length=200  Slope=downhill
+	 ( 0 0 0 0 1 0 0 0 ))	%  W_length=200  Slope=uphill
+	(( 0 0 0 0 1 0 0 0 )	%  W_length=220  Slope=none
+	 ( 0 0 0 1 0 0 0 0 )	%  W_length=220  Slope=downhill
+	 ( 0 0 0 0 0 1 0 0 ))	%  W_length=220  Slope=uphill
+	(( 0 0 0 0 0 1 0 0 )	%  W_length=240  Slope=none
+	 ( 0 0 0 0 1 0 0 0 )	%  W_length=240  Slope=downhill
+	 ( 0 0 0 0 0 0 1 0 ))	%  W_length=240  Slope=uphill
+	(( 0 0 0 0 0 0 1 0 )	%  W_length=265  Slope=none
+	 ( 0 0 0 0 0 1 0 0 )	%  W_length=265  Slope=downhill
+	 ( 0 0 0 0 0 0 0 1 )));	%  W_length=265  Slope=uphill
+}
+
+potential (Miss | Club Wind)
+{
+    data
+     = ((( 0.02 0.98 )	%  Club=spn  Wind=none
+	 ( 0.04 0.96 )	%  Club=spn  Wind=with
+	 ( 0.04 0.96 ))	%  Club=spn  Wind=against
+	(( 0.06 0.94 )	%  Club=dvr  Wind=none
+	 ( 0.12 0.88 )	%  Club=dvr  Wind=with
+	 ( 0.12 0.88 )));	%  Club=dvr  Wind=against
+}
+
+potential (Slope)
+{
+    data = ( 0.5 0.25 0.25 );
+}
+
+potential (W_length | C_length Wind)
+{
+    data
+     = ((( 0 1 0 0 0 0 )	%  C_length=180  Wind=none
+	 ( 0 0 1 0 0 0 )	%  C_length=180  Wind=with
+	 ( 1 0 0 0 0 0 ))	%  C_length=180  Wind=against
+	(( 0 0 1 0 0 0 )	%  C_length=200  Wind=none
+	 ( 0 0 0 1 0 0 )	%  C_length=200  Wind=with
+	 ( 0 1 0 0 0 0 ))	%  C_length=200  Wind=against
+	(( 0 0 0 1 0 0 )	%  C_length=220  Wind=none
+	 ( 0 0 0 0 1 0 )	%  C_length=220  Wind=with
+	 ( 0 0 1 0 0 0 ))	%  C_length=220  Wind=against
+	(( 0 0 0 0 1 0 )	%  C_length=240  Wind=none
+	 ( 0 0 0 0 0 1 )	%  C_length=240  Wind=with
+	 ( 0 0 0 1 0 0 )));	%  C_length=240  Wind=against
+}
+
+potential (Wind)
+{
+    data = ( 0.333333 0.333333 0.333333 );
+}
+
+potential (C_length | Club)
+{
+    data
+     = (( 0.25 0.5 0.25 0 )	%  Club=spn
+	( 0 0.25 0.5 0.25 ));	%  Club=dvr
+}
+
+potential (Club) {}
+
+potential (Strokes | Result)
+{
+    data
+     = ( -4.5	%  Result=miss
+	 -3.3	%  Result=145
+	 -3.1	%  Result=160
+	 -2.9	%  Result=180
+	 -2.7	%  Result=200
+	 -2.5	%  Result=220
+	 -2	%  Result=240
+	 -1.8	%  Result=265
+	 -3.5 );	%  Result=290
+}

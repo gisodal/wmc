@@ -1,0 +1,120 @@
+net
+{
+    node_size = (100 40);
+    HR_Grid_X = "10";
+    HR_Grid_Y = "10";
+    HR_Grid_GridSnap = "1";
+    HR_Grid_GridShow = "0";
+    HR_Font_Name = "Arial";
+    HR_Font_Size = "-12";
+    HR_Font_Weight = "400";
+    HR_Font_Italic = "0";
+    HR_Propagate_Auto = "0";
+    HR_Propagate_AutoSum = "1";
+    HR_Propagate_AutoNormal = "1";
+    HR_Compile_TriangMethod = "0";
+    HR_Compile_Compress = "0";
+    HR_Compile_Approximate = "0";
+    HR_Compile_ApproxEpsilon = "0.00001";
+    HR_Monitor_AutoUpdGraph = "0";
+    HR_Monitor_GraphPrecision = "100";
+    HR_Monitor_OpenGraph = "0";
+    HR_Monitor_InitStates = "5";
+    HR_Monitor_InitSD = "2";
+    HR_Color_DiscreteChance = "16";
+    HR_Color_ContinuosChance = "48";
+    HR_Color_Utility = "36";
+    HR_Color_Decision = "17";
+    HR_Groups_UserGroupsNo = "0";
+    HR_Groups_GroupNames = "";
+    HR_Groups_GroupColors = "";
+    HRUNTIME_Monitor_InitStates = "5";
+    HRUNTIME_Monitor_OpenGraph = "0";
+    HRUNTIME_Monitor_GraphPrecision = "100";
+    HRUNTIME_Monitor_AutoUpdGraph = "0";
+    HRUNTIME_Compile_ApproxEpsilon = "0.00001";
+    HRUNTIME_Compile_Approximate = "0";
+    HRUNTIME_Compile_Compress = "0";
+    HRUNTIME_Compile_TriangMethod = "0";
+    HRUNTIME_Propagate_AutoNormal = "1";
+    HRUNTIME_Propagate_AutoSum = "1";
+    HRUNTIME_Propagate_Auto = "0";
+    HRUNTIME_Font_Italic = "0";
+    HRUNTIME_Font_Weight = "400";
+    HRUNTIME_Font_Size = "-12";
+    HRUNTIME_Font_Name = "Arial";
+    HRUNTIME_Grid_GridShow = "0";
+    HRUNTIME_Grid_GridSnap = "1";
+    HRUNTIME_Grid_Y = "10";
+    HRUNTIME_Grid_X = "10";
+}
+
+node A
+{
+    label = "A:Metastatic Cancer";
+    position = (131 266);
+    states = ("Present" "Absent");
+}
+
+node B
+{
+    label = "B: Serum Calcium";
+    position = (0 138);
+    states = ("Increased" "Not increased");
+}
+
+node D
+{
+    label = "D: Coma";
+    position = (147 10);
+    states = ("Present" "Absent");
+}
+
+node C
+{
+    label = "C:  Brain Tumor";
+    position = (255 138);
+    states = ("Present" "Absent");
+}
+
+node E
+{
+    label = "E: Severe Headaches";
+    position = (414 0);
+    states = ("Present" "Absent");
+}
+
+potential (A)
+{
+    data = ( 0.2 0.8 );
+}
+
+potential (B | A)
+{
+    data
+     = (( 0.8 0.2 )	%  A=Present
+	( 0.2 0.8 ));	%  A=Absent
+}
+
+potential (D | C B)
+{
+    data
+     = ((( 0.8 0.2 )	%  C=Present  B=Increased
+	 ( 0.8 0.2 ))	%  C=Present  B=Not increased
+	(( 0.8 0.2 )	%  C=Absent  B=Increased
+	 ( 0.05 0.95 )));	%  C=Absent  B=Not increased
+}
+
+potential (C | A)
+{
+    data
+     = (( 0.2 0.8 )	%  A=Present
+	( 0.05 0.95 ));	%  A=Absent
+}
+
+potential (E | C)
+{
+    data
+     = (( 0.8 0.2 )	%  C=Present
+	( 0.6 0.4 ));	%  C=Absent
+}

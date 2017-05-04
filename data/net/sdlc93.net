@@ -1,0 +1,389 @@
+net
+{
+    node_size = (100 40);
+    HR_Grid_X = "10";
+    HR_Grid_Y = "10";
+    HR_Grid_GridSnap = "1";
+    HR_Grid_GridShow = "0";
+    HR_Font_Name = "Arial";
+    HR_Font_Size = "-12";
+    HR_Font_Weight = "400";
+    HR_Font_Italic = "0";
+    HR_Propagate_Auto = "0";
+    HR_Propagate_AutoSum = "1";
+    HR_Propagate_AutoNormal = "1";
+    HR_Compile_TriangMethod = "0";
+    HR_Compile_Compress = "0";
+    HR_Compile_Approximate = "0";
+    HR_Compile_ApproxEpsilon = "0.00001";
+    HR_Monitor_AutoUpdGraph = "0";
+    HR_Monitor_GraphPrecision = "100";
+    HR_Monitor_OpenGraph = "0";
+    HR_Monitor_InitStates = "5";
+    HR_Monitor_InitSD = "2";
+    HR_Color_DiscreteChance = "16";
+    HR_Color_ContinuosChance = "48";
+    HR_Color_Utility = "36";
+    HR_Color_Decision = "17";
+    HR_Groups_UserGroupsNo = "0";
+    HR_Groups_GroupNames = "";
+    HR_Groups_GroupColors = "";
+    HRUNTIME_Monitor_InitStates = "5";
+    HRUNTIME_Monitor_OpenGraph = "0";
+    HRUNTIME_Monitor_GraphPrecision = "100";
+    HRUNTIME_Monitor_AutoUpdGraph = "0";
+    HRUNTIME_Compile_ApproxEpsilon = "0.00001";
+    HRUNTIME_Compile_Approximate = "0";
+    HRUNTIME_Compile_Compress = "0";
+    HRUNTIME_Compile_TriangMethod = "0";
+    HRUNTIME_Propagate_AutoNormal = "1";
+    HRUNTIME_Propagate_AutoSum = "1";
+    HRUNTIME_Propagate_Auto = "0";
+    HRUNTIME_Font_Italic = "0";
+    HRUNTIME_Font_Weight = "400";
+    HRUNTIME_Font_Size = "-12";
+    HRUNTIME_Font_Name = "Arial";
+    HRUNTIME_Grid_GridShow = "0";
+    HRUNTIME_Grid_GridSnap = "1";
+    HRUNTIME_Grid_Y = "10";
+    HRUNTIME_Grid_X = "10";
+}
+
+continuous node C22
+{
+    label = "Lower body O2";
+    position = (130 2);
+}
+
+continuous node C21
+{
+    label = "Right up. quad .O2";
+    position = (250 2);
+}
+
+continuous node C20
+{
+    label = "Age at presentattion";
+    position = (630 332);
+}
+
+node node2
+{
+    label = "Sick?";
+    position = (630 262);
+    states = ("yes" "no");
+}
+
+node node3
+{
+    label = "Grunting?";
+    position = (630 132);
+    states = ("yes" "no");
+}
+
+node node4
+{
+    label = "Grunting report?";
+    position = (630 2);
+    states = ("yes" "no");
+}
+
+node node5
+{
+    label = "Lung flow?";
+    position = (480 262);
+    states = ("normal" "low" "high");
+}
+
+node node6
+{
+    label = "Chest X-Ray";
+    position = (480 132);
+    states = ("normal" "oligaemic" "plethoric" "grd glass" "asy patchy");
+}
+
+node node7
+{
+    label = "X-Ray report?";
+    position = (480 2);
+    states = ("normal" "oligaemic" "plethoric" "grd_glass" "asy_patchy");
+}
+
+node node9
+{
+    label = "CO2";
+    position = (370 132);
+    states = ("normal" "low" "high");
+}
+
+node node12
+{
+    label = "Birth asphyxia";
+    position = (286 411);
+    states = ("yes" "no");
+}
+
+node node13
+{
+    label = "Cardiac mixing";
+    position = (250 262);
+    states = ("none" "mild" "complete" "tranparent");
+}
+
+node node8
+{
+    label = "Lung parenchema?";
+    position = (370 262);
+    states = ("normal" "oedema" "abnormal");
+}
+
+node node16
+{
+    label = "Duct flow?";
+    position = (130 262);
+    states = ("Lt to Rt" "none" "Rt to Lt");
+}
+
+node node17
+{
+    label = "Hypoxia distribution?";
+    position = (130 142);
+    states = ("equal" "unequal");
+}
+
+node node14
+{
+    label = "Hypoxia in CO2";
+    position = (250 132);
+    states = ("none" "moderate" "severe");
+}
+
+node node11
+{
+    label = "Disease?";
+    position = (290 332);
+    states = ("pfc" "tga" "fallot" "paivs" "tapvd" "lung");
+}
+
+node node19
+{
+    label = "LVH?";
+    position = (0 262);
+    states = ("yes" "no");
+}
+
+node node21
+{
+    label = "LVH report?";
+    states = ("yes" "no");
+}
+
+continuous node C23
+{
+    label = "CO2 report?";
+    position = (370 2);
+}
+
+potential (C22 | node14 node17)
+{
+    data
+     = (( normal ( 0, 0 )	%  node14=none  node17=equal
+	  normal ( 0, 0 ) )	%  node14=none  node17=unequal
+	( normal ( 0, 0 )	%  node14=moderate  node17=equal
+	  normal ( 0, 0 ) )	%  node14=moderate  node17=unequal
+	( normal ( 0, 0 )	%  node14=severe  node17=equal
+	  normal ( 0, 0 ) ));	%  node14=severe  node17=unequal
+}
+
+potential (C21 | node14)
+{
+    data
+     = ( normal ( 0, 0 )	%  node14=none
+	 normal ( 0, 0 )	%  node14=moderate
+	 normal ( 0, 0 ) );	%  node14=severe
+}
+
+potential (C20 | node11 node2)
+{
+    data
+     = (( normal ( 0, 0 )	%  node11=pfc  node2=yes
+	  normal ( 0, 0 ) )	%  node11=pfc  node2=no
+	( normal ( 0, 0 )	%  node11=tga  node2=yes
+	  normal ( 0, 0 ) )	%  node11=tga  node2=no
+	( normal ( 0, 0 )	%  node11=fallot  node2=yes
+	  normal ( 0, 0 ) )	%  node11=fallot  node2=no
+	( normal ( 0, 0 )	%  node11=paivs  node2=yes
+	  normal ( 0, 0 ) )	%  node11=paivs  node2=no
+	( normal ( 0, 0 )	%  node11=tapvd  node2=yes
+	  normal ( 0, 0 ) )	%  node11=tapvd  node2=no
+	( normal ( 0, 0 )	%  node11=lung  node2=yes
+	  normal ( 0, 0 ) ));	%  node11=lung  node2=no
+}
+
+potential (node2 | node11)
+{
+    data
+     = (( 0.5 0.5 )	%  node11=pfc
+	( 0.5 0.5 )	%  node11=tga
+	( 0.5 0.5 )	%  node11=fallot
+	( 0.5 0.5 )	%  node11=paivs
+	( 0.5 0.5 )	%  node11=tapvd
+	( 0.5 0.5 ));	%  node11=lung
+}
+
+potential (node3 | node8 node2)
+{
+    data
+     = ((( 0.5 0.5 )	%  node8=normal  node2=yes
+	 ( 0.5 0.5 ))	%  node8=normal  node2=no
+	(( 0.5 0.5 )	%  node8=oedema  node2=yes
+	 ( 0.5 0.5 ))	%  node8=oedema  node2=no
+	(( 0.5 0.5 )	%  node8=abnormal  node2=yes
+	 ( 0.5 0.5 )));	%  node8=abnormal  node2=no
+}
+
+potential (node4 | node3)
+{
+    data
+     = (( 0.5 0.5 )	%  node3=yes
+	( 0.5 0.5 ));	%  node3=no
+}
+
+potential (node5 | node11)
+{
+    data
+     = (( 0.333333 0.333333 0.333333 )	%  node11=pfc
+	( 0.333333 0.333333 0.333333 )	%  node11=tga
+	( 0.333333 0.333333 0.333333 )	%  node11=fallot
+	( 0.333333 0.333333 0.333333 )	%  node11=paivs
+	( 0.333333 0.333333 0.333333 )	%  node11=tapvd
+	( 0.333333 0.333333 0.333333 ));	%  node11=lung
+}
+
+potential (node6 | node5 node8)
+{
+    data
+     = ((( 0.2 0.2 0.2 0.2 0.2 )	%  node5=normal  node8=normal
+	 ( 0.2 0.2 0.2 0.2 0.2 )	%  node5=normal  node8=oedema
+	 ( 0.2 0.2 0.2 0.2 0.2 ))	%  node5=normal  node8=abnormal
+	(( 0.2 0.2 0.2 0.2 0.2 )	%  node5=low  node8=normal
+	 ( 0.2 0.2 0.2 0.2 0.2 )	%  node5=low  node8=oedema
+	 ( 0.2 0.2 0.2 0.2 0.2 ))	%  node5=low  node8=abnormal
+	(( 0.2 0.2 0.2 0.2 0.2 )	%  node5=high  node8=normal
+	 ( 0.2 0.2 0.2 0.2 0.2 )	%  node5=high  node8=oedema
+	 ( 0.2 0.2 0.2 0.2 0.2 )));	%  node5=high  node8=abnormal
+}
+
+potential (node7 | node6)
+{
+    data
+     = (( 0.2 0.2 0.2 0.2 0.2 )	%  node6=normal
+	( 0.2 0.2 0.2 0.2 0.2 )	%  node6=oligaemic
+	( 0.2 0.2 0.2 0.2 0.2 )	%  node6=plethoric
+	( 0.2 0.2 0.2 0.2 0.2 )	%  node6=grd glass
+	( 0.2 0.2 0.2 0.2 0.2 ));	%  node6=asy patchy
+}
+
+potential (node9 | node8)
+{
+    data
+     = (( 0.333333 0.333333 0.333333 )	%  node8=normal
+	( 0.333333 0.333333 0.333333 )	%  node8=oedema
+	( 0.333333 0.333333 0.333333 ));	%  node8=abnormal
+}
+
+potential (node12)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (node13 | node11)
+{
+    data
+     = (( 0.25 0.25 0.25 0.25 )	%  node11=pfc
+	( 0.25 0.25 0.25 0.25 )	%  node11=tga
+	( 0.25 0.25 0.25 0.25 )	%  node11=fallot
+	( 0.25 0.25 0.25 0.25 )	%  node11=paivs
+	( 0.25 0.25 0.25 0.25 )	%  node11=tapvd
+	( 0.25 0.25 0.25 0.25 ));	%  node11=lung
+}
+
+potential (node8 | node11)
+{
+    data
+     = (( 0.333333 0.333333 0.333333 )	%  node11=pfc
+	( 0.333333 0.333333 0.333333 )	%  node11=tga
+	( 0.333333 0.333333 0.333333 )	%  node11=fallot
+	( 0.333333 0.333333 0.333333 )	%  node11=paivs
+	( 0.333333 0.333333 0.333333 )	%  node11=tapvd
+	( 0.333333 0.333333 0.333333 ));	%  node11=lung
+}
+
+potential (node16 | node11)
+{
+    data
+     = (( 0.333333 0.333333 0.333333 )	%  node11=pfc
+	( 0.333333 0.333333 0.333333 )	%  node11=tga
+	( 0.333333 0.333333 0.333333 )	%  node11=fallot
+	( 0.333333 0.333333 0.333333 )	%  node11=paivs
+	( 0.333333 0.333333 0.333333 )	%  node11=tapvd
+	( 0.333333 0.333333 0.333333 ));	%  node11=lung
+}
+
+potential (node17 | node16)
+{
+    data
+     = (( 0.5 0.5 )	%  node16=Lt to Rt
+	( 0.5 0.5 )	%  node16=none
+	( 0.5 0.5 ));	%  node16=Rt to Lt
+}
+
+potential (node14 | node8 node13)
+{
+    data
+     = ((( 0.333333 0.333333 0.333333 )	%  node8=normal  node13=none
+	 ( 0.333333 0.333333 0.333333 )	%  node8=normal  node13=mild
+	 ( 0.333333 0.333333 0.333333 )	%  node8=normal  node13=complete
+	 ( 0.333333 0.333333 0.333333 ))	%  node8=normal  node13=tranparent
+	(( 0.333333 0.333333 0.333333 )	%  node8=oedema  node13=none
+	 ( 0.333333 0.333333 0.333333 )	%  node8=oedema  node13=mild
+	 ( 0.333333 0.333333 0.333333 )	%  node8=oedema  node13=complete
+	 ( 0.333333 0.333333 0.333333 ))	%  node8=oedema  node13=tranparent
+	(( 0.333333 0.333333 0.333333 )	%  node8=abnormal  node13=none
+	 ( 0.333333 0.333333 0.333333 )	%  node8=abnormal  node13=mild
+	 ( 0.333333 0.333333 0.333333 )	%  node8=abnormal  node13=complete
+	 ( 0.333333 0.333333 0.333333 )));	%  node8=abnormal  node13=tranparent
+}
+
+potential (node11 | node12)
+{
+    data
+     = (( 0.166667 0.166667 0.166667 0.166667 0.166667 0.166667 )	%  node12=yes
+	( 0.166667 0.166667 0.166667 0.166667 0.166667 0.166667 ));	%  node12=no
+}
+
+potential (node19 | node11)
+{
+    data
+     = (( 0.1 0.9 )	%  node11=pfc
+	( 0.1 0.9 )	%  node11=tga
+	( 0.1 0.9 )	%  node11=fallot
+	( 0.9 0.1 )	%  node11=paivs
+	( 0.344828 0.655172 )	%  node11=tapvd
+	( 0.1 0.9 ));	%  node11=lung
+}
+
+potential (node21 | node19)
+{
+    data
+     = (( 0.9 0.1 )	%  node19=yes
+	( 0.344828 0.655172 ));	%  node19=no
+}
+
+potential (C23 | node9)
+{
+    data
+     = ( normal ( 0, 0 )	%  node9=normal
+	 normal ( 0, 0 )	%  node9=low
+	 normal ( 0, 0 ) );	%  node9=high
+}

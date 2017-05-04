@@ -1,0 +1,166 @@
+net
+{
+    node_size = (80 40);
+    HRUNTIME_Monitor_InitStates = "5";
+    HRUNTIME_Monitor_OpenGraph = "0";
+    HRUNTIME_Monitor_GraphPrecision = "100";
+    HRUNTIME_Monitor_AutoUpdGraph = "0";
+    HRUNTIME_Compile_ApproxEpsilon = "0.00001";
+    HRUNTIME_Compile_Approximate = "0";
+    HRUNTIME_Compile_Compress = "0";
+    HRUNTIME_Compile_TriangMethod = "0";
+    HRUNTIME_Propagate_AutoNormal = "1";
+    HRUNTIME_Propagate_AutoSum = "1";
+    HRUNTIME_Propagate_Auto = "0";
+    HRUNTIME_Font_Italic = "0";
+    HRUNTIME_Font_Weight = "400";
+    HRUNTIME_Font_Size = "-12";
+    HRUNTIME_Font_Name = "Arial";
+    HRUNTIME_Grid_GridShow = "0";
+    HRUNTIME_Grid_GridSnap = "1";
+    HRUNTIME_Grid_Y = "10";
+    HRUNTIME_Grid_X = "10";
+}
+
+node Ofs
+{
+    label = "Offspr";
+    position = (170 0);
+    states = ("AA" "Aa" "aa");
+}
+
+node Dm
+{
+    label = "Dam";
+    position = (90 80);
+    states = ("AA" "Aa" "aa");
+}
+
+node Sr
+{
+    label = "Sire";
+    position = (240 70);
+    states = ("AA" "Aa" "aa");
+}
+
+node MutS
+{
+    label = "";
+    position = (290 170);
+    states = ("A" "a");
+}
+
+node MutD
+{
+    label = "";
+    position = (280 250);
+    states = ("A" "a");
+}
+
+node GeneS
+{
+    label = "";
+    position = (150 170);
+    states = ("A" "a");
+}
+
+node GeneD
+{
+    label = "";
+    position = (140 250);
+    states = ("A" "a");
+}
+
+node Offspr
+{
+    label = "";
+    position = (440 200);
+    states = ("AA" "Aa" "aa");
+}
+
+node Dam
+{
+    label = "";
+    position = (0 250);
+    states = ("AA" "Aa" "aa");
+}
+
+node Sire
+{
+    label = "";
+    position = (20 170);
+    states = ("AA" "Aa" "aa");
+}
+
+potential (Ofs | Dm Sr)
+{
+    data
+     = ((( 0.998 0.002 0 )	%  Dm=AA  Sr=AA
+	 ( 0.499 0.5005 0.0005 )	%  Dm=AA  Sr=Aa
+	 ( 0 0.999 0.001 ))	%  Dm=AA  Sr=aa
+	(( 0.499 0.5005 0.0005 )	%  Dm=Aa  Sr=AA
+	 ( 0.2495 0.5 0.2505 )	%  Dm=Aa  Sr=Aa
+	 ( 0 0.4995 0.5005 ))	%  Dm=Aa  Sr=aa
+	(( 0 0.999 0.001 )	%  Dm=aa  Sr=AA
+	 ( 0 0.4995 0.5005 )	%  Dm=aa  Sr=Aa
+	 ( 0 0 1 )));	%  Dm=aa  Sr=aa
+}
+
+potential (Dm)
+{
+    data = ( 0.333333 0.333333 0.333333 );
+}
+
+potential (Sr)
+{
+    data = ( 0.333333 0.333333 0.333333 );
+}
+
+potential (MutS | GeneS)
+{
+    data
+     = (( 0.999 0.001 )	%  GeneS=A
+	( 0 1 ));	%  GeneS=a
+}
+
+potential (MutD | GeneD)
+{
+    data
+     = (( 0.999 0.001 )	%  GeneD=A
+	( 0 1 ));	%  GeneD=a
+}
+
+potential (GeneS | Sire)
+{
+    data
+     = (( 1 0 )	%  Sire=AA
+	( 0.5 0.5 )	%  Sire=Aa
+	( 0 1 ));	%  Sire=aa
+}
+
+potential (GeneD | Dam)
+{
+    data
+     = (( 1 0 )	%  Dam=AA
+	( 0.5 0.5 )	%  Dam=Aa
+	( 0 1 ));	%  Dam=aa
+}
+
+potential (Offspr | MutS MutD)
+{
+    data
+     = ((( 1 0 0 )	%  MutS=A  MutD=A
+	 ( 0 1 0 ))	%  MutS=A  MutD=a
+	(( 0 1 0 )	%  MutS=a  MutD=A
+	 ( 0 0 1 )));	%  MutS=a  MutD=a
+}
+
+potential (Dam)
+{
+    data = ( 0.333333 0.333333 0.333333 );
+}
+
+potential (Sire)
+{
+    data = ( 0.333333 0.333333 0.333333 );
+}

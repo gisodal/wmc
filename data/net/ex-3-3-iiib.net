@@ -1,0 +1,201 @@
+net
+{
+    node_size = (110 54);
+    HRUNTIME_Grid_X = "10";
+    HRUNTIME_Grid_Y = "10";
+    HRUNTIME_Grid_GridSnap = "1";
+    HRUNTIME_Grid_GridShow = "0";
+    HRUNTIME_Font_Name = "Arial";
+    HRUNTIME_Font_Size = "-12";
+    HRUNTIME_Font_Weight = "400";
+    HRUNTIME_Font_Italic = "0";
+    HRUNTIME_Propagate_Auto = "0";
+    HRUNTIME_Propagate_AutoSum = "1";
+    HRUNTIME_Propagate_AutoNormal = "1";
+    HRUNTIME_Compile_TriangMethod = "0";
+    HRUNTIME_Compile_Compress = "0";
+    HRUNTIME_Compile_Approximate = "0";
+    HRUNTIME_Compile_ApproxEpsilon = "0.00001";
+    HRUNTIME_Monitor_AutoUpdGraph = "0";
+    HRUNTIME_Monitor_GraphPrecision = "100";
+    HRUNTIME_Monitor_OpenGraph = "0";
+    HRUNTIME_Monitor_InitStates = "5";
+    HR_Grid_X = "10";
+    HR_Grid_Y = "10";
+    HR_Grid_GridSnap = "1";
+    HR_Grid_GridShow = "0";
+    HR_Font_Name = "Arial";
+    HR_Font_Size = "-12";
+    HR_Font_Weight = "400";
+    HR_Font_Italic = "0";
+    HR_Propagate_Auto = "0";
+    HR_Propagate_AutoSum = "1";
+    HR_Propagate_AutoNormal = "1";
+    HR_Compile_TriangMethod = "0";
+    HR_Compile_Compress = "0";
+    HR_Compile_Approximate = "0";
+    HR_Compile_ApproxEpsilon = "0.00001";
+    HR_Monitor_AutoUpdGraph = "0";
+    HR_Monitor_GraphPrecision = "100";
+    HR_Monitor_OpenGraph = "0";
+    HR_Monitor_InitStates = "5";
+    HR_Monitor_InitSD = "2";
+}
+
+node node5_1
+{
+    label = "K ";
+    position = (522 391);
+    states = ("Pure");
+}
+
+node node12_1
+{
+    label = "John";
+    position = (260 0);
+    states = ("Sick" "Pure");
+}
+
+node node9_1
+{
+    label = "Gwenn";
+    position = (457 262);
+    states = ("Carrier" "Pure");
+}
+
+node node11_1
+{
+    label = "Irene";
+    position = (392 131);
+    states = ("Carrier" "Pure");
+}
+
+node node7_1
+{
+    label = "Dorothy";
+    position = (195 262);
+    states = ("Carrier" "Pure");
+}
+
+node node10_1
+{
+    label = "Henry";
+    position = (130 131);
+    states = ("Pure");
+}
+
+node node3_1
+{
+    label = "Brian";
+    position = (260 391);
+    states = ("Pure");
+}
+
+node node8_1
+{
+    label = "Eric";
+    position = (327 262);
+    states = ("Pure");
+}
+
+node node2_1
+{
+    label = "Ann";
+    position = (130 391);
+    states = ("Carrier" "Pure");
+}
+
+node node6_1
+{
+    label = "Fred";
+    position = (65 262);
+    states = ("Pure");
+}
+
+node node4_1
+{
+    label = "Cecily";
+    position = (392 391);
+    states = ("Carrier" "Pure");
+}
+
+node node1_1
+{
+    label = "L";
+    position = (0 391);
+    states = ("Pure");
+}
+
+potential (node5_1)
+{
+    data = ( 1 );
+}
+
+potential (node12_1 | node11_1 node10_1)
+{
+    data
+     = ((( 0.5005 0.4995 ))	%  node11_1=Carrier  node10_1=Pure
+	(( 0.001 0.999 )));	%  node11_1=Pure  node10_1=Pure
+}
+
+potential (node9_1 | node5_1 node2_1)
+{
+    data
+     = ((( 0.5007 0.4993 )	%  node5_1=Pure  node2_1=Carrier
+	 ( 0.002 0.998 )));	%  node5_1=Pure  node2_1=Pure
+}
+
+potential (node11_1 | node9_1 node8_1)
+{
+    data
+     = ((( 0.5007 0.4993 ))	%  node9_1=Carrier  node8_1=Pure
+	(( 0.002 0.998 )));	%  node9_1=Pure  node8_1=Pure
+}
+
+potential (node7_1 | node3_1 node2_1)
+{
+    data
+     = ((( 0.5007 0.4993 )	%  node3_1=Pure  node2_1=Carrier
+	 ( 0.002 0.998 )));	%  node3_1=Pure  node2_1=Pure
+}
+
+potential (node10_1 | node7_1 node6_1)
+{
+    data
+     = ((( 1 ))	%  node7_1=Carrier  node6_1=Pure
+	(( 1 )));	%  node7_1=Pure  node6_1=Pure
+}
+
+potential (node3_1)
+{
+    data = ( 1 );
+}
+
+potential (node8_1 | node3_1 node4_1)
+{
+    data
+     = ((( 1 )	%  node3_1=Pure  node4_1=Carrier
+	 ( 1 )));	%  node3_1=Pure  node4_1=Pure
+}
+
+potential (node2_1)
+{
+    data = ( 0.01 0.99 );
+}
+
+potential (node6_1 | node2_1 node1_1)
+{
+    data
+     = ((( 1 ))	%  node2_1=Carrier  node1_1=Pure
+	(( 1 )));	%  node2_1=Pure  node1_1=Pure
+}
+
+potential (node4_1)
+{
+    data = ( 0.01 0.99 );
+}
+
+potential (node1_1)
+{
+    data = ( 1 );
+}

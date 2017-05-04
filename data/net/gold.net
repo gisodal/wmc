@@ -1,0 +1,82 @@
+net
+{
+    node_size = (100 40);
+    HR_Monitor_InitSD = "2";
+    HR_Desc = "\r\nFind the Gold  -  A Classic Example\r\n\r\nBehind one of three dors (a, b, and c) a pot of gold is hidden.\r\n\r\nWe all know that the probability for each of the doors are 1/3.\r\n\r\nNow, you are asked to bet on one of the doors. Now walk over to the door and block it.\r\n\r\nAn official now opens one of the other two doors. This door has NOT been hiding the gold.\r\n\r\nWe are now left with two doors, and the gold is behind one of these.\r\n\r\nThe question now is: What are the probabilities for the gold being behind the door you chose in step 1, and the second door the official didn't open???\r\n\r\nWould you say 1/2 and 1/2 ??, then you are wrong.\r\n\r\n--------\r\n\r\nTo run the network, enter your bet in the 'Your-D' node. Enter the choice of the official in the 'Ofcl-D' node and watch the 'Gold' node, that indicates the probabilities for each door.\r\n\r\n--------";
+    HR_Monitor_InitStates = "5";
+    HR_Grid_X = "10";
+    HR_Grid_Y = "10";
+    HR_Grid_GridSnap = "1";
+    HR_Grid_GridShow = "0";
+    HR_Font_Name = "Arial";
+    HR_Font_Size = "-12";
+    HR_Font_Weight = "400";
+    HR_Font_Italic = "0";
+    HR_Propagate_Auto = "1";
+    HR_Propagate_AutoSum = "1";
+    HR_Propagate_AutoNormal = "1";
+    HR_Compile_TriangMethod = "0";
+    HR_Compile_Compress = "0";
+    HR_Compile_Approximate = "0";
+    HR_Compile_ApproxEpsilon = "0.00001";
+    HR_Monitor_AutoUpdGraph = "0";
+    HR_Monitor_GraphPrecision = "100";
+    HR_Monitor_OpenGraph = "0";
+}
+
+node Ofcl_D
+{
+    label = "Ofcl-D";
+    position = (80 0);
+    states = ("a" "b" "c");
+    HR_State_1 = "Official opens door b";
+    HR_State_0 = "Official opens door a";
+    HR_State_2 = "Official opens door c";
+    HR_Desc = "When you have entered your bet in the 'Your-D' node, enter the choice of the official here. The door that he opens without the gold behind, and watch the probabilities in the 'Gold' node.";
+}
+
+node Your_D
+{
+    label = "Your-D";
+    position = (160 100);
+    states = ("a" "b" "c");
+    HR_State_2 = "Place your bet on door c";
+    HR_State_1 = "Place your bet on door b";
+    HR_State_0 = "Place your bet on door a";
+    HR_Desc = "Enter the door you bet on here.";
+}
+
+node Gold
+{
+    label = "Gold";
+    position = (0 100);
+    states = ("a" "b" "c");
+    HR_State_2 = "Probability for the gold being behind door c";
+    HR_State_1 = "Probability for the gold being behind door b";
+    HR_State_0 = "Probability for the gold being behind door a";
+    HR_Desc = "This node gives the probabilities for the where the gold is hidden.\r\n\r\nDo NOT enter evidence here.";
+}
+
+potential (Ofcl_D | Gold Your_D)
+{
+    data
+     = ((( 0 0.5 0.5 )	%  Gold=a  Your_D=a
+	 ( 0 0 1 )	%  Gold=a  Your_D=b
+	 ( 0 1 0 ))	%  Gold=a  Your_D=c
+	(( 0 0 1 )	%  Gold=b  Your_D=a
+	 ( 0.5 0 0.5 )	%  Gold=b  Your_D=b
+	 ( 1 0 0 ))	%  Gold=b  Your_D=c
+	(( 0 1 0 )	%  Gold=c  Your_D=a
+	 ( 1 0 0 )	%  Gold=c  Your_D=b
+	 ( 0.5 0.5 0 )));	%  Gold=c  Your_D=c
+}
+
+potential (Your_D)
+{
+    data = ( 0.333333 0.333333 0.333333 );
+}
+
+potential (Gold)
+{
+    data = ( 0.333333 0.333333 0.333333 );
+}

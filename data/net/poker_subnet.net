@@ -1,0 +1,513 @@
+class poker_mh
+{
+    inputs = (FC);
+    outputs = (MH);
+    node_size = (80 40);
+    HR_Desc = "";
+    HR_Zoom_ZoomFactor = "100";
+    HR_Groups_GroupColors = "";
+    HR_Groups_GroupNames = "";
+    HR_Groups_UserGroupsNo = "0";
+    HR_Color_Interface = "21";
+    HR_Color_Instance = "0";
+    HR_Color_Utility = "36";
+    HR_Color_Decision = "17";
+    HR_Color_ContinuousChance = "48";
+    HR_Color_DiscreteChance = "16";
+    HR_Monitor_InitSD = "2";
+    HR_Monitor_InitStates = "5";
+    HR_Monitor_OpenGraph = "0";
+    HR_Monitor_GraphPrecision = "100";
+    HR_Monitor_AutoUpdGraph = "0";
+    HR_Compile_ApproxEpsilon = "0.00001";
+    HR_Compile_Approximate = "0";
+    HR_Compile_Compress = "0";
+    HR_Compile_TriangMethod = "0";
+    HR_Propagate_AutoNormal = "1";
+    HR_Propagate_AutoSum = "1";
+    HR_Propagate_Auto = "1";
+    HR_Font_Italic = "0";
+    HR_Font_Weight = "400";
+    HR_Font_Size = "-12";
+    HR_Font_Name = "Arial";
+    HR_Grid_GridShow = "0";
+    HR_Grid_GridSnap = "0";
+    HR_Grid_Y = "40";
+    HR_Grid_X = "40";
+
+    node FC
+    {
+	label = "";
+	position = (303 85);
+	states = ("0 changed" "1 changed" "2 changed" "3 changed");
+	HR_State_1 = "";
+	HR_State_0 = "";
+	HR_Grp = "";
+    }
+
+    node MH
+    {
+	label = "";
+	position = (210 257);
+	states = ("no" "1 a" "2 v" "2 a" "fl" "st" "3 v" "stfl");
+	HR_State_1 = "";
+	HR_State_0 = "";
+	HR_Grp = "";
+    }
+
+    decision MSC
+    {
+	label = "";
+	position = (70 197);
+	states = ("0 changed" "1 changed" "2 changed");
+	HR_Grp = "";
+    }
+
+    node MH1
+    {
+	label = "";
+	position = (210 143);
+	states = ("no" "1 a" "2 cons" "2 s" "2 v" "fl" "st" "3 v" "stfl");
+	HR_Grp = "";
+    }
+
+    decision MFC
+    {
+	label = "";
+	position = (70 87);
+	states = ("0 changed" "1 changed" "2 changed" "3 changed");
+	HR_Grp = "";
+    }
+
+    node MH0
+    {
+	label = "";
+	position = (210 30);
+	states = ("no" "1a" "2 cons" "2 s" "2 v" "fl" "st" "3 v" "stfl");
+	HR_Grp = "";
+    }
+
+    potential (FC)
+    {
+	data = ( 1 1 1 1 );
+    }
+
+    potential (MH | MSC MH1)
+    {
+	data = ((( 1 0 0 0 0 0 0 0 )	%  MSC=0 changed  MH1=no
+		 ( 0 1 0 0 0 0 0 0 )	%  MSC=0 changed  MH1=1 a
+		 ( 1 0 0 0 0 0 0 0 )	%  MSC=0 changed  MH1=2 cons
+		 ( 1 0 0 0 0 0 0 0 )	%  MSC=0 changed  MH1=2 s
+		 ( 0 0 0.9231 0.0769 0 0 0 0 )	%  MSC=0 changed  MH1=2 v
+		 ( 0 0 0 0 1 0 0 0 )	%  MSC=0 changed  MH1=fl
+		 ( 0 0 0 0 0 1 0 0 )	%  MSC=0 changed  MH1=st
+		 ( 0 0 0 0 0 0 1 0 )	%  MSC=0 changed  MH1=3 v
+		 ( 0 0 0 0 0 0 0 1 ))	%  MSC=0 changed  MH1=stfl
+		(( 1 0 0 0 0 0 0 0 )	%  MSC=1 changed  MH1=no
+		 ( 0 1 0 0 0 0 0 0 )	%  MSC=1 changed  MH1=1 a
+		 ( 0.5903 0.1181 0.1154 0.0096 0 0.1666 0 0 )	%  MSC=1 changed  MH1=2 cons
+		 ( 0.5121 0.1024 0.1154 0.0096 0.2188 0.0313 0 0.0104 )	%  MSC=1 changed  MH1=2 s
+		 ( 0 0 0.8838 0.0736 0 0 0.0426 0 )	%  MSC=1 changed  MH1=2 v
+		 ( 1 0 0 0 0 0 0 0 )	%  MSC=1 changed  MH1=fl
+		 ( 1 0 0 0 0 0 0 0 )	%  MSC=1 changed  MH1=st
+		 ( 0 0 1 0 0 0 0 0 )	%  MSC=1 changed  MH1=3 v
+		 ( 0 0 1 0 0 0 0 0 ))	%  MSC=1 changed  MH1=stfl
+		(( 0.5613 0.157 0.1757 0.0055 0.0559 0.0392 0.0027 0.0027 )	%  MSC=2 changed  MH1=no
+		 ( 0 0.7183 0.0667 0.1145 0.0559 0.0392 0.0027 0.0027 )	%  MSC=2 changed  MH1=1 a
+		 ( 1 0 0 0 0 0 0 0 )	%  MSC=2 changed  MH1=2 cons
+		 ( 1 0 0 0 0 0 0 0 )	%  MSC=2 changed  MH1=2 s
+		 ( 1 0 0 0 0 0 0 0 )	%  MSC=2 changed  MH1=2 v
+		 ( 1 0 0 0 0 0 0 0 )	%  MSC=2 changed  MH1=fl
+		 ( 1 0 0 0 0 0 0 0 )	%  MSC=2 changed  MH1=st
+		 ( 1 0 0 0 0 0 0 0 )	%  MSC=2 changed  MH1=3 v
+		 ( 1 0 0 0 0 0 0 0 )));	%  MSC=2 changed  MH1=stfl
+    }
+
+    potential (MSC | MH1) {}
+
+    potential (MH1 | MFC MH0)
+    {
+	data = ((( 1 0 0 0 0 0 0 0 0 )	%  MFC=0 changed  MH0=no
+		 ( 0 1 0 0 0 0 0 0 0 )	%  MFC=0 changed  MH0=1a
+		 ( 0 0 1 0 0 0 0 0 0 )	%  MFC=0 changed  MH0=2 cons
+		 ( 0 0 0 1 0 0 0 0 0 )	%  MFC=0 changed  MH0=2 s
+		 ( 0 0 0 0 1 0 0 0 0 )	%  MFC=0 changed  MH0=2 v
+		 ( 0 0 0 0 0 1 0 0 0 )	%  MFC=0 changed  MH0=fl
+		 ( 0 0 0 0 0 0 1 0 0 )	%  MFC=0 changed  MH0=st
+		 ( 0 0 0 0 0 0 0 1 0 )	%  MFC=0 changed  MH0=3 v
+		 ( 0 0 0 0 0 0 0 0 1 ))	%  MFC=0 changed  MH0=stfl
+		(( 1 0 0 0 0 0 0 0 0 )	%  MFC=1 changed  MH0=no
+		 ( 0 1 0 0 0 0 0 0 0 )	%  MFC=1 changed  MH0=1a
+		 ( 0 0 0.347 0.3674 0.1224 0 0.1632 0 0 )	%  MFC=1 changed  MH0=2 cons
+		 ( 0 0 0 0.6224 0.1224 0.2143 0.0307 0 0.0102 )	%  MFC=1 changed  MH0=2 s
+		 ( 0 0 0 0 0.9592 0 0 0.0408 0 )	%  MFC=1 changed  MH0=2 v
+		 ( 0 0 1 0 0 0 0 0 0 )	%  MFC=1 changed  MH0=fl
+		 ( 0 0 0 1 0 0 0 0 0 )	%  MFC=1 changed  MH0=st
+		 ( 0 0 0 0 1 0 0 0 0 )	%  MFC=1 changed  MH0=3 v
+		 ( 0 0 0 0 0 0.5 0.5 0 0 ))	%  MFC=1 changed  MH0=stfl
+		(( 1 0 0 0 0 0 0 0 0 )	%  MFC=2 changed  MH0=no
+		 ( 0 0.1814 0.0681 0.4796 0.1738 0.0536 0.0383 0.0026 0.0026 )	%  MFC=2 changed  MH0=1a
+		 ( 1 0 0 0 0 0 0 0 0 )	%  MFC=2 changed  MH0=2 cons
+		 ( 1 0 0 0 0 0 0 0 0 )	%  MFC=2 changed  MH0=2 s
+		 ( 1 0 0 0 0 0 0 0 0 )	%  MFC=2 changed  MH0=2 v
+		 ( 1 0 0 0 0 0 0 0 0 )	%  MFC=2 changed  MH0=fl
+		 ( 1 0 0 0 0 0 0 0 0 )	%  MFC=2 changed  MH0=st
+		 ( 1 0 0 0 0 0 0 0 0 )	%  MFC=2 changed  MH0=3 v
+		 ( 1 0 0 0 0 0 0 0 0 ))	%  MFC=2 changed  MH0=stfl
+		(( 0.1583 0.0534 0.0635 0.4659 0.1694 0.0494 0.0353 0.0024 0.0024 )	%  MFC=3 changed  MH0=no
+		 ( 0.1583 0.0534 0.0635 0.4659 0.1694 0.0494 0.0353 0.0024 0.0024 )	%  MFC=3 changed  MH0=1a
+		 ( 0.1583 0.0534 0.0635 0.4659 0.1694 0.0494 0.0353 0.0024 0.0024 )	%  MFC=3 changed  MH0=2 cons
+		 ( 0.1583 0.0534 0.0635 0.4659 0.1694 0.0494 0.0353 0.0024 0.0024 )	%  MFC=3 changed  MH0=2 s
+		 ( 0.1583 0.0534 0.0635 0.4659 0.1694 0.0494 0.0353 0.0024 0.0024 )	%  MFC=3 changed  MH0=2 v
+		 ( 0.1583 0.0534 0.0635 0.4659 0.1694 0.0494 0.0353 0.0024 0.0024 )	%  MFC=3 changed  MH0=fl
+		 ( 0.1583 0.0534 0.0635 0.4659 0.1694 0.0494 0.0353 0.0024 0.0024 )	%  MFC=3 changed  MH0=st
+		 ( 0.1583 0.0534 0.0635 0.4659 0.1694 0.0494 0.0353 0.0024 0.0024 )	%  MFC=3 changed  MH0=3 v
+		 ( 0.1583 0.0534 0.0635 0.4659 0.1694 0.0494 0.0353 0.0024 0.0024 )));	%  MFC=3 changed  MH0=stfl
+    }
+
+    potential (MFC | FC MH0) {}
+
+    potential (MH0)
+    {
+	data = ( 0.1672 0.0445 0.0635 0.4659 0.1694 0.0494 0.0353 0.0024 0.0024 );
+    }
+} % class poker_mh
+
+class poker_oh
+{
+    inputs = ();
+    outputs = (FC SC OH2);
+    node_size = (80 40);
+    HR_Grid_X = "40";
+    HR_Grid_Y = "40";
+    HR_Grid_GridSnap = "0";
+    HR_Grid_GridShow = "0";
+    HR_Font_Name = "Arial";
+    HR_Font_Size = "-12";
+    HR_Font_Weight = "400";
+    HR_Font_Italic = "0";
+    HR_Propagate_Auto = "1";
+    HR_Propagate_AutoSum = "1";
+    HR_Propagate_AutoNormal = "1";
+    HR_Compile_TriangMethod = "0";
+    HR_Compile_Compress = "0";
+    HR_Compile_Approximate = "0";
+    HR_Compile_ApproxEpsilon = "0.00001";
+    HR_Monitor_AutoUpdGraph = "0";
+    HR_Monitor_GraphPrecision = "100";
+    HR_Monitor_OpenGraph = "0";
+    HR_Monitor_InitStates = "5";
+    HR_Monitor_InitSD = "2";
+    HR_Color_DiscreteChance = "16";
+    HR_Color_ContinuousChance = "48";
+    HR_Color_Decision = "17";
+    HR_Color_Utility = "36";
+    HR_Color_Instance = "0";
+    HR_Color_Interface = "21";
+    HR_Groups_UserGroupsNo = "0";
+    HR_Groups_GroupNames = "";
+    HR_Groups_GroupColors = "";
+    HR_Zoom_ZoomFactor = "100";
+    HR_Desc = "";
+
+    node OH2
+    {
+	label = "";
+	position = (200 249);
+	states = ("no" "1 a" "2 v" "2 a" "fl" "st" "3 v" "stfl");
+	HR_State_1 = "";
+	HR_State_0 = "";
+	HR_Grp = "";
+    }
+
+    node OH1
+    {
+	label = "";
+	position = (200 135);
+	states = ("no" "1 a" "2 cons" "2 s" "2 v" "fl" "st" "3 v" "stfl");
+	HR_Grp = "";
+    }
+
+    node SC
+    {
+	label = "";
+	position = (341 187);
+	states = ("0 Changed" "1 Changed" "2 Changed");
+	HR_State_1 = "";
+	HR_State_0 = "";
+	HR_Grp = "";
+    }
+
+    node FC
+    {
+	label = "";
+	position = (341 77);
+	states = ("0 changed" "1 changed" "2 changed" "3 changed");
+	HR_State_1 = "";
+	HR_State_0 = "";
+	HR_Grp = "";
+    }
+
+    node OH0
+    {
+	label = "";
+	position = (200 22);
+	states = ("no" "1a" "2 cons" "2 s" "2 v" "fl" "st" "3 v" "stfl");
+	HR_Grp = "";
+    }
+
+    potential (OH2 | SC OH1)
+    {
+	data = ((( 1 0 0 0 0 0 0 0 )	%  SC=0 Changed  OH1=no
+		 ( 0 1 0 0 0 0 0 0 )	%  SC=0 Changed  OH1=1 a
+		 ( 1 0 0 0 0 0 0 0 )	%  SC=0 Changed  OH1=2 cons
+		 ( 1 0 0 0 0 0 0 0 )	%  SC=0 Changed  OH1=2 s
+		 ( 0 0 0.9231 0.0769 0 0 0 0 )	%  SC=0 Changed  OH1=2 v
+		 ( 0 0 0 0 1 0 0 0 )	%  SC=0 Changed  OH1=fl
+		 ( 0 0 0 0 0 1 0 0 )	%  SC=0 Changed  OH1=st
+		 ( 0 0 0 0 0 0 1 0 )	%  SC=0 Changed  OH1=3 v
+		 ( 0 0 0 0 0 0 0 1 ))	%  SC=0 Changed  OH1=stfl
+		(( 1 0 0 0 0 0 0 0 )	%  SC=1 Changed  OH1=no
+		 ( 0 1 0 0 0 0 0 0 )	%  SC=1 Changed  OH1=1 a
+		 ( 0.5903 0.1181 0.1154 0.0096 0 0.1666 0 0 )	%  SC=1 Changed  OH1=2 cons
+		 ( 0.5121 0.1024 0.1154 0.0096 0.2188 0.0313 0 0.0104 )	%  SC=1 Changed  OH1=2 s
+		 ( 0 0 0.8838 0.0736 0 0 0.0426 0 )	%  SC=1 Changed  OH1=2 v
+		 ( 0 0 0 0 1 0 0 0 )	%  SC=1 Changed  OH1=fl
+		 ( 0 0 0 0 0 1 0 0 )	%  SC=1 Changed  OH1=st
+		 ( 0 0 0 0 0 0 1 0 )	%  SC=1 Changed  OH1=3 v
+		 ( 0 0 0 0 0 0 0 1 ))	%  SC=1 Changed  OH1=stfl
+		(( 0.5613 0.157 0.1757 0.0055 0.0559 0.0392 0.0027 0.0027 )	%  SC=2 Changed  OH1=no
+		 ( 0 0.7183 0.0667 0.1145 0.0559 0.0392 0.0027 0.0027 )	%  SC=2 Changed  OH1=1 a
+		 ( 1 0 0 0 0 0 0 0 )	%  SC=2 Changed  OH1=2 cons
+		 ( 1 0 0 0 0 0 0 0 )	%  SC=2 Changed  OH1=2 s
+		 ( 1 0 0 0 0 0 0 0 )	%  SC=2 Changed  OH1=2 v
+		 ( 1 0 0 0 0 0 0 0 )	%  SC=2 Changed  OH1=fl
+		 ( 1 0 0 0 0 0 0 0 )	%  SC=2 Changed  OH1=st
+		 ( 1 0 0 0 0 0 0 0 )	%  SC=2 Changed  OH1=3 v
+		 ( 1 0 0 0 0 0 0 0 )));	%  SC=2 Changed  OH1=stfl
+    }
+
+    potential (OH1 | FC OH0)
+    {
+	data = ((( 1 0 0 0 0 0 0 0 0 )	%  FC=0 changed  OH0=no
+		 ( 0 1 0 0 0 0 0 0 0 )	%  FC=0 changed  OH0=1a
+		 ( 0 0 1 0 0 0 0 0 0 )	%  FC=0 changed  OH0=2 cons
+		 ( 0 0 0 1 0 0 0 0 0 )	%  FC=0 changed  OH0=2 s
+		 ( 0 0 0 0 1 0 0 0 0 )	%  FC=0 changed  OH0=2 v
+		 ( 0 0 0 0 0 1 0 0 0 )	%  FC=0 changed  OH0=fl
+		 ( 0 0 0 0 0 0 1 0 0 )	%  FC=0 changed  OH0=st
+		 ( 0 0 0 0 0 0 0 1 0 )	%  FC=0 changed  OH0=3 v
+		 ( 0 0 0 0 0 0 0 0 1 ))	%  FC=0 changed  OH0=stfl
+		(( 1 0 0 0 0 0 0 0 0 )	%  FC=1 changed  OH0=no
+		 ( 0 1 0 0 0 0 0 0 0 )	%  FC=1 changed  OH0=1a
+		 ( 0 0 0.347 0.3674 0.1224 0 0.1632 0 0 )	%  FC=1 changed  OH0=2 cons
+		 ( 0 0 0 0.6224 0.1224 0.2143 0.0307 0 0.0102 )	%  FC=1 changed  OH0=2 s
+		 ( 0 0 0 0 0.9592 0 0 0.0408 0 )	%  FC=1 changed  OH0=2 v
+		 ( 0 0 1 0 0 0 0 0 0 )	%  FC=1 changed  OH0=fl
+		 ( 0 0 0 1 0 0 0 0 0 )	%  FC=1 changed  OH0=st
+		 ( 0 0 0 0 1 0 0 0 0 )	%  FC=1 changed  OH0=3 v
+		 ( 0 0 0 0 0 0.5 0.5 0 0 ))	%  FC=1 changed  OH0=stfl
+		(( 1 0 0 0 0 0 0 0 0 )	%  FC=2 changed  OH0=no
+		 ( 0 0.1814 0.0681 0.4796 0.1738 0.0536 0.0383 0.0026 0.0026 )	%  FC=2 changed  OH0=1a
+		 ( 1 0 0 0 0 0 0 0 0 )	%  FC=2 changed  OH0=2 cons
+		 ( 1 0 0 0 0 0 0 0 0 )	%  FC=2 changed  OH0=2 s
+		 ( 1 0 0 0 0 0 0 0 0 )	%  FC=2 changed  OH0=2 v
+		 ( 1 0 0 0 0 0 0 0 0 )	%  FC=2 changed  OH0=fl
+		 ( 1 0 0 0 0 0 0 0 0 )	%  FC=2 changed  OH0=st
+		 ( 1 0 0 0 0 0 0 0 0 )	%  FC=2 changed  OH0=3 v
+		 ( 1 0 0 0 0 0 0 0 0 ))	%  FC=2 changed  OH0=stfl
+		(( 0.1583 0.0534 0.0635 0.4659 0.1694 0.0494 0.0353 0.0024 0.0024 )	%  FC=3 changed  OH0=no
+		 ( 0 1 0 0 0 0 0 0 0 )	%  FC=3 changed  OH0=1a
+		 ( 0 0 1 0 0 0 0 0 0 )	%  FC=3 changed  OH0=2 cons
+		 ( 0 0 0 1 0 0 0 0 0 )	%  FC=3 changed  OH0=2 s
+		 ( 0 0 0 0 1 0 0 0 0 )	%  FC=3 changed  OH0=2 v
+		 ( 0 0 0 0 0 1 0 0 0 )	%  FC=3 changed  OH0=fl
+		 ( 0 0 0 0 0 0 1 0 0 )	%  FC=3 changed  OH0=st
+		 ( 0 0 0 0 0 0 0 1 0 )	%  FC=3 changed  OH0=3 v
+		 ( 0 0 0 0 0 0 0 0 1 )));	%  FC=3 changed  OH0=stfl
+    }
+
+    potential (SC | OH1)
+    {
+	data = (( 0 0 1 )	%  OH1=no
+		( 0 0 1 )	%  OH1=1 a
+		( 0 1 0 )	%  OH1=2 cons
+		( 0 1 0 )	%  OH1=2 s
+		( 0 1 0 )	%  OH1=2 v
+		( 1 0 0 )	%  OH1=fl
+		( 1 0 0 )	%  OH1=st
+		( 1 0 0 )	%  OH1=3 v
+		( 1 0 0 ));	%  OH1=stfl
+    }
+
+    potential (FC | OH0)
+    {
+	data = (( 0 0 0 1 )	%  OH0=no
+		( 0 0 1 0 )	%  OH0=1a
+		( 0 1 0 0 )	%  OH0=2 cons
+		( 0 1 0 0 )	%  OH0=2 s
+		( 0 1 0 0 )	%  OH0=2 v
+		( 1 0 0 0 )	%  OH0=fl
+		( 1 0 0 0 )	%  OH0=st
+		( 1 0 0 0 )	%  OH0=3 v
+		( 1 0 0 0 ));	%  OH0=stfl
+    }
+
+    potential (OH0)
+    {
+	data = ( 0.1672 0.0445 0.0635 0.4659 0.1694 0.0494 0.0353 0.0024 0.0024 );
+    }
+} % class poker_oh
+
+class poker_subnet
+{
+    inputs = ();
+    outputs = ();
+    node_size = (80 40);
+    HR_Grid_X = "40";
+    HR_Grid_Y = "40";
+    HR_Grid_GridSnap = "0";
+    HR_Grid_GridShow = "0";
+    HR_Font_Name = "Arial";
+    HR_Font_Size = "-12";
+    HR_Font_Weight = "400";
+    HR_Font_Italic = "0";
+    HR_Propagate_Auto = "1";
+    HR_Propagate_AutoSum = "1";
+    HR_Propagate_AutoNormal = "1";
+    HR_Compile_TriangMethod = "0";
+    HR_Compile_Compress = "0";
+    HR_Compile_Approximate = "0";
+    HR_Compile_ApproxEpsilon = "0.00001";
+    HR_Monitor_AutoUpdGraph = "0";
+    HR_Monitor_GraphPrecision = "100";
+    HR_Monitor_OpenGraph = "0";
+    HR_Monitor_InitStates = "5";
+    HR_Monitor_InitSD = "2";
+    HR_Color_DiscreteChance = "16";
+    HR_Color_ContinuousChance = "48";
+    HR_Color_Decision = "17";
+    HR_Color_Utility = "36";
+    HR_Color_Instance = "0";
+    HR_Color_Interface = "21";
+    HR_Groups_UserGroupsNo = "0";
+    HR_Groups_GroupNames = "";
+    HR_Groups_GroupColors = "";
+    HR_Zoom_ZoomFactor = "100";
+    HR_Desc = "";
+
+    instance MH : poker_mh (FC = OH_FC; MH_MH = MH)
+    {
+	label = "";
+	position = (187 212);
+	HR_Grp = "";
+    }
+
+    instance OH : poker_oh (; OH_FC = FC, OH_SC = SC, OH_OH2 = OH2)
+    {
+	label = "";
+	position = (276 50);
+	HR_Grp = "";
+    }
+
+    utility V
+    {
+	label = "";
+	position = (321 438);
+	HR_Grp = "";
+    }
+
+    decision D
+    {
+	label = "D";
+	position = (275 353);
+	states = ("fold" "call");
+	HR_Grp = "";
+    }
+
+    node Besthand
+    {
+	label = "";
+	position = (365 351);
+	states = ("myhand" "opponent");
+	HR_Grp = "";
+    }
+
+    potential (V | Besthand D)
+    {
+	data = (( -1	%  Besthand=myhand  D=fold
+		  2 )	%  Besthand=myhand  D=call
+		( -1	%  Besthand=opponent  D=fold
+		  -2 ));	%  Besthand=opponent  D=call
+    }
+
+    potential (D | OH_SC MH_MH) {}
+
+    potential (Besthand | MH_MH OH_OH2)
+    {
+	data = ((( 0.5 0.5 )	%  MH_MH=no  OH_OH2=no
+		 ( 0 1 )	%  MH_MH=no  OH_OH2=1 a
+		 ( 0 1 )	%  MH_MH=no  OH_OH2=2 v
+		 ( 0 1 )	%  MH_MH=no  OH_OH2=2 a
+		 ( 0 1 )	%  MH_MH=no  OH_OH2=fl
+		 ( 0 1 )	%  MH_MH=no  OH_OH2=st
+		 ( 0 1 )	%  MH_MH=no  OH_OH2=3 v
+		 ( 0 1 ))	%  MH_MH=no  OH_OH2=stfl
+		(( 1 0 )	%  MH_MH=1 a  OH_OH2=no
+		 ( 0.5 0.5 )	%  MH_MH=1 a  OH_OH2=1 a
+		 ( 0 1 )	%  MH_MH=1 a  OH_OH2=2 v
+		 ( 0 1 )	%  MH_MH=1 a  OH_OH2=2 a
+		 ( 0 1 )	%  MH_MH=1 a  OH_OH2=fl
+		 ( 0 1 )	%  MH_MH=1 a  OH_OH2=st
+		 ( 0 1 )	%  MH_MH=1 a  OH_OH2=3 v
+		 ( 0 1 ))	%  MH_MH=1 a  OH_OH2=stfl
+		(( 1 0 )	%  MH_MH=2 v  OH_OH2=no
+		 ( 1 0 )	%  MH_MH=2 v  OH_OH2=1 a
+		 ( 0.5 0.5 )	%  MH_MH=2 v  OH_OH2=2 v
+		 ( 0 1 )	%  MH_MH=2 v  OH_OH2=2 a
+		 ( 0 1 )	%  MH_MH=2 v  OH_OH2=fl
+		 ( 0 1 )	%  MH_MH=2 v  OH_OH2=st
+		 ( 0 1 )	%  MH_MH=2 v  OH_OH2=3 v
+		 ( 0 1 ))	%  MH_MH=2 v  OH_OH2=stfl
+		(( 1 0 )	%  MH_MH=2 a  OH_OH2=no
+		 ( 1 0 )	%  MH_MH=2 a  OH_OH2=1 a
+		 ( 1 0 )	%  MH_MH=2 a  OH_OH2=2 v
+		 ( 0.5 0.5 )	%  MH_MH=2 a  OH_OH2=2 a
+		 ( 0 1 )	%  MH_MH=2 a  OH_OH2=fl
+		 ( 0 1 )	%  MH_MH=2 a  OH_OH2=st
+		 ( 0 1 )	%  MH_MH=2 a  OH_OH2=3 v
+		 ( 0 1 ))	%  MH_MH=2 a  OH_OH2=stfl
+		(( 1 0 )	%  MH_MH=fl  OH_OH2=no
+		 ( 1 0 )	%  MH_MH=fl  OH_OH2=1 a
+		 ( 1 0 )	%  MH_MH=fl  OH_OH2=2 v
+		 ( 1 0 )	%  MH_MH=fl  OH_OH2=2 a
+		 ( 0.5 0.5 )	%  MH_MH=fl  OH_OH2=fl
+		 ( 0 1 )	%  MH_MH=fl  OH_OH2=st
+		 ( 0 1 )	%  MH_MH=fl  OH_OH2=3 v
+		 ( 0 1 ))	%  MH_MH=fl  OH_OH2=stfl
+		(( 1 0 )	%  MH_MH=st  OH_OH2=no
+		 ( 1 0 )	%  MH_MH=st  OH_OH2=1 a
+		 ( 1 0 )	%  MH_MH=st  OH_OH2=2 v
+		 ( 1 0 )	%  MH_MH=st  OH_OH2=2 a
+		 ( 1 0 )	%  MH_MH=st  OH_OH2=fl
+		 ( 0.5 0.5 )	%  MH_MH=st  OH_OH2=st
+		 ( 0 1 )	%  MH_MH=st  OH_OH2=3 v
+		 ( 0 1 ))	%  MH_MH=st  OH_OH2=stfl
+		(( 1 0 )	%  MH_MH=3 v  OH_OH2=no
+		 ( 1 0 )	%  MH_MH=3 v  OH_OH2=1 a
+		 ( 1 0 )	%  MH_MH=3 v  OH_OH2=2 v
+		 ( 1 0 )	%  MH_MH=3 v  OH_OH2=2 a
+		 ( 1 0 )	%  MH_MH=3 v  OH_OH2=fl
+		 ( 1 0 )	%  MH_MH=3 v  OH_OH2=st
+		 ( 0.5 0.5 )	%  MH_MH=3 v  OH_OH2=3 v
+		 ( 0 1 ))	%  MH_MH=3 v  OH_OH2=stfl
+		(( 1 0 )	%  MH_MH=stfl  OH_OH2=no
+		 ( 1 0 )	%  MH_MH=stfl  OH_OH2=1 a
+		 ( 1 0 )	%  MH_MH=stfl  OH_OH2=2 v
+		 ( 1 0 )	%  MH_MH=stfl  OH_OH2=2 a
+		 ( 1 0 )	%  MH_MH=stfl  OH_OH2=fl
+		 ( 1 0 )	%  MH_MH=stfl  OH_OH2=st
+		 ( 1 0 )	%  MH_MH=stfl  OH_OH2=3 v
+		 ( 0.5 0.5 )));	%  MH_MH=stfl  OH_OH2=stfl
+    }
+} % class poker_subnet

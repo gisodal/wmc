@@ -1,0 +1,222 @@
+net
+{
+    node_size = (80 40);
+    HR_Node_Label_Style = "0";
+    HR_Desc = "Given an elictricity powerout due to the y2k problem, both utilities and transportation may stop working to some extent. This, in turn, will have an effect on the finance sector. ";
+    HR_OOBN_FitExpand = "1";
+    HR_Zoom_ZoomFactor = "100";
+    HR_Color_Interface = "21";
+    HR_Color_Instance = "0";
+    HR_Color_ContinuousChance = "32";
+    HR_Compile_MaxMinimalSeparators = "100000";
+    HR_Color_DiscreteChance = "16";
+    HR_Groups_GroupColors = "39001547";
+    HR_Groups_GroupNames = "Utilities\tTransportation\tFinance\tNon-US\t";
+    HR_Groups_UserGroupsNo = "4";
+    HR_Color_Decision = "17";
+    HR_Color_Utility = "36";
+    HR_Color_ContinuosChance = "48";
+    HR_Color_DescreteChance = "47";
+    HR_Monitor_InitSD = "2";
+    HR_Monitor_InitStates = "5";
+    HR_Monitor_OpenGraph = "0";
+    HR_Monitor_GraphPrecision = "100";
+    HR_Monitor_AutoUpdGraph = "0";
+    HR_Compile_ApproxEpsilon = "0.00001";
+    HR_Compile_Approximate = "0";
+    HR_Compile_Compress = "0";
+    HR_Compile_TriangMethod = "0";
+    HR_Propagate_AutoNormal = "1";
+    HR_Propagate_AutoSum = "1";
+    HR_Propagate_Auto = "1";
+    HR_Font_Italic = "0";
+    HR_Font_Weight = "700";
+    HR_Font_Size = "-12";
+    HR_Font_Name = "Arial";
+    HR_Grid_GridShow = "0";
+    HR_Grid_GridSnap = "1";
+    HR_Grid_Y = "10";
+    HR_Grid_X = "10";
+}
+
+node Electricity
+{
+    label = "Electricity";
+    position = (180 240);
+    states = ("Working" "Reduced" "Not Working");
+    HR_Grp = "0";
+}
+
+node Telecom
+{
+    label = "Telecom";
+    position = (290 240);
+    states = ("Working" "Reduced" "Not Working");
+    HR_Grp = "0";
+}
+
+node Air_Travel
+{
+    label = "Air Travel";
+    position = (180 120);
+    states = ("Working" "Reduced" "Not Working");
+    HR_Grp = "1";
+}
+
+node Rail
+{
+    label = "Rail";
+    position = (50 30);
+    states = ("Working" "Reduced" "Not Working");
+    HR_Grp = "1";
+}
+
+node US_Banks
+{
+    label = "US Banks";
+    position = (420 240);
+    states = ("Working" "Reduced" "Not Working");
+    HR_Grp = "2";
+}
+
+node US_Stocks
+{
+    label = "US Stocks";
+    position = (420 120);
+    states = ("Up" "Down" "Crash");
+    HR_Grp = "2";
+}
+
+node Utilities
+{
+    label = "Utilities";
+    position = (290 120);
+    states = ("Working" "Moderate" "Severe" "Failure");
+    HR_Grp = "0";
+}
+
+node Transportation
+{
+    label = "Transport";
+    position = (180 30);
+    states = ("Working" "Moderate" "Severe" "Failure");
+    HR_Grp = "1";
+}
+
+potential (Electricity)
+{
+    data = ( 0.6 0.3 0.1 );
+}
+
+potential (Telecom | Electricity)
+{
+    data
+     = (( 0.8 0.15 0.05 )	%  Electricity=Working
+	( 0.6 0.3 0.1 )	%  Electricity=Reduced
+	( 0.1 0.3 0.6 ));	%  Electricity=Not Working
+}
+
+potential (Air_Travel | Electricity)
+{
+    data
+     = (( 0.6 0.3 0.1 )	%  Electricity=Working
+	( 0.3 0.4 0.3 )	%  Electricity=Reduced
+	( 0 0.3 0.7 ));	%  Electricity=Not Working
+}
+
+potential (Rail | Electricity)
+{
+    data
+     = (( 0.7 0.2 0.1 )	%  Electricity=Working
+	( 0.5 0.3 0.2 )	%  Electricity=Reduced
+	( 0.1 0.2 0.7 ));	%  Electricity=Not Working
+}
+
+potential (US_Banks | Telecom)
+{
+    data
+     = (( 0.7 0.2 0.1 )	%  Telecom=Working
+	( 0.5 0.3 0.2 )	%  Telecom=Reduced
+	( 0.1 0.3 0.6 ));	%  Telecom=Not Working
+}
+
+potential (US_Stocks | US_Banks Utilities Transportation)
+{
+    data
+     = (((( 1 0 0 )	%  US_Banks=Working  Utilities=Working  Transportation=Working
+	  ( 0.8 0.2 0 )	%  US_Banks=Working  Utilities=Working  Transportation=Moderate
+	  ( 0.5 0.5 0 )	%  US_Banks=Working  Utilities=Working  Transportation=Severe
+	  ( 0.1 0.9 0 ))	%  US_Banks=Working  Utilities=Working  Transportation=Failure
+	 (( 0.8 0.2 0 )	%  US_Banks=Working  Utilities=Moderate  Transportation=Working
+	  ( 0.5 0.5 0 )	%  US_Banks=Working  Utilities=Moderate  Transportation=Moderate
+	  ( 0.1 0.9 0 )	%  US_Banks=Working  Utilities=Moderate  Transportation=Severe
+	  ( 0 0.8 0.2 ))	%  US_Banks=Working  Utilities=Moderate  Transportation=Failure
+	 (( 0 1 0 )	%  US_Banks=Working  Utilities=Severe  Transportation=Working
+	  ( 0 0.99 0.01 )	%  US_Banks=Working  Utilities=Severe  Transportation=Moderate
+	  ( 0 0.95 0.05 )	%  US_Banks=Working  Utilities=Severe  Transportation=Severe
+	  ( 0 0.9 0.1 ))	%  US_Banks=Working  Utilities=Severe  Transportation=Failure
+	 (( 0 0.9 0.1 )	%  US_Banks=Working  Utilities=Failure  Transportation=Working
+	  ( 0 0.85 0.15 )	%  US_Banks=Working  Utilities=Failure  Transportation=Moderate
+	  ( 0 0.8 0.2 )	%  US_Banks=Working  Utilities=Failure  Transportation=Severe
+	  ( 0 0.7 0.3 )))	%  US_Banks=Working  Utilities=Failure  Transportation=Failure
+	((( 0 1 0 )	%  US_Banks=Reduced  Utilities=Working  Transportation=Working
+	  ( 0 0.99 0.01 )	%  US_Banks=Reduced  Utilities=Working  Transportation=Moderate
+	  ( 0 0.9 0.1 )	%  US_Banks=Reduced  Utilities=Working  Transportation=Severe
+	  ( 0 0.85 0.15 ))	%  US_Banks=Reduced  Utilities=Working  Transportation=Failure
+	 (( 0 0.85 0.15 )	%  US_Banks=Reduced  Utilities=Moderate  Transportation=Working
+	  ( 0 0.8 0.2 )	%  US_Banks=Reduced  Utilities=Moderate  Transportation=Moderate
+	  ( 0 0.75 0.25 )	%  US_Banks=Reduced  Utilities=Moderate  Transportation=Severe
+	  ( 0 0.7 0.3 ))	%  US_Banks=Reduced  Utilities=Moderate  Transportation=Failure
+	 (( 0 0.75 0.25 )	%  US_Banks=Reduced  Utilities=Severe  Transportation=Working
+	  ( 0 0.7 0.3 )	%  US_Banks=Reduced  Utilities=Severe  Transportation=Moderate
+	  ( 0 0.6 0.4 )	%  US_Banks=Reduced  Utilities=Severe  Transportation=Severe
+	  ( 0 0.5 0.5 ))	%  US_Banks=Reduced  Utilities=Severe  Transportation=Failure
+	 (( 0 0.7 0.3 )	%  US_Banks=Reduced  Utilities=Failure  Transportation=Working
+	  ( 0 0.65 0.35 )	%  US_Banks=Reduced  Utilities=Failure  Transportation=Moderate
+	  ( 0 0.6 0.4 )	%  US_Banks=Reduced  Utilities=Failure  Transportation=Severe
+	  ( 0 0.5 0.5 )))	%  US_Banks=Reduced  Utilities=Failure  Transportation=Failure
+	((( 0 0.6 0.4 )	%  US_Banks=Not Working  Utilities=Working  Transportation=Working
+	  ( 0 0.5 0.5 )	%  US_Banks=Not Working  Utilities=Working  Transportation=Moderate
+	  ( 0 0.4 0.6 )	%  US_Banks=Not Working  Utilities=Working  Transportation=Severe
+	  ( 0 0.3 0.7 ))	%  US_Banks=Not Working  Utilities=Working  Transportation=Failure
+	 (( 0 0.5 0.5 )	%  US_Banks=Not Working  Utilities=Moderate  Transportation=Working
+	  ( 0 0.4 0.6 )	%  US_Banks=Not Working  Utilities=Moderate  Transportation=Moderate
+	  ( 0 0.3 0.7 )	%  US_Banks=Not Working  Utilities=Moderate  Transportation=Severe
+	  ( 0 0.2 0.8 ))	%  US_Banks=Not Working  Utilities=Moderate  Transportation=Failure
+	 (( 0 0.4 0.6 )	%  US_Banks=Not Working  Utilities=Severe  Transportation=Working
+	  ( 0 0.3 0.7 )	%  US_Banks=Not Working  Utilities=Severe  Transportation=Moderate
+	  ( 0 0.2 0.8 )	%  US_Banks=Not Working  Utilities=Severe  Transportation=Severe
+	  ( 0 0.1 0.9 ))	%  US_Banks=Not Working  Utilities=Severe  Transportation=Failure
+	 (( 0 0.3 0.7 )	%  US_Banks=Not Working  Utilities=Failure  Transportation=Working
+	  ( 0 0.2 0.8 )	%  US_Banks=Not Working  Utilities=Failure  Transportation=Moderate
+	  ( 0 0.1 0.9 )	%  US_Banks=Not Working  Utilities=Failure  Transportation=Severe
+	  ( 0 0 1 ))));	%  US_Banks=Not Working  Utilities=Failure  Transportation=Failure
+}
+
+potential (Utilities | Telecom Electricity)
+{
+    data
+     = ((( 1 0 0 0 )	%  Telecom=Working  Electricity=Working
+	 ( 0.7 0.3 0 0 )	%  Telecom=Working  Electricity=Reduced
+	 ( 0 0.6 0.35 0.05 ))	%  Telecom=Working  Electricity=Not Working
+	(( 0.7 0.2 0.1 0 )	%  Telecom=Reduced  Electricity=Working
+	 ( 0.4 0.3 0.2 0.1 )	%  Telecom=Reduced  Electricity=Reduced
+	 ( 0 0.3 0.5 0.2 ))	%  Telecom=Reduced  Electricity=Not Working
+	(( 0 0.4 0.5 0.1 )	%  Telecom=Not Working  Electricity=Working
+	 ( 0 0 0.4 0.6 )	%  Telecom=Not Working  Electricity=Reduced
+	 ( 0 0 0 1 )));	%  Telecom=Not Working  Electricity=Not Working
+}
+
+potential (Transportation | Rail Air_Travel)
+{
+    data
+     = ((( 1 0 0 0 )	%  Rail=Working  Air_Travel=Working
+	 ( 0.7 0.3 0 0 )	%  Rail=Working  Air_Travel=Reduced
+	 ( 0.5 0.3 0.2 0 ))	%  Rail=Working  Air_Travel=Not Working
+	(( 0.7 0.2 0.1 0 )	%  Rail=Reduced  Air_Travel=Working
+	 ( 0.5 0.3 0.2 0 )	%  Rail=Reduced  Air_Travel=Reduced
+	 ( 0.4 0.3 0.2 0.1 ))	%  Rail=Reduced  Air_Travel=Not Working
+	(( 0.5 0.2 0.3 0 )	%  Rail=Not Working  Air_Travel=Working
+	 ( 0.4 0.2 0.3 0.1 )	%  Rail=Not Working  Air_Travel=Reduced
+	 ( 0 0 0.1 0.9 )));	%  Rail=Not Working  Air_Travel=Not Working
+}

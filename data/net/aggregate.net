@@ -1,0 +1,212 @@
+net
+{
+    node_size = (80 40);
+    HR_realname_p = "p";
+    HR_realname_mean_frequency = "mean_frequency";
+    HR_realname_mean_severity = "mean_severity";
+    HR_realname_var_severity = "var_severity";
+    HR_realname_Frequency = "Frequency";
+    HR_realname_Severity = "Severity";
+    HR_realname_TotalAmount = "TotalAmount";
+    HR_realname_Mean = "Mean";
+    HR_ToolBar_CDVT = "0";
+    HR_DBN_Use_BK = "0";
+    HR_Html_Desc = "0";
+    HR_HTML_Desc = "An aggregate distribution can be used to model the total claim amount for an insurance portfolio. The number of claims is modeled by the frequency distribution (this might be a Poisson distribution), and the size (or cost) of each claim is modeled by the severity distribution.";
+    HR_Link_Groups_IDs = "";
+    HR_Groups_IDs = "";
+    HR_Node_Label_Style = "0";
+    HR_realname_F = "F";
+    HR_realname_S = "S";
+    HR_realname_DF1 = "DF1";
+    HR_DBN_Num_Slices = "5";
+    HR_Desc = "An aggregate distribution can be used to model the total claim amount for an insurance portfolio. The number of claims is modeled by the frequency distribution (this might be a Poisson distribution), and the size (or cost) of each claim is modeled by the severity distribution.";
+    HR_OOBN_CheckConsistency = "1";
+    HR_OOBN_FitExpand = "1";
+    HR_Zoom_ZoomFactor = "100";
+    HR_Groups_GroupColors = "";
+    HR_Groups_GroupNames = "";
+    HR_Groups_UserGroupsNo = "0";
+    HR_Utility_Link = "63";
+    HR_Probabilistic_Link = "63";
+    HR_Functional_Link = "63";
+    HR_Binding_Link = "63";
+    HR_Information_Arc = "63";
+    HR_Color_Interface = "21";
+    HR_Color_Instance = "0";
+    HR_Color_DiscreteFunction = "5";
+    HR_Color_Function = "4";
+    HR_Color_Utility = "36";
+    HR_Color_Decision = "17";
+    HR_Color_ContinuousChance = "48";
+    HR_Color_DiscreteChance = "16";
+    HR_Monitor_InitSD = "2";
+    HR_Monitor_Utility_Arrange = "0";
+    HR_Monitor_Mean_Variance = "1";
+    HR_Monitor_Chance_Utility = "1";
+    HR_Monitor_InitStates = "5";
+    HR_Monitor_OpenGraph = "0";
+    HR_Monitor_GraphPrecision = "100";
+    HR_Monitor_AutoUpdGraph = "0";
+    HR_Compile_MaxMinimalSeparators = "100000";
+    HR_Compile_ApproxEpsilon = "1.0E-5";
+    HR_Compile_Approximate = "0";
+    HR_Compile_SaveToMemory = "0";
+    HR_Compile_Compress = "0";
+    HR_Compile_TriangMethod = "0";
+    HR_Propagate_AutoNormal = "1";
+    HR_Propagate_AutoSum = "1";
+    HR_Propagate_Auto = "1";
+    HR_Font_Italic = "0";
+    HR_Font_Weight = "400";
+    HR_Font_Size = "-12";
+    HR_Font_Name = "javax.swing.plaf.FontUIResource[family=Tahoma,name=Tahoma,style=plain,size=13]";
+    HR_Grid_GridShow = "0";
+    HR_Grid_GridSnap = "1";
+    HR_Grid_Y = "40";
+    HR_Grid_X = "40";
+}
+
+function p
+{
+    label = "P(TotalAmount < 15)";
+    position = (520 120);
+    HR_NodeSize = "(160, 40)";
+    HR_Group = "0";
+    HR_HTML_Desc = "";
+    HR_Desc = "";
+}
+
+function var_severity
+{
+    label = "";
+    position = (640 280);
+    HR_LinkGroup = "[Severity:0]";
+    HR_LinkMode = "[Severity:0]";
+    HR_Group = "0";
+    HR_HTML_Desc = "";
+    HR_Desc = "";
+}
+
+function mean_severity
+{
+    label = "";
+    position = (520 360);
+    HR_LinkGroup = "[Severity:0]";
+    HR_LinkMode = "[Severity:0]";
+    HR_NodeSize = "(128, 39)";
+    HR_Group = "0";
+    HR_HTML_Desc = "";
+    HR_Desc = "";
+}
+
+function mean_frequency
+{
+    label = "";
+    position = (200 360);
+    HR_NodeSize = "(163, 40)";
+    HR_Group = "0";
+    HR_HTML_Desc = "";
+    HR_Desc = "";
+    HR_LinkGroup = "[Frequency:0]";
+    HR_LinkMode = "[Frequency:0]";
+}
+
+discrete function TotalAmount
+{
+    label = "";
+    position = (360 200);
+    states = ("0 - 1" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" "");
+    subtype = interval;
+    state_values = (0 3 6 9 12 15 18 21 24 27 30 33 36 39 42 45 48 51);
+    HR_LinkGroup = "[p:0]";
+    HR_LinkMode = "[p:0]";
+    HR_Group = "0";
+    HR_Desc = "";
+    HR_State_5 = "";
+    HR_State_4 = "";
+    HR_State_3 = "";
+    HR_State_2 = "";
+    HR_State_1 = "";
+    HR_State_0 = "";
+}
+
+node Severity
+{
+    label = "";
+    position = (520 280);
+    states = ("" "" "" "" "");
+    subtype = interval;
+    state_values = (0 1 2 3 4 5);
+    HR_State_4 = "";
+    HR_State_3 = "";
+    HR_State_2 = "";
+    HR_LinkGroup = "[TotalAmount:0]";
+    HR_LinkMode = "[DF1:0][TotalAmount:0]";
+    HR_Group = "0";
+    HR_Desc = "";
+    HR_State_1 = "";
+    HR_State_0 = "";
+}
+
+node Frequency
+{
+    label = "";
+    position = (200 280);
+    states = ("" "" "" "" "" "" "" "" "" "" "");
+    subtype = number;
+    state_values = (0 1 2 3 4 5 6 7 8 9 10);
+    HR_State_3 = "";
+    HR_State_2 = "";
+    HR_LinkGroup = "[TotalAmount:0]";
+    HR_LinkMode = "[DF1:0][TotalAmount:0]";
+    HR_Group = "0";
+    HR_Desc = "";
+    HR_State_1 = "";
+    HR_State_0 = "";
+}
+
+potential (p | TotalAmount)
+{
+    model_nodes = ();
+    model_data = ( probability (#TotalAmount == 0) + probability (#TotalAmount == 1) + probability (#TotalAmount == 2) + probability (#TotalAmount == 3) + probability (#TotalAmount == 4) );
+}
+
+potential (var_severity)
+{
+    model_nodes = ();
+    model_data = ( 4 );
+}
+
+potential (mean_severity)
+{
+    model_nodes = ();
+    model_data = ( 2.5 );
+}
+
+potential (mean_frequency)
+{
+    model_nodes = ();
+    model_data = ( 2 );
+}
+
+potential (TotalAmount | Severity Frequency)
+{
+    model_nodes = ();
+    model_data = ( aggregate (Frequency, Severity) );
+    data = ( 0.362226 0.286352 0.181759 0.0984815 0.044311 0.0176482 0.0063026 0.00206038 0.000622768 0.000175571 4.62079E-005 1.1248E-005 2.47301E-006 4.73929E-007 7.58736E-008 9.69095E-009 1.0036E-009 );
+}
+
+potential (Severity | mean_severity var_severity)
+{
+    model_nodes = ();
+    model_data = ( truncate (0, Normal (mean_severity, var_severity), 5) );
+    data = ( 0.153388 0.221461 0.250301 0.221461 0.153388 );
+}
+
+potential (Frequency | mean_frequency)
+{
+    model_nodes = ();
+    model_data = ( Poisson (mean_frequency) );
+    data = ( 0.135335 0.270671 0.270671 0.180447 0.0902235 0.0360894 0.0120298 0.00343709 0.000859272 0.000190949 4.64981E-005 );
+}

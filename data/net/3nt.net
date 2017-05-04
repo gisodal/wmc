@@ -1,0 +1,1303 @@
+net
+{
+    node_size = (100 40);
+}
+
+node n_hp_minor
+{
+    label = "n_hp_minor";
+    position = (130 450);
+    states = ("0" "1" "2" "3" "4" "5" "6");
+}
+
+node n_hp_major
+{
+    label = "n_hp_major";
+    position = (20 450);
+    states = ("0" "1" "2" "3" "4" "5" "6" "7" "8" "9");
+}
+
+node n_hp_cl
+{
+    label = "n_hp_cl";
+    position = (350 400);
+    states = ("0" "1" "2");
+}
+
+node n_hp_di
+{
+    label = "n_hp_di";
+    position = (240 400);
+    states = ("0" "1" "2" "3" "4");
+}
+
+node n_hp_he
+{
+    label = "n_hp_he";
+    position = (130 400);
+    states = ("0" "1" "2" "3");
+}
+
+node n_hp_sp
+{
+    label = "n_hp_sp";
+    position = (20 400);
+    states = ("0" "1" "2" "3" "4" "5" "6");
+}
+
+node n_hp
+{
+    label = "n_hp";
+    position = (20 500);
+    states = ("0" "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12" "13" "14" "15");
+}
+
+node W_constraint
+{
+    label = "W_constraint";
+    position = (2000 260);
+    states = ("no" "yes");
+}
+
+node n_minor
+{
+    label = "n_minor";
+    position = (460 210);
+    states = ("0" "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12");
+}
+
+node n_major
+{
+    label = "n_major";
+    position = (2000 210);
+    states = ("0" "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12" "13" "14");
+}
+
+node n_cl
+{
+    label = "n_cl";
+    position = (20 110);
+    states = ("0" "1" "2" "3" "4");
+}
+
+node n_cl_5_4
+{
+    label = "n_cl_5_4";
+    position = (240 60);
+    states = ("0" "1" "2");
+}
+
+node n_cl_Q_9
+{
+    label = "n_cl_Q_9";
+    position = (20 60);
+    states = ("0" "1" "2");
+}
+
+node n_di
+{
+    label = "n_di";
+    position = (460 160);
+    states = ("0" "1" "2" "3" "4" "5" "6" "7" "8");
+}
+
+node n_di_6_2
+{
+    label = "n_di_6_2";
+    position = (900 110);
+    states = ("0" "1" "2" "3" "4");
+}
+
+node n_di_A_7
+{
+    label = "n_di_A_7";
+    position = (460 110);
+    states = ("0" "1" "2" "3" "4");
+}
+
+node n_di_4_2
+{
+    label = "n_di_4_2";
+    position = (1120 60);
+    states = ("0" "1" "2");
+}
+
+node n_di_6_5
+{
+    label = "n_di_6_5";
+    position = (900 60);
+    states = ("0" "1" "2");
+}
+
+node n_di_8_7
+{
+    label = "n_di_8_7";
+    position = (680 60);
+    states = ("0" "1" "2");
+}
+
+node n_di_A_9
+{
+    label = "n_di_A_9";
+    position = (460 60);
+    states = ("0" "1" "2");
+}
+
+node n_he
+{
+    label = "n_he";
+    position = (1340 160);
+    states = ("0" "1" "2" "3" "4" "5" "6");
+}
+
+node n_he_Q_6
+{
+    label = "n_he_Q_6";
+    position = (1340 110);
+    states = ("0" "1" "2" "3" "4");
+}
+
+node n_he_4_3
+{
+    label = "n_he_4_3";
+    position = (1780 60);
+    states = ("0" "1" "2");
+}
+
+node n_he_10_6
+{
+    label = "n_he_10_6";
+    position = (1560 60);
+    states = ("0" "1" "2");
+}
+
+node n_he_Q_J
+{
+    label = "n_he_Q_J";
+    position = (1340 60);
+    states = ("0" "1" "2");
+}
+
+node n_sp
+{
+    label = "n_sp";
+    position = (2000 160);
+    states = ("0" "1" "2" "3" "4" "5" "6" "7" "8");
+}
+
+node n_sp_7_3
+{
+    label = "n_sp_7_3";
+    position = (2440 110);
+    states = ("0" "1" "2" "3" "4");
+}
+
+node n_sp_K_8
+{
+    label = "n_sp_K_8";
+    position = (2000 110);
+    states = ("0" "1" "2" "3" "4");
+}
+
+node n_sp_4_3
+{
+    label = "n_sp_4_3";
+    position = (2660 60);
+    states = ("0" "1" "2");
+}
+
+node n_sp_7_5
+{
+    label = "n_sp_7_5";
+    position = (2440 60);
+    states = ("0" "1" "2");
+}
+
+node n_sp_J_8
+{
+    label = "n_sp_J_8";
+    position = (2220 60);
+    states = ("0" "1" "2");
+}
+
+node n_sp_K_Q
+{
+    label = "n_sp_K_Q";
+    position = (2000 60);
+    states = ("0" "1" "2");
+}
+
+node the3ofspades
+{
+    label = "the3ofspades";
+    position = (2770 10);
+    states = ("West" "East");
+}
+
+node the4ofspades
+{
+    label = "the4ofspades";
+    position = (2660 10);
+    states = ("West" "East");
+}
+
+node the5ofspades
+{
+    label = "the5ofspades";
+    position = (2550 10);
+    states = ("West" "East");
+}
+
+node the7ofspades
+{
+    label = "the7ofspades";
+    position = (2440 10);
+    states = ("West" "East");
+}
+
+node the8ofspades
+{
+    label = "the8ofspades";
+    position = (2330 10);
+    states = ("West" "East");
+}
+
+node jackofspades
+{
+    label = "jackofspades";
+    position = (2220 10);
+    states = ("West" "East");
+}
+
+node queenofspades
+{
+    label = "queenofspades";
+    position = (2110 10);
+    states = ("West" "East");
+}
+
+node kingofspades
+{
+    label = "kingofspades";
+    position = (2000 10);
+    states = ("West" "East");
+}
+
+node the3ofhearts
+{
+    label = "the3ofhearts";
+    position = (1890 10);
+    states = ("West" "East");
+}
+
+node the4ofhearts
+{
+    label = "the4ofhearts";
+    position = (1780 10);
+    states = ("West" "East");
+}
+
+node the6ofhearts
+{
+    label = "the6ofhearts";
+    position = (1670 10);
+    states = ("West" "East");
+}
+
+node the10ofhearts
+{
+    label = "the10ofhearts";
+    position = (1560 10);
+    states = ("West" "East");
+}
+
+node jackofhearts
+{
+    label = "jackofhearts";
+    position = (1450 10);
+    states = ("West" "East");
+}
+
+node queenofhearts
+{
+    label = "queenofhearts";
+    position = (1340 10);
+    states = ("West" "East");
+}
+
+node the2ofdiamonds
+{
+    label = "the2ofdiamonds";
+    position = (1230 10);
+    states = ("West" "East");
+}
+
+node the4ofdiamonds
+{
+    label = "the4ofdiamonds";
+    position = (1120 10);
+    states = ("West" "East");
+}
+
+node the5ofdiamonds
+{
+    label = "the5ofdiamonds";
+    position = (1010 10);
+    states = ("West" "East");
+}
+
+node the6ofdiamonds
+{
+    label = "the6ofdiamonds";
+    position = (900 10);
+    states = ("West" "East");
+}
+
+node the7ofdiamonds
+{
+    label = "the7ofdiamonds";
+    position = (790 10);
+    states = ("West" "East");
+}
+
+node the8ofdiamonds
+{
+    label = "the8ofdiamonds";
+    position = (680 10);
+    states = ("West" "East");
+}
+
+node the9ofdiamonds
+{
+    label = "the9ofdiamonds";
+    position = (570 10);
+    states = ("West" "East");
+}
+
+node aceofdiamonds
+{
+    label = "aceofdiamonds";
+    position = (460 10);
+    states = ("West" "East");
+}
+
+node the4ofclubs
+{
+    label = "the4ofclubs";
+    position = (350 10);
+    states = ("West" "East");
+}
+
+node the5ofclubs
+{
+    label = "the5ofclubs";
+    position = (240 10);
+    states = ("West" "East");
+}
+
+node the9ofclubs
+{
+    label = "the9ofclubs";
+    position = (130 10);
+    states = ("West" "East");
+}
+
+node queenofclubs
+{
+    label = "queenofclubs";
+    position = (20 10);
+    states = ("West" "East");
+}
+
+potential (n_hp_minor | n_hp_di n_hp_cl)
+{
+    data
+     = ((( 1 0 0 0 0 0 0 )	%  n_hp_di=0  n_hp_cl=0
+	 ( 0 1 0 0 0 0 0 )	%  n_hp_di=0  n_hp_cl=1
+	 ( 0 0 1 0 0 0 0 ))	%  n_hp_di=0  n_hp_cl=2
+	(( 0 1 0 0 0 0 0 )	%  n_hp_di=1  n_hp_cl=0
+	 ( 0 0 1 0 0 0 0 )	%  n_hp_di=1  n_hp_cl=1
+	 ( 0 0 0 1 0 0 0 ))	%  n_hp_di=1  n_hp_cl=2
+	(( 0 0 1 0 0 0 0 )	%  n_hp_di=2  n_hp_cl=0
+	 ( 0 0 0 1 0 0 0 )	%  n_hp_di=2  n_hp_cl=1
+	 ( 0 0 0 0 1 0 0 ))	%  n_hp_di=2  n_hp_cl=2
+	(( 0 0 0 1 0 0 0 )	%  n_hp_di=3  n_hp_cl=0
+	 ( 0 0 0 0 1 0 0 )	%  n_hp_di=3  n_hp_cl=1
+	 ( 0 0 0 0 0 1 0 ))	%  n_hp_di=3  n_hp_cl=2
+	(( 0 0 0 0 1 0 0 )	%  n_hp_di=4  n_hp_cl=0
+	 ( 0 0 0 0 0 1 0 )	%  n_hp_di=4  n_hp_cl=1
+	 ( 0 0 0 0 0 0 1 )));	%  n_hp_di=4  n_hp_cl=2
+}
+
+potential (n_hp_major | n_hp_sp n_hp_he)
+{
+    data
+     = ((( 1 0 0 0 0 0 0 0 0 0 )	%  n_hp_sp=0  n_hp_he=0
+	 ( 0 1 0 0 0 0 0 0 0 0 )	%  n_hp_sp=0  n_hp_he=1
+	 ( 0 0 1 0 0 0 0 0 0 0 )	%  n_hp_sp=0  n_hp_he=2
+	 ( 0 0 0 1 0 0 0 0 0 0 ))	%  n_hp_sp=0  n_hp_he=3
+	(( 0 1 0 0 0 0 0 0 0 0 )	%  n_hp_sp=1  n_hp_he=0
+	 ( 0 0 1 0 0 0 0 0 0 0 )	%  n_hp_sp=1  n_hp_he=1
+	 ( 0 0 0 1 0 0 0 0 0 0 )	%  n_hp_sp=1  n_hp_he=2
+	 ( 0 0 0 0 1 0 0 0 0 0 ))	%  n_hp_sp=1  n_hp_he=3
+	(( 0 0 1 0 0 0 0 0 0 0 )	%  n_hp_sp=2  n_hp_he=0
+	 ( 0 0 0 1 0 0 0 0 0 0 )	%  n_hp_sp=2  n_hp_he=1
+	 ( 0 0 0 0 1 0 0 0 0 0 )	%  n_hp_sp=2  n_hp_he=2
+	 ( 0 0 0 0 0 1 0 0 0 0 ))	%  n_hp_sp=2  n_hp_he=3
+	(( 0 0 0 1 0 0 0 0 0 0 )	%  n_hp_sp=3  n_hp_he=0
+	 ( 0 0 0 0 1 0 0 0 0 0 )	%  n_hp_sp=3  n_hp_he=1
+	 ( 0 0 0 0 0 1 0 0 0 0 )	%  n_hp_sp=3  n_hp_he=2
+	 ( 0 0 0 0 0 0 1 0 0 0 ))	%  n_hp_sp=3  n_hp_he=3
+	(( 0 0 0 0 1 0 0 0 0 0 )	%  n_hp_sp=4  n_hp_he=0
+	 ( 0 0 0 0 0 1 0 0 0 0 )	%  n_hp_sp=4  n_hp_he=1
+	 ( 0 0 0 0 0 0 1 0 0 0 )	%  n_hp_sp=4  n_hp_he=2
+	 ( 0 0 0 0 0 0 0 1 0 0 ))	%  n_hp_sp=4  n_hp_he=3
+	(( 0 0 0 0 0 1 0 0 0 0 )	%  n_hp_sp=5  n_hp_he=0
+	 ( 0 0 0 0 0 0 1 0 0 0 )	%  n_hp_sp=5  n_hp_he=1
+	 ( 0 0 0 0 0 0 0 1 0 0 )	%  n_hp_sp=5  n_hp_he=2
+	 ( 0 0 0 0 0 0 0 0 1 0 ))	%  n_hp_sp=5  n_hp_he=3
+	(( 0 0 0 0 0 0 1 0 0 0 )	%  n_hp_sp=6  n_hp_he=0
+	 ( 0 0 0 0 0 0 0 1 0 0 )	%  n_hp_sp=6  n_hp_he=1
+	 ( 0 0 0 0 0 0 0 0 1 0 )	%  n_hp_sp=6  n_hp_he=2
+	 ( 0 0 0 0 0 0 0 0 0 1 )));	%  n_hp_sp=6  n_hp_he=3
+}
+
+potential (n_hp_cl | queenofclubs)
+{
+    data
+     = (( 0 0 1 )	%  queenofclubs=West
+	( 1 0 0 ));	%  queenofclubs=East
+}
+
+potential (n_hp_di | aceofdiamonds)
+{
+    data
+     = (( 0 0 0 0 1 )	%  aceofdiamonds=West
+	( 1 0 0 0 0 ));	%  aceofdiamonds=East
+}
+
+potential (n_hp_he | queenofhearts jackofhearts)
+{
+    data
+     = ((( 0 0 0 1 )	%  queenofhearts=West  jackofhearts=West
+	 ( 0 0 1 0 ))	%  queenofhearts=West  jackofhearts=East
+	(( 0 1 0 0 )	%  queenofhearts=East  jackofhearts=West
+	 ( 1 0 0 0 )));	%  queenofhearts=East  jackofhearts=East
+}
+
+potential (n_hp_sp | kingofspades queenofspades jackofspades)
+{
+    data
+     = (((( 0 0 0 0 0 0 1 )	%  kingofspades=West  queenofspades=West  jackofspades=West
+	  ( 0 0 0 0 0 1 0 ))	%  kingofspades=West  queenofspades=West  jackofspades=East
+	 (( 0 0 0 0 1 0 0 )	%  kingofspades=West  queenofspades=East  jackofspades=West
+	  ( 0 0 0 1 0 0 0 )))	%  kingofspades=West  queenofspades=East  jackofspades=East
+	((( 0 0 0 1 0 0 0 )	%  kingofspades=East  queenofspades=West  jackofspades=West
+	  ( 0 0 1 0 0 0 0 ))	%  kingofspades=East  queenofspades=West  jackofspades=East
+	 (( 0 1 0 0 0 0 0 )	%  kingofspades=East  queenofspades=East  jackofspades=West
+	  ( 1 0 0 0 0 0 0 ))));	%  kingofspades=East  queenofspades=East  jackofspades=East
+}
+
+potential (n_hp | n_hp_major n_hp_minor)
+{
+    data
+     = ((( 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 )	%  n_hp_major=0  n_hp_minor=0
+	 ( 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 )	%  n_hp_major=0  n_hp_minor=1
+	 ( 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 )	%  n_hp_major=0  n_hp_minor=2
+	 ( 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 )	%  n_hp_major=0  n_hp_minor=3
+	 ( 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 )	%  n_hp_major=0  n_hp_minor=4
+	 ( 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 )	%  n_hp_major=0  n_hp_minor=5
+	 ( 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 ))	%  n_hp_major=0  n_hp_minor=6
+	(( 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 )	%  n_hp_major=1  n_hp_minor=0
+	 ( 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 )	%  n_hp_major=1  n_hp_minor=1
+	 ( 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 )	%  n_hp_major=1  n_hp_minor=2
+	 ( 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 )	%  n_hp_major=1  n_hp_minor=3
+	 ( 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 )	%  n_hp_major=1  n_hp_minor=4
+	 ( 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 )	%  n_hp_major=1  n_hp_minor=5
+	 ( 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 ))	%  n_hp_major=1  n_hp_minor=6
+	(( 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 )	%  n_hp_major=2  n_hp_minor=0
+	 ( 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 )	%  n_hp_major=2  n_hp_minor=1
+	 ( 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 )	%  n_hp_major=2  n_hp_minor=2
+	 ( 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 )	%  n_hp_major=2  n_hp_minor=3
+	 ( 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 )	%  n_hp_major=2  n_hp_minor=4
+	 ( 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 )	%  n_hp_major=2  n_hp_minor=5
+	 ( 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 ))	%  n_hp_major=2  n_hp_minor=6
+	(( 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 )	%  n_hp_major=3  n_hp_minor=0
+	 ( 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 )	%  n_hp_major=3  n_hp_minor=1
+	 ( 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 )	%  n_hp_major=3  n_hp_minor=2
+	 ( 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 )	%  n_hp_major=3  n_hp_minor=3
+	 ( 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 )	%  n_hp_major=3  n_hp_minor=4
+	 ( 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 )	%  n_hp_major=3  n_hp_minor=5
+	 ( 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 ))	%  n_hp_major=3  n_hp_minor=6
+	(( 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 )	%  n_hp_major=4  n_hp_minor=0
+	 ( 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 )	%  n_hp_major=4  n_hp_minor=1
+	 ( 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 )	%  n_hp_major=4  n_hp_minor=2
+	 ( 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 )	%  n_hp_major=4  n_hp_minor=3
+	 ( 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 )	%  n_hp_major=4  n_hp_minor=4
+	 ( 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 )	%  n_hp_major=4  n_hp_minor=5
+	 ( 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 ))	%  n_hp_major=4  n_hp_minor=6
+	(( 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 )	%  n_hp_major=5  n_hp_minor=0
+	 ( 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 )	%  n_hp_major=5  n_hp_minor=1
+	 ( 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 )	%  n_hp_major=5  n_hp_minor=2
+	 ( 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 )	%  n_hp_major=5  n_hp_minor=3
+	 ( 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 )	%  n_hp_major=5  n_hp_minor=4
+	 ( 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 )	%  n_hp_major=5  n_hp_minor=5
+	 ( 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 ))	%  n_hp_major=5  n_hp_minor=6
+	(( 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 )	%  n_hp_major=6  n_hp_minor=0
+	 ( 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 )	%  n_hp_major=6  n_hp_minor=1
+	 ( 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 )	%  n_hp_major=6  n_hp_minor=2
+	 ( 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 )	%  n_hp_major=6  n_hp_minor=3
+	 ( 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 )	%  n_hp_major=6  n_hp_minor=4
+	 ( 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 )	%  n_hp_major=6  n_hp_minor=5
+	 ( 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 ))	%  n_hp_major=6  n_hp_minor=6
+	(( 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 )	%  n_hp_major=7  n_hp_minor=0
+	 ( 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 )	%  n_hp_major=7  n_hp_minor=1
+	 ( 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 )	%  n_hp_major=7  n_hp_minor=2
+	 ( 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 )	%  n_hp_major=7  n_hp_minor=3
+	 ( 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 )	%  n_hp_major=7  n_hp_minor=4
+	 ( 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 )	%  n_hp_major=7  n_hp_minor=5
+	 ( 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 ))	%  n_hp_major=7  n_hp_minor=6
+	(( 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 )	%  n_hp_major=8  n_hp_minor=0
+	 ( 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 )	%  n_hp_major=8  n_hp_minor=1
+	 ( 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 )	%  n_hp_major=8  n_hp_minor=2
+	 ( 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 )	%  n_hp_major=8  n_hp_minor=3
+	 ( 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 )	%  n_hp_major=8  n_hp_minor=4
+	 ( 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 )	%  n_hp_major=8  n_hp_minor=5
+	 ( 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 ))	%  n_hp_major=8  n_hp_minor=6
+	(( 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 )	%  n_hp_major=9  n_hp_minor=0
+	 ( 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 )	%  n_hp_major=9  n_hp_minor=1
+	 ( 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 )	%  n_hp_major=9  n_hp_minor=2
+	 ( 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 )	%  n_hp_major=9  n_hp_minor=3
+	 ( 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 )	%  n_hp_major=9  n_hp_minor=4
+	 ( 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 )	%  n_hp_major=9  n_hp_minor=5
+	 ( 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 )));	%  n_hp_major=9  n_hp_minor=6
+}
+
+potential (W_constraint | n_major n_minor)
+{
+    data
+     = ((( 1 0 )	%  n_major=0  n_minor=0
+	 ( 1 0 )	%  n_major=0  n_minor=1
+	 ( 1 0 )	%  n_major=0  n_minor=2
+	 ( 1 0 )	%  n_major=0  n_minor=3
+	 ( 1 0 )	%  n_major=0  n_minor=4
+	 ( 1 0 )	%  n_major=0  n_minor=5
+	 ( 1 0 )	%  n_major=0  n_minor=6
+	 ( 1 0 )	%  n_major=0  n_minor=7
+	 ( 1 0 )	%  n_major=0  n_minor=8
+	 ( 1 0 )	%  n_major=0  n_minor=9
+	 ( 1 0 )	%  n_major=0  n_minor=10
+	 ( 1 0 )	%  n_major=0  n_minor=11
+	 ( 1 0 ))	%  n_major=0  n_minor=12
+	(( 1 0 )	%  n_major=1  n_minor=0
+	 ( 1 0 )	%  n_major=1  n_minor=1
+	 ( 1 0 )	%  n_major=1  n_minor=2
+	 ( 1 0 )	%  n_major=1  n_minor=3
+	 ( 1 0 )	%  n_major=1  n_minor=4
+	 ( 1 0 )	%  n_major=1  n_minor=5
+	 ( 1 0 )	%  n_major=1  n_minor=6
+	 ( 1 0 )	%  n_major=1  n_minor=7
+	 ( 1 0 )	%  n_major=1  n_minor=8
+	 ( 1 0 )	%  n_major=1  n_minor=9
+	 ( 1 0 )	%  n_major=1  n_minor=10
+	 ( 1 0 )	%  n_major=1  n_minor=11
+	 ( 0 1 ))	%  n_major=1  n_minor=12
+	(( 1 0 )	%  n_major=2  n_minor=0
+	 ( 1 0 )	%  n_major=2  n_minor=1
+	 ( 1 0 )	%  n_major=2  n_minor=2
+	 ( 1 0 )	%  n_major=2  n_minor=3
+	 ( 1 0 )	%  n_major=2  n_minor=4
+	 ( 1 0 )	%  n_major=2  n_minor=5
+	 ( 1 0 )	%  n_major=2  n_minor=6
+	 ( 1 0 )	%  n_major=2  n_minor=7
+	 ( 1 0 )	%  n_major=2  n_minor=8
+	 ( 1 0 )	%  n_major=2  n_minor=9
+	 ( 1 0 )	%  n_major=2  n_minor=10
+	 ( 0 1 )	%  n_major=2  n_minor=11
+	 ( 1 0 ))	%  n_major=2  n_minor=12
+	(( 1 0 )	%  n_major=3  n_minor=0
+	 ( 1 0 )	%  n_major=3  n_minor=1
+	 ( 1 0 )	%  n_major=3  n_minor=2
+	 ( 1 0 )	%  n_major=3  n_minor=3
+	 ( 1 0 )	%  n_major=3  n_minor=4
+	 ( 1 0 )	%  n_major=3  n_minor=5
+	 ( 1 0 )	%  n_major=3  n_minor=6
+	 ( 1 0 )	%  n_major=3  n_minor=7
+	 ( 1 0 )	%  n_major=3  n_minor=8
+	 ( 1 0 )	%  n_major=3  n_minor=9
+	 ( 0 1 )	%  n_major=3  n_minor=10
+	 ( 1 0 )	%  n_major=3  n_minor=11
+	 ( 1 0 ))	%  n_major=3  n_minor=12
+	(( 1 0 )	%  n_major=4  n_minor=0
+	 ( 1 0 )	%  n_major=4  n_minor=1
+	 ( 1 0 )	%  n_major=4  n_minor=2
+	 ( 1 0 )	%  n_major=4  n_minor=3
+	 ( 1 0 )	%  n_major=4  n_minor=4
+	 ( 1 0 )	%  n_major=4  n_minor=5
+	 ( 1 0 )	%  n_major=4  n_minor=6
+	 ( 1 0 )	%  n_major=4  n_minor=7
+	 ( 1 0 )	%  n_major=4  n_minor=8
+	 ( 0 1 )	%  n_major=4  n_minor=9
+	 ( 1 0 )	%  n_major=4  n_minor=10
+	 ( 1 0 )	%  n_major=4  n_minor=11
+	 ( 1 0 ))	%  n_major=4  n_minor=12
+	(( 1 0 )	%  n_major=5  n_minor=0
+	 ( 1 0 )	%  n_major=5  n_minor=1
+	 ( 1 0 )	%  n_major=5  n_minor=2
+	 ( 1 0 )	%  n_major=5  n_minor=3
+	 ( 1 0 )	%  n_major=5  n_minor=4
+	 ( 1 0 )	%  n_major=5  n_minor=5
+	 ( 1 0 )	%  n_major=5  n_minor=6
+	 ( 1 0 )	%  n_major=5  n_minor=7
+	 ( 0 1 )	%  n_major=5  n_minor=8
+	 ( 1 0 )	%  n_major=5  n_minor=9
+	 ( 1 0 )	%  n_major=5  n_minor=10
+	 ( 1 0 )	%  n_major=5  n_minor=11
+	 ( 1 0 ))	%  n_major=5  n_minor=12
+	(( 1 0 )	%  n_major=6  n_minor=0
+	 ( 1 0 )	%  n_major=6  n_minor=1
+	 ( 1 0 )	%  n_major=6  n_minor=2
+	 ( 1 0 )	%  n_major=6  n_minor=3
+	 ( 1 0 )	%  n_major=6  n_minor=4
+	 ( 1 0 )	%  n_major=6  n_minor=5
+	 ( 1 0 )	%  n_major=6  n_minor=6
+	 ( 0 1 )	%  n_major=6  n_minor=7
+	 ( 1 0 )	%  n_major=6  n_minor=8
+	 ( 1 0 )	%  n_major=6  n_minor=9
+	 ( 1 0 )	%  n_major=6  n_minor=10
+	 ( 1 0 )	%  n_major=6  n_minor=11
+	 ( 1 0 ))	%  n_major=6  n_minor=12
+	(( 1 0 )	%  n_major=7  n_minor=0
+	 ( 1 0 )	%  n_major=7  n_minor=1
+	 ( 1 0 )	%  n_major=7  n_minor=2
+	 ( 1 0 )	%  n_major=7  n_minor=3
+	 ( 1 0 )	%  n_major=7  n_minor=4
+	 ( 1 0 )	%  n_major=7  n_minor=5
+	 ( 0 1 )	%  n_major=7  n_minor=6
+	 ( 1 0 )	%  n_major=7  n_minor=7
+	 ( 1 0 )	%  n_major=7  n_minor=8
+	 ( 1 0 )	%  n_major=7  n_minor=9
+	 ( 1 0 )	%  n_major=7  n_minor=10
+	 ( 1 0 )	%  n_major=7  n_minor=11
+	 ( 1 0 ))	%  n_major=7  n_minor=12
+	(( 1 0 )	%  n_major=8  n_minor=0
+	 ( 1 0 )	%  n_major=8  n_minor=1
+	 ( 1 0 )	%  n_major=8  n_minor=2
+	 ( 1 0 )	%  n_major=8  n_minor=3
+	 ( 1 0 )	%  n_major=8  n_minor=4
+	 ( 0 1 )	%  n_major=8  n_minor=5
+	 ( 1 0 )	%  n_major=8  n_minor=6
+	 ( 1 0 )	%  n_major=8  n_minor=7
+	 ( 1 0 )	%  n_major=8  n_minor=8
+	 ( 1 0 )	%  n_major=8  n_minor=9
+	 ( 1 0 )	%  n_major=8  n_minor=10
+	 ( 1 0 )	%  n_major=8  n_minor=11
+	 ( 1 0 ))	%  n_major=8  n_minor=12
+	(( 1 0 )	%  n_major=9  n_minor=0
+	 ( 1 0 )	%  n_major=9  n_minor=1
+	 ( 1 0 )	%  n_major=9  n_minor=2
+	 ( 1 0 )	%  n_major=9  n_minor=3
+	 ( 0 1 )	%  n_major=9  n_minor=4
+	 ( 1 0 )	%  n_major=9  n_minor=5
+	 ( 1 0 )	%  n_major=9  n_minor=6
+	 ( 1 0 )	%  n_major=9  n_minor=7
+	 ( 1 0 )	%  n_major=9  n_minor=8
+	 ( 1 0 )	%  n_major=9  n_minor=9
+	 ( 1 0 )	%  n_major=9  n_minor=10
+	 ( 1 0 )	%  n_major=9  n_minor=11
+	 ( 1 0 ))	%  n_major=9  n_minor=12
+	(( 1 0 )	%  n_major=10  n_minor=0
+	 ( 1 0 )	%  n_major=10  n_minor=1
+	 ( 1 0 )	%  n_major=10  n_minor=2
+	 ( 0 1 )	%  n_major=10  n_minor=3
+	 ( 1 0 )	%  n_major=10  n_minor=4
+	 ( 1 0 )	%  n_major=10  n_minor=5
+	 ( 1 0 )	%  n_major=10  n_minor=6
+	 ( 1 0 )	%  n_major=10  n_minor=7
+	 ( 1 0 )	%  n_major=10  n_minor=8
+	 ( 1 0 )	%  n_major=10  n_minor=9
+	 ( 1 0 )	%  n_major=10  n_minor=10
+	 ( 1 0 )	%  n_major=10  n_minor=11
+	 ( 1 0 ))	%  n_major=10  n_minor=12
+	(( 1 0 )	%  n_major=11  n_minor=0
+	 ( 1 0 )	%  n_major=11  n_minor=1
+	 ( 0 1 )	%  n_major=11  n_minor=2
+	 ( 1 0 )	%  n_major=11  n_minor=3
+	 ( 1 0 )	%  n_major=11  n_minor=4
+	 ( 1 0 )	%  n_major=11  n_minor=5
+	 ( 1 0 )	%  n_major=11  n_minor=6
+	 ( 1 0 )	%  n_major=11  n_minor=7
+	 ( 1 0 )	%  n_major=11  n_minor=8
+	 ( 1 0 )	%  n_major=11  n_minor=9
+	 ( 1 0 )	%  n_major=11  n_minor=10
+	 ( 1 0 )	%  n_major=11  n_minor=11
+	 ( 1 0 ))	%  n_major=11  n_minor=12
+	(( 1 0 )	%  n_major=12  n_minor=0
+	 ( 0 1 )	%  n_major=12  n_minor=1
+	 ( 1 0 )	%  n_major=12  n_minor=2
+	 ( 1 0 )	%  n_major=12  n_minor=3
+	 ( 1 0 )	%  n_major=12  n_minor=4
+	 ( 1 0 )	%  n_major=12  n_minor=5
+	 ( 1 0 )	%  n_major=12  n_minor=6
+	 ( 1 0 )	%  n_major=12  n_minor=7
+	 ( 1 0 )	%  n_major=12  n_minor=8
+	 ( 1 0 )	%  n_major=12  n_minor=9
+	 ( 1 0 )	%  n_major=12  n_minor=10
+	 ( 1 0 )	%  n_major=12  n_minor=11
+	 ( 1 0 ))	%  n_major=12  n_minor=12
+	(( 0 1 )	%  n_major=13  n_minor=0
+	 ( 1 0 )	%  n_major=13  n_minor=1
+	 ( 1 0 )	%  n_major=13  n_minor=2
+	 ( 1 0 )	%  n_major=13  n_minor=3
+	 ( 1 0 )	%  n_major=13  n_minor=4
+	 ( 1 0 )	%  n_major=13  n_minor=5
+	 ( 1 0 )	%  n_major=13  n_minor=6
+	 ( 1 0 )	%  n_major=13  n_minor=7
+	 ( 1 0 )	%  n_major=13  n_minor=8
+	 ( 1 0 )	%  n_major=13  n_minor=9
+	 ( 1 0 )	%  n_major=13  n_minor=10
+	 ( 1 0 )	%  n_major=13  n_minor=11
+	 ( 1 0 ))	%  n_major=13  n_minor=12
+	(( 1 0 )	%  n_major=14  n_minor=0
+	 ( 1 0 )	%  n_major=14  n_minor=1
+	 ( 1 0 )	%  n_major=14  n_minor=2
+	 ( 1 0 )	%  n_major=14  n_minor=3
+	 ( 1 0 )	%  n_major=14  n_minor=4
+	 ( 1 0 )	%  n_major=14  n_minor=5
+	 ( 1 0 )	%  n_major=14  n_minor=6
+	 ( 1 0 )	%  n_major=14  n_minor=7
+	 ( 1 0 )	%  n_major=14  n_minor=8
+	 ( 1 0 )	%  n_major=14  n_minor=9
+	 ( 1 0 )	%  n_major=14  n_minor=10
+	 ( 1 0 )	%  n_major=14  n_minor=11
+	 ( 1 0 )));	%  n_major=14  n_minor=12
+}
+
+potential (n_minor | n_di n_cl)
+{
+    data
+     = ((( 1 0 0 0 0 0 0 0 0 0 0 0 0 )	%  n_di=0  n_cl=0
+	 ( 0 1 0 0 0 0 0 0 0 0 0 0 0 )	%  n_di=0  n_cl=1
+	 ( 0 0 1 0 0 0 0 0 0 0 0 0 0 )	%  n_di=0  n_cl=2
+	 ( 0 0 0 1 0 0 0 0 0 0 0 0 0 )	%  n_di=0  n_cl=3
+	 ( 0 0 0 0 1 0 0 0 0 0 0 0 0 ))	%  n_di=0  n_cl=4
+	(( 0 1 0 0 0 0 0 0 0 0 0 0 0 )	%  n_di=1  n_cl=0
+	 ( 0 0 1 0 0 0 0 0 0 0 0 0 0 )	%  n_di=1  n_cl=1
+	 ( 0 0 0 1 0 0 0 0 0 0 0 0 0 )	%  n_di=1  n_cl=2
+	 ( 0 0 0 0 1 0 0 0 0 0 0 0 0 )	%  n_di=1  n_cl=3
+	 ( 0 0 0 0 0 1 0 0 0 0 0 0 0 ))	%  n_di=1  n_cl=4
+	(( 0 0 1 0 0 0 0 0 0 0 0 0 0 )	%  n_di=2  n_cl=0
+	 ( 0 0 0 1 0 0 0 0 0 0 0 0 0 )	%  n_di=2  n_cl=1
+	 ( 0 0 0 0 1 0 0 0 0 0 0 0 0 )	%  n_di=2  n_cl=2
+	 ( 0 0 0 0 0 1 0 0 0 0 0 0 0 )	%  n_di=2  n_cl=3
+	 ( 0 0 0 0 0 0 1 0 0 0 0 0 0 ))	%  n_di=2  n_cl=4
+	(( 0 0 0 1 0 0 0 0 0 0 0 0 0 )	%  n_di=3  n_cl=0
+	 ( 0 0 0 0 1 0 0 0 0 0 0 0 0 )	%  n_di=3  n_cl=1
+	 ( 0 0 0 0 0 1 0 0 0 0 0 0 0 )	%  n_di=3  n_cl=2
+	 ( 0 0 0 0 0 0 1 0 0 0 0 0 0 )	%  n_di=3  n_cl=3
+	 ( 0 0 0 0 0 0 0 1 0 0 0 0 0 ))	%  n_di=3  n_cl=4
+	(( 0 0 0 0 1 0 0 0 0 0 0 0 0 )	%  n_di=4  n_cl=0
+	 ( 0 0 0 0 0 1 0 0 0 0 0 0 0 )	%  n_di=4  n_cl=1
+	 ( 0 0 0 0 0 0 1 0 0 0 0 0 0 )	%  n_di=4  n_cl=2
+	 ( 0 0 0 0 0 0 0 1 0 0 0 0 0 )	%  n_di=4  n_cl=3
+	 ( 0 0 0 0 0 0 0 0 1 0 0 0 0 ))	%  n_di=4  n_cl=4
+	(( 0 0 0 0 0 1 0 0 0 0 0 0 0 )	%  n_di=5  n_cl=0
+	 ( 0 0 0 0 0 0 1 0 0 0 0 0 0 )	%  n_di=5  n_cl=1
+	 ( 0 0 0 0 0 0 0 1 0 0 0 0 0 )	%  n_di=5  n_cl=2
+	 ( 0 0 0 0 0 0 0 0 1 0 0 0 0 )	%  n_di=5  n_cl=3
+	 ( 0 0 0 0 0 0 0 0 0 1 0 0 0 ))	%  n_di=5  n_cl=4
+	(( 0 0 0 0 0 0 1 0 0 0 0 0 0 )	%  n_di=6  n_cl=0
+	 ( 0 0 0 0 0 0 0 1 0 0 0 0 0 )	%  n_di=6  n_cl=1
+	 ( 0 0 0 0 0 0 0 0 1 0 0 0 0 )	%  n_di=6  n_cl=2
+	 ( 0 0 0 0 0 0 0 0 0 1 0 0 0 )	%  n_di=6  n_cl=3
+	 ( 0 0 0 0 0 0 0 0 0 0 1 0 0 ))	%  n_di=6  n_cl=4
+	(( 0 0 0 0 0 0 0 1 0 0 0 0 0 )	%  n_di=7  n_cl=0
+	 ( 0 0 0 0 0 0 0 0 1 0 0 0 0 )	%  n_di=7  n_cl=1
+	 ( 0 0 0 0 0 0 0 0 0 1 0 0 0 )	%  n_di=7  n_cl=2
+	 ( 0 0 0 0 0 0 0 0 0 0 1 0 0 )	%  n_di=7  n_cl=3
+	 ( 0 0 0 0 0 0 0 0 0 0 0 1 0 ))	%  n_di=7  n_cl=4
+	(( 0 0 0 0 0 0 0 0 1 0 0 0 0 )	%  n_di=8  n_cl=0
+	 ( 0 0 0 0 0 0 0 0 0 1 0 0 0 )	%  n_di=8  n_cl=1
+	 ( 0 0 0 0 0 0 0 0 0 0 1 0 0 )	%  n_di=8  n_cl=2
+	 ( 0 0 0 0 0 0 0 0 0 0 0 1 0 )	%  n_di=8  n_cl=3
+	 ( 0 0 0 0 0 0 0 0 0 0 0 0 1 )));	%  n_di=8  n_cl=4
+}
+
+potential (n_major | n_sp n_he)
+{
+    data
+     = ((( 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 )	%  n_sp=0  n_he=0
+	 ( 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 )	%  n_sp=0  n_he=1
+	 ( 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 )	%  n_sp=0  n_he=2
+	 ( 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 )	%  n_sp=0  n_he=3
+	 ( 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 )	%  n_sp=0  n_he=4
+	 ( 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 )	%  n_sp=0  n_he=5
+	 ( 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 ))	%  n_sp=0  n_he=6
+	(( 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 )	%  n_sp=1  n_he=0
+	 ( 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 )	%  n_sp=1  n_he=1
+	 ( 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 )	%  n_sp=1  n_he=2
+	 ( 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 )	%  n_sp=1  n_he=3
+	 ( 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 )	%  n_sp=1  n_he=4
+	 ( 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 )	%  n_sp=1  n_he=5
+	 ( 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 ))	%  n_sp=1  n_he=6
+	(( 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 )	%  n_sp=2  n_he=0
+	 ( 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 )	%  n_sp=2  n_he=1
+	 ( 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 )	%  n_sp=2  n_he=2
+	 ( 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 )	%  n_sp=2  n_he=3
+	 ( 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 )	%  n_sp=2  n_he=4
+	 ( 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 )	%  n_sp=2  n_he=5
+	 ( 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 ))	%  n_sp=2  n_he=6
+	(( 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 )	%  n_sp=3  n_he=0
+	 ( 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 )	%  n_sp=3  n_he=1
+	 ( 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 )	%  n_sp=3  n_he=2
+	 ( 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 )	%  n_sp=3  n_he=3
+	 ( 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 )	%  n_sp=3  n_he=4
+	 ( 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 )	%  n_sp=3  n_he=5
+	 ( 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 ))	%  n_sp=3  n_he=6
+	(( 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 )	%  n_sp=4  n_he=0
+	 ( 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 )	%  n_sp=4  n_he=1
+	 ( 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 )	%  n_sp=4  n_he=2
+	 ( 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 )	%  n_sp=4  n_he=3
+	 ( 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 )	%  n_sp=4  n_he=4
+	 ( 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 )	%  n_sp=4  n_he=5
+	 ( 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 ))	%  n_sp=4  n_he=6
+	(( 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 )	%  n_sp=5  n_he=0
+	 ( 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 )	%  n_sp=5  n_he=1
+	 ( 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 )	%  n_sp=5  n_he=2
+	 ( 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 )	%  n_sp=5  n_he=3
+	 ( 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 )	%  n_sp=5  n_he=4
+	 ( 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 )	%  n_sp=5  n_he=5
+	 ( 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 ))	%  n_sp=5  n_he=6
+	(( 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 )	%  n_sp=6  n_he=0
+	 ( 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 )	%  n_sp=6  n_he=1
+	 ( 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 )	%  n_sp=6  n_he=2
+	 ( 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 )	%  n_sp=6  n_he=3
+	 ( 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 )	%  n_sp=6  n_he=4
+	 ( 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 )	%  n_sp=6  n_he=5
+	 ( 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 ))	%  n_sp=6  n_he=6
+	(( 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 )	%  n_sp=7  n_he=0
+	 ( 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 )	%  n_sp=7  n_he=1
+	 ( 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 )	%  n_sp=7  n_he=2
+	 ( 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 )	%  n_sp=7  n_he=3
+	 ( 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 )	%  n_sp=7  n_he=4
+	 ( 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 )	%  n_sp=7  n_he=5
+	 ( 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 ))	%  n_sp=7  n_he=6
+	(( 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 )	%  n_sp=8  n_he=0
+	 ( 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 )	%  n_sp=8  n_he=1
+	 ( 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 )	%  n_sp=8  n_he=2
+	 ( 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 )	%  n_sp=8  n_he=3
+	 ( 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 )	%  n_sp=8  n_he=4
+	 ( 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 )	%  n_sp=8  n_he=5
+	 ( 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 )));	%  n_sp=8  n_he=6
+}
+
+potential (n_cl | n_cl_Q_9 n_cl_5_4)
+{
+    data
+     = ((( 1 0 0 0 0 )	%  n_cl_Q_9=0  n_cl_5_4=0
+	 ( 0 1 0 0 0 )	%  n_cl_Q_9=0  n_cl_5_4=1
+	 ( 0 0 1 0 0 ))	%  n_cl_Q_9=0  n_cl_5_4=2
+	(( 0 1 0 0 0 )	%  n_cl_Q_9=1  n_cl_5_4=0
+	 ( 0 0 1 0 0 )	%  n_cl_Q_9=1  n_cl_5_4=1
+	 ( 0 0 0 1 0 ))	%  n_cl_Q_9=1  n_cl_5_4=2
+	(( 0 0 1 0 0 )	%  n_cl_Q_9=2  n_cl_5_4=0
+	 ( 0 0 0 1 0 )	%  n_cl_Q_9=2  n_cl_5_4=1
+	 ( 0 0 0 0 1 )));	%  n_cl_Q_9=2  n_cl_5_4=2
+}
+
+potential (n_cl_5_4 | the5ofclubs the4ofclubs)
+{
+    data
+     = ((( 0 0 1 )	%  the5ofclubs=West  the4ofclubs=West
+	 ( 0 1 0 ))	%  the5ofclubs=West  the4ofclubs=East
+	(( 0 1 0 )	%  the5ofclubs=East  the4ofclubs=West
+	 ( 1 0 0 )));	%  the5ofclubs=East  the4ofclubs=East
+}
+
+potential (n_cl_Q_9 | queenofclubs the9ofclubs)
+{
+    data
+     = ((( 0 0 1 )	%  queenofclubs=West  the9ofclubs=West
+	 ( 0 1 0 ))	%  queenofclubs=West  the9ofclubs=East
+	(( 0 1 0 )	%  queenofclubs=East  the9ofclubs=West
+	 ( 1 0 0 )));	%  queenofclubs=East  the9ofclubs=East
+}
+
+potential (n_di | n_di_A_7 n_di_6_2)
+{
+    data
+     = ((( 1 0 0 0 0 0 0 0 0 )	%  n_di_A_7=0  n_di_6_2=0
+	 ( 0 1 0 0 0 0 0 0 0 )	%  n_di_A_7=0  n_di_6_2=1
+	 ( 0 0 1 0 0 0 0 0 0 )	%  n_di_A_7=0  n_di_6_2=2
+	 ( 0 0 0 1 0 0 0 0 0 )	%  n_di_A_7=0  n_di_6_2=3
+	 ( 0 0 0 0 1 0 0 0 0 ))	%  n_di_A_7=0  n_di_6_2=4
+	(( 0 1 0 0 0 0 0 0 0 )	%  n_di_A_7=1  n_di_6_2=0
+	 ( 0 0 1 0 0 0 0 0 0 )	%  n_di_A_7=1  n_di_6_2=1
+	 ( 0 0 0 1 0 0 0 0 0 )	%  n_di_A_7=1  n_di_6_2=2
+	 ( 0 0 0 0 1 0 0 0 0 )	%  n_di_A_7=1  n_di_6_2=3
+	 ( 0 0 0 0 0 1 0 0 0 ))	%  n_di_A_7=1  n_di_6_2=4
+	(( 0 0 1 0 0 0 0 0 0 )	%  n_di_A_7=2  n_di_6_2=0
+	 ( 0 0 0 1 0 0 0 0 0 )	%  n_di_A_7=2  n_di_6_2=1
+	 ( 0 0 0 0 1 0 0 0 0 )	%  n_di_A_7=2  n_di_6_2=2
+	 ( 0 0 0 0 0 1 0 0 0 )	%  n_di_A_7=2  n_di_6_2=3
+	 ( 0 0 0 0 0 0 1 0 0 ))	%  n_di_A_7=2  n_di_6_2=4
+	(( 0 0 0 1 0 0 0 0 0 )	%  n_di_A_7=3  n_di_6_2=0
+	 ( 0 0 0 0 1 0 0 0 0 )	%  n_di_A_7=3  n_di_6_2=1
+	 ( 0 0 0 0 0 1 0 0 0 )	%  n_di_A_7=3  n_di_6_2=2
+	 ( 0 0 0 0 0 0 1 0 0 )	%  n_di_A_7=3  n_di_6_2=3
+	 ( 0 0 0 0 0 0 0 1 0 ))	%  n_di_A_7=3  n_di_6_2=4
+	(( 0 0 0 0 1 0 0 0 0 )	%  n_di_A_7=4  n_di_6_2=0
+	 ( 0 0 0 0 0 1 0 0 0 )	%  n_di_A_7=4  n_di_6_2=1
+	 ( 0 0 0 0 0 0 1 0 0 )	%  n_di_A_7=4  n_di_6_2=2
+	 ( 0 0 0 0 0 0 0 1 0 )	%  n_di_A_7=4  n_di_6_2=3
+	 ( 0 0 0 0 0 0 0 0 1 )));	%  n_di_A_7=4  n_di_6_2=4
+}
+
+potential (n_di_6_2 | n_di_6_5 n_di_4_2)
+{
+    data
+     = ((( 1 0 0 0 0 )	%  n_di_6_5=0  n_di_4_2=0
+	 ( 0 1 0 0 0 )	%  n_di_6_5=0  n_di_4_2=1
+	 ( 0 0 1 0 0 ))	%  n_di_6_5=0  n_di_4_2=2
+	(( 0 1 0 0 0 )	%  n_di_6_5=1  n_di_4_2=0
+	 ( 0 0 1 0 0 )	%  n_di_6_5=1  n_di_4_2=1
+	 ( 0 0 0 1 0 ))	%  n_di_6_5=1  n_di_4_2=2
+	(( 0 0 1 0 0 )	%  n_di_6_5=2  n_di_4_2=0
+	 ( 0 0 0 1 0 )	%  n_di_6_5=2  n_di_4_2=1
+	 ( 0 0 0 0 1 )));	%  n_di_6_5=2  n_di_4_2=2
+}
+
+potential (n_di_A_7 | n_di_A_9 n_di_8_7)
+{
+    data
+     = ((( 1 0 0 0 0 )	%  n_di_A_9=0  n_di_8_7=0
+	 ( 0 1 0 0 0 )	%  n_di_A_9=0  n_di_8_7=1
+	 ( 0 0 1 0 0 ))	%  n_di_A_9=0  n_di_8_7=2
+	(( 0 1 0 0 0 )	%  n_di_A_9=1  n_di_8_7=0
+	 ( 0 0 1 0 0 )	%  n_di_A_9=1  n_di_8_7=1
+	 ( 0 0 0 1 0 ))	%  n_di_A_9=1  n_di_8_7=2
+	(( 0 0 1 0 0 )	%  n_di_A_9=2  n_di_8_7=0
+	 ( 0 0 0 1 0 )	%  n_di_A_9=2  n_di_8_7=1
+	 ( 0 0 0 0 1 )));	%  n_di_A_9=2  n_di_8_7=2
+}
+
+potential (n_di_4_2 | the4ofdiamonds the2ofdiamonds)
+{
+    data
+     = ((( 0 0 1 )	%  the4ofdiamonds=West  the2ofdiamonds=West
+	 ( 0 1 0 ))	%  the4ofdiamonds=West  the2ofdiamonds=East
+	(( 0 1 0 )	%  the4ofdiamonds=East  the2ofdiamonds=West
+	 ( 1 0 0 )));	%  the4ofdiamonds=East  the2ofdiamonds=East
+}
+
+potential (n_di_6_5 | the6ofdiamonds the5ofdiamonds)
+{
+    data
+     = ((( 0 0 1 )	%  the6ofdiamonds=West  the5ofdiamonds=West
+	 ( 0 1 0 ))	%  the6ofdiamonds=West  the5ofdiamonds=East
+	(( 0 1 0 )	%  the6ofdiamonds=East  the5ofdiamonds=West
+	 ( 1 0 0 )));	%  the6ofdiamonds=East  the5ofdiamonds=East
+}
+
+potential (n_di_8_7 | the8ofdiamonds the7ofdiamonds)
+{
+    data
+     = ((( 0 0 1 )	%  the8ofdiamonds=West  the7ofdiamonds=West
+	 ( 0 1 0 ))	%  the8ofdiamonds=West  the7ofdiamonds=East
+	(( 0 1 0 )	%  the8ofdiamonds=East  the7ofdiamonds=West
+	 ( 1 0 0 )));	%  the8ofdiamonds=East  the7ofdiamonds=East
+}
+
+potential (n_di_A_9 | aceofdiamonds the9ofdiamonds)
+{
+    data
+     = ((( 0 0 1 )	%  aceofdiamonds=West  the9ofdiamonds=West
+	 ( 0 1 0 ))	%  aceofdiamonds=West  the9ofdiamonds=East
+	(( 0 1 0 )	%  aceofdiamonds=East  the9ofdiamonds=West
+	 ( 1 0 0 )));	%  aceofdiamonds=East  the9ofdiamonds=East
+}
+
+potential (n_he | n_he_Q_6 n_he_4_3)
+{
+    data
+     = ((( 1 0 0 0 0 0 0 )	%  n_he_Q_6=0  n_he_4_3=0
+	 ( 0 1 0 0 0 0 0 )	%  n_he_Q_6=0  n_he_4_3=1
+	 ( 0 0 1 0 0 0 0 ))	%  n_he_Q_6=0  n_he_4_3=2
+	(( 0 1 0 0 0 0 0 )	%  n_he_Q_6=1  n_he_4_3=0
+	 ( 0 0 1 0 0 0 0 )	%  n_he_Q_6=1  n_he_4_3=1
+	 ( 0 0 0 1 0 0 0 ))	%  n_he_Q_6=1  n_he_4_3=2
+	(( 0 0 1 0 0 0 0 )	%  n_he_Q_6=2  n_he_4_3=0
+	 ( 0 0 0 1 0 0 0 )	%  n_he_Q_6=2  n_he_4_3=1
+	 ( 0 0 0 0 1 0 0 ))	%  n_he_Q_6=2  n_he_4_3=2
+	(( 0 0 0 1 0 0 0 )	%  n_he_Q_6=3  n_he_4_3=0
+	 ( 0 0 0 0 1 0 0 )	%  n_he_Q_6=3  n_he_4_3=1
+	 ( 0 0 0 0 0 1 0 ))	%  n_he_Q_6=3  n_he_4_3=2
+	(( 0 0 0 0 1 0 0 )	%  n_he_Q_6=4  n_he_4_3=0
+	 ( 0 0 0 0 0 1 0 )	%  n_he_Q_6=4  n_he_4_3=1
+	 ( 0 0 0 0 0 0 1 )));	%  n_he_Q_6=4  n_he_4_3=2
+}
+
+potential (n_he_Q_6 | n_he_Q_J n_he_10_6)
+{
+    data
+     = ((( 1 0 0 0 0 )	%  n_he_Q_J=0  n_he_10_6=0
+	 ( 0 1 0 0 0 )	%  n_he_Q_J=0  n_he_10_6=1
+	 ( 0 0 1 0 0 ))	%  n_he_Q_J=0  n_he_10_6=2
+	(( 0 1 0 0 0 )	%  n_he_Q_J=1  n_he_10_6=0
+	 ( 0 0 1 0 0 )	%  n_he_Q_J=1  n_he_10_6=1
+	 ( 0 0 0 1 0 ))	%  n_he_Q_J=1  n_he_10_6=2
+	(( 0 0 1 0 0 )	%  n_he_Q_J=2  n_he_10_6=0
+	 ( 0 0 0 1 0 )	%  n_he_Q_J=2  n_he_10_6=1
+	 ( 0 0 0 0 1 )));	%  n_he_Q_J=2  n_he_10_6=2
+}
+
+potential (n_he_4_3 | the4ofhearts the3ofhearts)
+{
+    data
+     = ((( 0 0 1 )	%  the4ofhearts=West  the3ofhearts=West
+	 ( 0 1 0 ))	%  the4ofhearts=West  the3ofhearts=East
+	(( 0 1 0 )	%  the4ofhearts=East  the3ofhearts=West
+	 ( 1 0 0 )));	%  the4ofhearts=East  the3ofhearts=East
+}
+
+potential (n_he_10_6 | the10ofhearts the6ofhearts)
+{
+    data
+     = ((( 0 0 1 )	%  the10ofhearts=West  the6ofhearts=West
+	 ( 0 1 0 ))	%  the10ofhearts=West  the6ofhearts=East
+	(( 0 1 0 )	%  the10ofhearts=East  the6ofhearts=West
+	 ( 1 0 0 )));	%  the10ofhearts=East  the6ofhearts=East
+}
+
+potential (n_he_Q_J | queenofhearts jackofhearts)
+{
+    data
+     = ((( 0 0 1 )	%  queenofhearts=West  jackofhearts=West
+	 ( 0 1 0 ))	%  queenofhearts=West  jackofhearts=East
+	(( 0 1 0 )	%  queenofhearts=East  jackofhearts=West
+	 ( 1 0 0 )));	%  queenofhearts=East  jackofhearts=East
+}
+
+potential (n_sp | n_sp_K_8 n_sp_7_3)
+{
+    data
+     = ((( 1 0 0 0 0 0 0 0 0 )	%  n_sp_K_8=0  n_sp_7_3=0
+	 ( 0 1 0 0 0 0 0 0 0 )	%  n_sp_K_8=0  n_sp_7_3=1
+	 ( 0 0 1 0 0 0 0 0 0 )	%  n_sp_K_8=0  n_sp_7_3=2
+	 ( 0 0 0 1 0 0 0 0 0 )	%  n_sp_K_8=0  n_sp_7_3=3
+	 ( 0 0 0 0 1 0 0 0 0 ))	%  n_sp_K_8=0  n_sp_7_3=4
+	(( 0 1 0 0 0 0 0 0 0 )	%  n_sp_K_8=1  n_sp_7_3=0
+	 ( 0 0 1 0 0 0 0 0 0 )	%  n_sp_K_8=1  n_sp_7_3=1
+	 ( 0 0 0 1 0 0 0 0 0 )	%  n_sp_K_8=1  n_sp_7_3=2
+	 ( 0 0 0 0 1 0 0 0 0 )	%  n_sp_K_8=1  n_sp_7_3=3
+	 ( 0 0 0 0 0 1 0 0 0 ))	%  n_sp_K_8=1  n_sp_7_3=4
+	(( 0 0 1 0 0 0 0 0 0 )	%  n_sp_K_8=2  n_sp_7_3=0
+	 ( 0 0 0 1 0 0 0 0 0 )	%  n_sp_K_8=2  n_sp_7_3=1
+	 ( 0 0 0 0 1 0 0 0 0 )	%  n_sp_K_8=2  n_sp_7_3=2
+	 ( 0 0 0 0 0 1 0 0 0 )	%  n_sp_K_8=2  n_sp_7_3=3
+	 ( 0 0 0 0 0 0 1 0 0 ))	%  n_sp_K_8=2  n_sp_7_3=4
+	(( 0 0 0 1 0 0 0 0 0 )	%  n_sp_K_8=3  n_sp_7_3=0
+	 ( 0 0 0 0 1 0 0 0 0 )	%  n_sp_K_8=3  n_sp_7_3=1
+	 ( 0 0 0 0 0 1 0 0 0 )	%  n_sp_K_8=3  n_sp_7_3=2
+	 ( 0 0 0 0 0 0 1 0 0 )	%  n_sp_K_8=3  n_sp_7_3=3
+	 ( 0 0 0 0 0 0 0 1 0 ))	%  n_sp_K_8=3  n_sp_7_3=4
+	(( 0 0 0 0 1 0 0 0 0 )	%  n_sp_K_8=4  n_sp_7_3=0
+	 ( 0 0 0 0 0 1 0 0 0 )	%  n_sp_K_8=4  n_sp_7_3=1
+	 ( 0 0 0 0 0 0 1 0 0 )	%  n_sp_K_8=4  n_sp_7_3=2
+	 ( 0 0 0 0 0 0 0 1 0 )	%  n_sp_K_8=4  n_sp_7_3=3
+	 ( 0 0 0 0 0 0 0 0 1 )));	%  n_sp_K_8=4  n_sp_7_3=4
+}
+
+potential (n_sp_7_3 | n_sp_7_5 n_sp_4_3)
+{
+    data
+     = ((( 1 0 0 0 0 )	%  n_sp_7_5=0  n_sp_4_3=0
+	 ( 0 1 0 0 0 )	%  n_sp_7_5=0  n_sp_4_3=1
+	 ( 0 0 1 0 0 ))	%  n_sp_7_5=0  n_sp_4_3=2
+	(( 0 1 0 0 0 )	%  n_sp_7_5=1  n_sp_4_3=0
+	 ( 0 0 1 0 0 )	%  n_sp_7_5=1  n_sp_4_3=1
+	 ( 0 0 0 1 0 ))	%  n_sp_7_5=1  n_sp_4_3=2
+	(( 0 0 1 0 0 )	%  n_sp_7_5=2  n_sp_4_3=0
+	 ( 0 0 0 1 0 )	%  n_sp_7_5=2  n_sp_4_3=1
+	 ( 0 0 0 0 1 )));	%  n_sp_7_5=2  n_sp_4_3=2
+}
+
+potential (n_sp_K_8 | n_sp_K_Q n_sp_J_8)
+{
+    data
+     = ((( 1 0 0 0 0 )	%  n_sp_K_Q=0  n_sp_J_8=0
+	 ( 0 1 0 0 0 )	%  n_sp_K_Q=0  n_sp_J_8=1
+	 ( 0 0 1 0 0 ))	%  n_sp_K_Q=0  n_sp_J_8=2
+	(( 0 1 0 0 0 )	%  n_sp_K_Q=1  n_sp_J_8=0
+	 ( 0 0 1 0 0 )	%  n_sp_K_Q=1  n_sp_J_8=1
+	 ( 0 0 0 1 0 ))	%  n_sp_K_Q=1  n_sp_J_8=2
+	(( 0 0 1 0 0 )	%  n_sp_K_Q=2  n_sp_J_8=0
+	 ( 0 0 0 1 0 )	%  n_sp_K_Q=2  n_sp_J_8=1
+	 ( 0 0 0 0 1 )));	%  n_sp_K_Q=2  n_sp_J_8=2
+}
+
+potential (n_sp_4_3 | the4ofspades the3ofspades)
+{
+    data
+     = ((( 0 0 1 )	%  the4ofspades=West  the3ofspades=West
+	 ( 0 1 0 ))	%  the4ofspades=West  the3ofspades=East
+	(( 0 1 0 )	%  the4ofspades=East  the3ofspades=West
+	 ( 1 0 0 )));	%  the4ofspades=East  the3ofspades=East
+}
+
+potential (n_sp_7_5 | the7ofspades the5ofspades)
+{
+    data
+     = ((( 0 0 1 )	%  the7ofspades=West  the5ofspades=West
+	 ( 0 1 0 ))	%  the7ofspades=West  the5ofspades=East
+	(( 0 1 0 )	%  the7ofspades=East  the5ofspades=West
+	 ( 1 0 0 )));	%  the7ofspades=East  the5ofspades=East
+}
+
+potential (n_sp_J_8 | jackofspades the8ofspades)
+{
+    data
+     = ((( 0 0 1 )	%  jackofspades=West  the8ofspades=West
+	 ( 0 1 0 ))	%  jackofspades=West  the8ofspades=East
+	(( 0 1 0 )	%  jackofspades=East  the8ofspades=West
+	 ( 1 0 0 )));	%  jackofspades=East  the8ofspades=East
+}
+
+potential (n_sp_K_Q | kingofspades queenofspades)
+{
+    data
+     = ((( 0 0 1 )	%  kingofspades=West  queenofspades=West
+	 ( 0 1 0 ))	%  kingofspades=West  queenofspades=East
+	(( 0 1 0 )	%  kingofspades=East  queenofspades=West
+	 ( 1 0 0 )));	%  kingofspades=East  queenofspades=East
+}
+
+potential (the3ofspades)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (the4ofspades)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (the5ofspades)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (the7ofspades)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (the8ofspades)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (jackofspades)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (queenofspades)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (kingofspades)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (the3ofhearts)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (the4ofhearts)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (the6ofhearts)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (the10ofhearts)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (jackofhearts)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (queenofhearts)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (the2ofdiamonds)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (the4ofdiamonds)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (the5ofdiamonds)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (the6ofdiamonds)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (the7ofdiamonds)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (the8ofdiamonds)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (the9ofdiamonds)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (aceofdiamonds)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (the4ofclubs)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (the5ofclubs)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (the9ofclubs)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (queenofclubs)
+{
+    data = ( 0.5 0.5 );
+}

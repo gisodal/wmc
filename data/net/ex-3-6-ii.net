@@ -1,0 +1,366 @@
+net
+{
+    node_size = (80 40);
+    HRUNTIME_Grid_X = "10";
+    HRUNTIME_Grid_Y = "10";
+    HRUNTIME_Grid_GridSnap = "1";
+    HRUNTIME_Grid_GridShow = "0";
+    HRUNTIME_Font_Name = "Arial";
+    HRUNTIME_Font_Size = "-12";
+    HRUNTIME_Font_Weight = "400";
+    HRUNTIME_Font_Italic = "0";
+    HRUNTIME_Propagate_Auto = "0";
+    HRUNTIME_Propagate_AutoSum = "1";
+    HRUNTIME_Propagate_AutoNormal = "1";
+    HRUNTIME_Compile_TriangMethod = "0";
+    HRUNTIME_Compile_Compress = "0";
+    HRUNTIME_Compile_Approximate = "0";
+    HRUNTIME_Compile_ApproxEpsilon = "0.00001";
+    HRUNTIME_Monitor_AutoUpdGraph = "0";
+    HRUNTIME_Monitor_GraphPrecision = "100";
+    HRUNTIME_Monitor_OpenGraph = "0";
+    HRUNTIME_Monitor_InitStates = "5";
+}
+
+node F4Obs
+{
+    position = (420 10);
+    states = ("prsnt" "absnt");
+}
+
+node F3Obs
+{
+    position = (280 0);
+    states = ("prsnt" "absnt");
+}
+
+node F2Obs
+{
+    position = (130 10);
+    states = ("prsnt" "absnt");
+}
+
+node F1Obs
+{
+    position = (0 20);
+    states = ("prsnt" "absnt");
+}
+
+node ParError
+{
+    position = (220 630);
+    states = (" both" "dam" "sire" "no");
+}
+
+node SiCorct
+{
+    position = (350 550);
+    states = ("yes" "no");
+}
+
+node DmCorct
+{
+    position = (90 550);
+    states = ("yes" "no");
+}
+
+node PhGr2SS
+{
+    position = (440 450);
+    states = ("f1" "f2" "f3");
+}
+
+node PhGr2SD
+{
+    position = (140 460);
+    states = ("f1" "f2" "f3");
+}
+
+node PhGr1SS
+{
+    position = (250 460);
+    states = ("f1" "f2" "f3");
+}
+
+node Phgr1SD
+{
+    position = (10 460);
+    states = ("f1" "f2" "f3");
+}
+
+node F4
+{
+    label = "";
+    position = (370 130);
+    states = ("yes" "no");
+}
+
+node F3
+{
+    label = "";
+    position = (260 100);
+    states = ("yes" "no");
+}
+
+node F2
+{
+    label = "";
+    position = (140 90);
+    states = ("yes" "no");
+}
+
+node F1
+{
+    position = (30 130);
+    states = ("yes" "no");
+}
+
+node GeTyOf
+{
+    label = "";
+    position = (190 210);
+    states = ("f1f1" "f1f2" "f1f3" "f2f2" "f2f3" "f3f3");
+}
+
+node PhGr2Of
+{
+    label = "";
+    position = (340 270);
+    states = ("f1" "f2" "f3");
+}
+
+node PhGr1Of
+{
+    label = "";
+    position = (70 270);
+    states = ("f1" "f2" "f3");
+}
+
+node PhGr2S
+{
+    label = "";
+    position = (440 350);
+    states = ("f1" "f2" "f3");
+}
+
+node PhGr1S
+{
+    label = "";
+    position = (250 350);
+    states = ("f1" "f2" "f3");
+}
+
+node PhGr2D
+{
+    label = "";
+    position = (140 350);
+    states = ("f1" "f2" "f3");
+}
+
+node PhGr1D
+{
+    label = "";
+    position = (10 360);
+    states = ("f1" "f2" "f3");
+}
+
+potential (F4Obs | F4)
+{
+    data
+     = (( 0.999 0.001 )	%  F4=yes
+	( 0.001 0.999 ));	%  F4=no
+}
+
+potential (F3Obs | F3)
+{
+    data
+     = (( 0.999 0.001 )	%  F3=yes
+	( 0.001 0.999 ));	%  F3=no
+}
+
+potential (F2Obs | F2)
+{
+    data
+     = (( 0.999 0.001 )	%  F2=yes
+	( 0.001 0.999 ));	%  F2=no
+}
+
+potential (F1Obs | F1)
+{
+    data
+     = (( 0.999 0.001 )	%  F1=yes
+	( 0.001 0.999 ));	%  F1=no
+}
+
+potential (ParError)
+{
+    data = ( 0.0045 0.0018 0.0125 0.9812 );
+}
+
+potential (SiCorct | ParError)
+{
+    data
+     = (( 0 1 )	%  ParError= both
+	( 1 0 )	%  ParError=dam
+	( 0 1 )	%  ParError=sire
+	( 1 0 ));	%  ParError=no
+}
+
+potential (DmCorct | ParError)
+{
+    data
+     = (( 0 1 )	%  ParError= both
+	( 0 1 )	%  ParError=dam
+	( 1 0 )	%  ParError=sire
+	( 1 0 ));	%  ParError=no
+}
+
+potential (PhGr2SS | SiCorct PhGr2S)
+{
+    data
+     = ((( 1 0 0 )	%  SiCorct=yes  PhGr2S=f1
+	 ( 0 1 0 )	%  SiCorct=yes  PhGr2S=f2
+	 ( 0 0 1 ))	%  SiCorct=yes  PhGr2S=f3
+	(( 0.58 0.1 0.32 )	%  SiCorct=no  PhGr2S=f1
+	 ( 0.58 0.1 0.32 )	%  SiCorct=no  PhGr2S=f2
+	 ( 0.58 0.1 0.32 )));	%  SiCorct=no  PhGr2S=f3
+}
+
+potential (PhGr2SD | DmCorct PhGr2D)
+{
+    data
+     = ((( 1 0 0 )	%  DmCorct=yes  PhGr2D=f1
+	 ( 0 1 0 )	%  DmCorct=yes  PhGr2D=f2
+	 ( 0 0 1 ))	%  DmCorct=yes  PhGr2D=f3
+	(( 0.58 0.1 0.32 )	%  DmCorct=no  PhGr2D=f1
+	 ( 0.58 0.1 0.32 )	%  DmCorct=no  PhGr2D=f2
+	 ( 0.58 0.1 0.32 )));	%  DmCorct=no  PhGr2D=f3
+}
+
+potential (PhGr1SS | SiCorct PhGr1S)
+{
+    data
+     = ((( 1 0 0 )	%  SiCorct=yes  PhGr1S=f1
+	 ( 0 1 0 )	%  SiCorct=yes  PhGr1S=f2
+	 ( 0 0 1 ))	%  SiCorct=yes  PhGr1S=f3
+	(( 0.58 0.1 0.32 )	%  SiCorct=no  PhGr1S=f1
+	 ( 0.58 0.1 0.32 )	%  SiCorct=no  PhGr1S=f2
+	 ( 0.58 0.1 0.32 )));	%  SiCorct=no  PhGr1S=f3
+}
+
+potential (Phgr1SD | DmCorct PhGr1D)
+{
+    data
+     = ((( 1 0 0 )	%  DmCorct=yes  PhGr1D=f1
+	 ( 0 1 0 )	%  DmCorct=yes  PhGr1D=f2
+	 ( 0 0 1 ))	%  DmCorct=yes  PhGr1D=f3
+	(( 0.58 0.1 0.32 )	%  DmCorct=no  PhGr1D=f1
+	 ( 0.58 0.1 0.32 )	%  DmCorct=no  PhGr1D=f2
+	 ( 0.58 0.1 0.32 )));	%  DmCorct=no  PhGr1D=f3
+}
+
+potential (F4 | GeTyOf)
+{
+    data
+     = (( 1 0 )	%  GeTyOf=f1f1
+	( 1 0 )	%  GeTyOf=f1f2
+	( 1 0 )	%  GeTyOf=f1f3
+	( 1 0 )	%  GeTyOf=f2f2
+	( 1 0 )	%  GeTyOf=f2f3
+	( 0 1 ));	%  GeTyOf=f3f3
+}
+
+potential (F3 | GeTyOf)
+{
+    data
+     = (( 0 1 )	%  GeTyOf=f1f1
+	( 1 0 )	%  GeTyOf=f1f2
+	( 0 1 )	%  GeTyOf=f1f3
+	( 1 0 )	%  GeTyOf=f2f2
+	( 1 0 )	%  GeTyOf=f2f3
+	( 0 1 ));	%  GeTyOf=f3f3
+}
+
+potential (F2 | GeTyOf)
+{
+    data
+     = (( 1 0 )	%  GeTyOf=f1f1
+	( 1 0 )	%  GeTyOf=f1f2
+	( 1 0 )	%  GeTyOf=f1f3
+	( 0 1 )	%  GeTyOf=f2f2
+	( 1 0 )	%  GeTyOf=f2f3
+	( 1 0 ));	%  GeTyOf=f3f3
+}
+
+potential (F1 | GeTyOf)
+{
+    data
+     = (( 1 0 )	%  GeTyOf=f1f1
+	( 1 0 )	%  GeTyOf=f1f2
+	( 1 0 )	%  GeTyOf=f1f3
+	( 0 1 )	%  GeTyOf=f2f2
+	( 0 1 )	%  GeTyOf=f2f3
+	( 0 1 ));	%  GeTyOf=f3f3
+}
+
+potential (GeTyOf | PhGr2Of PhGr1Of)
+{
+    data
+     = ((( 1 0 0 0 0 0 )	%  PhGr2Of=f1  PhGr1Of=f1
+	 ( 0 1 0 0 0 0 )	%  PhGr2Of=f1  PhGr1Of=f2
+	 ( 0 0 1 0 0 0 ))	%  PhGr2Of=f1  PhGr1Of=f3
+	(( 0 1 0 0 0 0 )	%  PhGr2Of=f2  PhGr1Of=f1
+	 ( 0 0 0 1 0 0 )	%  PhGr2Of=f2  PhGr1Of=f2
+	 ( 0 0 0 0 1 0 ))	%  PhGr2Of=f2  PhGr1Of=f3
+	(( 0 0 1 0 0 0 )	%  PhGr2Of=f3  PhGr1Of=f1
+	 ( 0 0 0 0 1 0 )	%  PhGr2Of=f3  PhGr1Of=f2
+	 ( 0 0 0 0 0 1 )));	%  PhGr2Of=f3  PhGr1Of=f3
+}
+
+potential (PhGr2Of | PhGr2S PhGr1S)
+{
+    data
+     = ((( 1 0 0 )	%  PhGr2S=f1  PhGr1S=f1
+	 ( 0.5 0.5 0 )	%  PhGr2S=f1  PhGr1S=f2
+	 ( 0.5 0 0.5 ))	%  PhGr2S=f1  PhGr1S=f3
+	(( 0.5 0.5 0 )	%  PhGr2S=f2  PhGr1S=f1
+	 ( 0 1 0 )	%  PhGr2S=f2  PhGr1S=f2
+	 ( 0 0.5 0.5 ))	%  PhGr2S=f2  PhGr1S=f3
+	(( 0.5 0 0.5 )	%  PhGr2S=f3  PhGr1S=f1
+	 ( 0 0.5 0.5 )	%  PhGr2S=f3  PhGr1S=f2
+	 ( 0 0 1 )));	%  PhGr2S=f3  PhGr1S=f3
+}
+
+potential (PhGr1Of | PhGr2D PhGr1D)
+{
+    data
+     = ((( 1 0 0 )	%  PhGr2D=f1  PhGr1D=f1
+	 ( 0.5 0.5 0 )	%  PhGr2D=f1  PhGr1D=f2
+	 ( 0.5 0 0.5 ))	%  PhGr2D=f1  PhGr1D=f3
+	(( 0.5 0.5 0 )	%  PhGr2D=f2  PhGr1D=f1
+	 ( 0 1 0 )	%  PhGr2D=f2  PhGr1D=f2
+	 ( 0 0.5 0.5 ))	%  PhGr2D=f2  PhGr1D=f3
+	(( 0.5 0 0.5 )	%  PhGr2D=f3  PhGr1D=f1
+	 ( 0 0.5 0.5 )	%  PhGr2D=f3  PhGr1D=f2
+	 ( 0 0 1 )));	%  PhGr2D=f3  PhGr1D=f3
+}
+
+potential (PhGr2S)
+{
+    data = ( 0.58 0.1 0.32 );
+}
+
+potential (PhGr1S)
+{
+    data = ( 0.58 0.1 0.32 );
+}
+
+potential (PhGr2D)
+{
+    data = ( 0.58 0.1 0.32 );
+}
+
+potential (PhGr1D)
+{
+    data = ( 0.58 0.1 0.32 );
+}

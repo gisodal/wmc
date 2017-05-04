@@ -1,0 +1,604 @@
+net
+{
+    node_size = (80 40);
+    HR_Color_DiscreteChance = "16";
+    HR_Groups_GroupColors = "";
+    HR_Groups_GroupNames = "";
+    HR_Groups_UserGroupsNo = "0";
+    HR_Color_Decision = "17";
+    HR_Color_Utility = "36";
+    HR_Color_ContinuosChance = "48";
+    HR_Color_DescreteChance = "16";
+    HR_Monitor_InitSD = "2";
+    HR_Monitor_InitStates = "5";
+    HR_Monitor_OpenGraph = "0";
+    HR_Monitor_GraphPrecision = "100";
+    HR_Monitor_AutoUpdGraph = "0";
+    HR_Compile_ApproxEpsilon = "0.00001";
+    HR_Compile_Approximate = "0";
+    HR_Compile_Compress = "0";
+    HR_Compile_TriangMethod = "0";
+    HR_Propagate_AutoNormal = "1";
+    HR_Propagate_AutoSum = "1";
+    HR_Propagate_Auto = "0";
+    HR_Font_Italic = "0";
+    HR_Font_Weight = "400";
+    HR_Font_Size = "-12";
+    HR_Font_Name = "Arial";
+    HR_Grid_GridShow = "0";
+    HR_Grid_GridSnap = "1";
+    HR_Grid_Y = "10";
+    HR_Grid_X = "10";
+}
+
+utility Const2
+{
+    position = (120 290);
+}
+
+utility Const1
+{
+    label = "Constraint";
+    position = (330 380);
+}
+
+decision Bc
+{
+    position = (250 310);
+    states = ("0" "1" "2" "3");
+}
+
+node Total
+{
+    position = (140 110);
+    states = ("0" "1" "2" "3" "4" "5" "6");
+}
+
+node Ac
+{
+    position = (0 300);
+    states = ("0" "1" "2" "3");
+}
+
+utility UT
+{
+    position = (140 0);
+}
+
+decision Bb
+{
+    position = (250 200);
+    states = ("0" "1" "2" "3" "4" "5" "6");
+}
+
+node Bh
+{
+    position = (250 440);
+    states = ("1" "2" "3");
+}
+
+node Ab
+{
+    position = (0 200);
+    states = ("0" "1" "2" "3" "4" "5" "6");
+}
+
+node Ah
+{
+    position = (0 430);
+    states = ("1" "2" "3");
+}
+
+potential (Const2 | Bc Ah Bb)
+{
+    data
+     = ((( 0	%  Bc=0  Ah=1  Bb=0
+	   0	%  Bc=0  Ah=1  Bb=1
+	   -3	%  Bc=0  Ah=1  Bb=2
+	   -3	%  Bc=0  Ah=1  Bb=3
+	   -3	%  Bc=0  Ah=1  Bb=4
+	   -3	%  Bc=0  Ah=1  Bb=5
+	   -3 )	%  Bc=0  Ah=1  Bb=6
+	 ( 0	%  Bc=0  Ah=2  Bb=0
+	   0	%  Bc=0  Ah=2  Bb=1
+	   0	%  Bc=0  Ah=2  Bb=2
+	   -3	%  Bc=0  Ah=2  Bb=3
+	   -3	%  Bc=0  Ah=2  Bb=4
+	   -3	%  Bc=0  Ah=2  Bb=5
+	   -3 )	%  Bc=0  Ah=2  Bb=6
+	 ( 0	%  Bc=0  Ah=3  Bb=0
+	   0	%  Bc=0  Ah=3  Bb=1
+	   0	%  Bc=0  Ah=3  Bb=2
+	   0	%  Bc=0  Ah=3  Bb=3
+	   -3	%  Bc=0  Ah=3  Bb=4
+	   -3	%  Bc=0  Ah=3  Bb=5
+	   -3 ))	%  Bc=0  Ah=3  Bb=6
+	(( 0	%  Bc=1  Ah=1  Bb=0
+	   0	%  Bc=1  Ah=1  Bb=1
+	   0	%  Bc=1  Ah=1  Bb=2
+	   0	%  Bc=1  Ah=1  Bb=3
+	   0	%  Bc=1  Ah=1  Bb=4
+	   0	%  Bc=1  Ah=1  Bb=5
+	   0 )	%  Bc=1  Ah=1  Bb=6
+	 ( 0	%  Bc=1  Ah=2  Bb=0
+	   0	%  Bc=1  Ah=2  Bb=1
+	   0	%  Bc=1  Ah=2  Bb=2
+	   0	%  Bc=1  Ah=2  Bb=3
+	   -3	%  Bc=1  Ah=2  Bb=4
+	   -3	%  Bc=1  Ah=2  Bb=5
+	   -3 )	%  Bc=1  Ah=2  Bb=6
+	 ( 0	%  Bc=1  Ah=3  Bb=0
+	   0	%  Bc=1  Ah=3  Bb=1
+	   0	%  Bc=1  Ah=3  Bb=2
+	   0	%  Bc=1  Ah=3  Bb=3
+	   0	%  Bc=1  Ah=3  Bb=4
+	   -3	%  Bc=1  Ah=3  Bb=5
+	   -3 ))	%  Bc=1  Ah=3  Bb=6
+	(( 0	%  Bc=2  Ah=1  Bb=0
+	   0	%  Bc=2  Ah=1  Bb=1
+	   0	%  Bc=2  Ah=1  Bb=2
+	   0	%  Bc=2  Ah=1  Bb=3
+	   -3	%  Bc=2  Ah=1  Bb=4
+	   -3	%  Bc=2  Ah=1  Bb=5
+	   -3 )	%  Bc=2  Ah=1  Bb=6
+	 ( 0	%  Bc=2  Ah=2  Bb=0
+	   0	%  Bc=2  Ah=2  Bb=1
+	   0	%  Bc=2  Ah=2  Bb=2
+	   0	%  Bc=2  Ah=2  Bb=3
+	   0	%  Bc=2  Ah=2  Bb=4
+	   -3	%  Bc=2  Ah=2  Bb=5
+	   -3 )	%  Bc=2  Ah=2  Bb=6
+	 ( 0	%  Bc=2  Ah=3  Bb=0
+	   0	%  Bc=2  Ah=3  Bb=1
+	   0	%  Bc=2  Ah=3  Bb=2
+	   0	%  Bc=2  Ah=3  Bb=3
+	   0	%  Bc=2  Ah=3  Bb=4
+	   0	%  Bc=2  Ah=3  Bb=5
+	   -3 ))	%  Bc=2  Ah=3  Bb=6
+	(( 0	%  Bc=3  Ah=1  Bb=0
+	   0	%  Bc=3  Ah=1  Bb=1
+	   0	%  Bc=3  Ah=1  Bb=2
+	   0	%  Bc=3  Ah=1  Bb=3
+	   0	%  Bc=3  Ah=1  Bb=4
+	   -3	%  Bc=3  Ah=1  Bb=5
+	   -3 )	%  Bc=3  Ah=1  Bb=6
+	 ( 0	%  Bc=3  Ah=2  Bb=0
+	   0	%  Bc=3  Ah=2  Bb=1
+	   0	%  Bc=3  Ah=2  Bb=2
+	   0	%  Bc=3  Ah=2  Bb=3
+	   0	%  Bc=3  Ah=2  Bb=4
+	   0	%  Bc=3  Ah=2  Bb=5
+	   -3 )	%  Bc=3  Ah=2  Bb=6
+	 ( 0	%  Bc=3  Ah=3  Bb=0
+	   0	%  Bc=3  Ah=3  Bb=1
+	   0	%  Bc=3  Ah=3  Bb=2
+	   0	%  Bc=3  Ah=3  Bb=3
+	   0	%  Bc=3  Ah=3  Bb=4
+	   0	%  Bc=3  Ah=3  Bb=5
+	   0 )));	%  Bc=3  Ah=3  Bb=6
+}
+
+potential (Const1 | Bc Bh)
+{
+    data
+     = (( 0	%  Bc=0  Bh=1
+	  0	%  Bc=0  Bh=2
+	  0 )	%  Bc=0  Bh=3
+	( 0	%  Bc=1  Bh=1
+	  0	%  Bc=1  Bh=2
+	  0 )	%  Bc=1  Bh=3
+	( -3	%  Bc=2  Bh=1
+	  0	%  Bc=2  Bh=2
+	  0 )	%  Bc=2  Bh=3
+	( -3	%  Bc=3  Bh=1
+	  -3	%  Bc=3  Bh=2
+	  0 ));	%  Bc=3  Bh=3
+}
+
+potential (Bc | Ah Bh) {}
+
+potential (Total | Bc Ac)
+{
+    data
+     = ((( 1 0 0 0 0 0 0 )	%  Bc=0  Ac=0
+	 ( 0 1 0 0 0 0 0 )	%  Bc=0  Ac=1
+	 ( 0 0 1 0 0 0 0 )	%  Bc=0  Ac=2
+	 ( 0 0 0 1 0 0 0 ))	%  Bc=0  Ac=3
+	(( 0 1 0 0 0 0 0 )	%  Bc=1  Ac=0
+	 ( 0 0 1 0 0 0 0 )	%  Bc=1  Ac=1
+	 ( 0 0 0 1 0 0 0 )	%  Bc=1  Ac=2
+	 ( 0 0 0 0 1 0 0 ))	%  Bc=1  Ac=3
+	(( 0 0 1 0 0 0 0 )	%  Bc=2  Ac=0
+	 ( 0 0 0 1 0 0 0 )	%  Bc=2  Ac=1
+	 ( 0 0 0 0 1 0 0 )	%  Bc=2  Ac=2
+	 ( 0 0 0 0 0 1 0 ))	%  Bc=2  Ac=3
+	(( 0 0 0 1 0 0 0 )	%  Bc=3  Ac=0
+	 ( 0 0 0 0 1 0 0 )	%  Bc=3  Ac=1
+	 ( 0 0 0 0 0 1 0 )	%  Bc=3  Ac=2
+	 ( 0 0 0 0 0 0 1 )));	%  Bc=3  Ac=3
+}
+
+potential (Ac | Ah)
+{
+    data
+     = (( 0.5 0.5 0 0 )	%  Ah=1
+	( 0.333333 0.333333 0.333333 0 )	%  Ah=2
+	( 0.25 0.25 0.25 0.25 ));	%  Ah=3
+}
+
+potential (UT | Total Ab Bb)
+{
+    data
+     = ((( -1	%  Total=0  Ab=0  Bb=0
+	   0	%  Total=0  Ab=0  Bb=1
+	   0	%  Total=0  Ab=0  Bb=2
+	   0	%  Total=0  Ab=0  Bb=3
+	   0	%  Total=0  Ab=0  Bb=4
+	   0	%  Total=0  Ab=0  Bb=5
+	   0 )	%  Total=0  Ab=0  Bb=6
+	 ( 1	%  Total=0  Ab=1  Bb=0
+	   -1	%  Total=0  Ab=1  Bb=1
+	   0.5	%  Total=0  Ab=1  Bb=2
+	   0.5	%  Total=0  Ab=1  Bb=3
+	   0.5	%  Total=0  Ab=1  Bb=4
+	   0.5	%  Total=0  Ab=1  Bb=5
+	   0.5 )	%  Total=0  Ab=1  Bb=6
+	 ( 1	%  Total=0  Ab=2  Bb=0
+	   0.5	%  Total=0  Ab=2  Bb=1
+	   -1	%  Total=0  Ab=2  Bb=2
+	   0.5	%  Total=0  Ab=2  Bb=3
+	   0.5	%  Total=0  Ab=2  Bb=4
+	   0.5	%  Total=0  Ab=2  Bb=5
+	   0.5 )	%  Total=0  Ab=2  Bb=6
+	 ( 1	%  Total=0  Ab=3  Bb=0
+	   0.5	%  Total=0  Ab=3  Bb=1
+	   0.5	%  Total=0  Ab=3  Bb=2
+	   -1	%  Total=0  Ab=3  Bb=3
+	   0.5	%  Total=0  Ab=3  Bb=4
+	   0.5	%  Total=0  Ab=3  Bb=5
+	   0.5 )	%  Total=0  Ab=3  Bb=6
+	 ( 1	%  Total=0  Ab=4  Bb=0
+	   0.5	%  Total=0  Ab=4  Bb=1
+	   0.5	%  Total=0  Ab=4  Bb=2
+	   0.5	%  Total=0  Ab=4  Bb=3
+	   -1	%  Total=0  Ab=4  Bb=4
+	   0.5	%  Total=0  Ab=4  Bb=5
+	   0.5 )	%  Total=0  Ab=4  Bb=6
+	 ( 1	%  Total=0  Ab=5  Bb=0
+	   0.5	%  Total=0  Ab=5  Bb=1
+	   0.5	%  Total=0  Ab=5  Bb=2
+	   0.5	%  Total=0  Ab=5  Bb=3
+	   0.5	%  Total=0  Ab=5  Bb=4
+	   -1	%  Total=0  Ab=5  Bb=5
+	   0.5 )	%  Total=0  Ab=5  Bb=6
+	 ( 1	%  Total=0  Ab=6  Bb=0
+	   0.5	%  Total=0  Ab=6  Bb=1
+	   0.5	%  Total=0  Ab=6  Bb=2
+	   0.5	%  Total=0  Ab=6  Bb=3
+	   0.5	%  Total=0  Ab=6  Bb=4
+	   0.5	%  Total=0  Ab=6  Bb=5
+	   -1 ))	%  Total=0  Ab=6  Bb=6
+	(( -1	%  Total=1  Ab=0  Bb=0
+	   1	%  Total=1  Ab=0  Bb=1
+	   0.5	%  Total=1  Ab=0  Bb=2
+	   0.5	%  Total=1  Ab=0  Bb=3
+	   0.5	%  Total=1  Ab=0  Bb=4
+	   0.5	%  Total=1  Ab=0  Bb=5
+	   0.5 )	%  Total=1  Ab=0  Bb=6
+	 ( 0	%  Total=1  Ab=1  Bb=0
+	   -1	%  Total=1  Ab=1  Bb=1
+	   0	%  Total=1  Ab=1  Bb=2
+	   0	%  Total=1  Ab=1  Bb=3
+	   0	%  Total=1  Ab=1  Bb=4
+	   0	%  Total=1  Ab=1  Bb=5
+	   0 )	%  Total=1  Ab=1  Bb=6
+	 ( 0.5	%  Total=1  Ab=2  Bb=0
+	   1	%  Total=1  Ab=2  Bb=1
+	   -1	%  Total=1  Ab=2  Bb=2
+	   0.5	%  Total=1  Ab=2  Bb=3
+	   0.5	%  Total=1  Ab=2  Bb=4
+	   0.5	%  Total=1  Ab=2  Bb=5
+	   0.5 )	%  Total=1  Ab=2  Bb=6
+	 ( 0.5	%  Total=1  Ab=3  Bb=0
+	   1	%  Total=1  Ab=3  Bb=1
+	   0.5	%  Total=1  Ab=3  Bb=2
+	   -1	%  Total=1  Ab=3  Bb=3
+	   0.5	%  Total=1  Ab=3  Bb=4
+	   0.5	%  Total=1  Ab=3  Bb=5
+	   0.5 )	%  Total=1  Ab=3  Bb=6
+	 ( 0.5	%  Total=1  Ab=4  Bb=0
+	   1	%  Total=1  Ab=4  Bb=1
+	   0.5	%  Total=1  Ab=4  Bb=2
+	   0.5	%  Total=1  Ab=4  Bb=3
+	   -1	%  Total=1  Ab=4  Bb=4
+	   0.5	%  Total=1  Ab=4  Bb=5
+	   0.5 )	%  Total=1  Ab=4  Bb=6
+	 ( 0.5	%  Total=1  Ab=5  Bb=0
+	   1	%  Total=1  Ab=5  Bb=1
+	   0.5	%  Total=1  Ab=5  Bb=2
+	   0.5	%  Total=1  Ab=5  Bb=3
+	   0.5	%  Total=1  Ab=5  Bb=4
+	   -1	%  Total=1  Ab=5  Bb=5
+	   0.5 )	%  Total=1  Ab=5  Bb=6
+	 ( 0.5	%  Total=1  Ab=6  Bb=0
+	   1	%  Total=1  Ab=6  Bb=1
+	   0.5	%  Total=1  Ab=6  Bb=2
+	   0.5	%  Total=1  Ab=6  Bb=3
+	   0.5	%  Total=1  Ab=6  Bb=4
+	   0.5	%  Total=1  Ab=6  Bb=5
+	   -1 ))	%  Total=1  Ab=6  Bb=6
+	(( -1	%  Total=2  Ab=0  Bb=0
+	   0.5	%  Total=2  Ab=0  Bb=1
+	   1	%  Total=2  Ab=0  Bb=2
+	   0.5	%  Total=2  Ab=0  Bb=3
+	   0.5	%  Total=2  Ab=0  Bb=4
+	   0.5	%  Total=2  Ab=0  Bb=5
+	   0.5 )	%  Total=2  Ab=0  Bb=6
+	 ( 0.5	%  Total=2  Ab=1  Bb=0
+	   -1	%  Total=2  Ab=1  Bb=1
+	   1	%  Total=2  Ab=1  Bb=2
+	   0.5	%  Total=2  Ab=1  Bb=3
+	   0.5	%  Total=2  Ab=1  Bb=4
+	   0.5	%  Total=2  Ab=1  Bb=5
+	   0.5 )	%  Total=2  Ab=1  Bb=6
+	 ( 0	%  Total=2  Ab=2  Bb=0
+	   0	%  Total=2  Ab=2  Bb=1
+	   -1	%  Total=2  Ab=2  Bb=2
+	   0	%  Total=2  Ab=2  Bb=3
+	   0	%  Total=2  Ab=2  Bb=4
+	   0	%  Total=2  Ab=2  Bb=5
+	   0 )	%  Total=2  Ab=2  Bb=6
+	 ( 0.5	%  Total=2  Ab=3  Bb=0
+	   0.5	%  Total=2  Ab=3  Bb=1
+	   1	%  Total=2  Ab=3  Bb=2
+	   -1	%  Total=2  Ab=3  Bb=3
+	   0.5	%  Total=2  Ab=3  Bb=4
+	   0.5	%  Total=2  Ab=3  Bb=5
+	   0.5 )	%  Total=2  Ab=3  Bb=6
+	 ( 0.5	%  Total=2  Ab=4  Bb=0
+	   0.5	%  Total=2  Ab=4  Bb=1
+	   1	%  Total=2  Ab=4  Bb=2
+	   0.5	%  Total=2  Ab=4  Bb=3
+	   -1	%  Total=2  Ab=4  Bb=4
+	   0.5	%  Total=2  Ab=4  Bb=5
+	   0.5 )	%  Total=2  Ab=4  Bb=6
+	 ( 0.5	%  Total=2  Ab=5  Bb=0
+	   0.5	%  Total=2  Ab=5  Bb=1
+	   1	%  Total=2  Ab=5  Bb=2
+	   0.5	%  Total=2  Ab=5  Bb=3
+	   0.5	%  Total=2  Ab=5  Bb=4
+	   -1	%  Total=2  Ab=5  Bb=5
+	   0.5 )	%  Total=2  Ab=5  Bb=6
+	 ( 0.5	%  Total=2  Ab=6  Bb=0
+	   0.5	%  Total=2  Ab=6  Bb=1
+	   1	%  Total=2  Ab=6  Bb=2
+	   0.5	%  Total=2  Ab=6  Bb=3
+	   0.5	%  Total=2  Ab=6  Bb=4
+	   0.5	%  Total=2  Ab=6  Bb=5
+	   -1 ))	%  Total=2  Ab=6  Bb=6
+	(( -1	%  Total=3  Ab=0  Bb=0
+	   0.5	%  Total=3  Ab=0  Bb=1
+	   0.5	%  Total=3  Ab=0  Bb=2
+	   1	%  Total=3  Ab=0  Bb=3
+	   0.5	%  Total=3  Ab=0  Bb=4
+	   0.5	%  Total=3  Ab=0  Bb=5
+	   0.5 )	%  Total=3  Ab=0  Bb=6
+	 ( 0.5	%  Total=3  Ab=1  Bb=0
+	   -1	%  Total=3  Ab=1  Bb=1
+	   0.5	%  Total=3  Ab=1  Bb=2
+	   1	%  Total=3  Ab=1  Bb=3
+	   0.5	%  Total=3  Ab=1  Bb=4
+	   0.5	%  Total=3  Ab=1  Bb=5
+	   0.5 )	%  Total=3  Ab=1  Bb=6
+	 ( 0.5	%  Total=3  Ab=2  Bb=0
+	   0.5	%  Total=3  Ab=2  Bb=1
+	   -1	%  Total=3  Ab=2  Bb=2
+	   1	%  Total=3  Ab=2  Bb=3
+	   0.5	%  Total=3  Ab=2  Bb=4
+	   0.5	%  Total=3  Ab=2  Bb=5
+	   0.5 )	%  Total=3  Ab=2  Bb=6
+	 ( 0	%  Total=3  Ab=3  Bb=0
+	   0	%  Total=3  Ab=3  Bb=1
+	   0	%  Total=3  Ab=3  Bb=2
+	   -1	%  Total=3  Ab=3  Bb=3
+	   0	%  Total=3  Ab=3  Bb=4
+	   0	%  Total=3  Ab=3  Bb=5
+	   0 )	%  Total=3  Ab=3  Bb=6
+	 ( 0.5	%  Total=3  Ab=4  Bb=0
+	   0.5	%  Total=3  Ab=4  Bb=1
+	   0.5	%  Total=3  Ab=4  Bb=2
+	   1	%  Total=3  Ab=4  Bb=3
+	   -1	%  Total=3  Ab=4  Bb=4
+	   0.5	%  Total=3  Ab=4  Bb=5
+	   0.5 )	%  Total=3  Ab=4  Bb=6
+	 ( 0.5	%  Total=3  Ab=5  Bb=0
+	   0.5	%  Total=3  Ab=5  Bb=1
+	   0.5	%  Total=3  Ab=5  Bb=2
+	   1	%  Total=3  Ab=5  Bb=3
+	   0.5	%  Total=3  Ab=5  Bb=4
+	   -1	%  Total=3  Ab=5  Bb=5
+	   0.5 )	%  Total=3  Ab=5  Bb=6
+	 ( 0.5	%  Total=3  Ab=6  Bb=0
+	   0.5	%  Total=3  Ab=6  Bb=1
+	   0.5	%  Total=3  Ab=6  Bb=2
+	   1	%  Total=3  Ab=6  Bb=3
+	   0.5	%  Total=3  Ab=6  Bb=4
+	   0.5	%  Total=3  Ab=6  Bb=5
+	   -1 ))	%  Total=3  Ab=6  Bb=6
+	(( -1	%  Total=4  Ab=0  Bb=0
+	   0.5	%  Total=4  Ab=0  Bb=1
+	   0.5	%  Total=4  Ab=0  Bb=2
+	   0.5	%  Total=4  Ab=0  Bb=3
+	   1	%  Total=4  Ab=0  Bb=4
+	   0.5	%  Total=4  Ab=0  Bb=5
+	   0.5 )	%  Total=4  Ab=0  Bb=6
+	 ( 0.5	%  Total=4  Ab=1  Bb=0
+	   -1	%  Total=4  Ab=1  Bb=1
+	   0.5	%  Total=4  Ab=1  Bb=2
+	   0.5	%  Total=4  Ab=1  Bb=3
+	   1	%  Total=4  Ab=1  Bb=4
+	   0.5	%  Total=4  Ab=1  Bb=5
+	   0.5 )	%  Total=4  Ab=1  Bb=6
+	 ( 0.5	%  Total=4  Ab=2  Bb=0
+	   0.5	%  Total=4  Ab=2  Bb=1
+	   -1	%  Total=4  Ab=2  Bb=2
+	   0.5	%  Total=4  Ab=2  Bb=3
+	   1	%  Total=4  Ab=2  Bb=4
+	   0.5	%  Total=4  Ab=2  Bb=5
+	   0.5 )	%  Total=4  Ab=2  Bb=6
+	 ( 0.5	%  Total=4  Ab=3  Bb=0
+	   0.5	%  Total=4  Ab=3  Bb=1
+	   0.5	%  Total=4  Ab=3  Bb=2
+	   -1	%  Total=4  Ab=3  Bb=3
+	   1	%  Total=4  Ab=3  Bb=4
+	   0.5	%  Total=4  Ab=3  Bb=5
+	   0.5 )	%  Total=4  Ab=3  Bb=6
+	 ( 0	%  Total=4  Ab=4  Bb=0
+	   0	%  Total=4  Ab=4  Bb=1
+	   0	%  Total=4  Ab=4  Bb=2
+	   0	%  Total=4  Ab=4  Bb=3
+	   -1	%  Total=4  Ab=4  Bb=4
+	   0	%  Total=4  Ab=4  Bb=5
+	   0 )	%  Total=4  Ab=4  Bb=6
+	 ( 0.5	%  Total=4  Ab=5  Bb=0
+	   0.5	%  Total=4  Ab=5  Bb=1
+	   0.5	%  Total=4  Ab=5  Bb=2
+	   0.5	%  Total=4  Ab=5  Bb=3
+	   1	%  Total=4  Ab=5  Bb=4
+	   -1	%  Total=4  Ab=5  Bb=5
+	   0.5 )	%  Total=4  Ab=5  Bb=6
+	 ( 0.5	%  Total=4  Ab=6  Bb=0
+	   0.5	%  Total=4  Ab=6  Bb=1
+	   0.5	%  Total=4  Ab=6  Bb=2
+	   0.5	%  Total=4  Ab=6  Bb=3
+	   1	%  Total=4  Ab=6  Bb=4
+	   0.5	%  Total=4  Ab=6  Bb=5
+	   -1 ))	%  Total=4  Ab=6  Bb=6
+	(( -1	%  Total=5  Ab=0  Bb=0
+	   0.5	%  Total=5  Ab=0  Bb=1
+	   0.5	%  Total=5  Ab=0  Bb=2
+	   0.5	%  Total=5  Ab=0  Bb=3
+	   0.5	%  Total=5  Ab=0  Bb=4
+	   1	%  Total=5  Ab=0  Bb=5
+	   0.5 )	%  Total=5  Ab=0  Bb=6
+	 ( 0.5	%  Total=5  Ab=1  Bb=0
+	   -1	%  Total=5  Ab=1  Bb=1
+	   0.5	%  Total=5  Ab=1  Bb=2
+	   0.5	%  Total=5  Ab=1  Bb=3
+	   0.5	%  Total=5  Ab=1  Bb=4
+	   1	%  Total=5  Ab=1  Bb=5
+	   0.5 )	%  Total=5  Ab=1  Bb=6
+	 ( 0.5	%  Total=5  Ab=2  Bb=0
+	   0.5	%  Total=5  Ab=2  Bb=1
+	   -1	%  Total=5  Ab=2  Bb=2
+	   0.5	%  Total=5  Ab=2  Bb=3
+	   0.5	%  Total=5  Ab=2  Bb=4
+	   1	%  Total=5  Ab=2  Bb=5
+	   0.5 )	%  Total=5  Ab=2  Bb=6
+	 ( 0.5	%  Total=5  Ab=3  Bb=0
+	   0.5	%  Total=5  Ab=3  Bb=1
+	   0.5	%  Total=5  Ab=3  Bb=2
+	   -1	%  Total=5  Ab=3  Bb=3
+	   0.5	%  Total=5  Ab=3  Bb=4
+	   1	%  Total=5  Ab=3  Bb=5
+	   0.5 )	%  Total=5  Ab=3  Bb=6
+	 ( 0.5	%  Total=5  Ab=4  Bb=0
+	   0.5	%  Total=5  Ab=4  Bb=1
+	   0.5	%  Total=5  Ab=4  Bb=2
+	   0.5	%  Total=5  Ab=4  Bb=3
+	   -1	%  Total=5  Ab=4  Bb=4
+	   1	%  Total=5  Ab=4  Bb=5
+	   0.5 )	%  Total=5  Ab=4  Bb=6
+	 ( 0	%  Total=5  Ab=5  Bb=0
+	   0	%  Total=5  Ab=5  Bb=1
+	   0	%  Total=5  Ab=5  Bb=2
+	   0	%  Total=5  Ab=5  Bb=3
+	   0	%  Total=5  Ab=5  Bb=4
+	   -1	%  Total=5  Ab=5  Bb=5
+	   0 )	%  Total=5  Ab=5  Bb=6
+	 ( 0.5	%  Total=5  Ab=6  Bb=0
+	   0.5	%  Total=5  Ab=6  Bb=1
+	   0.5	%  Total=5  Ab=6  Bb=2
+	   0.5	%  Total=5  Ab=6  Bb=3
+	   0.4	%  Total=5  Ab=6  Bb=4
+	   1	%  Total=5  Ab=6  Bb=5
+	   0.5 ))	%  Total=5  Ab=6  Bb=6
+	(( -1	%  Total=6  Ab=0  Bb=0
+	   0.5	%  Total=6  Ab=0  Bb=1
+	   0.5	%  Total=6  Ab=0  Bb=2
+	   0.5	%  Total=6  Ab=0  Bb=3
+	   0.5	%  Total=6  Ab=0  Bb=4
+	   0.5	%  Total=6  Ab=0  Bb=5
+	   1 )	%  Total=6  Ab=0  Bb=6
+	 ( 0.5	%  Total=6  Ab=1  Bb=0
+	   -1	%  Total=6  Ab=1  Bb=1
+	   0.5	%  Total=6  Ab=1  Bb=2
+	   0.5	%  Total=6  Ab=1  Bb=3
+	   0.5	%  Total=6  Ab=1  Bb=4
+	   0.5	%  Total=6  Ab=1  Bb=5
+	   1 )	%  Total=6  Ab=1  Bb=6
+	 ( 0.5	%  Total=6  Ab=2  Bb=0
+	   0.5	%  Total=6  Ab=2  Bb=1
+	   -1	%  Total=6  Ab=2  Bb=2
+	   0.5	%  Total=6  Ab=2  Bb=3
+	   0.5	%  Total=6  Ab=2  Bb=4
+	   0.5	%  Total=6  Ab=2  Bb=5
+	   1 )	%  Total=6  Ab=2  Bb=6
+	 ( 0.5	%  Total=6  Ab=3  Bb=0
+	   0.5	%  Total=6  Ab=3  Bb=1
+	   0.5	%  Total=6  Ab=3  Bb=2
+	   -1	%  Total=6  Ab=3  Bb=3
+	   0.5	%  Total=6  Ab=3  Bb=4
+	   0.5	%  Total=6  Ab=3  Bb=5
+	   1 )	%  Total=6  Ab=3  Bb=6
+	 ( 0.5	%  Total=6  Ab=4  Bb=0
+	   0.5	%  Total=6  Ab=4  Bb=1
+	   0.5	%  Total=6  Ab=4  Bb=2
+	   0.5	%  Total=6  Ab=4  Bb=3
+	   -1	%  Total=6  Ab=4  Bb=4
+	   0.5	%  Total=6  Ab=4  Bb=5
+	   1 )	%  Total=6  Ab=4  Bb=6
+	 ( 0.5	%  Total=6  Ab=5  Bb=0
+	   0.5	%  Total=6  Ab=5  Bb=1
+	   0.5	%  Total=6  Ab=5  Bb=2
+	   0.5	%  Total=6  Ab=5  Bb=3
+	   0.5	%  Total=6  Ab=5  Bb=4
+	   -1	%  Total=6  Ab=5  Bb=5
+	   1 )	%  Total=6  Ab=5  Bb=6
+	 ( 0	%  Total=6  Ab=6  Bb=0
+	   0	%  Total=6  Ab=6  Bb=1
+	   0	%  Total=6  Ab=6  Bb=2
+	   0	%  Total=6  Ab=6  Bb=3
+	   0	%  Total=6  Ab=6  Bb=4
+	   0	%  Total=6  Ab=6  Bb=5
+	   -1 )));	%  Total=6  Ab=6  Bb=6
+}
+
+potential (Bb | Ab Bc) {}
+
+potential (Bh)
+{
+    data = ( 0.333333 0.333333 0.333333 );
+}
+
+potential (Ab | Bh Ac)
+{
+    data
+     = ((( 0.5 0.5 0 0 0 0 0 )	%  Bh=1  Ac=0
+	 ( 0 0.5 0.5 0 0 0 0 )	%  Bh=1  Ac=1
+	 ( 0 0 0.5 0.5 0 0 0 )	%  Bh=1  Ac=2
+	 ( 0 0 0 0.5 0.5 0 0 ))	%  Bh=1  Ac=3
+	(( 0.333333 0.333333 0.333333 0 0 0 0 )	%  Bh=2  Ac=0
+	 ( 0 0.333333 0.333333 0.333333 0 0 0 )	%  Bh=2  Ac=1
+	 ( 0 0 0.333333 0.333333 0.333333 0 0 )	%  Bh=2  Ac=2
+	 ( 0 0 0 0.333333 0.333333 0.333333 0 ))	%  Bh=2  Ac=3
+	(( 0.25 0.25 0.25 0.25 0 0 0 )	%  Bh=3  Ac=0
+	 ( 0 0.25 0.25 0.25 0.25 0 0 )	%  Bh=3  Ac=1
+	 ( 0 0 0.25 0.25 0.25 0.25 0 )	%  Bh=3  Ac=2
+	 ( 0 0 0 0.25 0.25 0.25 0.25 )));	%  Bh=3  Ac=3
+}
+
+potential (Ah)
+{
+    data = ( 0.333333 0.333333 0.333333 );
+}

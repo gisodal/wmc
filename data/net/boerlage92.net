@@ -1,0 +1,418 @@
+net
+{
+    node_size = (80 40);
+    HR_Node_Label_Style = "0";
+    HR_Desc = "A subjective belief network for a particular scenerio of neighborhood events, that shows how even distant concepts have some connection.\n\nTaken from (Boerlage, Brent (1992) Link Strength in Bayesian Networks, MSc Thesis, Dept. Computer Science, Univ. of British Columbia, BC. Also Tech. Report 94-17, Dept. of Computer Science, Univ. of British Columbia. )";
+    HR_OOBN_FitExpand = "1";
+    HR_Zoom_ZoomFactor = "100";
+    HR_Color_Interface = "21";
+    HR_Color_Instance = "0";
+    HR_Color_ContinuousChance = "32";
+    HR_Compile_MaxMinimalSeparators = "100000";
+    HR_Grid_X = "10";
+    HR_Grid_Y = "10";
+    HR_Grid_GridSnap = "1";
+    HR_Grid_GridShow = "0";
+    HR_Font_Name = "Arial";
+    HR_Font_Size = "-12";
+    HR_Font_Weight = "400";
+    HR_Font_Italic = "0";
+    HR_Propagate_Auto = "0";
+    HR_Propagate_AutoSum = "1";
+    HR_Propagate_AutoNormal = "1";
+    HR_Compile_TriangMethod = "0";
+    HR_Compile_Compress = "0";
+    HR_Compile_Approximate = "0";
+    HR_Compile_ApproxEpsilon = "0.00001";
+    HR_Monitor_AutoUpdGraph = "0";
+    HR_Monitor_GraphPrecision = "100";
+    HR_Monitor_OpenGraph = "0";
+    HR_Monitor_InitStates = "5";
+    HR_Monitor_InitSD = "2";
+    HR_Color_DiscreteChance = "16";
+    HR_Color_ContinuosChance = "48";
+    HR_Color_Utility = "36";
+    HR_Color_Decision = "17";
+    HR_Groups_UserGroupsNo = "0";
+    HR_Groups_GroupNames = "test\t";
+    HR_Groups_GroupColors = "47";
+    HRUNTIME_Monitor_InitStates = "5";
+    HRUNTIME_Monitor_OpenGraph = "0";
+    HRUNTIME_Monitor_GraphPrecision = "100";
+    HRUNTIME_Monitor_AutoUpdGraph = "0";
+    HRUNTIME_Compile_ApproxEpsilon = "0.00001";
+    HRUNTIME_Compile_Approximate = "0";
+    HRUNTIME_Compile_Compress = "0";
+    HRUNTIME_Compile_TriangMethod = "0";
+    HRUNTIME_Propagate_AutoNormal = "1";
+    HRUNTIME_Propagate_AutoSum = "1";
+    HRUNTIME_Propagate_Auto = "0";
+    HRUNTIME_Font_Italic = "0";
+    HRUNTIME_Font_Weight = "400";
+    HRUNTIME_Font_Size = "-12";
+    HRUNTIME_Font_Name = "Arial";
+    HRUNTIME_Grid_GridShow = "0";
+    HRUNTIME_Grid_GridSnap = "1";
+    HRUNTIME_Grid_Y = "10";
+    HRUNTIME_Grid_X = "10";
+}
+
+node C21
+{
+    label = "HM: Hank moves away sometime in the next 5 years";
+    position = (50 30);
+    states = ("true" "false");
+}
+
+node C19
+{
+    label = "PC: Neighborhood park is constructed next year";
+    position = (180 100);
+    states = ("true" "false");
+}
+
+node C18
+{
+    label = "PA: Neighborhood park is approved";
+    position = (180 200);
+    states = ("true" "false");
+}
+
+node C16
+{
+    label = "MM: Molly gets elected mayer";
+    position = (180 280);
+    states = ("true" "false");
+}
+
+node C14
+{
+    label = "TD: Tom makes big donation to Molly's campaign";
+    position = (180 350);
+    states = ("true" "false");
+}
+
+node C13
+{
+    label = "TM: Tom moves next door to Hank next year";
+    position = (50 180);
+    states = ("true" "false");
+}
+
+node C12
+{
+    label = "GT: Gale told Molly that lots of cars are usually parked in front of Tom's store";
+    position = (520 420);
+    states = ("true" "false");
+}
+
+node C11
+{
+    label = "TF:Tom told Molly he will donate campaign funds";
+    position = (270 440);
+    states = ("true" "false");
+}
+
+node C10
+{
+    label = "TA: Tom can afford to move to an expensive neighborhood next year";
+    position = (60 350);
+    states = ("true" "false");
+}
+
+node C8
+{
+    label = "TR: Tom told Molly he is rich";
+    position = (380 490);
+    states = ("true" "false");
+}
+
+node C7
+{
+    label = "CP: Lots of car are usually parked in front of Tom's store";
+    position = (520 470);
+    states = ("true" "false");
+}
+
+node C6
+{
+    label = "HT: Lots of traffic on 5th street last year";
+    position = (520 540);
+    states = ("true" "false");
+}
+
+node C5
+{
+    label = "SW: Tom's hardware store did well last year";
+    position = (400 540);
+    states = ("true" "false");
+}
+
+node C4
+{
+    label = "TW: Tom is currently fairly wealthy";
+    position = (270 540);
+    states = ("true" "false");
+}
+
+node C3
+{
+    label = "TC: Tom just bought a new BMW car";
+    position = (170 510);
+    states = ("true" "false");
+}
+
+node C2
+{
+    label = "CD: A new BMW is parked in Tom's driveway";
+    position = (60 470);
+    states = ("true" "false");
+}
+
+node C1
+{
+    label = "CV: Tom's cousin is visiting him";
+    position = (60 540);
+    states = ("true" "false");
+}
+
+node C22
+{
+    label = "MR: Molly thinks Tom is rich";
+    position = (520 350);
+    states = ("true" "false");
+}
+
+node C23
+{
+    label = "MT: Molly thinks Tom is going to make big campaign donation";
+    position = (290 350);
+    states = ("true" "false");
+}
+
+node C24
+{
+    label = "MD: Molly decides to run for mayor";
+    position = (290 280);
+    states = ("true" "false");
+}
+
+node C25
+{
+    label = "FW: 5th street is widened next year";
+    position = (290 210);
+    states = ("true" "false");
+}
+
+node C26
+{
+    label = "DT: Traffic more than doubles on Hank's street next year";
+    position = (320 100);
+    states = ("true" "false");
+}
+
+node C27
+{
+    label = "VU: Hank's property value goes up more then 20% in two years";
+    position = (240 30);
+    states = ("true" "false");
+}
+
+potential (C21 | C27 C13 C19 C26)
+{
+    data
+     = ((((( 0.12 0.88 )	%  C27=true  C13=true  C19=true  C26=true
+	   ( 0.1 0.9 ))	%  C27=true  C13=true  C19=true  C26=false
+	  (( 0.31 0.69 )	%  C27=true  C13=true  C19=false  C26=true
+	   ( 0.3 0.7 )))	%  C27=true  C13=true  C19=false  C26=false
+	 ((( 0.13 0.87 )	%  C27=true  C13=false  C19=true  C26=true
+	   ( 0.11 0.89 ))	%  C27=true  C13=false  C19=true  C26=false
+	  (( 0.33 0.67 )	%  C27=true  C13=false  C19=false  C26=true
+	   ( 0.31 0.69 ))))	%  C27=true  C13=false  C19=false  C26=false
+	(((( 0.11 0.89 )	%  C27=false  C13=true  C19=true  C26=true
+	   ( 0.09 0.91 ))	%  C27=false  C13=true  C19=true  C26=false
+	  (( 0.31 0.69 )	%  C27=false  C13=true  C19=false  C26=true
+	   ( 0.29 0.71 )))	%  C27=false  C13=true  C19=false  C26=false
+	 ((( 0.12 0.88 )	%  C27=false  C13=false  C19=true  C26=true
+	   ( 0.1 0.9 ))	%  C27=false  C13=false  C19=true  C26=false
+	  (( 0.32 0.68 )	%  C27=false  C13=false  C19=false  C26=true
+	   ( 0.3 0.7 )))));	%  C27=false  C13=false  C19=false  C26=false
+}
+
+potential (C19 | C18)
+{
+    data
+     = (( 0.9 0.1 )	%  C18=true
+	( 0.001 0.999 ));	%  C18=false
+}
+
+potential (C18 | C16)
+{
+    data
+     = (( 0.7 0.3 )	%  C16=true
+	( 0.4 0.6 ));	%  C16=false
+}
+
+potential (C16 | C24 C14)
+{
+    data
+     = ((( 0.5 0.5 )	%  C24=true  C14=true
+	 ( 0.3 0.7 ))	%  C24=true  C14=false
+	(( 1E-05 0.99999 )	%  C24=false  C14=true
+	 ( 1E-05 0.99999 )));	%  C24=false  C14=false
+}
+
+potential (C14 | C11 C4)
+{
+    data
+     = ((( 0.8 0.2 )	%  C11=true  C4=true
+	 ( 0.5 0.5 ))	%  C11=true  C4=false
+	(( 0.1 0.9 )	%  C11=false  C4=true
+	 ( 0.02 0.98 )));	%  C11=false  C4=false
+}
+
+potential (C13 | C10)
+{
+    data
+     = (( 0.3 0.7 )	%  C10=true
+	( 0.05 0.95 ));	%  C10=false
+}
+
+potential (C12 | C7)
+{
+    data
+     = (( 0.1 0.9 )	%  C7=true
+	( 0.002 0.998 ));	%  C7=false
+}
+
+potential (C11 | C4 C8)
+{
+    data
+     = ((( 0.6 0.4 )	%  C4=true  C8=true
+	 ( 0.2 0.8 ))	%  C4=true  C8=false
+	(( 0.15 0.85 )	%  C4=false  C8=true
+	 ( 0.05 0.95 )));	%  C4=false  C8=false
+}
+
+potential (C10 | C3 C14 C4)
+{
+    data
+     = (((( 0.8 0.2 )	%  C3=true  C14=true  C4=true
+	  ( 0.3 0.7 ))	%  C3=true  C14=true  C4=false
+	 (( 0.802 0.198 )	%  C3=true  C14=false  C4=true
+	  ( 0.302 0.698 )))	%  C3=true  C14=false  C4=false
+	((( 0.81 0.19 )	%  C3=false  C14=true  C4=true
+	  ( 0.31 0.69 ))	%  C3=false  C14=true  C4=false
+	 (( 0.812 0.188 )	%  C3=false  C14=false  C4=true
+	  ( 0.312 0.688 ))));	%  C3=false  C14=false  C4=false
+}
+
+potential (C8 | C4)
+{
+    data
+     = (( 0.1 0.9 )	%  C4=true
+	( 0.05 0.95 ));	%  C4=false
+}
+
+potential (C7 | C5 C6)
+{
+    data
+     = ((( 0.8 0.2 )	%  C5=true  C6=true
+	 ( 0.7 0.3 ))	%  C5=true  C6=false
+	(( 0.7 0.3 )	%  C5=false  C6=true
+	 ( 0.2 0.8 )));	%  C5=false  C6=false
+}
+
+potential (C6)
+{
+    data = ( 0.7 0.3 );
+}
+
+potential (C5 | C6)
+{
+    data
+     = (( 0.7 0.3 )	%  C6=true
+	( 0.6 0.4 ));	%  C6=false
+}
+
+potential (C4 | C5)
+{
+    data
+     = (( 0.7 0.3 )	%  C5=true
+	( 0.3 0.7 ));	%  C5=false
+}
+
+potential (C3 | C4)
+{
+    data
+     = (( 0.3 0.7 )	%  C4=true
+	( 0.1 0.9 ));	%  C4=false
+}
+
+potential (C2 | C1 C3)
+{
+    data
+     = ((( 0.95 0.05 )	%  C1=true  C3=true
+	 ( 0.9 0.1 ))	%  C1=true  C3=false
+	(( 0.9 0.1 )	%  C1=false  C3=true
+	 ( 0.05 0.95 )));	%  C1=false  C3=false
+}
+
+potential (C1)
+{
+    data = ( 0.01 0.99 );
+}
+
+potential (C22 | C8 C12)
+{
+    data
+     = ((( 0.71 0.29 )	%  C8=true  C12=true
+	 ( 0.7 0.3 ))	%  C8=true  C12=false
+	(( 0.31 0.69 )	%  C8=false  C12=true
+	 ( 0.3 0.7 )));	%  C8=false  C12=false
+}
+
+potential (C23 | C11 C22)
+{
+    data
+     = ((( 0.8 0.2 )	%  C11=true  C22=true
+	 ( 0.5 0.5 ))	%  C11=true  C22=false
+	(( 0.1 0.9 )	%  C11=false  C22=true
+	 ( 0.02 0.98 )));	%  C11=false  C22=false
+}
+
+potential (C24 | C23)
+{
+    data
+     = (( 0.7 0.3 )	%  C23=true
+	( 0.5 0.5 ));	%  C23=false
+}
+
+potential (C25 | C19 C6 C16)
+{
+    data
+     = (((( 0.52 0.48 )	%  C19=true  C6=true  C16=true
+	  ( 0.42 0.58 ))	%  C19=true  C6=true  C16=false
+	 (( 0.5 0.5 )	%  C19=true  C6=false  C16=true
+	  ( 0.12 0.88 )))	%  C19=true  C6=false  C16=false
+	((( 0.5 0.5 )	%  C19=false  C6=true  C16=true
+	  ( 0.4 0.6 ))	%  C19=false  C6=true  C16=false
+	 (( 0.15 0.85 )	%  C19=false  C6=false  C16=true
+	  ( 0.1 0.9 ))));	%  C19=false  C6=false  C16=false
+}
+
+potential (C26 | C25)
+{
+    data
+     = (( 0.8 0.2 )	%  C25=true
+	( 0.2 0.8 ));	%  C25=false
+}
+
+potential (C27 | C26 C19)
+{
+    data
+     = ((( 0.8 0.2 )	%  C26=true  C19=true
+	 ( 0.5 0.5 ))	%  C26=true  C19=false
+	(( 0.82 0.18 )	%  C26=false  C19=true
+	 ( 0.51 0.49 )));	%  C26=false  C19=false
+}

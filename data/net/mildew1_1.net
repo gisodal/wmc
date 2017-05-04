@@ -1,0 +1,221 @@
+net
+{
+    node_size = (80 40);
+    HR_Node_Label_Style = "0";
+    HR_Desc = "Two months before the harvest of a wheat field, the farmer observes the state Q of the crop, and he observes whether it has been attacked by mildew, M. Uf there is an attack, he will decide on a treatment with fungicides.";
+    HR_OOBN_FitExpand = "1";
+    HR_Zoom_ZoomFactor = "100";
+    HR_Color_Interface = "21";
+    HR_Color_Instance = "0";
+    HR_Color_ContinuousChance = "32";
+    HR_Compile_MaxMinimalSeparators = "100000";
+    HR_Grid_X = "10";
+    HR_Grid_Y = "10";
+    HR_Grid_GridSnap = "1";
+    HR_Grid_GridShow = "0";
+    HR_Font_Name = "Arial";
+    HR_Font_Size = "-12";
+    HR_Font_Weight = "400";
+    HR_Font_Italic = "0";
+    HR_Propagate_Auto = "0";
+    HR_Propagate_AutoSum = "1";
+    HR_Propagate_AutoNormal = "1";
+    HR_Compile_TriangMethod = "0";
+    HR_Compile_Compress = "0";
+    HR_Compile_Approximate = "0";
+    HR_Compile_ApproxEpsilon = "0.00001";
+    HR_Monitor_AutoUpdGraph = "0";
+    HR_Monitor_GraphPrecision = "100";
+    HR_Monitor_OpenGraph = "0";
+    HR_Monitor_InitStates = "5";
+    HR_Monitor_InitSD = "2";
+    HR_Color_DiscreteChance = "16";
+    HR_Color_ContinuosChance = "48";
+    HR_Color_Utility = "36";
+    HR_Color_Decision = "17";
+    HR_Groups_UserGroupsNo = "0";
+    HR_Groups_GroupNames = "test\t";
+    HR_Groups_GroupColors = "47";
+    HRUNTIME_Grid_X = "10";
+    HRUNTIME_Grid_Y = "10";
+    HRUNTIME_Grid_GridSnap = "1";
+    HRUNTIME_Grid_GridShow = "0";
+    HRUNTIME_Font_Name = "Arial";
+    HRUNTIME_Font_Size = "-12";
+    HRUNTIME_Font_Weight = "400";
+    HRUNTIME_Font_Italic = "0";
+    HRUNTIME_Propagate_Auto = "0";
+    HRUNTIME_Propagate_AutoSum = "1";
+    HRUNTIME_Propagate_AutoNormal = "1";
+    HRUNTIME_Compile_TriangMethod = "0";
+    HRUNTIME_Compile_Compress = "0";
+    HRUNTIME_Compile_Approximate = "0";
+    HRUNTIME_Compile_ApproxEpsilon = "0.00001";
+    HRUNTIME_Monitor_AutoUpdGraph = "0";
+    HRUNTIME_Monitor_GraphPrecision = "100";
+    HRUNTIME_Monitor_OpenGraph = "0";
+    HRUNTIME_Monitor_InitStates = "5";
+}
+
+node Q
+{
+    label = "Q";
+    position = (50 370);
+    states = ("fair" "average" "good" "very good");
+    HR_Desc = "The state of the crop";
+}
+
+node OQ
+{
+    label = "";
+    position = (50 270);
+    states = ("fair" "average" "good " "very good");
+    HR_Desc = "The observation of the state of the crops";
+}
+
+node H
+{
+    label = "H";
+    position = (350 350);
+    states = ("rotten" "bad" "poor" "fair" "average" "good" "very good");
+    HR_Desc = "The outcome of the harvest";
+}
+
+node M
+{
+    label = "M";
+    position = (50 180);
+    states = ("no" "light" "medium" "severe");
+    HR_Desc = "Mildew attack";
+}
+
+node Ms
+{
+    label = "M*";
+    position = (200 250);
+    states = ("no" "light" "medium" "severe");
+    HR_Desc = "The state of the mildew attack after the treatment";
+}
+
+utility U
+{
+    label = "U";
+    position = (350 180);
+    HR_Desc = "The utility function for the outcome of the harvest";
+}
+
+decision A
+{
+    label = "A";
+    position = (200 140);
+    states = ("no" "l" "m" "h");
+    HR_Desc = "What action to take (i.e., which kind of treatment to choose)";
+}
+
+node OM
+{
+    label = "OM";
+    position = (50 60);
+    states = ("no" "light" "medium" "severe");
+    HR_Desc = "The observation of whether or not the crops are attacked with mildew.\n";
+}
+
+utility C
+{
+    label = "";
+    position = (200 30);
+    HR_Desc = "The cost of the treatment";
+}
+
+potential (Q)
+{
+    data = ( 0.2 0.4 0.3 0.1 );
+}
+
+potential (OQ | Q)
+{
+    data
+     = (( 0.8 0.15 0.05 0 )	%  Q=fair
+	( 0.3 0.6 0.1 0 )	%  Q=average
+	( 0.1 0.2 0.6 0.1 )	%  Q=good
+	( 0 0.1 0.4 0.5 ));	%  Q=very good
+}
+
+potential (H | Ms Q)
+{
+    data
+     = ((( 0 0.05 0.1 0.7 0.1 0.05 0 )	%  Ms=no  Q=fair
+	 ( 0 0 0.05 0.1 0.7 0.1 0.05 )	%  Ms=no  Q=average
+	 ( 0 0 0 0.05 0.1 0.7 0.15 )	%  Ms=no  Q=good
+	 ( 0 0 0 0 0.1 0.2 0.7 ))	%  Ms=no  Q=very good
+	(( 0.05 0.1 0.7 0.1 0.05 0 0 )	%  Ms=light  Q=fair
+	 ( 0 0 0.05 0.1 0.7 0.1 0.05 )	%  Ms=light  Q=average
+	 ( 0 0 0.05 0.1 0.7 0.15 0 )	%  Ms=light  Q=good
+	 ( 0 0 0 0.05 0.15 0.7 0.1 ))	%  Ms=light  Q=very good
+	(( 0.15 0.7 0.1 0.05 0 0 0 )	%  Ms=medium  Q=fair
+	 ( 0.05 0.1 0.7 0.1 0.05 0 0 )	%  Ms=medium  Q=average
+	 ( 0 0.05 0.1 0.7 0.1 0.05 0 )	%  Ms=medium  Q=good
+	 ( 0 0 0.05 0.1 0.7 0.15 0 ))	%  Ms=medium  Q=very good
+	(( 0.9 0.1 0 0 0 0 0 )	%  Ms=severe  Q=fair
+	 ( 0.15 0.7 0.1 0.05 0 0 0 )	%  Ms=severe  Q=average
+	 ( 0.05 0.1 0.7 0.1 0.05 0 0 )	%  Ms=severe  Q=good
+	 ( 0 0.05 0.1 0.7 0.1 0.05 0 )));	%  Ms=severe  Q=very good
+}
+
+potential (M)
+{
+    data = ( 0.4 0.3 0.2 0.1 );
+}
+
+potential (Ms | A M)
+{
+    data
+     = ((( 1 0 0 0 )	%  A=no  M=no
+	 ( 0 1 0 0 )	%  A=no  M=light
+	 ( 0 0 1 0 )	%  A=no  M=medium
+	 ( 0 0 0 1 ))	%  A=no  M=severe
+	(( 1 0 0 0 )	%  A=l  M=no
+	 ( 0.8 0.2 0 0 )	%  A=l  M=light
+	 ( 0 0.8 0.2 0 )	%  A=l  M=medium
+	 ( 0 0 0.8 0.2 ))	%  A=l  M=severe
+	(( 1 0 0 0 )	%  A=m  M=no
+	 ( 1 0 0 0 )	%  A=m  M=light
+	 ( 0.8 0.2 0 0 )	%  A=m  M=medium
+	 ( 0 0.8 0.2 0 ))	%  A=m  M=severe
+	(( 1 0 0 0 )	%  A=h  M=no
+	 ( 1 0 0 0 )	%  A=h  M=light
+	 ( 1 0 0 0 )	%  A=h  M=medium
+	 ( 0.8 0.2 0 0 )));	%  A=h  M=severe
+}
+
+potential (U | H)
+{
+    data
+     = ( -1	%  H=rotten
+	 1	%  H=bad
+	 5	%  H=poor
+	 8	%  H=fair
+	 10	%  H=average
+	 12	%  H=good
+	 13 );	%  H=very good
+}
+
+potential (A) {}
+
+potential (OM | M)
+{
+    data
+     = (( 0.9 0.1 0 0 )	%  M=no
+	( 0.2 0.5 0.2 0.1 )	%  M=light
+	( 0.1 0.2 0.5 0.2 )	%  M=medium
+	( 0 0.1 0.3 0.6 ));	%  M=severe
+}
+
+potential (C | A)
+{
+    data
+     = ( 0	%  A=no
+	 -2	%  A=l
+	 -3	%  A=m
+	 -4 );	%  A=h
+}

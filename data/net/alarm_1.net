@@ -1,0 +1,706 @@
+net
+{
+    node_size = (140 35);
+    HR_Grid_X = "10";
+    HR_Grid_Y = "10";
+    HR_Grid_GridSnap = "1";
+    HR_Grid_GridShow = "0";
+    HR_Font_Name = "Arial";
+    HR_Font_Size = "-12";
+    HR_Font_Weight = "400";
+    HR_Font_Italic = "0";
+    HR_Propagate_Auto = "0";
+    HR_Propagate_AutoSum = "1";
+    HR_Propagate_AutoNormal = "1";
+    HR_Compile_TriangMethod = "0";
+    HR_Compile_Compress = "0";
+    HR_Compile_Approximate = "0";
+    HR_Compile_ApproxEpsilon = "0.00001";
+    HR_Monitor_AutoUpdGraph = "0";
+    HR_Monitor_GraphPrecision = "100";
+    HR_Monitor_OpenGraph = "0";
+    HR_Monitor_InitStates = "5";
+    HR_Monitor_InitSD = "2";
+    HR_Color_DiscreteChance = "16";
+    HR_Color_ContinuosChance = "48";
+    HR_Color_Utility = "36";
+    HR_Color_Decision = "17";
+    HR_Groups_UserGroupsNo = "0";
+    HR_Groups_GroupNames = "";
+    HR_Groups_GroupColors = "";
+}
+
+node MinVol
+{
+    label = "MinVol";
+    position = (1170 258);
+    states = ("Zero" "Low" "Normal" "High");
+}
+
+node Press
+{
+    label = "Press";
+    position = (1314 258);
+    states = ("Zero" "Low" "Normal" "High");
+}
+
+node PAP
+{
+    label = "PAP";
+    position = (594 78);
+    states = ("Low" "Normal" "High");
+}
+
+node ExpCO2
+{
+    label = "ExpCO2";
+    position = (1020 258);
+    states = ("Zero" "Low" "Normal" "High");
+}
+
+node HRBP
+{
+    label = "HRBP";
+    position = (294 420);
+    states = ("Low" "Normal" "High");
+}
+
+node ErrLowOutput
+{
+    label = "ErrLowOutput";
+    position = (294 342);
+    states = ("True" "False");
+}
+
+node HRSat
+{
+    label = "HRSat";
+    position = (594 420);
+    states = ("Low" "Normal" "High");
+}
+
+node HREKG
+{
+    label = "HREKG";
+    position = (444 420);
+    states = ("Low" "Normal" "High");
+}
+
+node ErrCauter
+{
+    label = "ErrCauter";
+    position = (594 342);
+    states = ("True" "False");
+}
+
+node BP
+{
+    label = "BP";
+    position = (150 420);
+    states = ("Low" "Normal" "High");
+}
+
+node History
+{
+    label = "History";
+    position = (306 0);
+    states = ("True" "False");
+}
+
+node CO
+{
+    label = "CO";
+    position = (288 186);
+    states = ("Low" "Normal" "High");
+}
+
+node HR
+{
+    label = "HR";
+    position = (444 264);
+    states = ("Low" "Normal" "High");
+}
+
+node Catechol
+{
+    label = "Catechol";
+    position = (444 156);
+    states = ("Normal" "High");
+}
+
+node ArtCO2
+{
+    label = "ArtCO2";
+    position = (882 258);
+    states = ("Low" "Normal" "High");
+}
+
+node TPR
+{
+    label = "TPR";
+    position = (150 342);
+    states = ("Low" "Normal" "High");
+}
+
+node Anaphylaxis
+{
+    label = "Anaphylaxis";
+    position = (0 342);
+    states = ("True" "False");
+}
+
+node SaO2
+{
+    label = "SaO2";
+    position = (630 156);
+    states = ("Low" "Normal" "High");
+}
+
+node PVSat
+{
+    label = "PVSat";
+    position = (732 264);
+    states = ("Low" "Normal" "High");
+}
+
+node FiO2
+{
+    label = "FiO2";
+    position = (582 264);
+    states = ("Low" "Normal");
+}
+
+node VentAlv
+{
+    label = "VentAlv";
+    position = (816 138);
+    states = ("Zero" "Low" "Normal" "High");
+}
+
+node VentLung
+{
+    label = "VentLung";
+    position = (978 138);
+    states = ("Zero" "Low" "Normal" "High");
+}
+
+node VentTube
+{
+    label = "VentTube";
+    position = (1140 138);
+    states = ("Zero" "Low" "Normal" "High");
+}
+
+node Disconnect
+{
+    label = "Disconnect";
+    position = (1140 36);
+    states = ("True" "False");
+}
+
+node VentMach
+{
+    label = "VentMach";
+    position = (1308 138);
+    states = ("Zero" "Low" "Normal" "High");
+}
+
+node MinVolSet
+{
+    label = "MinVolSet";
+    position = (1308 42);
+    states = ("Low" "Normal" "High");
+}
+
+node KinkedTube
+{
+    label = "KinkedTube";
+    position = (978 36);
+    states = ("True" "False");
+}
+
+node Shunt
+{
+    label = "Shunt";
+    position = (738 72);
+    states = ("Normal" "High");
+}
+
+node Intubation
+{
+    label = "Intubation";
+    position = (816 6);
+    states = ("Normal" "Esophageal" "OneSided");
+}
+
+node PulmEmbolus
+{
+    label = "PulmEmbolus";
+    position = (594 0);
+    states = ("True" "False");
+}
+
+node InsuffAnesth
+{
+    label = "InsuffAnesth";
+    position = (444 0);
+    states = ("True" "False");
+}
+
+node PCWP
+{
+    label = "PCWP";
+    position = (150 186);
+    states = ("Low" "Normal" "High");
+}
+
+node CVP
+{
+    label = "CVP";
+    position = (2 186);
+    states = ("Low" "Normal" "High");
+}
+
+node StrokeVolume
+{
+    label = "StrokeVolume";
+    position = (288 90);
+    states = ("Low" "Normal" "High");
+}
+
+node LVEDVolume
+{
+    label = "LVEDVolume";
+    position = (66 96);
+    states = ("Low" "Normal" "High");
+}
+
+node LVFailure
+{
+    label = "LVFailure";
+    position = (156 0);
+    states = ("True" "False");
+}
+
+node Hypovolemia
+{
+    label = "Hypovolemia";
+    position = (6 0);
+    states = ("True" "False");
+}
+
+potential (MinVol | VentLung Intubation)
+{
+    data
+     = ((( 0.97 0.01 0.01 0.01 )	%  VentLung=Zero  Intubation=Normal
+	 ( 0.97 0.01 0.01 0.01 )	%  VentLung=Zero  Intubation=Esophageal
+	 ( 0.97 0.01 0.01 0.01 ))	%  VentLung=Zero  Intubation=OneSided
+	(( 0.01 0.97 0.01 0.01 )	%  VentLung=Low  Intubation=Normal
+	 ( 0.6 0.38 0.01 0.01 )	%  VentLung=Low  Intubation=Esophageal
+	 ( 0.01 0.97 0.01 0.01 ))	%  VentLung=Low  Intubation=OneSided
+	(( 0.01 0.01 0.97 0.01 )	%  VentLung=Normal  Intubation=Normal
+	 ( 0.5 0.48 0.01 0.01 )	%  VentLung=Normal  Intubation=Esophageal
+	 ( 0.01 0.01 0.97 0.01 ))	%  VentLung=Normal  Intubation=OneSided
+	(( 0.01 0.01 0.01 0.97 )	%  VentLung=High  Intubation=Normal
+	 ( 0.5 0.48 0.01 0.01 )	%  VentLung=High  Intubation=Esophageal
+	 ( 0.01 0.01 0.01 0.97 )));	%  VentLung=High  Intubation=OneSided
+}
+
+potential (Press | KinkedTube Intubation VentTube)
+{
+    data
+     = (((( 0.97 0.01 0.01 0.01 )	%  KinkedTube=True  Intubation=Normal  VentTube=Zero
+	  ( 0.01 0.49 0.3 0.2 )	%  KinkedTube=True  Intubation=Normal  VentTube=Low
+	  ( 0.01 0.01 0.08 0.9 )	%  KinkedTube=True  Intubation=Normal  VentTube=Normal
+	  ( 0.01 0.01 0.01 0.97 ))	%  KinkedTube=True  Intubation=Normal  VentTube=High
+	 (( 0.97 0.01 0.01 0.01 )	%  KinkedTube=True  Intubation=Esophageal  VentTube=Zero
+	  ( 0.1 0.84 0.05 0.01 )	%  KinkedTube=True  Intubation=Esophageal  VentTube=Low
+	  ( 0.05 0.25 0.25 0.45 )	%  KinkedTube=True  Intubation=Esophageal  VentTube=Normal
+	  ( 0.01 0.15 0.25 0.59 ))	%  KinkedTube=True  Intubation=Esophageal  VentTube=High
+	 (( 0.97 0.01 0.01 0.01 )	%  KinkedTube=True  Intubation=OneSided  VentTube=Zero
+	  ( 0.01 0.29 0.3 0.4 )	%  KinkedTube=True  Intubation=OneSided  VentTube=Low
+	  ( 0.01 0.01 0.08 0.9 )	%  KinkedTube=True  Intubation=OneSided  VentTube=Normal
+	  ( 0.01 0.01 0.01 0.97 )))	%  KinkedTube=True  Intubation=OneSided  VentTube=High
+	((( 0.97 0.01 0.01 0.01 )	%  KinkedTube=False  Intubation=Normal  VentTube=Zero
+	  ( 0.01 0.97 0.01 0.01 )	%  KinkedTube=False  Intubation=Normal  VentTube=Low
+	  ( 0.01 0.01 0.97 0.01 )	%  KinkedTube=False  Intubation=Normal  VentTube=Normal
+	  ( 0.01 0.01 0.01 0.97 ))	%  KinkedTube=False  Intubation=Normal  VentTube=High
+	 (( 0.97 0.01 0.01 0.01 )	%  KinkedTube=False  Intubation=Esophageal  VentTube=Zero
+	  ( 0.4 0.58 0.01 0.01 )	%  KinkedTube=False  Intubation=Esophageal  VentTube=Low
+	  ( 0.2 0.75 0.04 0.01 )	%  KinkedTube=False  Intubation=Esophageal  VentTube=Normal
+	  ( 0.2 0.7 0.09 0.01 ))	%  KinkedTube=False  Intubation=Esophageal  VentTube=High
+	 (( 0.97 0.01 0.01 0.01 )	%  KinkedTube=False  Intubation=OneSided  VentTube=Zero
+	  ( 0.01 0.9 0.08 0.01 )	%  KinkedTube=False  Intubation=OneSided  VentTube=Low
+	  ( 0.01 0.01 0.38 0.6 )	%  KinkedTube=False  Intubation=OneSided  VentTube=Normal
+	  ( 0.01 0.01 0.01 0.97 ))));	%  KinkedTube=False  Intubation=OneSided  VentTube=High
+}
+
+potential (PAP | PulmEmbolus)
+{
+    data
+     = (( 0.01 0.19 0.8 )	%  PulmEmbolus=True
+	( 0.05 0.9 0.05 ));	%  PulmEmbolus=False
+}
+
+potential (ExpCO2 | ArtCO2 VentLung)
+{
+    data
+     = ((( 0.97 0.01 0.01 0.01 )	%  ArtCO2=Low  VentLung=Zero
+	 ( 0.01 0.97 0.01 0.01 )	%  ArtCO2=Low  VentLung=Low
+	 ( 0.01 0.97 0.01 0.01 )	%  ArtCO2=Low  VentLung=Normal
+	 ( 0.01 0.97 0.01 0.01 ))	%  ArtCO2=Low  VentLung=High
+	(( 0.97 0.01 0.01 0.01 )	%  ArtCO2=Normal  VentLung=Zero
+	 ( 0.01 0.01 0.97 0.01 )	%  ArtCO2=Normal  VentLung=Low
+	 ( 0.01 0.01 0.97 0.01 )	%  ArtCO2=Normal  VentLung=Normal
+	 ( 0.01 0.01 0.97 0.01 ))	%  ArtCO2=Normal  VentLung=High
+	(( 0.97 0.01 0.01 0.01 )	%  ArtCO2=High  VentLung=Zero
+	 ( 0.01 0.01 0.01 0.97 )	%  ArtCO2=High  VentLung=Low
+	 ( 0.01 0.01 0.01 0.97 )	%  ArtCO2=High  VentLung=Normal
+	 ( 0.01 0.01 0.01 0.97 )));	%  ArtCO2=High  VentLung=High
+}
+
+potential (HRBP | ErrLowOutput HR)
+{
+    data
+     = ((( 0.98 0.01 0.01 )	%  ErrLowOutput=True  HR=Low
+	 ( 0.4 0.59 0.01 )	%  ErrLowOutput=True  HR=Normal
+	 ( 0.3 0.4 0.3 ))	%  ErrLowOutput=True  HR=High
+	(( 0.98 0.01 0.01 )	%  ErrLowOutput=False  HR=Low
+	 ( 0.01 0.98 0.01 )	%  ErrLowOutput=False  HR=Normal
+	 ( 0.01 0.01 0.98 )));	%  ErrLowOutput=False  HR=High
+}
+
+potential (ErrLowOutput)
+{
+    data = ( 0.05 0.95 );
+}
+
+potential (HRSat | HR ErrCauter)
+{
+    data
+     = ((( 0.333333 0.333333 0.333333 )	%  HR=Low  ErrCauter=True
+	 ( 0.98 0.01 0.01 ))	%  HR=Low  ErrCauter=False
+	(( 0.333333 0.333333 0.333333 )	%  HR=Normal  ErrCauter=True
+	 ( 0.01 0.98 0.01 ))	%  HR=Normal  ErrCauter=False
+	(( 0.333333 0.333333 0.333333 )	%  HR=High  ErrCauter=True
+	 ( 0.01 0.01 0.98 )));	%  HR=High  ErrCauter=False
+}
+
+potential (HREKG | HR ErrCauter)
+{
+    data
+     = ((( 0.333333 0.333333 0.333333 )	%  HR=Low  ErrCauter=True
+	 ( 0.98 0.01 0.01 ))	%  HR=Low  ErrCauter=False
+	(( 0.333333 0.333333 0.333333 )	%  HR=Normal  ErrCauter=True
+	 ( 0.01 0.98 0.01 ))	%  HR=Normal  ErrCauter=False
+	(( 0.333333 0.333333 0.333333 )	%  HR=High  ErrCauter=True
+	 ( 0.01 0.01 0.98 )));	%  HR=High  ErrCauter=False
+}
+
+potential (ErrCauter)
+{
+    data = ( 0.1 0.9 );
+}
+
+potential (BP | CO TPR)
+{
+    data
+     = ((( 0.98 0.01 0.01 )	%  CO=Low  TPR=Low
+	 ( 0.98 0.01 0.01 )	%  CO=Low  TPR=Normal
+	 ( 0.3 0.6 0.1 ))	%  CO=Low  TPR=High
+	(( 0.98 0.01 0.01 )	%  CO=Normal  TPR=Low
+	 ( 0.1 0.85 0.05 )	%  CO=Normal  TPR=Normal
+	 ( 0.05 0.4 0.55 ))	%  CO=Normal  TPR=High
+	(( 0.9 0.09 0.01 )	%  CO=High  TPR=Low
+	 ( 0.05 0.2 0.75 )	%  CO=High  TPR=Normal
+	 ( 0.01 0.09 0.9 )));	%  CO=High  TPR=High
+}
+
+potential (History | LVFailure)
+{
+    data
+     = (( 0.9 0.1 )	%  LVFailure=True
+	( 0.01 0.99 ));	%  LVFailure=False
+}
+
+potential (CO | HR StrokeVolume)
+{
+    data
+     = ((( 0.98 0.01 0.01 )	%  HR=Low  StrokeVolume=Low
+	 ( 0.95 0.04 0.01 )	%  HR=Low  StrokeVolume=Normal
+	 ( 0.3 0.69 0.01 ))	%  HR=Low  StrokeVolume=High
+	(( 0.95 0.04 0.01 )	%  HR=Normal  StrokeVolume=Low
+	 ( 0.04 0.95 0.01 )	%  HR=Normal  StrokeVolume=Normal
+	 ( 0.01 0.3 0.69 ))	%  HR=Normal  StrokeVolume=High
+	(( 0.8 0.19 0.01 )	%  HR=High  StrokeVolume=Low
+	 ( 0.01 0.04 0.95 )	%  HR=High  StrokeVolume=Normal
+	 ( 0.01 0.01 0.98 )));	%  HR=High  StrokeVolume=High
+}
+
+potential (HR | Catechol)
+{
+    data
+     = (( 0.1 0.89 0.01 )	%  Catechol=Normal
+	( 0.01 0.09 0.9 ));	%  Catechol=High
+}
+
+potential (Catechol | InsuffAnesth SaO2 TPR ArtCO2)
+{
+    data
+     = ((((( 0.01 0.99 )	%  InsuffAnesth=True  SaO2=Low  TPR=Low  ArtCO2=Low
+	   ( 0.01 0.99 )	%  InsuffAnesth=True  SaO2=Low  TPR=Low  ArtCO2=Normal
+	   ( 0.01 0.99 ))	%  InsuffAnesth=True  SaO2=Low  TPR=Low  ArtCO2=High
+	  (( 0.01 0.99 )	%  InsuffAnesth=True  SaO2=Low  TPR=Normal  ArtCO2=Low
+	   ( 0.01 0.99 )	%  InsuffAnesth=True  SaO2=Low  TPR=Normal  ArtCO2=Normal
+	   ( 0.01 0.99 ))	%  InsuffAnesth=True  SaO2=Low  TPR=Normal  ArtCO2=High
+	  (( 0.01 0.99 )	%  InsuffAnesth=True  SaO2=Low  TPR=High  ArtCO2=Low
+	   ( 0.01 0.99 )	%  InsuffAnesth=True  SaO2=Low  TPR=High  ArtCO2=Normal
+	   ( 0.01 0.99 )))	%  InsuffAnesth=True  SaO2=Low  TPR=High  ArtCO2=High
+	 ((( 0.01 0.99 )	%  InsuffAnesth=True  SaO2=Normal  TPR=Low  ArtCO2=Low
+	   ( 0.01 0.99 )	%  InsuffAnesth=True  SaO2=Normal  TPR=Low  ArtCO2=Normal
+	   ( 0.01 0.99 ))	%  InsuffAnesth=True  SaO2=Normal  TPR=Low  ArtCO2=High
+	  (( 0.01 0.99 )	%  InsuffAnesth=True  SaO2=Normal  TPR=Normal  ArtCO2=Low
+	   ( 0.01 0.99 )	%  InsuffAnesth=True  SaO2=Normal  TPR=Normal  ArtCO2=Normal
+	   ( 0.01 0.99 ))	%  InsuffAnesth=True  SaO2=Normal  TPR=Normal  ArtCO2=High
+	  (( 0.05 0.95 )	%  InsuffAnesth=True  SaO2=Normal  TPR=High  ArtCO2=Low
+	   ( 0.05 0.95 )	%  InsuffAnesth=True  SaO2=Normal  TPR=High  ArtCO2=Normal
+	   ( 0.01 0.99 )))	%  InsuffAnesth=True  SaO2=Normal  TPR=High  ArtCO2=High
+	 ((( 0.01 0.99 )	%  InsuffAnesth=True  SaO2=High  TPR=Low  ArtCO2=Low
+	   ( 0.01 0.99 )	%  InsuffAnesth=True  SaO2=High  TPR=Low  ArtCO2=Normal
+	   ( 0.01 0.99 ))	%  InsuffAnesth=True  SaO2=High  TPR=Low  ArtCO2=High
+	  (( 0.05 0.95 )	%  InsuffAnesth=True  SaO2=High  TPR=Normal  ArtCO2=Low
+	   ( 0.05 0.95 )	%  InsuffAnesth=True  SaO2=High  TPR=Normal  ArtCO2=Normal
+	   ( 0.01 0.99 ))	%  InsuffAnesth=True  SaO2=High  TPR=Normal  ArtCO2=High
+	  (( 0.05 0.95 )	%  InsuffAnesth=True  SaO2=High  TPR=High  ArtCO2=Low
+	   ( 0.05 0.95 )	%  InsuffAnesth=True  SaO2=High  TPR=High  ArtCO2=Normal
+	   ( 0.01 0.99 ))))	%  InsuffAnesth=True  SaO2=High  TPR=High  ArtCO2=High
+	(((( 0.05 0.95 )	%  InsuffAnesth=False  SaO2=Low  TPR=Low  ArtCO2=Low
+	   ( 0.05 0.95 )	%  InsuffAnesth=False  SaO2=Low  TPR=Low  ArtCO2=Normal
+	   ( 0.01 0.99 ))	%  InsuffAnesth=False  SaO2=Low  TPR=Low  ArtCO2=High
+	  (( 0.05 0.95 )	%  InsuffAnesth=False  SaO2=Low  TPR=Normal  ArtCO2=Low
+	   ( 0.05 0.95 )	%  InsuffAnesth=False  SaO2=Low  TPR=Normal  ArtCO2=Normal
+	   ( 0.01 0.99 ))	%  InsuffAnesth=False  SaO2=Low  TPR=Normal  ArtCO2=High
+	  (( 0.05 0.95 )	%  InsuffAnesth=False  SaO2=Low  TPR=High  ArtCO2=Low
+	   ( 0.05 0.95 )	%  InsuffAnesth=False  SaO2=Low  TPR=High  ArtCO2=Normal
+	   ( 0.01 0.99 )))	%  InsuffAnesth=False  SaO2=Low  TPR=High  ArtCO2=High
+	 ((( 0.1 0.9 )	%  InsuffAnesth=False  SaO2=Normal  TPR=Low  ArtCO2=Low
+	   ( 0.1 0.9 )	%  InsuffAnesth=False  SaO2=Normal  TPR=Low  ArtCO2=Normal
+	   ( 0.1 0.9 ))	%  InsuffAnesth=False  SaO2=Normal  TPR=Low  ArtCO2=High
+	  (( 0.95 0.05 )	%  InsuffAnesth=False  SaO2=Normal  TPR=Normal  ArtCO2=Low
+	   ( 0.95 0.05 )	%  InsuffAnesth=False  SaO2=Normal  TPR=Normal  ArtCO2=Normal
+	   ( 0.3 0.7 ))	%  InsuffAnesth=False  SaO2=Normal  TPR=Normal  ArtCO2=High
+	  (( 0.95 0.05 )	%  InsuffAnesth=False  SaO2=Normal  TPR=High  ArtCO2=Low
+	   ( 0.95 0.05 )	%  InsuffAnesth=False  SaO2=Normal  TPR=High  ArtCO2=Normal
+	   ( 0.3 0.7 )))	%  InsuffAnesth=False  SaO2=Normal  TPR=High  ArtCO2=High
+	 ((( 0.95 0.05 )	%  InsuffAnesth=False  SaO2=High  TPR=Low  ArtCO2=Low
+	   ( 0.95 0.05 )	%  InsuffAnesth=False  SaO2=High  TPR=Low  ArtCO2=Normal
+	   ( 0.3 0.7 ))	%  InsuffAnesth=False  SaO2=High  TPR=Low  ArtCO2=High
+	  (( 0.99 0.01 )	%  InsuffAnesth=False  SaO2=High  TPR=Normal  ArtCO2=Low
+	   ( 0.99 0.01 )	%  InsuffAnesth=False  SaO2=High  TPR=Normal  ArtCO2=Normal
+	   ( 0.99 0.01 ))	%  InsuffAnesth=False  SaO2=High  TPR=Normal  ArtCO2=High
+	  (( 0.95 0.05 )	%  InsuffAnesth=False  SaO2=High  TPR=High  ArtCO2=Low
+	   ( 0.99 0.01 )	%  InsuffAnesth=False  SaO2=High  TPR=High  ArtCO2=Normal
+	   ( 0.3 0.7 )))));	%  InsuffAnesth=False  SaO2=High  TPR=High  ArtCO2=High
+}
+
+potential (ArtCO2 | VentAlv)
+{
+    data
+     = (( 0.01 0.01 0.98 )	%  VentAlv=Zero
+	( 0.01 0.01 0.98 )	%  VentAlv=Low
+	( 0.04 0.92 0.04 )	%  VentAlv=Normal
+	( 0.9 0.09 0.01 ));	%  VentAlv=High
+}
+
+potential (TPR | Anaphylaxis)
+{
+    data
+     = (( 0.98 0.01 0.01 )	%  Anaphylaxis=True
+	( 0.3 0.4 0.3 ));	%  Anaphylaxis=False
+}
+
+potential (Anaphylaxis)
+{
+    data = ( 0.01 0.99 );
+}
+
+potential (SaO2 | Shunt PVSat)
+{
+    data
+     = ((( 0.98 0.01 0.01 )	%  Shunt=Normal  PVSat=Low
+	 ( 0.01 0.98 0.01 )	%  Shunt=Normal  PVSat=Normal
+	 ( 0.01 0.01 0.98 ))	%  Shunt=Normal  PVSat=High
+	(( 0.98 0.01 0.01 )	%  Shunt=High  PVSat=Low
+	 ( 0.98 0.01 0.01 )	%  Shunt=High  PVSat=Normal
+	 ( 0.69 0.3 0.01 )));	%  Shunt=High  PVSat=High
+}
+
+potential (PVSat | VentAlv FiO2)
+{
+    data
+     = ((( 0.98 0.01 0.01 )	%  VentAlv=Zero  FiO2=Low
+	 ( 0.98 0.01 0.01 ))	%  VentAlv=Zero  FiO2=Normal
+	(( 0.98 0.01 0.01 )	%  VentAlv=Low  FiO2=Low
+	 ( 0.98 0.01 0.01 ))	%  VentAlv=Low  FiO2=Normal
+	(( 0.95 0.04 0.01 )	%  VentAlv=Normal  FiO2=Low
+	 ( 0.01 0.95 0.04 ))	%  VentAlv=Normal  FiO2=Normal
+	(( 0.95 0.04 0.01 )	%  VentAlv=High  FiO2=Low
+	 ( 0.01 0.01 0.98 )));	%  VentAlv=High  FiO2=Normal
+}
+
+potential (FiO2)
+{
+    data = ( 0.01 0.99 );
+}
+
+potential (VentAlv | Intubation VentLung)
+{
+    data
+     = ((( 0.97 0.01 0.01 0.01 )	%  Intubation=Normal  VentLung=Zero
+	 ( 0.01 0.97 0.01 0.01 )	%  Intubation=Normal  VentLung=Low
+	 ( 0.01 0.01 0.97 0.01 )	%  Intubation=Normal  VentLung=Normal
+	 ( 0.01 0.01 0.01 0.97 ))	%  Intubation=Normal  VentLung=High
+	(( 0.97 0.01 0.01 0.01 )	%  Intubation=Esophageal  VentLung=Zero
+	 ( 0.01 0.97 0.01 0.01 )	%  Intubation=Esophageal  VentLung=Low
+	 ( 0.01 0.01 0.97 0.01 )	%  Intubation=Esophageal  VentLung=Normal
+	 ( 0.01 0.01 0.01 0.97 ))	%  Intubation=Esophageal  VentLung=High
+	(( 0.97 0.01 0.01 0.01 )	%  Intubation=OneSided  VentLung=Zero
+	 ( 0.03 0.95 0.01 0.01 )	%  Intubation=OneSided  VentLung=Low
+	 ( 0.01 0.94 0.04 0.01 )	%  Intubation=OneSided  VentLung=Normal
+	 ( 0.01 0.88 0.1 0.01 )));	%  Intubation=OneSided  VentLung=High
+}
+
+potential (VentLung | KinkedTube VentTube Intubation)
+{
+    data
+     = (((( 0.97 0.01 0.01 0.01 )	%  KinkedTube=True  VentTube=Zero  Intubation=Normal
+	  ( 0.97 0.01 0.01 0.01 )	%  KinkedTube=True  VentTube=Zero  Intubation=Esophageal
+	  ( 0.97 0.01 0.01 0.01 ))	%  KinkedTube=True  VentTube=Zero  Intubation=OneSided
+	 (( 0.95 0.03 0.01 0.01 )	%  KinkedTube=True  VentTube=Low  Intubation=Normal
+	  ( 0.97 0.01 0.01 0.01 )	%  KinkedTube=True  VentTube=Low  Intubation=Esophageal
+	  ( 0.95 0.03 0.01 0.01 ))	%  KinkedTube=True  VentTube=Low  Intubation=OneSided
+	 (( 0.4 0.58 0.01 0.01 )	%  KinkedTube=True  VentTube=Normal  Intubation=Normal
+	  ( 0.97 0.01 0.01 0.01 )	%  KinkedTube=True  VentTube=Normal  Intubation=Esophageal
+	  ( 0.5 0.48 0.01 0.01 ))	%  KinkedTube=True  VentTube=Normal  Intubation=OneSided
+	 (( 0.3 0.68 0.01 0.01 )	%  KinkedTube=True  VentTube=High  Intubation=Normal
+	  ( 0.97 0.01 0.01 0.01 )	%  KinkedTube=True  VentTube=High  Intubation=Esophageal
+	  ( 0.3 0.68 0.01 0.01 )))	%  KinkedTube=True  VentTube=High  Intubation=OneSided
+	((( 0.97 0.01 0.01 0.01 )	%  KinkedTube=False  VentTube=Zero  Intubation=Normal
+	  ( 0.97 0.01 0.01 0.01 )	%  KinkedTube=False  VentTube=Zero  Intubation=Esophageal
+	  ( 0.97 0.01 0.01 0.01 ))	%  KinkedTube=False  VentTube=Zero  Intubation=OneSided
+	 (( 0.01 0.97 0.01 0.01 )	%  KinkedTube=False  VentTube=Low  Intubation=Normal
+	  ( 0.97 0.01 0.01 0.01 )	%  KinkedTube=False  VentTube=Low  Intubation=Esophageal
+	  ( 0.01 0.97 0.01 0.01 ))	%  KinkedTube=False  VentTube=Low  Intubation=OneSided
+	 (( 0.01 0.01 0.97 0.01 )	%  KinkedTube=False  VentTube=Normal  Intubation=Normal
+	  ( 0.97 0.01 0.01 0.01 )	%  KinkedTube=False  VentTube=Normal  Intubation=Esophageal
+	  ( 0.01 0.01 0.97 0.01 ))	%  KinkedTube=False  VentTube=Normal  Intubation=OneSided
+	 (( 0.01 0.01 0.01 0.97 )	%  KinkedTube=False  VentTube=High  Intubation=Normal
+	  ( 0.97 0.01 0.01 0.01 )	%  KinkedTube=False  VentTube=High  Intubation=Esophageal
+	  ( 0.01 0.01 0.01 0.97 ))));	%  KinkedTube=False  VentTube=High  Intubation=OneSided
+}
+
+potential (VentTube | VentMach Disconnect)
+{
+    data
+     = ((( 0.97 0.01 0.01 0.01 )	%  VentMach=Zero  Disconnect=True
+	 ( 0.97 0.01 0.01 0.01 ))	%  VentMach=Zero  Disconnect=False
+	(( 0.97 0.01 0.01 0.01 )	%  VentMach=Low  Disconnect=True
+	 ( 0.01 0.97 0.01 0.01 ))	%  VentMach=Low  Disconnect=False
+	(( 0.97 0.01 0.01 0.01 )	%  VentMach=Normal  Disconnect=True
+	 ( 0.01 0.01 0.97 0.01 ))	%  VentMach=Normal  Disconnect=False
+	(( 0.97 0.01 0.01 0.01 )	%  VentMach=High  Disconnect=True
+	 ( 0.01 0.01 0.01 0.97 )));	%  VentMach=High  Disconnect=False
+}
+
+potential (Disconnect)
+{
+    data = ( 0.05 0.95 );
+}
+
+potential (VentMach | MinVolSet)
+{
+    data
+     = (( 0.01 0.97 0.01 0.01 )	%  MinVolSet=Low
+	( 0.01 0.01 0.97 0.01 )	%  MinVolSet=Normal
+	( 0.01 0.01 0.01 0.97 ));	%  MinVolSet=High
+}
+
+potential (MinVolSet)
+{
+    data = ( 0.01 0.98 0.01 );
+}
+
+potential (KinkedTube)
+{
+    data = ( 0.04 0.96 );
+}
+
+potential (Shunt | PulmEmbolus Intubation)
+{
+    data
+     = ((( 0.1 0.9 )	%  PulmEmbolus=True  Intubation=Normal
+	 ( 0.1 0.9 )	%  PulmEmbolus=True  Intubation=Esophageal
+	 ( 0.01 0.99 ))	%  PulmEmbolus=True  Intubation=OneSided
+	(( 0.95 0.05 )	%  PulmEmbolus=False  Intubation=Normal
+	 ( 0.95 0.05 )	%  PulmEmbolus=False  Intubation=Esophageal
+	 ( 0.05 0.95 )));	%  PulmEmbolus=False  Intubation=OneSided
+}
+
+potential (Intubation)
+{
+    data = ( 0.92 0.03 0.05 );
+}
+
+potential (PulmEmbolus)
+{
+    data = ( 0.01 0.99 );
+}
+
+potential (InsuffAnesth)
+{
+    data = ( 0.2 0.8 );
+}
+
+potential (PCWP | LVEDVolume)
+{
+    data
+     = (( 0.95 0.04 0.01 )	%  LVEDVolume=Low
+	( 0.04 0.95 0.01 )	%  LVEDVolume=Normal
+	( 0.01 0.04 0.95 ));	%  LVEDVolume=High
+}
+
+potential (CVP | LVEDVolume)
+{
+    data
+     = (( 0.95 0.04 0.01 )	%  LVEDVolume=Low
+	( 0.04 0.95 0.01 )	%  LVEDVolume=Normal
+	( 0.01 0.29 0.7 ));	%  LVEDVolume=High
+}
+
+potential (StrokeVolume | LVFailure Hypovolemia)
+{
+    data
+     = ((( 0.98 0.01 0.01 )	%  LVFailure=True  Hypovolemia=True
+	 ( 0.5 0.49 0.01 ))	%  LVFailure=True  Hypovolemia=False
+	(( 0.95 0.04 0.01 )	%  LVFailure=False  Hypovolemia=True
+	 ( 0.05 0.9 0.05 )));	%  LVFailure=False  Hypovolemia=False
+}
+
+potential (LVEDVolume | Hypovolemia LVFailure)
+{
+    data
+     = ((( 0.95 0.04 0.01 )	%  Hypovolemia=True  LVFailure=True
+	 ( 0.98 0.01 0.01 ))	%  Hypovolemia=True  LVFailure=False
+	(( 0.01 0.09 0.9 )	%  Hypovolemia=False  LVFailure=True
+	 ( 0.05 0.9 0.05 )));	%  Hypovolemia=False  LVFailure=False
+}
+
+potential (LVFailure)
+{
+    data = ( 0.05 0.95 );
+}
+
+potential (Hypovolemia)
+{
+    data = ( 0.2 0.8 );
+}

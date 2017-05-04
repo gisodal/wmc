@@ -1,0 +1,294 @@
+net
+{
+    node_size = (100 40);
+    HR_Node_Label_Style = "0";
+    HR_Desc = "In this poker game, each player receives three cards and is allowed two rounds of changing cards. In the first round you may discard any number of cards from your hand and get replacements from the pack of cards. In the second round you may discard at most two cards. Ather the two rounds of card changing, the opponents hand is estimated, and a guess of which hand is the best is made.";
+    HR_OOBN_FitExpand = "1";
+    HR_Zoom_ZoomFactor = "100";
+    HR_Color_Interface = "21";
+    HR_Color_Instance = "0";
+    HR_Color_ContinuousChance = "32";
+    HR_Compile_MaxMinimalSeparators = "100000";
+    HR_Grid_X = "10";
+    HR_Grid_Y = "10";
+    HR_Grid_GridSnap = "1";
+    HR_Grid_GridShow = "0";
+    HR_Font_Name = "Arial";
+    HR_Font_Size = "-12";
+    HR_Font_Weight = "400";
+    HR_Font_Italic = "0";
+    HR_Propagate_Auto = "0";
+    HR_Propagate_AutoSum = "1";
+    HR_Propagate_AutoNormal = "1";
+    HR_Compile_TriangMethod = "0";
+    HR_Compile_Compress = "0";
+    HR_Compile_Approximate = "0";
+    HR_Compile_ApproxEpsilon = "0.00001";
+    HR_Monitor_AutoUpdGraph = "0";
+    HR_Monitor_GraphPrecision = "100";
+    HR_Monitor_OpenGraph = "0";
+    HR_Monitor_InitStates = "5";
+    HR_Monitor_InitSD = "2";
+    HR_Color_DiscreteChance = "16";
+    HR_Color_ContinuosChance = "48";
+    HR_Color_Utility = "36";
+    HR_Color_Decision = "17";
+    HR_Groups_UserGroupsNo = "0";
+    HR_Groups_GroupNames = "test\t";
+    HR_Groups_GroupColors = "47";
+    HRUNTIME_Grid_X = "10";
+    HRUNTIME_Grid_Y = "10";
+    HRUNTIME_Grid_GridSnap = "1";
+    HRUNTIME_Grid_GridShow = "0";
+    HRUNTIME_Font_Name = "Arial";
+    HRUNTIME_Font_Size = "-12";
+    HRUNTIME_Font_Weight = "400";
+    HRUNTIME_Font_Italic = "0";
+    HRUNTIME_Propagate_Auto = "0";
+    HRUNTIME_Propagate_AutoSum = "1";
+    HRUNTIME_Propagate_AutoNormal = "1";
+    HRUNTIME_Compile_TriangMethod = "0";
+    HRUNTIME_Compile_Compress = "0";
+    HRUNTIME_Compile_Approximate = "0";
+    HRUNTIME_Compile_ApproxEpsilon = "0.00001";
+    HRUNTIME_Monitor_AutoUpdGraph = "0";
+    HRUNTIME_Monitor_GraphPrecision = "100";
+    HRUNTIME_Monitor_OpenGraph = "0";
+    HRUNTIME_Monitor_InitStates = "5";
+}
+
+node Besthand
+{
+    label = "";
+    position = (147 30);
+    states = ("myhand" "opponent");
+    HR_Desc = "Which hand is the best";
+}
+
+node OH2
+{
+    label = "";
+    position = (229 158);
+    states = ("no" "1 a" "2 v" "2 a" "fl" "st" "3 v" "stfl");
+    HR_Desc = "The opponents final hand";
+}
+
+node MH
+{
+    label = "";
+    position = (60 159);
+    states = ("no" "1 ace" "2 consecutive" "2 alike" "flush" "straight" "3 alike" "straight flush");
+    HR_Desc = "My hand";
+}
+
+node OH1
+{
+    label = "";
+    position = (229 272);
+    states = ("no" "1 ace" "2 consecutive" "2 of a suit" "2 alike" "flush" "straight" "3 alike" "straight flush");
+    HR_Desc = "The opponents hand after the fours round of discarding cards.";
+}
+
+node SC
+{
+    label = "";
+    position = (369 215);
+    states = ("0 Changed" "1 Changed" "2 Changed");
+    HR_Desc = "Second round of discarding";
+}
+
+node OH0
+{
+    label = "";
+    position = (229 385);
+    states = ("no" "1 ace" "2 consecutive" "2 of a suit" "2 alike" "flush" "straight" "3 alike" "straight flush");
+    HR_Desc = "The oppoents initial hand";
+}
+
+node FC
+{
+    label = "";
+    position = (369 327);
+    states = ("o changed" "1 changed" "2 changed" "3 changed");
+    HR_Desc = "First round of discarding";
+}
+
+potential (Besthand | MH OH2)
+{
+    data
+     = ((( 0.5 0.5 )	%  MH=no  OH2=no
+	 ( 0 1 )	%  MH=no  OH2=1 a
+	 ( 0 1 )	%  MH=no  OH2=2 v
+	 ( 0 1 )	%  MH=no  OH2=2 a
+	 ( 0 1 )	%  MH=no  OH2=fl
+	 ( 0 1 )	%  MH=no  OH2=st
+	 ( 0 1 )	%  MH=no  OH2=3 v
+	 ( 0 1 ))	%  MH=no  OH2=stfl
+	(( 1 0 )	%  MH=1 ace  OH2=no
+	 ( 0.5 0.5 )	%  MH=1 ace  OH2=1 a
+	 ( 0 1 )	%  MH=1 ace  OH2=2 v
+	 ( 0 1 )	%  MH=1 ace  OH2=2 a
+	 ( 0 1 )	%  MH=1 ace  OH2=fl
+	 ( 0 1 )	%  MH=1 ace  OH2=st
+	 ( 0 1 )	%  MH=1 ace  OH2=3 v
+	 ( 0 1 ))	%  MH=1 ace  OH2=stfl
+	(( 1 0 )	%  MH=2 consecutive  OH2=no
+	 ( 1 0 )	%  MH=2 consecutive  OH2=1 a
+	 ( 0.5 0.5 )	%  MH=2 consecutive  OH2=2 v
+	 ( 0 1 )	%  MH=2 consecutive  OH2=2 a
+	 ( 0 1 )	%  MH=2 consecutive  OH2=fl
+	 ( 0 1 )	%  MH=2 consecutive  OH2=st
+	 ( 0 1 )	%  MH=2 consecutive  OH2=3 v
+	 ( 0 1 ))	%  MH=2 consecutive  OH2=stfl
+	(( 1 0 )	%  MH=2 alike  OH2=no
+	 ( 1 0 )	%  MH=2 alike  OH2=1 a
+	 ( 1 0 )	%  MH=2 alike  OH2=2 v
+	 ( 0.5 0.5 )	%  MH=2 alike  OH2=2 a
+	 ( 0 1 )	%  MH=2 alike  OH2=fl
+	 ( 0 1 )	%  MH=2 alike  OH2=st
+	 ( 0 1 )	%  MH=2 alike  OH2=3 v
+	 ( 0 1 ))	%  MH=2 alike  OH2=stfl
+	(( 1 0 )	%  MH=flush  OH2=no
+	 ( 1 0 )	%  MH=flush  OH2=1 a
+	 ( 1 0 )	%  MH=flush  OH2=2 v
+	 ( 1 0 )	%  MH=flush  OH2=2 a
+	 ( 0.5 0.5 )	%  MH=flush  OH2=fl
+	 ( 0 1 )	%  MH=flush  OH2=st
+	 ( 0 1 )	%  MH=flush  OH2=3 v
+	 ( 0 1 ))	%  MH=flush  OH2=stfl
+	(( 1 0 )	%  MH=straight  OH2=no
+	 ( 1 0 )	%  MH=straight  OH2=1 a
+	 ( 1 0 )	%  MH=straight  OH2=2 v
+	 ( 1 0 )	%  MH=straight  OH2=2 a
+	 ( 1 0 )	%  MH=straight  OH2=fl
+	 ( 0.5 0.5 )	%  MH=straight  OH2=st
+	 ( 0 1 )	%  MH=straight  OH2=3 v
+	 ( 0 1 ))	%  MH=straight  OH2=stfl
+	(( 1 0 )	%  MH=3 alike  OH2=no
+	 ( 1 0 )	%  MH=3 alike  OH2=1 a
+	 ( 1 0 )	%  MH=3 alike  OH2=2 v
+	 ( 1 0 )	%  MH=3 alike  OH2=2 a
+	 ( 1 0 )	%  MH=3 alike  OH2=fl
+	 ( 1 0 )	%  MH=3 alike  OH2=st
+	 ( 0.5 0.5 )	%  MH=3 alike  OH2=3 v
+	 ( 0 1 ))	%  MH=3 alike  OH2=stfl
+	(( 1 0 )	%  MH=straight flush  OH2=no
+	 ( 1 0 )	%  MH=straight flush  OH2=1 a
+	 ( 1 0 )	%  MH=straight flush  OH2=2 v
+	 ( 1 0 )	%  MH=straight flush  OH2=2 a
+	 ( 1 0 )	%  MH=straight flush  OH2=fl
+	 ( 1 0 )	%  MH=straight flush  OH2=st
+	 ( 1 0 )	%  MH=straight flush  OH2=3 v
+	 ( 0.5 0.5 )));	%  MH=straight flush  OH2=stfl
+}
+
+potential (OH2 | SC OH1)
+{
+    data
+     = ((( 1 0 0 0 0 0 0 0 )	%  SC=0 Changed  OH1=no
+	 ( 0 1 0 0 0 0 0 0 )	%  SC=0 Changed  OH1=1 ace
+	 ( 1 0 0 0 0 0 0 0 )	%  SC=0 Changed  OH1=2 consecutive
+	 ( 1 0 0 0 0 0 0 0 )	%  SC=0 Changed  OH1=2 of a suit
+	 ( 0 0 0.9231 0.0769 0 0 0 0 )	%  SC=0 Changed  OH1=2 alike
+	 ( 0 0 0 0 1 0 0 0 )	%  SC=0 Changed  OH1=flush
+	 ( 0 0 0 0 0 1 0 0 )	%  SC=0 Changed  OH1=straight
+	 ( 0 0 0 0 0 0 1 0 )	%  SC=0 Changed  OH1=3 alike
+	 ( 0 0 0 0 0 0 0 1 ))	%  SC=0 Changed  OH1=straight flush
+	(( 1 0 0 0 0 0 0 0 )	%  SC=1 Changed  OH1=no
+	 ( 0 1 0 0 0 0 0 0 )	%  SC=1 Changed  OH1=1 ace
+	 ( 0.5903 0.1181 0.1154 0.0096 0 0.1666 0 0 )	%  SC=1 Changed  OH1=2 consecutive
+	 ( 0.5121 0.1024 0.1154 0.0096 0.2188 0.0313 0 0.0104 )	%  SC=1 Changed  OH1=2 of a suit
+	 ( 0 0 0.8838 0.0736 0 0 0.0426 0 )	%  SC=1 Changed  OH1=2 alike
+	 ( 0 0 0 0 1 0 0 0 )	%  SC=1 Changed  OH1=flush
+	 ( 0 0 0 0 0 1 0 0 )	%  SC=1 Changed  OH1=straight
+	 ( 0 0 0 0 0 0 1 0 )	%  SC=1 Changed  OH1=3 alike
+	 ( 0 0 0 0 0 0 0 1 ))	%  SC=1 Changed  OH1=straight flush
+	(( 0.5613 0.157 0.1757 0.0055 0.0559 0.0392 0.0027 0.0027 )	%  SC=2 Changed  OH1=no
+	 ( 0 0.7183 0.0667 0.1145 0.0559 0.0392 0.0027 0.0027 )	%  SC=2 Changed  OH1=1 ace
+	 ( 1 0 0 0 0 0 0 0 )	%  SC=2 Changed  OH1=2 consecutive
+	 ( 1 0 0 0 0 0 0 0 )	%  SC=2 Changed  OH1=2 of a suit
+	 ( 1 0 0 0 0 0 0 0 )	%  SC=2 Changed  OH1=2 alike
+	 ( 1 0 0 0 0 0 0 0 )	%  SC=2 Changed  OH1=flush
+	 ( 1 0 0 0 0 0 0 0 )	%  SC=2 Changed  OH1=straight
+	 ( 1 0 0 0 0 0 0 0 )	%  SC=2 Changed  OH1=3 alike
+	 ( 1 0 0 0 0 0 0 0 )));	%  SC=2 Changed  OH1=straight flush
+}
+
+potential (MH)
+{
+    data = ( 0.125 0.125 0.125 0.125 0.125 0.125 0.125 0.125 );
+}
+
+potential (OH1 | FC OH0)
+{
+    data
+     = ((( 1 0 0 0 0 0 0 0 0 )	%  FC=o changed  OH0=no
+	 ( 0 1 0 0 0 0 0 0 0 )	%  FC=o changed  OH0=1 ace
+	 ( 0 0 1 0 0 0 0 0 0 )	%  FC=o changed  OH0=2 consecutive
+	 ( 0 0 0 1 0 0 0 0 0 )	%  FC=o changed  OH0=2 of a suit
+	 ( 0 0 0 0 1 0 0 0 0 )	%  FC=o changed  OH0=2 alike
+	 ( 0 0 0 0 0 1 0 0 0 )	%  FC=o changed  OH0=flush
+	 ( 0 0 0 0 0 0 1 0 0 )	%  FC=o changed  OH0=straight
+	 ( 0 0 0 0 0 0 0 1 0 )	%  FC=o changed  OH0=3 alike
+	 ( 0 0 0 0 0 0 0 0 1 ))	%  FC=o changed  OH0=straight flush
+	(( 1 0 0 0 0 0 0 0 0 )	%  FC=1 changed  OH0=no
+	 ( 0 1 0 0 0 0 0 0 0 )	%  FC=1 changed  OH0=1 ace
+	 ( 0 0 0.347 0.3674 0.1224 0 0.1632 0 0 )	%  FC=1 changed  OH0=2 consecutive
+	 ( 0 0 0 0.6224 0.1224 0.2143 0.0307 0 0.0102 )	%  FC=1 changed  OH0=2 of a suit
+	 ( 0 0 0 0 0.9592 0 0 0.0408 0 )	%  FC=1 changed  OH0=2 alike
+	 ( 0 0 1 0 0 0 0 0 0 )	%  FC=1 changed  OH0=flush
+	 ( 0 0 0 1 0 0 0 0 0 )	%  FC=1 changed  OH0=straight
+	 ( 0 0 0 0 1 0 0 0 0 )	%  FC=1 changed  OH0=3 alike
+	 ( 0 0 0 0 0 0.5 0.5 0 0 ))	%  FC=1 changed  OH0=straight flush
+	(( 1 0 0 0 0 0 0 0 0 )	%  FC=2 changed  OH0=no
+	 ( 0 0.1814 0.0681 0.4796 0.1738 0.0536 0.0383 0.0026 0.0026 )	%  FC=2 changed  OH0=1 ace
+	 ( 1 0 0 0 0 0 0 0 0 )	%  FC=2 changed  OH0=2 consecutive
+	 ( 1 0 0 0 0 0 0 0 0 )	%  FC=2 changed  OH0=2 of a suit
+	 ( 1 0 0 0 0 0 0 0 0 )	%  FC=2 changed  OH0=2 alike
+	 ( 1 0 0 0 0 0 0 0 0 )	%  FC=2 changed  OH0=flush
+	 ( 1 0 0 0 0 0 0 0 0 )	%  FC=2 changed  OH0=straight
+	 ( 1 0 0 0 0 0 0 0 0 )	%  FC=2 changed  OH0=3 alike
+	 ( 1 0 0 0 0 0 0 0 0 ))	%  FC=2 changed  OH0=straight flush
+	(( 0.1583 0.0534 0.0635 0.4659 0.1694 0.0494 0.0353 0.0024 0.0024 )	%  FC=3 changed  OH0=no
+	 ( 0 1 0 0 0 0 0 0 0 )	%  FC=3 changed  OH0=1 ace
+	 ( 0 0 1 0 0 0 0 0 0 )	%  FC=3 changed  OH0=2 consecutive
+	 ( 0 0 0 1 0 0 0 0 0 )	%  FC=3 changed  OH0=2 of a suit
+	 ( 0 0 0 0 1 0 0 0 0 )	%  FC=3 changed  OH0=2 alike
+	 ( 0 0 0 0 0 1 0 0 0 )	%  FC=3 changed  OH0=flush
+	 ( 0 0 0 0 0 0 1 0 0 )	%  FC=3 changed  OH0=straight
+	 ( 0 0 0 0 0 0 0 1 0 )	%  FC=3 changed  OH0=3 alike
+	 ( 0 0 0 0 0 0 0 0 1 )));	%  FC=3 changed  OH0=straight flush
+}
+
+potential (SC | OH1)
+{
+    data
+     = (( 0 0 1 )	%  OH1=no
+	( 0 0 1 )	%  OH1=1 ace
+	( 0 1 0 )	%  OH1=2 consecutive
+	( 0 1 0 )	%  OH1=2 of a suit
+	( 0 1 0 )	%  OH1=2 alike
+	( 1 0 0 )	%  OH1=flush
+	( 1 0 0 )	%  OH1=straight
+	( 1 0 0 )	%  OH1=3 alike
+	( 1 0 0 ));	%  OH1=straight flush
+}
+
+potential (OH0)
+{
+    data = ( 0.1672 0.0445 0.0635 0.4659 0.1694 0.0494 0.0353 0.0024 0.0024 );
+}
+
+potential (FC | OH0)
+{
+    data
+     = (( 0 0 0 1 )	%  OH0=no
+	( 0 0 1 0 )	%  OH0=1 ace
+	( 0 1 0 0 )	%  OH0=2 consecutive
+	( 0 1 0 0 )	%  OH0=2 of a suit
+	( 0 1 0 0 )	%  OH0=2 alike
+	( 1 0 0 0 )	%  OH0=flush
+	( 1 0 0 0 )	%  OH0=straight
+	( 1 0 0 0 )	%  OH0=3 alike
+	( 1 0 0 0 ));	%  OH0=straight flush
+}

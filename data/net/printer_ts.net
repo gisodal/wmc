@@ -1,0 +1,516 @@
+net
+{
+    node_size = (100 40);
+    HR_Grid_X = "10";
+    HR_Grid_Y = "10";
+    HR_Grid_GridSnap = "1";
+    HR_Grid_GridShow = "0";
+    HR_Font_Name = "Arial";
+    HR_Font_Size = "-12";
+    HR_Font_Weight = "400";
+    HR_Font_Italic = "0";
+    HR_Propagate_Auto = "0";
+    HR_Propagate_AutoSum = "1";
+    HR_Propagate_AutoNormal = "1";
+    HR_Compile_TriangMethod = "0";
+    HR_Compile_Compress = "0";
+    HR_Compile_Approximate = "0";
+    HR_Compile_ApproxEpsilon = "0.00001";
+    HR_Monitor_AutoUpdGraph = "0";
+    HR_Monitor_GraphPrecision = "100";
+    HR_Monitor_OpenGraph = "0";
+    HR_Monitor_InitStates = "5";
+    HR_Monitor_InitSD = "2";
+    HR_Color_DiscreteChance = "16";
+    HR_Color_ContinuosChance = "48";
+    HR_Color_Utility = "36";
+    HR_Color_Decision = "17";
+    HR_Groups_UserGroupsNo = "0";
+    HR_Groups_GroupNames = "";
+    HR_Groups_GroupColors = "";
+    HRUNTIME_Grid_X = "10";
+    HRUNTIME_Grid_Y = "10";
+    HRUNTIME_Grid_GridSnap = "1";
+    HRUNTIME_Grid_GridShow = "0";
+    HRUNTIME_Font_Name = "Arial";
+    HRUNTIME_Font_Size = "-12";
+    HRUNTIME_Font_Weight = "400";
+    HRUNTIME_Font_Italic = "0";
+    HRUNTIME_Propagate_Auto = "0";
+    HRUNTIME_Propagate_AutoSum = "1";
+    HRUNTIME_Propagate_AutoNormal = "1";
+    HRUNTIME_Compile_TriangMethod = "0";
+    HRUNTIME_Compile_Compress = "0";
+    HRUNTIME_Compile_Approximate = "0";
+    HRUNTIME_Compile_ApproxEpsilon = "0.00001";
+    HRUNTIME_Monitor_AutoUpdGraph = "0";
+    HRUNTIME_Monitor_GraphPrecision = "100";
+    HRUNTIME_Monitor_OpenGraph = "0";
+    HRUNTIME_Monitor_InitStates = "5";
+}
+
+node node29
+{
+    label = "Net Printer Pathname";
+    position = (563 214);
+    states = ("ok" "fault");
+}
+
+node node28
+{
+    label = "Document";
+    position = (494 639);
+    states = ("ok" "fault");
+}
+
+node node27
+{
+    label = "Application";
+    position = (342 640);
+    states = ("ok" "fault");
+}
+
+node node26
+{
+    label = "Print Spooling";
+    position = (256 568);
+    states = ("ok" "fault");
+}
+
+node node25
+{
+    label = "Application Data";
+    position = (401 569);
+    states = ("ok" "fault");
+}
+
+node node24
+{
+    label = "Local Disk Space";
+    position = (604 460);
+    states = ("ok" "fault");
+}
+
+node node23
+{
+    label = "PrtSpoolProc";
+    position = (603 534);
+    states = ("ok" "fault");
+}
+
+node node22
+{
+    label = "Driver File Status";
+    position = (145 358);
+    states = ("ok" "fault");
+}
+
+node node21
+{
+    label = "Driver Configuration";
+    position = (145 416);
+    states = ("ok" "fault");
+}
+
+node node20
+{
+    label = "Correct Driver";
+    position = (145 478);
+    states = ("ok" "fault");
+}
+
+node node19
+{
+    label = "LCLGDI";
+    position = (473 497);
+    states = ("ok" "fault");
+}
+
+node node18
+{
+    label = "GDI Input";
+    position = (336 497);
+    states = ("ok" "fault");
+}
+
+node node17
+{
+    label = "GDI Output OK";
+    position = (336 416);
+    states = ("ok" "fault");
+}
+
+node node16
+{
+    label = "Correct Printer Selection";
+    position = (499 332);
+    states = ("ok" "fault");
+}
+
+node node15
+{
+    label = "Cable/Port Hardware";
+    position = (119 297);
+    states = ("ok" "fault");
+}
+
+node node14
+{
+    label = "Local Printer Cable";
+    position = (46 224);
+    states = ("ok" "fault");
+}
+
+node node13
+{
+    label = "Local Paper Supply";
+    position = (0 146);
+    states = ("ok" "fault");
+}
+
+node node12
+{
+    label = "Local Printer On and Online";
+    position = (57 76);
+    states = ("ok" "fault");
+}
+
+node node11
+{
+    label = "Network Configuration";
+    position = (568 149);
+    states = ("ok" "fault");
+}
+
+node node10
+{
+    label = "Print to File";
+    position = (437 251);
+    states = ("ok" "fault");
+}
+
+node node9
+{
+    label = "PrintDefaultOut";
+    position = (336 332);
+    states = ("ok" "fault");
+}
+
+node node8
+{
+    label = "LOCAL Transport";
+    position = (212 224);
+    states = ("ok" "fault");
+}
+
+node node7
+{
+    label = "NET Transport";
+    position = (379 139);
+    states = ("ok" "fault");
+}
+
+node node6
+{
+    label = "Local Printer OK";
+    position = (132 146);
+    states = ("ok" "fault");
+}
+
+node node5
+{
+    label = "Net Printer On and Online";
+    position = (457 79);
+    states = ("ok" "fault");
+}
+
+node node4
+{
+    label = "Net Printer Paper Supply";
+    position = (537 0);
+    states = ("ok" "fault");
+}
+
+node node3
+{
+    label = "Net Printer OK";
+    position = (400 0);
+    states = ("ok" "fault");
+}
+
+node node2
+{
+    label = "Printer Location";
+    position = (90 0);
+    states = ("ok" "fault");
+}
+
+node node1
+{
+    label = "Printer Output";
+    position = (250 0);
+    states = ("ok" "fault");
+}
+
+potential (node29)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (node28)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (node27)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (node26)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (node25 | node28 node27)
+{
+    data
+     = ((( 0.5 0.5 )	%  node28=ok  node27=ok
+	 ( 0.5 0.5 ))	%  node28=ok  node27=fault
+	(( 0.5 0.5 )	%  node28=fault  node27=ok
+	 ( 0.5 0.5 )));	%  node28=fault  node27=fault
+}
+
+potential (node24)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (node23)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (node22)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (node21)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (node20)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (node19 | node23 node24)
+{
+    data
+     = ((( 0.5 0.5 )	%  node23=ok  node24=ok
+	 ( 0.5 0.5 ))	%  node23=ok  node24=fault
+	(( 0.5 0.5 )	%  node23=fault  node24=ok
+	 ( 0.5 0.5 )));	%  node23=fault  node24=fault
+}
+
+potential (node18 | node19 node25 node26)
+{
+    data
+     = (((( 0.5 0.5 )	%  node19=ok  node25=ok  node26=ok
+	  ( 0.5 0.5 ))	%  node19=ok  node25=ok  node26=fault
+	 (( 0.5 0.5 )	%  node19=ok  node25=fault  node26=ok
+	  ( 0.5 0.5 )))	%  node19=ok  node25=fault  node26=fault
+	((( 0.5 0.5 )	%  node19=fault  node25=ok  node26=ok
+	  ( 0.5 0.5 ))	%  node19=fault  node25=ok  node26=fault
+	 (( 0.5 0.5 )	%  node19=fault  node25=fault  node26=ok
+	  ( 0.5 0.5 ))));	%  node19=fault  node25=fault  node26=fault
+}
+
+potential (node17 | node18 node22 node21 node20)
+{
+    data
+     = ((((( 0.5 0.5 )	%  node18=ok  node22=ok  node21=ok  node20=ok
+	   ( 0.5 0.5 ))	%  node18=ok  node22=ok  node21=ok  node20=fault
+	  (( 0.5 0.5 )	%  node18=ok  node22=ok  node21=fault  node20=ok
+	   ( 0.5 0.5 )))	%  node18=ok  node22=ok  node21=fault  node20=fault
+	 ((( 0.5 0.5 )	%  node18=ok  node22=fault  node21=ok  node20=ok
+	   ( 0.5 0.5 ))	%  node18=ok  node22=fault  node21=ok  node20=fault
+	  (( 0.5 0.5 )	%  node18=ok  node22=fault  node21=fault  node20=ok
+	   ( 0.5 0.5 ))))	%  node18=ok  node22=fault  node21=fault  node20=fault
+	(((( 0.5 0.5 )	%  node18=fault  node22=ok  node21=ok  node20=ok
+	   ( 0.5 0.5 ))	%  node18=fault  node22=ok  node21=ok  node20=fault
+	  (( 0.5 0.5 )	%  node18=fault  node22=ok  node21=fault  node20=ok
+	   ( 0.5 0.5 )))	%  node18=fault  node22=ok  node21=fault  node20=fault
+	 ((( 0.5 0.5 )	%  node18=fault  node22=fault  node21=ok  node20=ok
+	   ( 0.5 0.5 ))	%  node18=fault  node22=fault  node21=ok  node20=fault
+	  (( 0.5 0.5 )	%  node18=fault  node22=fault  node21=fault  node20=ok
+	   ( 0.5 0.5 )))));	%  node18=fault  node22=fault  node21=fault  node20=fault
+}
+
+potential (node16)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (node15)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (node14)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (node13)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (node12)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (node11)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (node10 | node9)
+{
+    data
+     = (( 0.5 0.5 )	%  node9=ok
+	( 0.5 0.5 ));	%  node9=fault
+}
+
+potential (node9 | node16 node17)
+{
+    data
+     = ((( 0.5 0.5 )	%  node16=ok  node17=ok
+	 ( 0.5 0.5 ))	%  node16=ok  node17=fault
+	(( 0.5 0.5 )	%  node16=fault  node17=ok
+	 ( 0.5 0.5 )));	%  node16=fault  node17=fault
+}
+
+potential (node8 | node15 node14)
+{
+    data
+     = ((( 0.5 0.5 )	%  node15=ok  node14=ok
+	 ( 0.5 0.5 ))	%  node15=ok  node14=fault
+	(( 0.5 0.5 )	%  node15=fault  node14=ok
+	 ( 0.5 0.5 )));	%  node15=fault  node14=fault
+}
+
+potential (node7 | node11 node29)
+{
+    data
+     = ((( 0.5 0.5 )	%  node11=ok  node29=ok
+	 ( 0.5 0.5 ))	%  node11=ok  node29=fault
+	(( 0.5 0.5 )	%  node11=fault  node29=ok
+	 ( 0.5 0.5 )));	%  node11=fault  node29=fault
+}
+
+potential (node6 | node13 node12)
+{
+    data
+     = ((( 0.5 0.5 )	%  node13=ok  node12=ok
+	 ( 0.5 0.5 ))	%  node13=ok  node12=fault
+	(( 0.5 0.5 )	%  node13=fault  node12=ok
+	 ( 0.5 0.5 )));	%  node13=fault  node12=fault
+}
+
+potential (node5)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (node4)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (node3 | node5 node4)
+{
+    data
+     = ((( 0.5 0.5 )	%  node5=ok  node4=ok
+	 ( 0.5 0.5 ))	%  node5=ok  node4=fault
+	(( 0.5 0.5 )	%  node5=fault  node4=ok
+	 ( 0.5 0.5 )));	%  node5=fault  node4=fault
+}
+
+potential (node2)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (node1 | node3 node2 node7 node6 node9 node8)
+{
+    data
+     = ((((((( 0.5 0.5 )	%  node3=ok  node2=ok  node7=ok  node6=ok  node9=ok  node8=ok
+	     ( 0.5 0.5 ))	%  node3=ok  node2=ok  node7=ok  node6=ok  node9=ok  node8=fault
+	    (( 0.5 0.5 )	%  node3=ok  node2=ok  node7=ok  node6=ok  node9=fault  node8=ok
+	     ( 0.5 0.5 )))	%  node3=ok  node2=ok  node7=ok  node6=ok  node9=fault  node8=fault
+	   ((( 0.5 0.5 )	%  node3=ok  node2=ok  node7=ok  node6=fault  node9=ok  node8=ok
+	     ( 0.5 0.5 ))	%  node3=ok  node2=ok  node7=ok  node6=fault  node9=ok  node8=fault
+	    (( 0.5 0.5 )	%  node3=ok  node2=ok  node7=ok  node6=fault  node9=fault  node8=ok
+	     ( 0.5 0.5 ))))	%  node3=ok  node2=ok  node7=ok  node6=fault  node9=fault  node8=fault
+	  (((( 0.5 0.5 )	%  node3=ok  node2=ok  node7=fault  node6=ok  node9=ok  node8=ok
+	     ( 0.5 0.5 ))	%  node3=ok  node2=ok  node7=fault  node6=ok  node9=ok  node8=fault
+	    (( 0.5 0.5 )	%  node3=ok  node2=ok  node7=fault  node6=ok  node9=fault  node8=ok
+	     ( 0.5 0.5 )))	%  node3=ok  node2=ok  node7=fault  node6=ok  node9=fault  node8=fault
+	   ((( 0.5 0.5 )	%  node3=ok  node2=ok  node7=fault  node6=fault  node9=ok  node8=ok
+	     ( 0.5 0.5 ))	%  node3=ok  node2=ok  node7=fault  node6=fault  node9=ok  node8=fault
+	    (( 0.5 0.5 )	%  node3=ok  node2=ok  node7=fault  node6=fault  node9=fault  node8=ok
+	     ( 0.5 0.5 )))))	%  node3=ok  node2=ok  node7=fault  node6=fault  node9=fault  node8=fault
+	 ((((( 0.5 0.5 )	%  node3=ok  node2=fault  node7=ok  node6=ok  node9=ok  node8=ok
+	     ( 0.5 0.5 ))	%  node3=ok  node2=fault  node7=ok  node6=ok  node9=ok  node8=fault
+	    (( 0.5 0.5 )	%  node3=ok  node2=fault  node7=ok  node6=ok  node9=fault  node8=ok
+	     ( 0.5 0.5 )))	%  node3=ok  node2=fault  node7=ok  node6=ok  node9=fault  node8=fault
+	   ((( 0.5 0.5 )	%  node3=ok  node2=fault  node7=ok  node6=fault  node9=ok  node8=ok
+	     ( 0.5 0.5 ))	%  node3=ok  node2=fault  node7=ok  node6=fault  node9=ok  node8=fault
+	    (( 0.5 0.5 )	%  node3=ok  node2=fault  node7=ok  node6=fault  node9=fault  node8=ok
+	     ( 0.5 0.5 ))))	%  node3=ok  node2=fault  node7=ok  node6=fault  node9=fault  node8=fault
+	  (((( 0.5 0.5 )	%  node3=ok  node2=fault  node7=fault  node6=ok  node9=ok  node8=ok
+	     ( 0.5 0.5 ))	%  node3=ok  node2=fault  node7=fault  node6=ok  node9=ok  node8=fault
+	    (( 0.5 0.5 )	%  node3=ok  node2=fault  node7=fault  node6=ok  node9=fault  node8=ok
+	     ( 0.5 0.5 )))	%  node3=ok  node2=fault  node7=fault  node6=ok  node9=fault  node8=fault
+	   ((( 0.5 0.5 )	%  node3=ok  node2=fault  node7=fault  node6=fault  node9=ok  node8=ok
+	     ( 0.5 0.5 ))	%  node3=ok  node2=fault  node7=fault  node6=fault  node9=ok  node8=fault
+	    (( 0.5 0.5 )	%  node3=ok  node2=fault  node7=fault  node6=fault  node9=fault  node8=ok
+	     ( 0.5 0.5 ))))))	%  node3=ok  node2=fault  node7=fault  node6=fault  node9=fault  node8=fault
+	(((((( 0.5 0.5 )	%  node3=fault  node2=ok  node7=ok  node6=ok  node9=ok  node8=ok
+	     ( 0.5 0.5 ))	%  node3=fault  node2=ok  node7=ok  node6=ok  node9=ok  node8=fault
+	    (( 0.5 0.5 )	%  node3=fault  node2=ok  node7=ok  node6=ok  node9=fault  node8=ok
+	     ( 0.5 0.5 )))	%  node3=fault  node2=ok  node7=ok  node6=ok  node9=fault  node8=fault
+	   ((( 0.5 0.5 )	%  node3=fault  node2=ok  node7=ok  node6=fault  node9=ok  node8=ok
+	     ( 0.5 0.5 ))	%  node3=fault  node2=ok  node7=ok  node6=fault  node9=ok  node8=fault
+	    (( 0.5 0.5 )	%  node3=fault  node2=ok  node7=ok  node6=fault  node9=fault  node8=ok
+	     ( 0.5 0.5 ))))	%  node3=fault  node2=ok  node7=ok  node6=fault  node9=fault  node8=fault
+	  (((( 0.5 0.5 )	%  node3=fault  node2=ok  node7=fault  node6=ok  node9=ok  node8=ok
+	     ( 0.5 0.5 ))	%  node3=fault  node2=ok  node7=fault  node6=ok  node9=ok  node8=fault
+	    (( 0.5 0.5 )	%  node3=fault  node2=ok  node7=fault  node6=ok  node9=fault  node8=ok
+	     ( 0.5 0.5 )))	%  node3=fault  node2=ok  node7=fault  node6=ok  node9=fault  node8=fault
+	   ((( 0.5 0.5 )	%  node3=fault  node2=ok  node7=fault  node6=fault  node9=ok  node8=ok
+	     ( 0.5 0.5 ))	%  node3=fault  node2=ok  node7=fault  node6=fault  node9=ok  node8=fault
+	    (( 0.5 0.5 )	%  node3=fault  node2=ok  node7=fault  node6=fault  node9=fault  node8=ok
+	     ( 0.5 0.5 )))))	%  node3=fault  node2=ok  node7=fault  node6=fault  node9=fault  node8=fault
+	 ((((( 0.5 0.5 )	%  node3=fault  node2=fault  node7=ok  node6=ok  node9=ok  node8=ok
+	     ( 0.5 0.5 ))	%  node3=fault  node2=fault  node7=ok  node6=ok  node9=ok  node8=fault
+	    (( 0.5 0.5 )	%  node3=fault  node2=fault  node7=ok  node6=ok  node9=fault  node8=ok
+	     ( 0.5 0.5 )))	%  node3=fault  node2=fault  node7=ok  node6=ok  node9=fault  node8=fault
+	   ((( 0.5 0.5 )	%  node3=fault  node2=fault  node7=ok  node6=fault  node9=ok  node8=ok
+	     ( 0.5 0.5 ))	%  node3=fault  node2=fault  node7=ok  node6=fault  node9=ok  node8=fault
+	    (( 0.5 0.5 )	%  node3=fault  node2=fault  node7=ok  node6=fault  node9=fault  node8=ok
+	     ( 0.5 0.5 ))))	%  node3=fault  node2=fault  node7=ok  node6=fault  node9=fault  node8=fault
+	  (((( 0.5 0.5 )	%  node3=fault  node2=fault  node7=fault  node6=ok  node9=ok  node8=ok
+	     ( 0.5 0.5 ))	%  node3=fault  node2=fault  node7=fault  node6=ok  node9=ok  node8=fault
+	    (( 0.5 0.5 )	%  node3=fault  node2=fault  node7=fault  node6=ok  node9=fault  node8=ok
+	     ( 0.5 0.5 )))	%  node3=fault  node2=fault  node7=fault  node6=ok  node9=fault  node8=fault
+	   ((( 0.5 0.5 )	%  node3=fault  node2=fault  node7=fault  node6=fault  node9=ok  node8=ok
+	     ( 0.5 0.5 ))	%  node3=fault  node2=fault  node7=fault  node6=fault  node9=ok  node8=fault
+	    (( 0.5 0.5 )	%  node3=fault  node2=fault  node7=fault  node6=fault  node9=fault  node8=ok
+	     ( 0.5 0.5 )))))));	%  node3=fault  node2=fault  node7=fault  node6=fault  node9=fault  node8=fault
+}

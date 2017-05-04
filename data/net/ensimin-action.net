@@ -1,0 +1,263 @@
+net
+{
+    node_size = (80 40);
+    HR_Node_Label_Style = "0";
+    HR_Desc = "Six weeks after insemination of a cow, there are two tests for the result: A blood test (BT) and a urine test (UT). Given one or more results of these tests, determine whether or not to perform a new insemination. \n\nTwo different approaches are examined: one using a Bayesian network, and one using an influence diagram.";
+    HR_OOBN_FitExpand = "1";
+    HR_Zoom_ZoomFactor = "100";
+    HR_Groups_GroupColors = "47";
+    HR_Groups_GroupNames = "test\t";
+    HR_Groups_UserGroupsNo = "1";
+    HR_Color_Interface = "21";
+    HR_Color_Instance = "0";
+    HR_Color_Utility = "36";
+    HR_Color_Decision = "17";
+    HR_Color_ContinuousChance = "32";
+    HR_Color_DiscreteChance = "16";
+    HR_Monitor_InitSD = "2";
+    HR_Monitor_InitStates = "5";
+    HR_Monitor_OpenGraph = "0";
+    HR_Monitor_GraphPrecision = "100";
+    HR_Monitor_AutoUpdGraph = "0";
+    HR_Compile_MaxMinimalSeparators = "100000";
+    HR_Compile_ApproxEpsilon = "1.0E-4";
+    HR_Compile_Approximate = "0";
+    HR_Compile_Compress = "0";
+    HR_Compile_TriangMethod = "0";
+    HR_Propagate_AutoNormal = "1";
+    HR_Propagate_AutoSum = "1";
+    HR_Propagate_Auto = "1";
+    HR_Font_Italic = "0";
+    HR_Font_Weight = "400";
+    HR_Font_Size = "-12";
+    HR_Font_Name = "Arial";
+    HR_Grid_GridShow = "0";
+    HR_Grid_GridSnap = "1";
+    HR_Grid_Y = "10";
+    HR_Grid_X = "10";
+    HRUNTIME_Grid_X = "10";
+    HRUNTIME_Grid_Y = "10";
+    HRUNTIME_Grid_GridSnap = "1";
+    HRUNTIME_Grid_GridShow = "0";
+    HRUNTIME_Font_Name = "Arial";
+    HRUNTIME_Font_Size = "-12";
+    HRUNTIME_Font_Weight = "400";
+    HRUNTIME_Font_Italic = "0";
+    HRUNTIME_Propagate_Auto = "0";
+    HRUNTIME_Propagate_AutoSum = "1";
+    HRUNTIME_Propagate_AutoNormal = "1";
+    HRUNTIME_Compile_TriangMethod = "0";
+    HRUNTIME_Compile_Compress = "0";
+    HRUNTIME_Compile_Approximate = "0";
+    HRUNTIME_Compile_ApproxEpsilon = "0.00001";
+    HRUNTIME_Monitor_AutoUpdGraph = "0";
+    HRUNTIME_Monitor_GraphPrecision = "100";
+    HRUNTIME_Monitor_OpenGraph = "0";
+    HRUNTIME_Monitor_InitStates = "5";
+}
+
+node Repeat
+{
+    label = "";
+    position = (390 30);
+    states = ("na" "rp");
+    HR_Desc = "The decision on whether or not to reinseminate";
+}
+
+node Normutil
+{
+    label = "";
+    position = (310 90);
+    states = ("yes" "no");
+    HR_Desc = "This node emulates the state of the cow, given its current state, and a possible reinsemination. I.e., if no reinsemination takes place, the state will remain the same. If a reinsemination is performed, the probability of the cow being pregnant is increased (given that it wasnt already pregnant)";
+}
+
+node Pr_1
+{
+    label = "Pr";
+    position = (550 40);
+    states = ("yes" "no");
+    HR_Desc = "Is the cow pregnant or not";
+}
+
+node Ho_1
+{
+    label = "Ho";
+    position = (440 120);
+    states = ("yes" "no");
+    HR_State_1 = "No hormonal changes have taken place";
+    HR_State_0 = "Hormonal changes have taken place";
+    HR_Desc = "Both the tests for pregnancy (BT and UT) actually traces the hormonal state of the cow. This state is modelled by this node.";
+}
+
+node Sc_1
+{
+    label = "Sc";
+    position = (560 130);
+    states = ("yes" "no");
+    HR_Desc = "It is also possible to perform a screening of the cow, to more precisely determine whether the cow is pregnant or not";
+}
+
+node BT_1
+{
+    label = "BT ";
+    position = (380 180);
+    states = ("yes" "no");
+    HR_Desc = "The result of the blood test";
+}
+
+node UT_1
+{
+    label = "UT ";
+    position = (490 180);
+    states = ("yes" "no");
+    HR_Desc = "The result of the urine test";
+}
+
+decision Repeat_1
+{
+    label = "Repeat";
+    position = (730 40);
+    states = ("na" "rp");
+    HR_Desc = "The decision on whether or not to reinseminate";
+}
+
+utility Utility
+{
+    label = "Utility";
+    position = (660 120);
+    HR_Desc = "The utility of each decision given the state of the cow";
+}
+
+node UT
+{
+    label = "";
+    position = (160 170);
+    states = ("yes" "no");
+    HR_Desc = "The result of the urine test";
+}
+
+node BT
+{
+    label = "";
+    position = (50 170);
+    states = ("yes" "no");
+    HR_Desc = "The result of the blood test";
+}
+
+node Sc
+{
+    label = "";
+    position = (230 120);
+    states = ("yes" "no");
+    HR_Desc = "It is also possible to perform a screening of the cow, to more precisely determine whether the cow is pregnant or not";
+}
+
+node Ho
+{
+    label = "";
+    position = (110 110);
+    states = ("yes" "no");
+    HR_State_1 = "No hormonal changes have taken place";
+    HR_State_0 = "Hormonal changes have taken place";
+    HR_Desc = "Both the tests for pregnancy (BT and UT) actually traces the hormonal state of the cow. This state is modelled by this node.";
+}
+
+node Pr
+{
+    label = "";
+    position = (220 30);
+    states = ("yes" "no");
+    HR_Desc = "Is the cow pregnant or not";
+}
+
+potential (Repeat)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (Normutil | Repeat Pr)
+{
+    data
+     = ((( 1 0 )	%  Repeat=na  Pr=yes
+	 ( 0 1 ))	%  Repeat=na  Pr=no
+	(( 1 0 )	%  Repeat=rp  Pr=yes
+	 ( 0.31 0.69 )));	%  Repeat=rp  Pr=no
+}
+
+potential (Pr_1)
+{
+    data = ( 0.87 0.13 );
+}
+
+potential (Ho_1 | Pr_1)
+{
+    data
+     = (( 0.9 0.1 )	%  Pr_1=yes
+	( 0.01 0.99 ));	%  Pr_1=no
+}
+
+potential (Sc_1 | Pr_1)
+{
+    data
+     = (( 0.9 0.1 )	%  Pr_1=yes
+	( 0.01 0.99 ));	%  Pr_1=no
+}
+
+potential (BT_1 | Ho_1)
+{
+    data
+     = (( 0.7 0.3 )	%  Ho_1=yes
+	( 0.1 0.9 ));	%  Ho_1=no
+}
+
+potential (UT_1 | Ho_1)
+{
+    data
+     = (( 0.8 0.2 )	%  Ho_1=yes
+	( 0.1 0.9 ));	%  Ho_1=no
+}
+
+potential (Repeat_1) {}
+
+potential (Utility | Pr_1 Repeat_1)
+{
+    data
+     = (( 200	%  Pr_1=yes  Repeat_1=na
+	  134 )	%  Pr_1=yes  Repeat_1=rp
+	( 104	%  Pr_1=no  Repeat_1=na
+	  134 ));	%  Pr_1=no  Repeat_1=rp
+}
+
+potential (UT | Ho)
+{
+    data
+     = (( 0.8 0.2 )	%  Ho=yes
+	( 0.1 0.9 ));	%  Ho=no
+}
+
+potential (BT | Ho)
+{
+    data
+     = (( 0.7 0.3 )	%  Ho=yes
+	( 0.1 0.9 ));	%  Ho=no
+}
+
+potential (Sc | Pr)
+{
+    data
+     = (( 0.9 0.1 )	%  Pr=yes
+	( 0.01 0.99 ));	%  Pr=no
+}
+
+potential (Ho | Pr)
+{
+    data
+     = (( 0.9 0.1 )	%  Pr=yes
+	( 0.01 0.99 ));	%  Pr=no
+}
+
+potential (Pr)
+{
+    data = ( 0.87 0.13 );
+}

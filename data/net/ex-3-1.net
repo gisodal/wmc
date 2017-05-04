@@ -1,0 +1,90 @@
+net
+{
+    node_size = (80 40);
+    HRUNTIME_Grid_X = "10";
+    HRUNTIME_Grid_Y = "10";
+    HRUNTIME_Grid_GridSnap = "1";
+    HRUNTIME_Grid_GridShow = "0";
+    HRUNTIME_Font_Name = "Arial";
+    HRUNTIME_Font_Size = "-12";
+    HRUNTIME_Font_Weight = "400";
+    HRUNTIME_Font_Italic = "0";
+    HRUNTIME_Propagate_Auto = "0";
+    HRUNTIME_Propagate_AutoSum = "1";
+    HRUNTIME_Propagate_AutoNormal = "1";
+    HRUNTIME_Compile_TriangMethod = "0";
+    HRUNTIME_Compile_Compress = "0";
+    HRUNTIME_Compile_Approximate = "0";
+    HRUNTIME_Compile_ApproxEpsilon = "0.00001";
+    HRUNTIME_Monitor_AutoUpdGraph = "0";
+    HRUNTIME_Monitor_GraphPrecision = "100";
+    HRUNTIME_Monitor_OpenGraph = "0";
+    HRUNTIME_Monitor_InitStates = "5";
+}
+
+node UT
+{
+    label = "UT";
+    position = (210 0);
+    states = ("yes" "no");
+}
+
+node BT
+{
+    label = "";
+    states = ("yes" "no");
+}
+
+node Sc
+{
+    label = "";
+    position = (330 50);
+    states = ("yes" "no");
+}
+
+node Ho
+{
+    label = "";
+    position = (120 70);
+    states = ("yes" "no");
+}
+
+node Pr
+{
+    label = "";
+    position = (230 130);
+    states = ("yes" "no");
+}
+
+potential (UT | Ho)
+{
+    data
+     = (( 0.8 0.2 )	%  Ho=yes
+	( 0.1 0.9 ));	%  Ho=no
+}
+
+potential (BT | Ho)
+{
+    data
+     = (( 0.7 0.3 )	%  Ho=yes
+	( 0.1 0.9 ));	%  Ho=no
+}
+
+potential (Sc | Pr)
+{
+    data
+     = (( 0.9 0.1 )	%  Pr=yes
+	( 0.01 0.99 ));	%  Pr=no
+}
+
+potential (Ho | Pr)
+{
+    data
+     = (( 0.9 0.1 )	%  Pr=yes
+	( 0.01 0.99 ));	%  Pr=no
+}
+
+potential (Pr)
+{
+    data = ( 0.87 0.13 );
+}

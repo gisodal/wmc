@@ -1,0 +1,239 @@
+net
+{
+    node_size = (100 40);
+    HR_Node_Label_Style = "0";
+    HR_Desc = "If the car wont start, it can have three different causes:\nthe spark plugs, the engine, or the fuel subsystem.\nEach of these may fail for a number of reasons. This network helps determine the cause of the problem, based on a number of observations that can be made.";
+    HR_OOBN_FitExpand = "1";
+    HR_Zoom_ZoomFactor = "100";
+    HR_Color_Interface = "21";
+    HR_Color_Instance = "0";
+    HR_Color_ContinuousChance = "32";
+    HR_Compile_MaxMinimalSeparators = "100000";
+    HR_Grid_X = "10";
+    HR_Grid_Y = "10";
+    HR_Grid_GridSnap = "1";
+    HR_Grid_GridShow = "0";
+    HR_Font_Name = "Arial";
+    HR_Font_Size = "-12";
+    HR_Font_Weight = "400";
+    HR_Font_Italic = "0";
+    HR_Propagate_Auto = "0";
+    HR_Propagate_AutoSum = "1";
+    HR_Propagate_AutoNormal = "1";
+    HR_Compile_TriangMethod = "0";
+    HR_Compile_Compress = "0";
+    HR_Compile_Approximate = "0";
+    HR_Compile_ApproxEpsilon = "0.00001";
+    HR_Monitor_AutoUpdGraph = "0";
+    HR_Monitor_GraphPrecision = "100";
+    HR_Monitor_OpenGraph = "0";
+    HR_Monitor_InitStates = "5";
+    HR_Monitor_InitSD = "2";
+    HR_Color_DiscreteChance = "16";
+    HR_Color_ContinuosChance = "48";
+    HR_Color_Utility = "36";
+    HR_Color_Decision = "17";
+    HR_Groups_UserGroupsNo = "0";
+    HR_Groups_GroupNames = "test\t";
+    HR_Groups_GroupColors = "47";
+    HRUNTIME_Grid_X = "10";
+    HRUNTIME_Grid_Y = "10";
+    HRUNTIME_Grid_GridSnap = "1";
+    HRUNTIME_Grid_GridShow = "0";
+    HRUNTIME_Font_Name = "Arial";
+    HRUNTIME_Font_Size = "-12";
+    HRUNTIME_Font_Weight = "400";
+    HRUNTIME_Font_Italic = "0";
+    HRUNTIME_Propagate_Auto = "0";
+    HRUNTIME_Propagate_AutoSum = "1";
+    HRUNTIME_Propagate_AutoNormal = "1";
+    HRUNTIME_Compile_TriangMethod = "0";
+    HRUNTIME_Compile_Compress = "0";
+    HRUNTIME_Compile_Approximate = "0";
+    HRUNTIME_Compile_ApproxEpsilon = "0.00001";
+    HRUNTIME_Monitor_AutoUpdGraph = "0";
+    HRUNTIME_Monitor_GraphPrecision = "100";
+    HRUNTIME_Monitor_OpenGraph = "0";
+    HRUNTIME_Monitor_InitStates = "5";
+}
+
+node node12
+{
+    label = "Starter";
+    position = (61 191);
+    states = ("ok" "fault");
+}
+
+node node11
+{
+    label = "Spark Plugs";
+    position = (140 30);
+    states = ("ok" "fault");
+    HR_Desc = "Is the spark plugs faulty ?";
+}
+
+node node10
+{
+    label = "Engine Turns Over";
+    position = (211 153);
+    states = ("ok" "fault");
+    HR_Desc = "Whether the engine turns over, depends on the state of the starter and the state of the battery.";
+}
+
+node node8
+{
+    label = "Battery";
+    position = (211 269);
+    states = ("ok" "fault");
+    HR_Desc = "The state of the battery. An indication of this can be found by observing the lights.";
+}
+
+node node9
+{
+    label = "Lights";
+    position = (60 269);
+    states = ("ok" "fault");
+    HR_Desc = "Are the lights on. If not, it is an indication that the battery may be faulty";
+}
+
+node node7
+{
+    label = "Battery Age";
+    position = (211 345);
+    states = ("ok" "fault");
+    HR_Desc = "The age of the battery. ";
+}
+
+node node6
+{
+    label = "Engine Starts";
+    position = (308 30);
+    states = ("ok" "fault");
+    HR_Desc = "Does the engine start. This depends on the state of the spark plugs, whether the engine turns over, and the fuel subsystem.";
+}
+
+node node3
+{
+    label = "Fuel Subsystem";
+    position = (404 157);
+    states = ("ok" "fault");
+    HR_Desc = "Does the fuel subsystem work ? This depends on the line, the pump, and on whether or not fuel is on the car.";
+}
+
+node node5
+{
+    label = "Fuel Line";
+    position = (467 258);
+    states = ("ok" "fault");
+    HR_Desc = "Is the fuel line ok ?";
+}
+
+node node4
+{
+    label = "Fuel Pump";
+    position = (346 261);
+    states = ("ok" "fault");
+    HR_Desc = "Is the fuel pump ok ?";
+}
+
+node node1
+{
+    label = "Fuel";
+    position = (592 256);
+    states = ("ok" "fault");
+    HR_Desc = "Is there fuel on the car ?";
+}
+
+node node2
+{
+    label = "Fuel Gauge";
+    position = (592 111);
+    states = ("ok" "fault");
+    HR_Desc = "The fuel gauge can be observed, to determine whether there is fuel on the car.";
+}
+
+potential (node12)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (node11)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (node10 | node8 node12)
+{
+    data
+     = ((( 0.5 0.5 )	%  node8=ok  node12=ok
+	 ( 0.5 0.5 ))	%  node8=ok  node12=fault
+	(( 0.5 0.5 )	%  node8=fault  node12=ok
+	 ( 0.5 0.5 )));	%  node8=fault  node12=fault
+}
+
+potential (node8 | node7)
+{
+    data
+     = (( 0.5 0.5 )	%  node7=ok
+	( 0.5 0.5 ));	%  node7=fault
+}
+
+potential (node9 | node8)
+{
+    data
+     = (( 0.5 0.5 )	%  node8=ok
+	( 0.5 0.5 ));	%  node8=fault
+}
+
+potential (node7)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (node6 | node3 node10 node11)
+{
+    data
+     = (((( 0.5 0.5 )	%  node3=ok  node10=ok  node11=ok
+	  ( 0.5 0.5 ))	%  node3=ok  node10=ok  node11=fault
+	 (( 0.5 0.5 )	%  node3=ok  node10=fault  node11=ok
+	  ( 0.5 0.5 )))	%  node3=ok  node10=fault  node11=fault
+	((( 0.5 0.5 )	%  node3=fault  node10=ok  node11=ok
+	  ( 0.5 0.5 ))	%  node3=fault  node10=ok  node11=fault
+	 (( 0.5 0.5 )	%  node3=fault  node10=fault  node11=ok
+	  ( 0.5 0.5 ))));	%  node3=fault  node10=fault  node11=fault
+}
+
+potential (node3 | node5 node1 node4)
+{
+    data
+     = (((( 0.5 0.5 )	%  node5=ok  node1=ok  node4=ok
+	  ( 0.5 0.5 ))	%  node5=ok  node1=ok  node4=fault
+	 (( 0.5 0.5 )	%  node5=ok  node1=fault  node4=ok
+	  ( 0.5 0.5 )))	%  node5=ok  node1=fault  node4=fault
+	((( 0.5 0.5 )	%  node5=fault  node1=ok  node4=ok
+	  ( 0.5 0.5 ))	%  node5=fault  node1=ok  node4=fault
+	 (( 0.5 0.5 )	%  node5=fault  node1=fault  node4=ok
+	  ( 0.5 0.5 ))));	%  node5=fault  node1=fault  node4=fault
+}
+
+potential (node5)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (node4)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (node1)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (node2 | node1)
+{
+    data
+     = (( 0.5 0.5 )	%  node1=ok
+	( 0.5 0.5 ));	%  node1=fault
+}

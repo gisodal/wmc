@@ -1,0 +1,259 @@
+class headache_ici_oobn
+{
+    inputs = (ot Fe Ho Fb Bt);
+    outputs = (Ha);
+    node_size = (100 40);
+    HRUNTIME_Monitor_InitStates = "5";
+    HRUNTIME_Monitor_OpenGraph = "0";
+    HRUNTIME_Monitor_GraphPrecision = "100";
+    HRUNTIME_Monitor_AutoUpdGraph = "0";
+    HRUNTIME_Compile_ApproxEpsilon = "0.00001";
+    HRUNTIME_Compile_Approximate = "0";
+    HRUNTIME_Compile_Compress = "0";
+    HRUNTIME_Compile_TriangMethod = "0";
+    HRUNTIME_Propagate_AutoNormal = "1";
+    HRUNTIME_Propagate_AutoSum = "1";
+    HRUNTIME_Propagate_Auto = "0";
+    HRUNTIME_Font_Italic = "0";
+    HRUNTIME_Font_Weight = "400";
+    HRUNTIME_Font_Size = "-12";
+    HRUNTIME_Font_Name = "Arial";
+    HRUNTIME_Grid_GridShow = "0";
+    HRUNTIME_Grid_GridSnap = "1";
+    HRUNTIME_Grid_Y = "10";
+    HRUNTIME_Grid_X = "10";
+    HR_Groups_GroupColors = "";
+    HR_Groups_GroupNames = "";
+    HR_Groups_UserGroupsNo = "0";
+    HR_Color_Decision = "17";
+    HR_Color_Utility = "36";
+    HR_Color_ContinuosChance = "48";
+    HR_Color_DiscreteChance = "16";
+    HR_Monitor_InitSD = "2";
+    HR_Monitor_InitStates = "5";
+    HR_Monitor_OpenGraph = "0";
+    HR_Monitor_GraphPrecision = "100";
+    HR_Monitor_AutoUpdGraph = "0";
+    HR_Compile_ApproxEpsilon = "0.00001";
+    HR_Compile_Approximate = "0";
+    HR_Compile_Compress = "0";
+    HR_Compile_TriangMethod = "0";
+    HR_Propagate_AutoNormal = "1";
+    HR_Propagate_AutoSum = "1";
+    HR_Propagate_Auto = "0";
+    HR_Font_Italic = "0";
+    HR_Font_Weight = "400";
+    HR_Font_Size = "-12";
+    HR_Font_Name = "Arial";
+    HR_Grid_GridShow = "0";
+    HR_Grid_GridSnap = "1";
+    HR_Grid_Y = "10";
+    HR_Grid_X = "10";
+
+    node Ha3
+    {
+	label = "Ha (3)";
+	position = (250 270);
+	states = ("false" "true");
+	subtype = boolean;
+    }
+
+    node Ha2
+    {
+	label = "Ha (2)";
+	position = (400 220);
+	states = ("false" "true");
+	subtype = boolean;
+    }
+
+    node Ha1
+    {
+	label = "Ha (1)";
+	position = (150 230);
+	states = ("false" "true");
+	subtype = boolean;
+    }
+
+    node EBt
+    {
+	label = "EBt";
+	position = (590 140);
+	states = ("false" "true");
+	subtype = boolean;
+    }
+
+    node EFb
+    {
+	label = "EFb";
+	position = (470 150);
+	states = ("false" "true");
+	subtype = boolean;
+    }
+
+    node EHo
+    {
+	label = "EHo";
+	position = (330 150);
+	states = ("false" "true");
+	subtype = boolean;
+    }
+
+    node EFe
+    {
+	label = "EFe";
+	position = (210 140);
+	states = ("false" "true");
+	subtype = boolean;
+    }
+
+    node Eot
+    {
+	label = "Eot";
+	position = (80 150);
+	states = ("false" "true");
+	subtype = boolean;
+    }
+
+    node Ha
+    {
+	label = "Ha";
+	position = (370 300);
+	states = ("false" "true");
+	subtype = boolean;
+	HR_Grp = "";
+	HR_State_1 = "";
+	HR_State_0 = "";
+    }
+
+    node Bt
+    {
+	label = "Bt";
+	position = (590 40);
+	states = ("false" "true");
+	subtype = boolean;
+	HR_Grp = "";
+	HR_State_1 = "";
+	HR_State_0 = "";
+    }
+
+    node Fb
+    {
+	label = "Fb";
+	position = (470 40);
+	states = ("false" "true");
+	subtype = boolean;
+	HR_Grp = "";
+	HR_State_1 = "";
+	HR_State_0 = "";
+    }
+
+    node Ho
+    {
+	label = "Ho";
+	position = (330 40);
+	states = ("false" "true");
+	subtype = boolean;
+	HR_Grp = "";
+	HR_State_1 = "";
+	HR_State_0 = "";
+    }
+
+    node Fe
+    {
+	label = "Fe";
+	position = (200 30);
+	states = ("false" "true");
+	subtype = boolean;
+    }
+
+    node ot
+    {
+	label = "ot";
+	position = (80 31);
+	states = ("present");
+    }
+
+    potential (Ha3 | Ha2 Ha1)
+    {
+	data = ((( 1 0 )	%  Ha2=false  Ha1=false
+		 ( 0 1 ))	%  Ha2=false  Ha1=true
+		(( 0 1 )	%  Ha2=true  Ha1=false
+		 ( 0 1 )));	%  Ha2=true  Ha1=true
+    }
+
+    potential (Ha2 | EFb EHo)
+    {
+	data = ((( 1 0 )	%  EFb=false  EHo=false
+		 ( 0 1 ))	%  EFb=false  EHo=true
+		(( 0 1 )	%  EFb=true  EHo=false
+		 ( 0 1 )));	%  EFb=true  EHo=true
+    }
+
+    potential (Ha1 | EFe Eot)
+    {
+	data = ((( 1 0 )	%  EFe=false  Eot=false
+		 ( 0 1 ))	%  EFe=false  Eot=true
+		(( 0 1 )	%  EFe=true  Eot=false
+		 ( 0 1 )));	%  EFe=true  Eot=true
+    }
+
+    potential (EBt | Bt)
+    {
+	data = (( 1 0 )	%  Bt=false
+		( 0.3 0.7 ));	%  Bt=true
+    }
+
+    potential (EFb | Fb)
+    {
+	data = (( 1 0 )	%  Fb=false
+		( 0.1 0.9 ));	%  Fb=true
+    }
+
+    potential (EHo | Ho)
+    {
+	data = (( 1 0 )	%  Ho=false
+		( 0.1 0.9 ));	%  Ho=true
+    }
+
+    potential (EFe | Fe)
+    {
+	data = (( 1 0 )	%  Fe=false
+		( 0.1 0.9 ));	%  Fe=true
+    }
+
+    potential (Eot | ot)
+    {
+	data = (( 0.93 0.07 ));	%  ot=present
+    }
+
+    potential (Ha | EBt Ha3)
+    {
+	model_nodes = ();
+	model_data = ( or (EBt, Ha3) );
+    }
+
+    potential (Bt)
+    {
+	data = ( 0.5 0.5 );
+    }
+
+    potential (Fb)
+    {
+	data = ( 0.5 0.5 );
+    }
+
+    potential (Ho)
+    {
+	data = ( 0.5 0.5 );
+    }
+
+    potential (Fe)
+    {
+	data = ( 0.5 0.5 );
+    }
+
+    potential (ot)
+    {
+	data = ( 1 );
+    }
+} % class headache_ici_oobn

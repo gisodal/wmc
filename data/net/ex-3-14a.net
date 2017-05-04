@@ -1,0 +1,172 @@
+net
+{
+    node_size = (80 40);
+    HR_Monitor_InitSD = "2";
+    HR_Monitor_InitStates = "5";
+    HR_Monitor_OpenGraph = "0";
+    HR_Monitor_GraphPrecision = "100";
+    HR_Monitor_AutoUpdGraph = "0";
+    HR_Compile_ApproxEpsilon = "0.00001";
+    HR_Compile_Approximate = "0";
+    HR_Compile_Compress = "0";
+    HR_Compile_TriangMethod = "0";
+    HR_Propagate_AutoNormal = "1";
+    HR_Propagate_AutoSum = "1";
+    HR_Propagate_Auto = "0";
+    HR_Font_Italic = "0";
+    HR_Font_Weight = "400";
+    HR_Font_Size = "-12";
+    HR_Font_Name = "Arial";
+    HR_Grid_GridShow = "0";
+    HR_Grid_GridSnap = "1";
+    HR_Grid_Y = "10";
+    HR_Grid_X = "10";
+    HRUNTIME_Monitor_InitStates = "5";
+    HRUNTIME_Monitor_OpenGraph = "0";
+    HRUNTIME_Monitor_GraphPrecision = "100";
+    HRUNTIME_Monitor_AutoUpdGraph = "0";
+    HRUNTIME_Compile_ApproxEpsilon = "0.00001";
+    HRUNTIME_Compile_Approximate = "0";
+    HRUNTIME_Compile_Compress = "0";
+    HRUNTIME_Compile_TriangMethod = "0";
+    HRUNTIME_Propagate_AutoNormal = "1";
+    HRUNTIME_Propagate_AutoSum = "1";
+    HRUNTIME_Propagate_Auto = "0";
+    HRUNTIME_Font_Italic = "0";
+    HRUNTIME_Font_Weight = "400";
+    HRUNTIME_Font_Size = "-12";
+    HRUNTIME_Font_Name = "Arial";
+    HRUNTIME_Grid_GridShow = "0";
+    HRUNTIME_Grid_GridSnap = "1";
+    HRUNTIME_Grid_Y = "10";
+    HRUNTIME_Grid_X = "10";
+}
+
+node Background
+{
+    position = (0 110);
+    states = ("state");
+}
+
+node Rain
+{
+    position = (140 110);
+    states = ("y" "n");
+}
+
+node Wind
+{
+    position = (290 110);
+    states = ("y" "n");
+}
+
+node R_result
+{
+    label = "R-result";
+    position = (140 0);
+    states = ("putt" "miss");
+}
+
+node W_result
+{
+    label = "W-result";
+    position = (290 0);
+    states = ("putt" "miss");
+}
+
+node Curved
+{
+    position = (430 110);
+    states = ("y" "n");
+}
+
+node C_result
+{
+    label = "C-result";
+    position = (430 0);
+    states = ("putt" "miss");
+}
+
+node Birdie
+{
+    position = (570 110);
+    states = ("y" "n");
+}
+
+node Result
+{
+    position = (570 0);
+    states = ("putt" "miss");
+}
+
+node Intial
+{
+    states = ("putt" "miss");
+}
+
+potential (Background)
+{
+    data = ( 1 );
+}
+
+potential (Rain)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (Wind)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (R_result | Intial Rain)
+{
+    data
+     = ((( 0.857143 0.142857 )	%  Intial=putt  Rain=y
+	 ( 1 0 ))	%  Intial=putt  Rain=n
+	(( 0 1 )	%  Intial=miss  Rain=y
+	 ( 0 1 )));	%  Intial=miss  Rain=n
+}
+
+potential (W_result | Wind R_result)
+{
+    data
+     = ((( 0.75 0.25 )	%  Wind=y  R_result=putt
+	 ( 0 1 ))	%  Wind=y  R_result=miss
+	(( 1 0 )	%  Wind=n  R_result=putt
+	 ( 0 1 )));	%  Wind=n  R_result=miss
+}
+
+potential (Curved)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (C_result | Curved W_result)
+{
+    data
+     = ((( 0.666667 0.333333 )	%  Curved=y  W_result=putt
+	 ( 0 1 ))	%  Curved=y  W_result=miss
+	(( 1 0 )	%  Curved=n  W_result=putt
+	 ( 0 1 )));	%  Curved=n  W_result=miss
+}
+
+potential (Birdie)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (Result | Birdie C_result)
+{
+    data
+     = ((( 0.5 0.5 )	%  Birdie=y  C_result=putt
+	 ( 0 1 ))	%  Birdie=y  C_result=miss
+	(( 1 0 )	%  Birdie=n  C_result=putt
+	 ( 0 1 )));	%  Birdie=n  C_result=miss
+}
+
+potential (Intial | Background)
+{
+    data
+     = (( 0.9 0.1 ));	%  Background=state
+}

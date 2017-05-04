@@ -1,0 +1,37 @@
+net
+{
+}
+node asia
+{
+  states = ( "yes" "no" );
+}
+node tub
+{
+  states = ( "yes" "no" );
+}
+node either
+{
+  states = ( "yes" "no" );
+}
+node xray
+{
+  states = ( "yes" "no" );
+}
+
+potential ( asia )
+{
+  data = ( 0.01 0.99 );
+}
+potential ( tub | asia )
+{
+  data = ((0.05 0.95)(0.01 0.99)) ;
+}
+potential ( either | tub )
+{
+  data = ((1.0 0.0)(1.0 0.0)) ;
+}
+potential ( xray | either asia)
+{
+  data = ((1 2)(3 4)(5 6)(7 8)) ;
+}
+

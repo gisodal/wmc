@@ -1,0 +1,199 @@
+net
+{
+    node_size = (100 40);
+    HRUNTIME_Grid_X = "10";
+    HRUNTIME_Grid_Y = "10";
+    HRUNTIME_Grid_GridSnap = "1";
+    HRUNTIME_Grid_GridShow = "0";
+    HRUNTIME_Font_Name = "Arial";
+    HRUNTIME_Font_Size = "-12";
+    HRUNTIME_Font_Weight = "400";
+    HRUNTIME_Font_Italic = "0";
+    HRUNTIME_Propagate_Auto = "0";
+    HRUNTIME_Propagate_AutoSum = "1";
+    HRUNTIME_Propagate_AutoNormal = "1";
+    HRUNTIME_Compile_TriangMethod = "0";
+    HRUNTIME_Compile_Compress = "0";
+    HRUNTIME_Compile_Approximate = "0";
+    HRUNTIME_Compile_ApproxEpsilon = "0.00001";
+    HRUNTIME_Monitor_AutoUpdGraph = "0";
+    HRUNTIME_Monitor_GraphPrecision = "100";
+    HRUNTIME_Monitor_OpenGraph = "0";
+    HRUNTIME_Monitor_InitStates = "5";
+}
+
+node B
+{
+    label = "";
+    position = (160 150);
+    states = ("y" "n");
+}
+
+node Conj1
+{
+    label = "";
+    position = (60 0);
+    states = ("y" "n");
+}
+
+node C
+{
+    label = "";
+    position = (320 150);
+    states = ("y" "n");
+}
+
+node E
+{
+    label = "";
+    position = (590 150);
+    states = ("y" "n");
+}
+
+node Conj2
+{
+    label = "";
+    position = (230 0);
+    states = ("y" "n");
+}
+
+node A
+{
+    label = "";
+    position = (0 160);
+    states = ("y" "n");
+}
+
+node D
+{
+    label = "";
+    position = (460 150);
+    states = ("y" "n");
+}
+
+node F
+{
+    label = "";
+    position = (730 160);
+    states = ("y" "n");
+}
+
+node Conj3
+{
+    label = "";
+    position = (420 0);
+    states = ("y" "n");
+}
+
+node Result
+{
+    label = "";
+    position = (590 0);
+    states = ("y" "n");
+}
+
+potential (B)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (Conj1 | A B C)
+{
+    data
+     = (((( 1 0 )	%  A=y  B=y  C=y
+	  ( 1 0 ))	%  A=y  B=y  C=n
+	 (( 1 0 )	%  A=y  B=n  C=y
+	  ( 1 0 )))	%  A=y  B=n  C=n
+	((( 1 0 )	%  A=n  B=y  C=y
+	  ( 0 1 ))	%  A=n  B=y  C=n
+	 (( 0 1 )	%  A=n  B=n  C=y
+	  ( 1 0 ))));	%  A=n  B=n  C=n
+}
+
+potential (C)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (E)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (Conj2 | B C D Conj1)
+{
+    data
+     = ((((( 1 0 )	%  B=y  C=y  D=y  Conj1=y
+	   ( 0 1 ))	%  B=y  C=y  D=y  Conj1=n
+	  (( 0 1 )	%  B=y  C=y  D=n  Conj1=y
+	   ( 0 1 )))	%  B=y  C=y  D=n  Conj1=n
+	 ((( 1 0 )	%  B=y  C=n  D=y  Conj1=y
+	   ( 0 1 ))	%  B=y  C=n  D=y  Conj1=n
+	  (( 1 0 )	%  B=y  C=n  D=n  Conj1=y
+	   ( 0 1 ))))	%  B=y  C=n  D=n  Conj1=n
+	(((( 1 0 )	%  B=n  C=y  D=y  Conj1=y
+	   ( 0 1 ))	%  B=n  C=y  D=y  Conj1=n
+	  (( 1 0 )	%  B=n  C=y  D=n  Conj1=y
+	   ( 0 1 )))	%  B=n  C=y  D=n  Conj1=n
+	 ((( 0 1 )	%  B=n  C=n  D=y  Conj1=y
+	   ( 0 1 ))	%  B=n  C=n  D=y  Conj1=n
+	  (( 1 0 )	%  B=n  C=n  D=n  Conj1=y
+	   ( 0 1 )))));	%  B=n  C=n  D=n  Conj1=n
+}
+
+potential (A)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (D)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (F)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (Conj3 | C E F Conj2)
+{
+    data
+     = ((((( 1 0 )	%  C=y  E=y  F=y  Conj2=y
+	   ( 0 1 ))	%  C=y  E=y  F=y  Conj2=n
+	  (( 1 0 )	%  C=y  E=y  F=n  Conj2=y
+	   ( 0 1 )))	%  C=y  E=y  F=n  Conj2=n
+	 ((( 0 1 )	%  C=y  E=n  F=y  Conj2=y
+	   ( 0 1 ))	%  C=y  E=n  F=y  Conj2=n
+	  (( 1 0 )	%  C=y  E=n  F=n  Conj2=y
+	   ( 0 1 ))))	%  C=y  E=n  F=n  Conj2=n
+	(((( 0 1 )	%  C=n  E=y  F=y  Conj2=y
+	   ( 0 1 ))	%  C=n  E=y  F=y  Conj2=n
+	  (( 1 0 )	%  C=n  E=y  F=n  Conj2=y
+	   ( 0 1 )))	%  C=n  E=y  F=n  Conj2=n
+	 ((( 1 0 )	%  C=n  E=n  F=y  Conj2=y
+	   ( 0 1 ))	%  C=n  E=n  F=y  Conj2=n
+	  (( 1 0 )	%  C=n  E=n  F=n  Conj2=y
+	   ( 0 1 )))));	%  C=n  E=n  F=n  Conj2=n
+}
+
+potential (Result | A D F Conj3)
+{
+    data
+     = ((((( 1 0 )	%  A=y  D=y  F=y  Conj3=y
+	   ( 0 1 ))	%  A=y  D=y  F=y  Conj3=n
+	  (( 1 0 )	%  A=y  D=y  F=n  Conj3=y
+	   ( 0 1 )))	%  A=y  D=y  F=n  Conj3=n
+	 ((( 1 0 )	%  A=y  D=n  F=y  Conj3=y
+	   ( 0 1 ))	%  A=y  D=n  F=y  Conj3=n
+	  (( 0 1 )	%  A=y  D=n  F=n  Conj3=y
+	   ( 0 1 ))))	%  A=y  D=n  F=n  Conj3=n
+	(((( 1 0 )	%  A=n  D=y  F=y  Conj3=y
+	   ( 0 1 ))	%  A=n  D=y  F=y  Conj3=n
+	  (( 0 1 )	%  A=n  D=y  F=n  Conj3=y
+	   ( 0 1 )))	%  A=n  D=y  F=n  Conj3=n
+	 ((( 1 0 )	%  A=n  D=n  F=y  Conj3=y
+	   ( 0 1 ))	%  A=n  D=n  F=y  Conj3=n
+	  (( 1 0 )	%  A=n  D=n  F=n  Conj3=y
+	   ( 0 1 )))));	%  A=n  D=n  F=n  Conj3=n
+}

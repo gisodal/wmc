@@ -1,0 +1,77 @@
+net
+{
+    node_size = (80 40);
+    HRUNTIME_Monitor_InitStates = "5";
+    HRUNTIME_Monitor_OpenGraph = "0";
+    HRUNTIME_Monitor_GraphPrecision = "100";
+    HRUNTIME_Monitor_AutoUpdGraph = "0";
+    HRUNTIME_Compile_ApproxEpsilon = "0.00001";
+    HRUNTIME_Compile_Approximate = "0";
+    HRUNTIME_Compile_Compress = "0";
+    HRUNTIME_Compile_TriangMethod = "0";
+    HRUNTIME_Propagate_AutoNormal = "1";
+    HRUNTIME_Propagate_AutoSum = "1";
+    HRUNTIME_Propagate_Auto = "0";
+    HRUNTIME_Font_Italic = "0";
+    HRUNTIME_Font_Weight = "400";
+    HRUNTIME_Font_Size = "-12";
+    HRUNTIME_Font_Name = "Arial";
+    HRUNTIME_Grid_GridShow = "0";
+    HRUNTIME_Grid_GridSnap = "1";
+    HRUNTIME_Grid_Y = "10";
+    HRUNTIME_Grid_X = "10";
+}
+
+node R
+{
+    label = "";
+    position = (280 0);
+    states = ("yes" "no");
+}
+
+node A
+{
+    label = "";
+    position = (90 0);
+    states = ("yes" "no");
+}
+
+node E
+{
+    label = "";
+    position = (190 80);
+    states = ("yes" "no");
+}
+
+node B
+{
+    label = "";
+    position = (0 80);
+    states = ("yes" "no");
+}
+
+potential (R | E)
+{
+    data
+     = (( 0.95 0.05 )	%  E=yes
+	( 0.01 0.99 ));	%  E=no
+}
+
+potential (A | E B)
+{
+    data
+     = ((( 0.98 0.02 )	%  E=yes  B=yes
+	 ( 0.95 0.05 ))	%  E=yes  B=no
+	(( 0.95 0.05 )	%  E=no  B=yes
+	 ( 0.03 0.97 )));	%  E=no  B=no
+}
+
+potential (E)
+{
+    data = ( 0.001 0.999 );
+}
+
+potential (B)
+{
+    data = ( 0.01 0.99 );
+}

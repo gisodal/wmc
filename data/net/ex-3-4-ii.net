@@ -1,0 +1,161 @@
+net
+{
+    node_size = (100 40);
+    HRUNTIME_Monitor_InitStates = "5";
+    HRUNTIME_Monitor_OpenGraph = "0";
+    HRUNTIME_Monitor_GraphPrecision = "100";
+    HRUNTIME_Monitor_AutoUpdGraph = "0";
+    HRUNTIME_Compile_ApproxEpsilon = "0.00001";
+    HRUNTIME_Compile_Approximate = "0";
+    HRUNTIME_Compile_Compress = "0";
+    HRUNTIME_Compile_TriangMethod = "0";
+    HRUNTIME_Propagate_AutoNormal = "1";
+    HRUNTIME_Propagate_AutoSum = "1";
+    HRUNTIME_Propagate_Auto = "0";
+    HRUNTIME_Font_Italic = "0";
+    HRUNTIME_Font_Weight = "400";
+    HRUNTIME_Font_Size = "-12";
+    HRUNTIME_Font_Name = "Arial";
+    HRUNTIME_Grid_GridShow = "0";
+    HRUNTIME_Grid_GridSnap = "1";
+    HRUNTIME_Grid_Y = "10";
+    HRUNTIME_Grid_X = "10";
+}
+
+node T1
+{
+    label = "";
+    position = (0 179);
+    states = ("a" "b");
+}
+
+node R1
+{
+    label = "";
+    position = (0 7);
+    states = ("a" "b" "c");
+}
+
+node T2
+{
+    label = "";
+    position = (161 179);
+    states = ("a" "b");
+}
+
+node R2
+{
+    label = "";
+    position = (161 5);
+    states = ("a" "b" "c");
+}
+
+node T3
+{
+    label = "";
+    position = (333 179);
+    states = ("a" "b");
+}
+
+node R3
+{
+    label = "";
+    position = (333 1);
+    states = ("a" "b" "c");
+}
+
+node T4
+{
+    label = "";
+    position = (486 179);
+    states = ("a" "b");
+}
+
+node R4
+{
+    label = "";
+    position = (486 0);
+    states = ("a" "b" "c");
+}
+
+node T5
+{
+    label = "";
+    position = (628 179);
+    states = ("a" "b");
+}
+
+node R5
+{
+    label = "";
+    position = (628 7);
+    states = ("a" "b" "c");
+}
+
+potential (T1)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (R1 | T1)
+{
+    data
+     = (( 0.8 0.1 0.1 )	%  T1=a
+	( 0.15 0.8 0.05 ));	%  T1=b
+}
+
+potential (T2 | T1)
+{
+    data
+     = (( 0.6 0.4 )	%  T1=a
+	( 0.4 0.6 ));	%  T1=b
+}
+
+potential (R2 | T2)
+{
+    data
+     = (( 0.8 0.1 0.1 )	%  T2=a
+	( 0.15 0.8 0.05 ));	%  T2=b
+}
+
+potential (T3 | T2)
+{
+    data
+     = (( 0.26 0.74 )	%  T2=a
+	( 0.74 0.26 ));	%  T2=b
+}
+
+potential (R3 | T3)
+{
+    data
+     = (( 0.8 0.1 0.1 )	%  T3=a
+	( 0.15 0.8 0.05 ));	%  T3=b
+}
+
+potential (T4 | T3)
+{
+    data
+     = (( 0.26 0.74 )	%  T3=a
+	( 0.74 0.26 ));	%  T3=b
+}
+
+potential (R4 | T4)
+{
+    data
+     = (( 0.8 0.1 0.1 )	%  T4=a
+	( 0.15 0.8 0.05 ));	%  T4=b
+}
+
+potential (T5 | T4)
+{
+    data
+     = (( 0.45 0.55 )	%  T4=a
+	( 0.55 0.45 ));	%  T4=b
+}
+
+potential (R5 | T5)
+{
+    data
+     = (( 0.8 0.1 0.1 )	%  T5=a
+	( 0.15 0.8 0.05 ));	%  T5=b
+}

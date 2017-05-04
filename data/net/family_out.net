@@ -1,0 +1,209 @@
+net
+{
+    node_size = (80 40);
+    HR_Node_Label_Style = "0";
+    HR_Desc = "The family_out network tries to determine whether or not a family is out given a set of observations. The key node in this example is the D_out node, which describes a \"noisy-or\".";
+    HR_OOBN_FitExpand = "1";
+    HR_Zoom_ZoomFactor = "100";
+    HR_Groups_GroupColors = "47";
+    HR_Groups_GroupNames = "test\t";
+    HR_Groups_UserGroupsNo = "1";
+    HR_Color_Interface = "21";
+    HR_Color_Instance = "0";
+    HR_Color_Utility = "36";
+    HR_Color_Decision = "17";
+    HR_Color_ContinuousChance = "32";
+    HR_Color_DiscreteChance = "16";
+    HR_Monitor_InitSD = "2";
+    HR_Monitor_InitStates = "5";
+    HR_Monitor_OpenGraph = "0";
+    HR_Monitor_GraphPrecision = "100";
+    HR_Monitor_AutoUpdGraph = "0";
+    HR_Compile_MaxMinimalSeparators = "100000";
+    HR_Compile_ApproxEpsilon = "1.0E-4";
+    HR_Compile_Approximate = "0";
+    HR_Compile_Compress = "0";
+    HR_Compile_TriangMethod = "0";
+    HR_Propagate_AutoNormal = "1";
+    HR_Propagate_AutoSum = "1";
+    HR_Propagate_Auto = "1";
+    HR_Font_Italic = "0";
+    HR_Font_Weight = "400";
+    HR_Font_Size = "-12";
+    HR_Font_Name = "Arial";
+    HR_Grid_GridShow = "0";
+    HR_Grid_GridSnap = "1";
+    HR_Grid_Y = "10";
+    HR_Grid_X = "10";
+    HRUNTIME_Monitor_InitStates = "5";
+    HRUNTIME_Monitor_OpenGraph = "0";
+    HRUNTIME_Monitor_GraphPrecision = "100";
+    HRUNTIME_Monitor_AutoUpdGraph = "0";
+    HRUNTIME_Compile_ApproxEpsilon = "0.00001";
+    HRUNTIME_Compile_Approximate = "0";
+    HRUNTIME_Compile_Compress = "0";
+    HRUNTIME_Compile_TriangMethod = "0";
+    HRUNTIME_Propagate_AutoNormal = "1";
+    HRUNTIME_Propagate_AutoSum = "1";
+    HRUNTIME_Propagate_Auto = "0";
+    HRUNTIME_Font_Italic = "0";
+    HRUNTIME_Font_Weight = "400";
+    HRUNTIME_Font_Size = "-12";
+    HRUNTIME_Font_Name = "Arial";
+    HRUNTIME_Grid_GridShow = "0";
+    HRUNTIME_Grid_GridSnap = "1";
+    HRUNTIME_Grid_Y = "10";
+    HRUNTIME_Grid_X = "10";
+}
+
+node C8_1
+{
+    label = "";
+    position = (470 30);
+    states = ("false" "true");
+    subtype = boolean;
+}
+
+node C7_1
+{
+    label = "";
+    position = (530 110);
+    states = ("false" "true");
+    subtype = boolean;
+}
+
+node C6_1
+{
+    label = "";
+    position = (400 110);
+    states = ("false" "true");
+    subtype = boolean;
+}
+
+node C8
+{
+    label = "";
+    position = (390 70);
+    states = ("false" "true");
+    subtype = boolean;
+}
+
+node C7
+{
+    label = "";
+    position = (450 150);
+    states = ("false" "true");
+    subtype = boolean;
+}
+
+node C6
+{
+    label = "";
+    position = (320 150);
+    states = ("false" "true");
+    subtype = boolean;
+}
+
+node C5
+{
+    label = "F-out?";
+    position = (50 290);
+    states = ("yes" "no");
+}
+
+node C4
+{
+    label = "BP?";
+    position = (120 220);
+    states = ("yes" "no");
+    HR_Desc = "Has the dog got bowel problems.";
+}
+
+node C3
+{
+    label = "D-out?";
+    position = (240 290);
+    states = ("yes" "no");
+    HR_Desc = "Is the dog outside. This can either be because the family is out, or the dog may have bowel problems.\nThe transition table of this node is specified using a noisy-or. The advantage to using a noisy-or is that it is not necessary to know the probability of all parent configurations. These can be calculated from P(D-out | F-out) and P(D-out | BP) and the probability of a \"background\" event. The latter is the probability of the dog being out even when none of the other conditions are present.\nIn this example we have the following knowledge:\nP(D-out=yes | F-out=yes) = 0.85\nP(D-out=yes | BP=yes) = 0.95\nP(D-out=yes | background event ) = 0.2\nSo \nP(D-out=yes | BP=yes, F-out=yes) = 1-0.8*0.15*0.05 = 0.994\nP(D-out=yes | BP=yes, F-out=no) = 1-0.8*0.05 = 0.96\nP(D-out=yes | BP=no, F-out=yes) = 1-0.8*0.15 = 0.88\n\nWere the nodes boolean, this can be specified using this expression:\nNoisyOR (F-out, 0.15, BP, 0.05, true, 0.8)\nThis contains the \"inhibitor\" (i.e., the probability for the each node not being true) for the nodes as well as for the background event.\n\n";
+}
+
+node C2
+{
+    label = "H-bark?";
+    position = (400 290);
+    states = ("yes" "no");
+    HR_Desc = "Can barking be heard (indicating that the dog is outside, which again indicates that the family may be out)";
+}
+
+node C1
+{
+    label = "L-on?";
+    position = (170 360);
+    states = ("yes" "no");
+    HR_Desc = "Are the outside lights on ? If this is the case, the family is very likely to be out.";
+}
+
+potential (C8_1)
+{
+    model_nodes = ();
+    model_data = (  );
+}
+
+potential (C7_1)
+{
+    data = ( 1 1 );
+}
+
+potential (C6_1)
+{
+    data = ( 1 1 );
+}
+
+potential (C8)
+{
+    model_nodes = ();
+    model_data = (  );
+}
+
+potential (C7)
+{
+    data = ( 1 1 );
+}
+
+potential (C6)
+{
+    data = ( 1 1 );
+}
+
+potential (C5)
+{
+    data = ( 0.2 0.8 );
+}
+
+potential (C4)
+{
+    data = ( 0.05 0.95 );
+}
+
+potential (C3 | C4 C5)
+{
+    data
+     = ((( 0.994 0.006 )	%  C4=yes  C5=yes
+	 ( 0.96 0.04 ))	%  C4=yes  C5=no
+	(( 0.88 0.12 )	%  C4=no  C5=yes
+	 ( 0.2 0.8 )));	%  C4=no  C5=no
+}
+
+potential (C2 | C3)
+{
+    data
+     = (( 0.9 0.1 )	%  C3=yes
+	( 0.1 0.9 ));	%  C3=no
+}
+
+potential (C1 | C5)
+{
+    data
+     = (( 0.99 0.01 )	%  C5=yes
+	( 0.1 0.9 ));	%  C5=no
+}

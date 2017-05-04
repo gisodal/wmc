@@ -1,0 +1,175 @@
+net
+{
+    node_size = (80 40);
+    HRUNTIME_Monitor_InitStates = "5";
+    HRUNTIME_Monitor_OpenGraph = "0";
+    HRUNTIME_Monitor_GraphPrecision = "100";
+    HRUNTIME_Monitor_AutoUpdGraph = "0";
+    HRUNTIME_Compile_ApproxEpsilon = "0.00001";
+    HRUNTIME_Compile_Approximate = "0";
+    HRUNTIME_Compile_Compress = "0";
+    HRUNTIME_Compile_TriangMethod = "0";
+    HRUNTIME_Propagate_AutoNormal = "1";
+    HRUNTIME_Propagate_AutoSum = "1";
+    HRUNTIME_Propagate_Auto = "0";
+    HRUNTIME_Font_Italic = "0";
+    HRUNTIME_Font_Weight = "400";
+    HRUNTIME_Font_Size = "-12";
+    HRUNTIME_Font_Name = "Arial";
+    HRUNTIME_Grid_GridShow = "0";
+    HRUNTIME_Grid_GridSnap = "1";
+    HRUNTIME_Grid_Y = "10";
+    HRUNTIME_Grid_X = "10";
+}
+
+utility C
+{
+    position = (150 0);
+}
+
+node OM
+{
+    label = "OM";
+    position = (0 30);
+    states = ("no" "l" "m" "s");
+}
+
+decision A
+{
+    label = "A";
+    position = (150 110);
+    states = ("no" "l" "m" "h");
+}
+
+utility U
+{
+    label = "U";
+    position = (300 150);
+}
+
+node Ms
+{
+    label = "M*";
+    position = (150 220);
+    states = ("no" "l" "m" "s");
+}
+
+node M
+{
+    label = "M";
+    position = (0 150);
+    states = ("no" "l" "m" "s");
+}
+
+node H
+{
+    label = "H";
+    position = (300 320);
+    states = ("r" "b" "p" "f" "a" "g" "v");
+}
+
+node OQ
+{
+    position = (0 240);
+    states = ("f" "a" "g" "v");
+}
+
+node Q
+{
+    label = "Q";
+    position = (0 340);
+    states = ("f" "a" "g" "v");
+}
+
+potential (C | A)
+{
+    data
+     = ( 0	%  A=no
+	 -2	%  A=l
+	 -3	%  A=m
+	 -4 );	%  A=h
+}
+
+potential (OM | M)
+{
+    data
+     = (( 0.9 0.1 0 0 )	%  M=no
+	( 0.2 0.5 0.2 0.1 )	%  M=l
+	( 0.1 0.2 0.5 0.2 )	%  M=m
+	( 0 0.1 0.3 0.6 ));	%  M=s
+}
+
+potential (A | OQ OM) {}
+
+potential (U | H)
+{
+    data
+     = ( -1	%  H=r
+	 1	%  H=b
+	 5	%  H=p
+	 8	%  H=f
+	 10	%  H=a
+	 12	%  H=g
+	 13 );	%  H=v
+}
+
+potential (Ms | A M)
+{
+    data
+     = ((( 1 0 0 0 )	%  A=no  M=no
+	 ( 0 1 0 0 )	%  A=no  M=l
+	 ( 0 0 1 0 )	%  A=no  M=m
+	 ( 0 0 0 1 ))	%  A=no  M=s
+	(( 1 0 0 0 )	%  A=l  M=no
+	 ( 0.8 0.2 0 0 )	%  A=l  M=l
+	 ( 0 0.8 0.2 0 )	%  A=l  M=m
+	 ( 0 0 0.8 0.2 ))	%  A=l  M=s
+	(( 1 0 0 0 )	%  A=m  M=no
+	 ( 1 0 0 0 )	%  A=m  M=l
+	 ( 0.8 0.2 0 0 )	%  A=m  M=m
+	 ( 0 0.8 0.2 0 ))	%  A=m  M=s
+	(( 1 0 0 0 )	%  A=h  M=no
+	 ( 1 0 0 0 )	%  A=h  M=l
+	 ( 1 0 0 0 )	%  A=h  M=m
+	 ( 0.8 0.2 0 0 )));	%  A=h  M=s
+}
+
+potential (M)
+{
+    data = ( 0.4 0.3 0.2 0.1 );
+}
+
+potential (H | Ms Q)
+{
+    data
+     = ((( 0 0.05 0.1 0.7 0.1 0.05 0 )	%  Ms=no  Q=f
+	 ( 0 0 0.05 0.1 0.7 0.1 0.05 )	%  Ms=no  Q=a
+	 ( 0 0 0 0.05 0.1 0.7 0.15 )	%  Ms=no  Q=g
+	 ( 0 0 0 0 0.1 0.2 0.7 ))	%  Ms=no  Q=v
+	(( 0.05 0.1 0.7 0.1 0.05 0 0 )	%  Ms=l  Q=f
+	 ( 0 0 0.05 0.1 0.7 0.1 0.05 )	%  Ms=l  Q=a
+	 ( 0 0 0.05 0.1 0.7 0.15 0 )	%  Ms=l  Q=g
+	 ( 0 0 0 0.05 0.15 0.7 0.1 ))	%  Ms=l  Q=v
+	(( 0.15 0.7 0.1 0.05 0 0 0 )	%  Ms=m  Q=f
+	 ( 0.05 0.1 0.7 0.1 0.05 0 0 )	%  Ms=m  Q=a
+	 ( 0 0.05 0.1 0.7 0.1 0.05 0 )	%  Ms=m  Q=g
+	 ( 0 0 0.05 0.1 0.7 0.15 0 ))	%  Ms=m  Q=v
+	(( 0.9 0.1 0 0 0 0 0 )	%  Ms=s  Q=f
+	 ( 0.15 0.7 0.1 0.05 0 0 0 )	%  Ms=s  Q=a
+	 ( 0.05 0.1 0.7 0.1 0.05 0 0 )	%  Ms=s  Q=g
+	 ( 0 0.05 0.1 0.7 0.1 0.05 0 )));	%  Ms=s  Q=v
+}
+
+potential (OQ | Q)
+{
+    data
+     = (( 0.8 0.15 0.05 0 )	%  Q=f
+	( 0.3 0.6 0.1 0 )	%  Q=a
+	( 0.1 0.2 0.6 0.1 )	%  Q=g
+	( 0 0.1 0.4 0.5 ));	%  Q=v
+}
+
+potential (Q)
+{
+    data = ( 0.2 0.4 0.3 0.1 );
+}

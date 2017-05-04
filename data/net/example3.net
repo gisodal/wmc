@@ -1,0 +1,66 @@
+net
+{
+}
+node a
+{
+  states = ( "a0" "a1" );
+}
+node b
+{
+  states = ( "b0" "b1" );
+}
+node c
+{
+  states = ( "c0" "c1" );
+}
+node d
+{
+  states = ( "d0" "d1" );
+}
+node e
+{
+  states = ( "e0" "e1" );
+}
+node f
+{
+  states = ( "f0" "f1" );
+}
+node g
+{
+  states = ( "g0" "g1" );
+}
+node h
+{
+  states = ( "g0" "g1" );
+}
+
+potential ( a )
+{
+  data = ( 0.5 0.5 );
+}
+potential ( b | a f )
+{
+  data = ((0.4 0.4)(0.4 0.4)(0.4 0.4)(0.4 0.4)) ;
+}
+potential ( c | a )
+{
+  data = ((0.4 0.4)(0.4 0.4)) ;
+}
+potential ( d | b )
+{
+  data = ((0.4 0.4)(0.4 0.4)) ;
+}
+potential ( e | d c )
+{
+  data = ((0.4 0.4)(0.4 0.4)(0.4 0.4)(0.4 0.4)) ;
+}
+potential (f | g){
+  data = ( (0.4 0.4)(0.4 0.4));
+}
+potential (g){
+  data = ( 0.5 0.5 );
+}
+potential (h | d){
+  data = ( (0.4 0.4)(0.4 0.4));
+}
+

@@ -1,0 +1,132 @@
+net
+{
+    node_size = (100 40);
+    HR_Grid_X = "10";
+    HR_Grid_Y = "10";
+    HR_Grid_GridSnap = "1";
+    HR_Grid_GridShow = "0";
+    HR_Font_Name = "Arial";
+    HR_Font_Size = "-12";
+    HR_Font_Weight = "400";
+    HR_Font_Italic = "0";
+    HR_Propagate_Auto = "0";
+    HR_Propagate_AutoSum = "1";
+    HR_Propagate_AutoNormal = "1";
+    HR_Compile_TriangMethod = "0";
+    HR_Compile_Compress = "0";
+    HR_Compile_Approximate = "0";
+    HR_Compile_ApproxEpsilon = "0.00001";
+    HR_Monitor_AutoUpdGraph = "0";
+    HR_Monitor_GraphPrecision = "100";
+    HR_Monitor_OpenGraph = "0";
+    HR_Monitor_InitStates = "5";
+    HR_Monitor_InitSD = "2";
+    HR_Color_DiscreteChance = "16";
+    HR_Color_ContinuosChance = "48";
+    HR_Color_Utility = "36";
+    HR_Color_Decision = "17";
+    HR_Groups_UserGroupsNo = "0";
+    HR_Groups_GroupNames = "";
+    HR_Groups_GroupColors = "";
+    HRUNTIME_Grid_X = "10";
+    HRUNTIME_Grid_Y = "10";
+    HRUNTIME_Grid_GridSnap = "1";
+    HRUNTIME_Grid_GridShow = "0";
+    HRUNTIME_Font_Name = "Arial";
+    HRUNTIME_Font_Size = "-12";
+    HRUNTIME_Font_Weight = "400";
+    HRUNTIME_Font_Italic = "0";
+    HRUNTIME_Propagate_Auto = "0";
+    HRUNTIME_Propagate_AutoSum = "1";
+    HRUNTIME_Propagate_AutoNormal = "1";
+    HRUNTIME_Compile_TriangMethod = "0";
+    HRUNTIME_Compile_Compress = "0";
+    HRUNTIME_Compile_Approximate = "0";
+    HRUNTIME_Compile_ApproxEpsilon = "0.00001";
+    HRUNTIME_Monitor_AutoUpdGraph = "0";
+    HRUNTIME_Monitor_GraphPrecision = "100";
+    HRUNTIME_Monitor_OpenGraph = "0";
+    HRUNTIME_Monitor_InitStates = "5";
+}
+
+node Report
+{
+    label = "Report";
+    position = (400 0);
+    states = ("true" "false");
+}
+
+node Leaving
+{
+    label = "Leaving";
+    position = (209 0);
+    states = ("true" "false");
+}
+
+node Alarm
+{
+    label = "Alarm";
+    position = (209 108);
+    states = ("true" "false");
+}
+
+node Smoke
+{
+    label = "Smoke";
+    position = (0 108);
+    states = ("true" "false");
+}
+
+node Fire
+{
+    label = "Fire";
+    position = (136 242);
+    states = ("true" "false");
+}
+
+node Tampering
+{
+    label = "Tampering";
+    position = (320 240);
+    states = ("true" "false");
+}
+
+potential (Report | Leaving)
+{
+    data
+     = (( 0.75 0.25 )	%  Leaving=true
+	( 0.01 0.99 ));	%  Leaving=false
+}
+
+potential (Leaving | Alarm)
+{
+    data
+     = (( 0.88 0.12 )	%  Alarm=true
+	( 0.001 0.999 ));	%  Alarm=false
+}
+
+potential (Alarm | Fire Tampering)
+{
+    data
+     = ((( 0.5 0.5 )	%  Fire=true  Tampering=true
+	 ( 0.99 0.01 ))	%  Fire=true  Tampering=false
+	(( 0.85 0.15 )	%  Fire=false  Tampering=true
+	 ( 0.0001 0.9999 )));	%  Fire=false  Tampering=false
+}
+
+potential (Smoke | Fire)
+{
+    data
+     = (( 0.9 0.1 )	%  Fire=true
+	( 0.01 0.99 ));	%  Fire=false
+}
+
+potential (Fire)
+{
+    data = ( 0.01 0.99 );
+}
+
+potential (Tampering)
+{
+    data = ( 0.02 0.98 );
+}

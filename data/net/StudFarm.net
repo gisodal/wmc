@@ -1,0 +1,214 @@
+class Horse
+{
+    inputs = (mare sire);
+    outputs = (offspring);
+    node_size = (80 40);
+    HR_Desc = "This network describes the class of nodes in a pedigree of horses.  Each instance of the class represents a single animal and the conditional probability distribution over the genotypes aa, aA, and AA.  A sick horse has genotype aa, a carrier of the disease has genotype aA, and a non-carrier has genotype AA.  Each instance of the class has two inputs, namely the distribution over these genotypes for the mother and the distribution over genotypes for the father.  Each instance has one output, namely the distribution over genotypes for the offspring in question.";
+    HR_Zoom_ZoomFactor = "81";
+    HR_Groups_GroupColors = "";
+    HR_Groups_GroupNames = "";
+    HR_Groups_UserGroupsNo = "0";
+    HR_Color_Interface = "21";
+    HR_Color_Instance = "0";
+    HR_Color_Utility = "36";
+    HR_Color_Decision = "17";
+    HR_Color_ContinuousChance = "48";
+    HR_Color_DiscreteChance = "16";
+    HR_Monitor_InitSD = "2";
+    HR_Monitor_InitStates = "5";
+    HR_Monitor_OpenGraph = "0";
+    HR_Monitor_GraphPrecision = "100";
+    HR_Monitor_AutoUpdGraph = "0";
+    HR_Compile_ApproxEpsilon = "1.0E-5";
+    HR_Compile_Approximate = "0";
+    HR_Compile_Compress = "1";
+    HR_Compile_TriangMethod = "0";
+    HR_Propagate_AutoNormal = "1";
+    HR_Propagate_AutoSum = "1";
+    HR_Propagate_Auto = "1";
+    HR_Font_Italic = "0";
+    HR_Font_Weight = "400";
+    HR_Font_Size = "-12";
+    HR_Font_Name = "Arial";
+    HR_Grid_GridShow = "0";
+    HR_Grid_GridSnap = "1";
+    HR_Grid_Y = "40";
+    HR_Grid_X = "40";
+
+    node offspring
+    {
+	label = "";
+	position = (160 96);
+	states = ("aa" "aA" "AA");
+	HR_State_2 = "";
+	HR_State_1 = "";
+	HR_State_0 = "";
+	HR_Desc = "This is an output node representing the probability distribution over the genotypes aa, aA, and AA for the offspring of 'mare' and 'sire'.";
+	HR_Grp = "";
+    }
+
+    node sire
+    {
+	label = "";
+	position = (96 32);
+	states = ("aa" "aA" "AA");
+	HR_State_2 = "";
+	HR_State_1 = "";
+	HR_State_0 = "";
+	HR_Desc = "This is an input node representing the probability distribution over the genotypes aa, aA, and AA for the father of 'offspring'.";
+	HR_Grp = "";
+    }
+
+    node mare
+    {
+	label = "";
+	position = (224 32);
+	states = ("aa" "aA" "AA");
+	HR_State_2 = "";
+	HR_State_1 = "";
+	HR_State_0 = "";
+	HR_Desc = "This is an input node representing the probability distribution over the genotypes aa, aA, and AA for the mother of 'offspring'.";
+	HR_Grp = "";
+    }
+
+    potential (offspring | sire mare)
+    {
+	data = ((( 1 0 0 )	%  sire=aa  mare=aa
+		 ( 0.5 0.5 0 )	%  sire=aa  mare=aA
+		 ( 0 1 0 ))	%  sire=aa  mare=AA
+		(( 0.5 0.5 0 )	%  sire=aA  mare=aa
+		 ( 0.25 0.5 0.25 )	%  sire=aA  mare=aA
+		 ( 0 0.5 0.5 ))	%  sire=aA  mare=AA
+		(( 0 1 0 )	%  sire=AA  mare=aa
+		 ( 0 0.5 0.5 )	%  sire=AA  mare=aA
+		 ( 0 0 1 )));	%  sire=AA  mare=AA
+    }
+
+    potential (sire)
+    {
+	data = ( 1 1 1 );
+    }
+
+    potential (mare)
+    {
+	data = ( 1 1 1 );
+    }
+} % class Horse
+
+class StudFarm
+{
+    inputs = ();
+    outputs = ();
+    node_size = (80 40);
+    HR_Grid_X = "40";
+    HR_Grid_Y = "40";
+    HR_Grid_GridSnap = "1";
+    HR_Grid_GridShow = "0";
+    HR_Font_Name = "Arial";
+    HR_Font_Size = "-12";
+    HR_Font_Weight = "400";
+    HR_Font_Italic = "0";
+    HR_Propagate_Auto = "1";
+    HR_Propagate_AutoSum = "1";
+    HR_Propagate_AutoNormal = "1";
+    HR_Compile_TriangMethod = "0";
+    HR_Compile_Compress = "1";
+    HR_Compile_Approximate = "0";
+    HR_Compile_ApproxEpsilon = "1.0E-5";
+    HR_Monitor_AutoUpdGraph = "0";
+    HR_Monitor_GraphPrecision = "100";
+    HR_Monitor_OpenGraph = "0";
+    HR_Monitor_InitStates = "5";
+    HR_Monitor_InitSD = "2";
+    HR_Color_DiscreteChance = "16";
+    HR_Color_ContinuousChance = "48";
+    HR_Color_Decision = "17";
+    HR_Color_Utility = "36";
+    HR_Color_Instance = "0";
+    HR_Color_Interface = "21";
+    HR_Groups_UserGroupsNo = "0";
+    HR_Groups_GroupNames = "";
+    HR_Groups_GroupColors = "";
+    HR_Zoom_ZoomFactor = "81";
+    HR_Desc = "This network represents a pedigree for 10 horses.  Each node in the network is an instance of the network class Horse.  Thus in the StudFarm network we haven't specified any probabilities at all!  Each node represents the conditional probability distribution over the genotypes aa, aA, and AA, which is identical for all horses.\n\nNote that a much more natural and compact display of the network can be obtained by collapsing each instance node to a single chance node representing the output node of the instance.  A facility for collapsing (and expanding) instance nodes will be implemented in Hugin 6.0.\n\nThe example is taken from Finn V. Jensen's book Bayesian Networks and Decision graphs, Springer, 2001.  ";
+
+    instance Cecily : Horse (; Cecily_offspring = offspring)
+    {
+	label = "";
+	position = (577 64);
+	HR_Grp = "";
+	HR_Desc = "This node (like all the other nodes) is an instance of the network class Horse.  The input nodes of this instance are unbound, meaning that default potentials are used for these nodes (see Horse network).";
+    }
+
+    instance John : Horse (mare = Irene_offspring, sire = Henry_offspring)
+    {
+	label = "";
+	position = (384 544);
+	HR_Grp = "";
+	HR_Desc = "This node (like all the other nodes) is an instance of the network class Horse.  In the example described at p. 46 in Finn V. Jensen's book, this node represents the sick animal.  Instantiating this node (or rather it's output) to 'aa' and propagating this evidence computes the probabilities for the remaining 9 horses to be carriers of the disease (i.e., have genotype aA).";
+    }
+
+    instance Henry : Horse (mare = Dorothy_offspring, sire = Fred_offspring; Henry_offspring = offspring)
+    {
+	label = "";
+	position = (192 385);
+	HR_Grp = "";
+	HR_Desc = "This node (like all the other nodes) is an instance of the network class Horse.  Henry is the father of the sick horse, John, and might possibly be carrier of the disease gene (i.e., aA)";
+    }
+
+    instance Irene : Horse (mare = Gwenn_offspring, sire = Eric_offspring; Irene_offspring = offspring)
+    {
+	label = "";
+	position = (576 384);
+	HR_Grp = "";
+	HR_Desc = "This node (like all the other nodes) is an instance of the network class Horse.  Irene is the mother of the sick horse, John, and might possibly be carrier of the disease gene (i.e., aA)";
+    }
+
+    instance Gwenn : Horse (mare = Ann_offspring; Gwenn_offspring = offspring)
+    {
+	label = "";
+	position = (480 224);
+	HR_Grp = "";
+	HR_Desc = "This node (like all the other nodes) is an instance of the network class Horse.  The sire of Gwenn is unknown.";
+    }
+
+    instance Eric : Horse (mare = Cecily_offspring, sire = Brian_offspring; Eric_offspring = offspring)
+    {
+	label = "";
+	position = (672 224);
+	HR_Grp = "";
+	HR_Desc = "This node (like all the other nodes) is an instance of the network class Horse.";
+    }
+
+    instance Fred : Horse (mare = Ann_offspring; Fred_offspring = offspring)
+    {
+	label = "";
+	position = (96 224);
+	HR_Grp = "";
+	HR_Desc = "This node (like all the other nodes) is an instance of the network class Horse.  The sire of Fred is unknown.";
+    }
+
+    instance Brian : Horse (; Brian_offspring = offspring)
+    {
+	label = "";
+	position = (387 64);
+	HR_Grp = "";
+	HR_Desc = "This node (like all the other nodes) is an instance of the network class Horse.  The input nodes of this instance are unbound, meaning that default potentials are used for these nodes (see Horse network).";
+    }
+
+    instance Dorothy : Horse (mare = Ann_offspring, sire = Brian_offspring; Dorothy_offspring = offspring)
+    {
+	label = "";
+	position = (290 225);
+	HR_Grp = "";
+	HR_Desc = "This node (like all the other nodes) is an instance of the network class Horse.";
+    }
+
+    instance Ann : Horse (; Ann_offspring = offspring)
+    {
+	label = "";
+	position = (192 64);
+	HR_Grp = "";
+	HR_Desc = "This node (like all the other nodes) is an instance of the network class Horse.  The input nodes of this instance are unbound, meaning that default potentials are used for these nodes (see Horse network).";
+    }
+} % class StudFarm

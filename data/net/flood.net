@@ -1,0 +1,146 @@
+net
+{
+    node_size = (80 40);
+    HR_Node_Label_Style = "0";
+    HR_Desc = "Dr. Watson makes frequent calls to Mr. Holmes regarding\nthe burglar alarm, however, till now the cause of activation\nof the alarm has been small earthquakes. Every time Mr.\nHolmes rushes home, just to find that everything is in order;\nso now Mr. Holmes is installing a seismometer in his house\nwith a direct line to his office.\nThe distributor of the alarm has also told Mr. Holmes, that flooding can cause the alarm to go off falsely. This network helps Mr. Holmes determine the probability of a false alarm.\n";
+    HR_OOBN_FitExpand = "1";
+    HR_Zoom_ZoomFactor = "100";
+    HR_Groups_GroupColors = "47";
+    HR_Groups_GroupNames = "test\t";
+    HR_Groups_UserGroupsNo = "1";
+    HR_Color_Interface = "21";
+    HR_Color_Instance = "0";
+    HR_Color_Utility = "36";
+    HR_Color_Decision = "17";
+    HR_Color_ContinuousChance = "32";
+    HR_Color_DiscreteChance = "16";
+    HR_Monitor_InitSD = "2";
+    HR_Monitor_InitStates = "5";
+    HR_Monitor_OpenGraph = "0";
+    HR_Monitor_GraphPrecision = "100";
+    HR_Monitor_AutoUpdGraph = "0";
+    HR_Compile_MaxMinimalSeparators = "100000";
+    HR_Compile_ApproxEpsilon = "1.0E-4";
+    HR_Compile_Approximate = "0";
+    HR_Compile_Compress = "0";
+    HR_Compile_TriangMethod = "0";
+    HR_Propagate_AutoNormal = "1";
+    HR_Propagate_AutoSum = "1";
+    HR_Propagate_Auto = "1";
+    HR_Font_Italic = "0";
+    HR_Font_Weight = "400";
+    HR_Font_Size = "-12";
+    HR_Font_Name = "Arial";
+    HR_Grid_GridShow = "0";
+    HR_Grid_GridSnap = "1";
+    HR_Grid_Y = "10";
+    HR_Grid_X = "10";
+    HRUNTIME_Grid_X = "10";
+    HRUNTIME_Grid_Y = "10";
+    HRUNTIME_Grid_GridSnap = "1";
+    HRUNTIME_Grid_GridShow = "0";
+    HRUNTIME_Font_Name = "Arial";
+    HRUNTIME_Font_Size = "-12";
+    HRUNTIME_Font_Weight = "400";
+    HRUNTIME_Font_Italic = "0";
+    HRUNTIME_Propagate_Auto = "0";
+    HRUNTIME_Propagate_AutoSum = "1";
+    HRUNTIME_Propagate_AutoNormal = "1";
+    HRUNTIME_Compile_TriangMethod = "0";
+    HRUNTIME_Compile_Compress = "0";
+    HRUNTIME_Compile_Approximate = "0";
+    HRUNTIME_Compile_ApproxEpsilon = "0.00001";
+    HRUNTIME_Monitor_AutoUpdGraph = "0";
+    HRUNTIME_Monitor_GraphPrecision = "100";
+    HRUNTIME_Monitor_OpenGraph = "0";
+    HRUNTIME_Monitor_InitStates = "5";
+}
+
+node Flood
+{
+    label = "";
+    position = (50 30);
+    states = ("yes" "no");
+}
+
+node Rain
+{
+    label = "";
+    position = (50 180);
+    states = ("yes" "no");
+    HR_Desc = "Heavy rain (which Mr. Holmes can observe) increases the probability of a flood.";
+}
+
+node S
+{
+    label = "Seismometer";
+    position = (460 30);
+    states = ("0" "1" "2");
+    HR_Desc = "The seismometer registers the strength of earthquakes. However, it is so sensitive, that it also registers burglary.";
+}
+
+node A
+{
+    label = "Alarm";
+    position = (240 30);
+    states = ("yes" "no");
+    HR_Desc = "The alarm can be triggered by either of the events : Flood, Burglary, and Earthquake";
+}
+
+node E
+{
+    label = "Earthquake";
+    position = (460 190);
+    states = ("yes" "no");
+}
+
+node B
+{
+    label = "Burglary";
+    position = (240 180);
+    states = ("yes" "no");
+}
+
+potential (Flood | Rain)
+{
+    data
+     = (( 0.1 0.9 )	%  Rain=yes
+	( 0 1 ));	%  Rain=no
+}
+
+potential (Rain)
+{
+    data = ( 0.01 0.99 );
+}
+
+potential (S | B E)
+{
+    data
+     = ((( 0 0.03 0.97 )	%  B=yes  E=yes
+	 ( 0.01 0.02 0.97 ))	%  B=yes  E=no
+	(( 0.01 0.97 0.02 )	%  B=no  E=yes
+	 ( 0.97 0.02 0.01 )));	%  B=no  E=no
+}
+
+potential (A | E B Flood)
+{
+    data
+     = (((( 1 0 )	%  E=yes  B=yes  Flood=yes
+	  ( 1 0 ))	%  E=yes  B=yes  Flood=no
+	 (( 1 0 )	%  E=yes  B=no  Flood=yes
+	  ( 0.99 0.01 )))	%  E=yes  B=no  Flood=no
+	((( 1 0 )	%  E=no  B=yes  Flood=yes
+	  ( 0.99 0.01 ))	%  E=no  B=yes  Flood=no
+	 (( 0.99 0.01 )	%  E=no  B=no  Flood=yes
+	  ( 0.01 0.99 ))));	%  E=no  B=no  Flood=no
+}
+
+potential (E)
+{
+    data = ( 0.1 0.9 );
+}
+
+potential (B)
+{
+    data = ( 0.5 0.5 );
+}

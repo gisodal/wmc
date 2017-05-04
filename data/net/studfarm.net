@@ -1,0 +1,195 @@
+net
+{
+    node_size = (110 54);
+    HRUNTIME_Monitor_InitStates = "5";
+    HRUNTIME_Monitor_OpenGraph = "0";
+    HRUNTIME_Monitor_GraphPrecision = "100";
+    HRUNTIME_Monitor_AutoUpdGraph = "0";
+    HRUNTIME_Compile_ApproxEpsilon = "0.00001";
+    HRUNTIME_Compile_Approximate = "0";
+    HRUNTIME_Compile_Compress = "0";
+    HRUNTIME_Compile_TriangMethod = "0";
+    HRUNTIME_Propagate_AutoNormal = "1";
+    HRUNTIME_Propagate_AutoSum = "1";
+    HRUNTIME_Propagate_Auto = "0";
+    HRUNTIME_Font_Italic = "0";
+    HRUNTIME_Font_Weight = "400";
+    HRUNTIME_Font_Size = "-12";
+    HRUNTIME_Font_Name = "Arial";
+    HRUNTIME_Grid_GridShow = "0";
+    HRUNTIME_Grid_GridSnap = "1";
+    HRUNTIME_Grid_Y = "10";
+    HRUNTIME_Grid_X = "10";
+}
+
+node K
+{
+    label = "";
+    position = (522 391);
+    states = ("Carrier" "Pure");
+}
+
+node John
+{
+    label = "John";
+    position = (260 0);
+    states = ("Sick" "Carrier" "Pure");
+}
+
+node Gwenn
+{
+    label = "";
+    position = (457 262);
+    states = ("Carrier" "Pure");
+}
+
+node Irene
+{
+    label = "";
+    position = (392 131);
+    states = ("Carrier" "Pure");
+}
+
+node Dorothy
+{
+    label = "";
+    position = (195 262);
+    states = ("Carrier" "Pure");
+}
+
+node Henry
+{
+    label = "";
+    position = (130 131);
+    states = ("Carrier" "Pure");
+}
+
+node Brian
+{
+    label = "";
+    position = (260 391);
+    states = ("Carrier" "Pure");
+}
+
+node Eric
+{
+    label = "";
+    position = (327 262);
+    states = ("Carrier" "Pure");
+}
+
+node Ann
+{
+    label = "";
+    position = (130 391);
+    states = ("Carrier" "Pure");
+}
+
+node Fred
+{
+    label = "";
+    position = (65 262);
+    states = ("Carrier" "Pure");
+}
+
+node Cecily
+{
+    label = "";
+    position = (392 391);
+    states = ("Carrier" "Pure");
+}
+
+node L
+{
+    label = "";
+    position = (0 391);
+    states = ("Carrier" "Pure");
+}
+
+potential (K)
+{
+    data = ( 0.01 0.99 );
+}
+
+potential (John | Henry Irene)
+{
+    data
+     = ((( 0.25 0.5 0.25 )	%  Henry=Carrier  Irene=Carrier
+	 ( 0 0.5 0.5 ))	%  Henry=Carrier  Irene=Pure
+	(( 0 0.5 0.5 )	%  Henry=Pure  Irene=Carrier
+	 ( 0 0 1 )));	%  Henry=Pure  Irene=Pure
+}
+
+potential (Gwenn | Ann K)
+{
+    data
+     = ((( 0.666667 0.333333 )	%  Ann=Carrier  K=Carrier
+	 ( 0.5 0.5 ))	%  Ann=Carrier  K=Pure
+	(( 0.5 0.5 )	%  Ann=Pure  K=Carrier
+	 ( 0 1 )));	%  Ann=Pure  K=Pure
+}
+
+potential (Irene | Eric Gwenn)
+{
+    data
+     = ((( 0.666667 0.333333 )	%  Eric=Carrier  Gwenn=Carrier
+	 ( 0.5 0.5 ))	%  Eric=Carrier  Gwenn=Pure
+	(( 0.5 0.5 )	%  Eric=Pure  Gwenn=Carrier
+	 ( 0 1 )));	%  Eric=Pure  Gwenn=Pure
+}
+
+potential (Dorothy | Ann Brian)
+{
+    data
+     = ((( 0.666667 0.333333 )	%  Ann=Carrier  Brian=Carrier
+	 ( 0.5 0.5 ))	%  Ann=Carrier  Brian=Pure
+	(( 0.5 0.5 )	%  Ann=Pure  Brian=Carrier
+	 ( 0 1 )));	%  Ann=Pure  Brian=Pure
+}
+
+potential (Henry | Fred Dorothy)
+{
+    data
+     = ((( 0.666667 0.333333 )	%  Fred=Carrier  Dorothy=Carrier
+	 ( 0.5 0.5 ))	%  Fred=Carrier  Dorothy=Pure
+	(( 0.5 0.5 )	%  Fred=Pure  Dorothy=Carrier
+	 ( 0 1 )));	%  Fred=Pure  Dorothy=Pure
+}
+
+potential (Brian)
+{
+    data = ( 0.01 0.99 );
+}
+
+potential (Eric | Brian Cecily)
+{
+    data
+     = ((( 0.666667 0.333333 )	%  Brian=Carrier  Cecily=Carrier
+	 ( 0.5 0.5 ))	%  Brian=Carrier  Cecily=Pure
+	(( 0.5 0.5 )	%  Brian=Pure  Cecily=Carrier
+	 ( 0 1 )));	%  Brian=Pure  Cecily=Pure
+}
+
+potential (Ann)
+{
+    data = ( 0.01 0.99 );
+}
+
+potential (Fred | L Ann)
+{
+    data
+     = ((( 0.666667 0.333333 )	%  L=Carrier  Ann=Carrier
+	 ( 0.5 0.5 ))	%  L=Carrier  Ann=Pure
+	(( 0.5 0.5 )	%  L=Pure  Ann=Carrier
+	 ( 0 1 )));	%  L=Pure  Ann=Pure
+}
+
+potential (Cecily)
+{
+    data = ( 0.01 0.99 );
+}
+
+potential (L)
+{
+    data = ( 0.01 0.99 );
+}

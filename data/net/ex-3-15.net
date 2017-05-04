@@ -1,0 +1,222 @@
+net
+{
+    node_size = (100 40);
+    HRUNTIME_Grid_X = "10";
+    HRUNTIME_Grid_Y = "10";
+    HRUNTIME_Grid_GridSnap = "1";
+    HRUNTIME_Grid_GridShow = "0";
+    HRUNTIME_Font_Name = "Arial";
+    HRUNTIME_Font_Size = "-12";
+    HRUNTIME_Font_Weight = "400";
+    HRUNTIME_Font_Italic = "0";
+    HRUNTIME_Propagate_Auto = "0";
+    HRUNTIME_Propagate_AutoSum = "1";
+    HRUNTIME_Propagate_AutoNormal = "1";
+    HRUNTIME_Compile_TriangMethod = "0";
+    HRUNTIME_Compile_Compress = "0";
+    HRUNTIME_Compile_Approximate = "0";
+    HRUNTIME_Compile_ApproxEpsilon = "0.00001";
+    HRUNTIME_Monitor_AutoUpdGraph = "0";
+    HRUNTIME_Monitor_GraphPrecision = "100";
+    HRUNTIME_Monitor_OpenGraph = "0";
+    HRUNTIME_Monitor_InitStates = "5";
+}
+
+node C2_obs
+{
+    label = "C2-obs";
+    position = (580 0);
+    states = ("knife" "spoon" "fork");
+}
+
+node C1_obs
+{
+    label = "C1-obs";
+    position = (460 0);
+    states = ("knife" "spoon" "fork");
+}
+
+node Pot_obs
+{
+    label = "Pot-obs";
+    position = (350 0);
+    states = ("coffee" "thea");
+}
+
+node Cup_obs
+{
+    label = "Cup-obs";
+    position = (220 0);
+    states = ("coffee" "thea");
+}
+
+node Jar_obs
+{
+    label = "Jar-obs";
+    position = (110 0);
+    states = ("jam" "marmelade");
+}
+
+node Pl_obs
+{
+    label = "Pl-obs";
+    states = ("big " "small");
+}
+
+node Constraint
+{
+    position = (530 190);
+    states = ("yes" "no");
+}
+
+node Cut2
+{
+    position = (580 110);
+    states = ("knife" "spoon" "fork");
+}
+
+node Cut1
+{
+    position = (460 110);
+    states = ("knife" "spoon" "fork");
+}
+
+node Plate
+{
+    label = "";
+    position = (0 110);
+    states = ("big" "small");
+}
+
+node Jar
+{
+    label = "";
+    position = (110 110);
+    states = ("jam" "marmelade");
+}
+
+node Pot
+{
+    label = "";
+    position = (350 110);
+    states = ("coffee" "thea");
+}
+
+node Cup
+{
+    label = "";
+    position = (220 110);
+    states = ("coffee" "thea");
+}
+
+node Breakfast
+{
+    label = "";
+    position = (297 220);
+    states = ("cont" "brit");
+}
+
+potential (C2_obs | Cut2)
+{
+    data
+     = (( 0.85 0.05 0.1 )	%  Cut2=knife
+	( 0 0.75 0.25 )	%  Cut2=spoon
+	( 0.1 0.2 0.7 ));	%  Cut2=fork
+}
+
+potential (C1_obs | Cut1)
+{
+    data
+     = (( 0.85 0.05 0.1 )	%  Cut1=knife
+	( 0 0.75 0.25 )	%  Cut1=spoon
+	( 0.1 0.2 0.7 ));	%  Cut1=fork
+}
+
+potential (Pot_obs | Pot)
+{
+    data
+     = (( 0.6 0.4 )	%  Pot=coffee
+	( 0.4 0.6 ));	%  Pot=thea
+}
+
+potential (Cup_obs | Cup)
+{
+    data
+     = (( 0.8 0.2 )	%  Cup=coffee
+	( 0.3 0.7 ));	%  Cup=thea
+}
+
+potential (Jar_obs | Jar)
+{
+    data
+     = (( 0.95 0.05 )	%  Jar=jam
+	( 0.05 0.95 ));	%  Jar=marmelade
+}
+
+potential (Pl_obs | Plate)
+{
+    data
+     = (( 0.9 0.1 )	%  Plate=big
+	( 0.1 0.9 ));	%  Plate=small
+}
+
+potential (Constraint | Cut1 Cut2)
+{
+    data
+     = ((( 0 1 )	%  Cut1=knife  Cut2=knife
+	 ( 1 0 )	%  Cut1=knife  Cut2=spoon
+	 ( 1 0 ))	%  Cut1=knife  Cut2=fork
+	(( 1 0 )	%  Cut1=spoon  Cut2=knife
+	 ( 0 1 )	%  Cut1=spoon  Cut2=spoon
+	 ( 0 1 ))	%  Cut1=spoon  Cut2=fork
+	(( 1 0 )	%  Cut1=fork  Cut2=knife
+	 ( 0 1 )	%  Cut1=fork  Cut2=spoon
+	 ( 0 1 )));	%  Cut1=fork  Cut2=fork
+}
+
+potential (Cut2 | Breakfast)
+{
+    data
+     = (( 0.495049 0.495049 0.00990098 )	%  Breakfast=cont
+	( 0.495049 0.00990098 0.495049 ));	%  Breakfast=brit
+}
+
+potential (Cut1 | Breakfast)
+{
+    data
+     = (( 0.495049 0.495049 0.00990098 )	%  Breakfast=cont
+	( 0.495049 0.00990098 0.495049 ));	%  Breakfast=brit
+}
+
+potential (Plate | Breakfast)
+{
+    data
+     = (( 0.01 0.99 )	%  Breakfast=cont
+	( 0.99 0.01 ));	%  Breakfast=brit
+}
+
+potential (Jar | Breakfast)
+{
+    data
+     = (( 0.99 0.01 )	%  Breakfast=cont
+	( 0.01 0.99 ));	%  Breakfast=brit
+}
+
+potential (Pot | Breakfast)
+{
+    data
+     = (( 0.99 0.01 )	%  Breakfast=cont
+	( 0.01 0.99 ));	%  Breakfast=brit
+}
+
+potential (Cup | Pot)
+{
+    data
+     = (( 1 0 )	%  Pot=coffee
+	( 0 1 ));	%  Pot=thea
+}
+
+potential (Breakfast)
+{
+    data = ( 0.5 0.5 );
+}

@@ -1,0 +1,353 @@
+net
+{
+    node_size = (110 54);
+    HRUNTIME_Grid_X = "10";
+    HRUNTIME_Grid_Y = "10";
+    HRUNTIME_Grid_GridSnap = "1";
+    HRUNTIME_Grid_GridShow = "0";
+    HRUNTIME_Font_Name = "Arial";
+    HRUNTIME_Font_Size = "-12";
+    HRUNTIME_Font_Weight = "400";
+    HRUNTIME_Font_Italic = "0";
+    HRUNTIME_Propagate_Auto = "0";
+    HRUNTIME_Propagate_AutoSum = "1";
+    HRUNTIME_Propagate_AutoNormal = "1";
+    HRUNTIME_Compile_TriangMethod = "0";
+    HRUNTIME_Compile_Compress = "0";
+    HRUNTIME_Compile_Approximate = "0";
+    HRUNTIME_Compile_ApproxEpsilon = "0.00001";
+    HRUNTIME_Monitor_AutoUpdGraph = "0";
+    HRUNTIME_Monitor_GraphPrecision = "100";
+    HRUNTIME_Monitor_OpenGraph = "0";
+    HRUNTIME_Monitor_InitStates = "5";
+}
+
+node node1_1
+{
+    label = "L";
+    position = (80 391);
+    states = ("Pure");
+}
+
+node node4_1
+{
+    label = "Cecily";
+    position = (472 391);
+    states = ("Carrier" "Pure");
+}
+
+node node6_1
+{
+    label = "Fred";
+    position = (145 262);
+    states = ("Pure");
+}
+
+node node2_1
+{
+    label = "Ann";
+    position = (210 391);
+    states = ("Carrier" "Pure");
+}
+
+node node8_1
+{
+    label = "Eric";
+    position = (407 262);
+    states = ("Pure");
+}
+
+node node3_1
+{
+    label = "Brian";
+    position = (340 391);
+    states = ("Pure");
+}
+
+node node10_1
+{
+    label = "Henry";
+    position = (210 131);
+    states = ("Pure");
+}
+
+node node7_1
+{
+    label = "Dorothy";
+    position = (275 262);
+    states = ("Carrier" "Pure");
+}
+
+node node11_1
+{
+    label = "Irene";
+    position = (472 131);
+    states = ("Carrier" "Pure");
+}
+
+node node9_1
+{
+    label = "Gwenn";
+    position = (537 262);
+    states = ("Carrier" "Pure");
+}
+
+node node12_1
+{
+    label = "John";
+    position = (340 0);
+    states = ("Sick" "Pure");
+}
+
+node node5_1
+{
+    label = "K ";
+    position = (602 391);
+    states = ("Pure");
+}
+
+node node5
+{
+    label = "K";
+    position = (522 873);
+    states = ("Carrier" "Pure");
+}
+
+node node12
+{
+    label = "John";
+    position = (260 482);
+    states = ("Sick" "Carrier" "Pure");
+}
+
+node node9
+{
+    label = "Gwenn";
+    position = (457 744);
+    states = ("Carrier" "Pure");
+}
+
+node node11
+{
+    label = "Irene";
+    position = (392 613);
+    states = ("Carrier" "Pure");
+}
+
+node node7
+{
+    label = "Dorothy";
+    position = (195 744);
+    states = ("Carrier" "Pure");
+}
+
+node node10
+{
+    label = "Henry";
+    position = (130 613);
+    states = ("Carrier" "Pure");
+}
+
+node node3
+{
+    label = "Brian";
+    position = (260 873);
+    states = ("Carrier" "Pure");
+}
+
+node node8
+{
+    label = "Eric";
+    position = (327 744);
+    states = ("Carrier" "Pure");
+}
+
+node node2
+{
+    label = "Ann";
+    position = (130 873);
+    states = ("Carrier" "Pure");
+}
+
+node node6
+{
+    label = "Fred";
+    position = (65 744);
+    states = ("Carrier" "Pure");
+}
+
+node node4
+{
+    label = "Cecily";
+    position = (392 873);
+    states = ("Carrier" "Pure");
+}
+
+node node1
+{
+    label = "L";
+    position = (0 873);
+    states = ("Carrier" "Pure");
+}
+
+potential (node1_1)
+{
+    data = ( 1 );
+}
+
+potential (node4_1)
+{
+    data = ( 0.01 0.99 );
+}
+
+potential (node6_1 | node2_1 node1_1)
+{
+    data
+     = ((( 1 ))	%  node2_1=Carrier  node1_1=Pure
+	(( 1 )));	%  node2_1=Pure  node1_1=Pure
+}
+
+potential (node2_1)
+{
+    data = ( 0.01 0.99 );
+}
+
+potential (node8_1 | node3_1 node4_1)
+{
+    data
+     = ((( 1 )	%  node3_1=Pure  node4_1=Carrier
+	 ( 1 )));	%  node3_1=Pure  node4_1=Pure
+}
+
+potential (node3_1)
+{
+    data = ( 1 );
+}
+
+potential (node10_1 | node7_1 node6_1)
+{
+    data
+     = ((( 1 ))	%  node7_1=Carrier  node6_1=Pure
+	(( 1 )));	%  node7_1=Pure  node6_1=Pure
+}
+
+potential (node7_1 | node3_1 node2_1)
+{
+    data
+     = ((( 0.5007 0.4993 )	%  node3_1=Pure  node2_1=Carrier
+	 ( 0.002 0.998 )));	%  node3_1=Pure  node2_1=Pure
+}
+
+potential (node11_1 | node9_1 node8_1)
+{
+    data
+     = ((( 0.5007 0.4993 ))	%  node9_1=Carrier  node8_1=Pure
+	(( 0.002 0.998 )));	%  node9_1=Pure  node8_1=Pure
+}
+
+potential (node9_1 | node5_1 node2_1)
+{
+    data
+     = ((( 0.5007 0.4993 )	%  node5_1=Pure  node2_1=Carrier
+	 ( 0.002 0.998 )));	%  node5_1=Pure  node2_1=Pure
+}
+
+potential (node12_1 | node11_1 node10_1)
+{
+    data
+     = ((( 0.5005 0.4995 ))	%  node11_1=Carrier  node10_1=Pure
+	(( 0.001 0.999 )));	%  node11_1=Pure  node10_1=Pure
+}
+
+potential (node5_1)
+{
+    data = ( 1 );
+}
+
+potential (node5)
+{
+    data = ( 0.01 0.99 );
+}
+
+potential (node12 | node10 node11)
+{
+    data
+     = ((( 0.2505 0.5 0.2495 )	%  node10=Carrier  node11=Carrier
+	 ( 0.0005 0.5005 0.499 ))	%  node10=Carrier  node11=Pure
+	(( 0.0005 0.5005 0.499 )	%  node10=Pure  node11=Carrier
+	 ( 0 0.002 0.998 )));	%  node10=Pure  node11=Pure
+}
+
+potential (node9 | node2 node5)
+{
+    data
+     = ((( 0.6671 0.3329 )	%  node2=Carrier  node5=Carrier
+	 ( 0.5008 0.4992 ))	%  node2=Carrier  node5=Pure
+	(( 0.5008 0.4992 )	%  node2=Pure  node5=Carrier
+	 ( 0.002 0.998 )));	%  node2=Pure  node5=Pure
+}
+
+potential (node11 | node8 node9)
+{
+    data
+     = ((( 0.6671 0.3329 )	%  node8=Carrier  node9=Carrier
+	 ( 0.5008 0.4992 ))	%  node8=Carrier  node9=Pure
+	(( 0.5008 0.4992 )	%  node8=Pure  node9=Carrier
+	 ( 0.002 0.998 )));	%  node8=Pure  node9=Pure
+}
+
+potential (node7 | node2 node3)
+{
+    data
+     = ((( 0.6671 0.3329 )	%  node2=Carrier  node3=Carrier
+	 ( 0.5008 0.4992 ))	%  node2=Carrier  node3=Pure
+	(( 0.5008 0.4992 )	%  node2=Pure  node3=Carrier
+	 ( 0.002 0.998 )));	%  node2=Pure  node3=Pure
+}
+
+potential (node10 | node6 node7)
+{
+    data
+     = ((( 0.6671 0.3329 )	%  node6=Carrier  node7=Carrier
+	 ( 0.5008 0.4992 ))	%  node6=Carrier  node7=Pure
+	(( 0.5008 0.4992 )	%  node6=Pure  node7=Carrier
+	 ( 0.002 0.998 )));	%  node6=Pure  node7=Pure
+}
+
+potential (node3)
+{
+    data = ( 0.01 0.99 );
+}
+
+potential (node8 | node3 node4)
+{
+    data
+     = ((( 0.6671 0.3329 )	%  node3=Carrier  node4=Carrier
+	 ( 0.5008 0.4992 ))	%  node3=Carrier  node4=Pure
+	(( 0.5008 0.4992 )	%  node3=Pure  node4=Carrier
+	 ( 0.002 0.998 )));	%  node3=Pure  node4=Pure
+}
+
+potential (node2)
+{
+    data = ( 0.01 0.99 );
+}
+
+potential (node6 | node1 node2)
+{
+    data
+     = ((( 0.6671 0.3329 )	%  node1=Carrier  node2=Carrier
+	 ( 0.5008 0.4992 ))	%  node1=Carrier  node2=Pure
+	(( 0.5008 0.4992 )	%  node1=Pure  node2=Carrier
+	 ( 0.002 0.998 )));	%  node1=Pure  node2=Pure
+}
+
+potential (node4)
+{
+    data = ( 0.01 0.99 );
+}
+
+potential (node1)
+{
+    data = ( 0.01 0.99 );
+}

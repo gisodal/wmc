@@ -1,0 +1,299 @@
+net
+{
+    node_size = (110 54);
+    HRUNTIME_Monitor_InitStates = "5";
+    HRUNTIME_Monitor_OpenGraph = "0";
+    HRUNTIME_Monitor_GraphPrecision = "100";
+    HRUNTIME_Monitor_AutoUpdGraph = "0";
+    HRUNTIME_Compile_ApproxEpsilon = "0.00001";
+    HRUNTIME_Compile_Approximate = "0";
+    HRUNTIME_Compile_Compress = "0";
+    HRUNTIME_Compile_TriangMethod = "0";
+    HRUNTIME_Propagate_AutoNormal = "1";
+    HRUNTIME_Propagate_AutoSum = "1";
+    HRUNTIME_Propagate_Auto = "0";
+    HRUNTIME_Font_Italic = "0";
+    HRUNTIME_Font_Weight = "400";
+    HRUNTIME_Font_Size = "-12";
+    HRUNTIME_Font_Name = "Arial";
+    HRUNTIME_Grid_GridShow = "0";
+    HRUNTIME_Grid_GridSnap = "1";
+    HRUNTIME_Grid_Y = "10";
+    HRUNTIME_Grid_X = "10";
+}
+
+node Ugwenn
+{
+    position = (640 160);
+    states = ("yes" " no");
+}
+
+node Dgwenn
+{
+    position = (720 260);
+    states = ("yes" " no");
+}
+
+node Dfred
+{
+    position = (0 250);
+    states = ("out" "in");
+}
+
+node Ufred
+{
+    position = (80 170);
+    states = ("yes" " no");
+}
+
+node Ubrian
+{
+    position = (480 480);
+    states = ("yes" " no");
+}
+
+node Dbrian
+{
+    position = (340 520);
+    states = ("out" "in");
+}
+
+node Uann
+{
+    position = (120 450);
+    states = ("yes" "no");
+}
+
+node Dann
+{
+    position = (210 510);
+    states = ("out" "in");
+}
+
+node K
+{
+    label = "";
+    position = (622 381);
+    states = ("Carrier" "Pure");
+}
+
+node John
+{
+    label = "";
+    position = (350 0);
+    states = ("Sick" "Carrier" "Pure");
+}
+
+node Gwenn
+{
+    label = "";
+    position = (557 252);
+    states = ("Carrier" "Pure");
+}
+
+node Irene
+{
+    label = "";
+    position = (492 121);
+    states = ("Carrier" "Pure");
+}
+
+node Dorothy
+{
+    label = "";
+    position = (295 252);
+    states = ("Carrier" "Pure");
+}
+
+node Henry
+{
+    label = "";
+    position = (230 121);
+    states = ("Carrier" "Pure");
+}
+
+node Brian
+{
+    label = "";
+    position = (360 381);
+    states = ("Carrier" "Pure");
+}
+
+node Eric
+{
+    label = "";
+    position = (427 252);
+    states = ("Carrier" "Pure");
+}
+
+node Ann
+{
+    label = "";
+    position = (230 381);
+    states = ("Carrier" "Pure");
+}
+
+node Fred
+{
+    label = "";
+    position = (165 252);
+    states = ("Carrier" "Pure");
+}
+
+node Cecily
+{
+    label = "";
+    position = (492 381);
+    states = ("Carrier" "Pure");
+}
+
+node L
+{
+    label = "";
+    position = (100 381);
+    states = ("Carrier" "Pure");
+}
+
+potential (Ugwenn | Gwenn Dgwenn)
+{
+    data
+     = ((( 0.14 0.86 )	%  Gwenn=Carrier  Dgwenn=yes
+	 ( 0 1 ))	%  Gwenn=Carrier  Dgwenn= no
+	(( 0.14 0.86 )	%  Gwenn=Pure  Dgwenn=yes
+	 ( 1 0 )));	%  Gwenn=Pure  Dgwenn= no
+}
+
+potential (Dgwenn)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (Dfred)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (Ufred | Fred Dfred)
+{
+    data
+     = ((( 0.214286 0.785714 )	%  Fred=Carrier  Dfred=out
+	 ( 0 1 ))	%  Fred=Carrier  Dfred=in
+	(( 0.214286 0.785714 )	%  Fred=Pure  Dfred=out
+	 ( 1 0 )));	%  Fred=Pure  Dfred=in
+}
+
+potential (Ubrian | Brian Dbrian)
+{
+    data
+     = ((( 0.214286 0.785714 )	%  Brian=Carrier  Dbrian=out
+	 ( 0 1 ))	%  Brian=Carrier  Dbrian=in
+	(( 0.214286 0.785714 )	%  Brian=Pure  Dbrian=out
+	 ( 1 0 )));	%  Brian=Pure  Dbrian=in
+}
+
+potential (Dbrian)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (Uann | Ann Dann)
+{
+    data
+     = ((( 0.14 0.86 )	%  Ann=Carrier  Dann=out
+	 ( 0 1 ))	%  Ann=Carrier  Dann=in
+	(( 0.14 0.86 )	%  Ann=Pure  Dann=out
+	 ( 1 0 )));	%  Ann=Pure  Dann=in
+}
+
+potential (Dann)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (K)
+{
+    data = ( 0.01 0.99 );
+}
+
+potential (John | Henry Irene)
+{
+    data
+     = ((( 0.25 0.5 0.25 )	%  Henry=Carrier  Irene=Carrier
+	 ( 0 0.5 0.5 ))	%  Henry=Carrier  Irene=Pure
+	(( 0 0.5 0.5 )	%  Henry=Pure  Irene=Carrier
+	 ( 0 0 1 )));	%  Henry=Pure  Irene=Pure
+}
+
+potential (Gwenn | Ann K)
+{
+    data
+     = ((( 0.666667 0.333333 )	%  Ann=Carrier  K=Carrier
+	 ( 0.5 0.5 ))	%  Ann=Carrier  K=Pure
+	(( 0.5 0.5 )	%  Ann=Pure  K=Carrier
+	 ( 0 1 )));	%  Ann=Pure  K=Pure
+}
+
+potential (Irene | Eric Gwenn)
+{
+    data
+     = ((( 0.666667 0.333333 )	%  Eric=Carrier  Gwenn=Carrier
+	 ( 0.5 0.5 ))	%  Eric=Carrier  Gwenn=Pure
+	(( 0.5 0.5 )	%  Eric=Pure  Gwenn=Carrier
+	 ( 0 1 )));	%  Eric=Pure  Gwenn=Pure
+}
+
+potential (Dorothy | Ann Brian)
+{
+    data
+     = ((( 0.666667 0.333333 )	%  Ann=Carrier  Brian=Carrier
+	 ( 0.5 0.5 ))	%  Ann=Carrier  Brian=Pure
+	(( 0.5 0.5 )	%  Ann=Pure  Brian=Carrier
+	 ( 0 1 )));	%  Ann=Pure  Brian=Pure
+}
+
+potential (Henry | Fred Dorothy)
+{
+    data
+     = ((( 0.666667 0.333333 )	%  Fred=Carrier  Dorothy=Carrier
+	 ( 0.5 0.5 ))	%  Fred=Carrier  Dorothy=Pure
+	(( 0.5 0.5 )	%  Fred=Pure  Dorothy=Carrier
+	 ( 0 1 )));	%  Fred=Pure  Dorothy=Pure
+}
+
+potential (Brian)
+{
+    data = ( 0.01 0.99 );
+}
+
+potential (Eric | Brian Cecily)
+{
+    data
+     = ((( 0.666667 0.333333 )	%  Brian=Carrier  Cecily=Carrier
+	 ( 0.5 0.5 ))	%  Brian=Carrier  Cecily=Pure
+	(( 0.5 0.5 )	%  Brian=Pure  Cecily=Carrier
+	 ( 0 1 )));	%  Brian=Pure  Cecily=Pure
+}
+
+potential (Ann)
+{
+    data = ( 0.01 0.99 );
+}
+
+potential (Fred | L Ann)
+{
+    data
+     = ((( 0.666667 0.333333 )	%  L=Carrier  Ann=Carrier
+	 ( 0.5 0.5 ))	%  L=Carrier  Ann=Pure
+	(( 0.5 0.5 )	%  L=Pure  Ann=Carrier
+	 ( 0 1 )));	%  L=Pure  Ann=Pure
+}
+
+potential (Cecily)
+{
+    data = ( 0.01 0.99 );
+}
+
+potential (L)
+{
+    data = ( 0.01 0.99 );
+}

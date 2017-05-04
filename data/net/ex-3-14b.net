@@ -1,0 +1,235 @@
+net
+{
+    node_size = (80 40);
+    HRUNTIME_Grid_X = "10";
+    HRUNTIME_Grid_Y = "10";
+    HRUNTIME_Grid_GridSnap = "1";
+    HRUNTIME_Grid_GridShow = "0";
+    HRUNTIME_Font_Name = "Arial";
+    HRUNTIME_Font_Size = "-12";
+    HRUNTIME_Font_Weight = "400";
+    HRUNTIME_Font_Italic = "0";
+    HRUNTIME_Propagate_Auto = "0";
+    HRUNTIME_Propagate_AutoSum = "1";
+    HRUNTIME_Propagate_AutoNormal = "1";
+    HRUNTIME_Compile_TriangMethod = "0";
+    HRUNTIME_Compile_Compress = "0";
+    HRUNTIME_Compile_Approximate = "0";
+    HRUNTIME_Compile_ApproxEpsilon = "0.00001";
+    HRUNTIME_Monitor_AutoUpdGraph = "0";
+    HRUNTIME_Monitor_GraphPrecision = "100";
+    HRUNTIME_Monitor_OpenGraph = "0";
+    HRUNTIME_Monitor_InitStates = "5";
+    HR_Grid_X = "10";
+    HR_Grid_Y = "10";
+    HR_Grid_GridSnap = "1";
+    HR_Grid_GridShow = "0";
+    HR_Font_Name = "Arial";
+    HR_Font_Size = "-12";
+    HR_Font_Weight = "400";
+    HR_Font_Italic = "0";
+    HR_Propagate_Auto = "0";
+    HR_Propagate_AutoSum = "1";
+    HR_Propagate_AutoNormal = "1";
+    HR_Compile_TriangMethod = "0";
+    HR_Compile_Compress = "0";
+    HR_Compile_Approximate = "0";
+    HR_Compile_ApproxEpsilon = "0.00001";
+    HR_Monitor_AutoUpdGraph = "0";
+    HR_Monitor_GraphPrecision = "100";
+    HR_Monitor_OpenGraph = "0";
+    HR_Monitor_InitStates = "5";
+    HR_Monitor_InitSD = "2";
+}
+
+node Birdie_1
+{
+    label = "Birdie";
+    position = (620 290);
+    states = ("y" "n");
+}
+
+node Curved_1
+{
+    label = "Curved";
+    position = (440 290);
+    states = ("y" "n");
+}
+
+node Wind_1
+{
+    label = "Wind";
+    position = (310 290);
+    states = ("y" "n");
+}
+
+node Rain_1
+{
+    label = "Rain";
+    position = (140 290);
+    states = ("y" "n");
+}
+
+node Background_1
+{
+    label = "Background";
+    position = (0 290);
+    states = ("state");
+}
+
+node B_pt
+{
+    label = "B-pt";
+    position = (0 190);
+    states = ("putt" "miss");
+}
+
+node R_pt
+{
+    label = "R-pt";
+    position = (140 190);
+    states = ("putt" "miss");
+}
+
+node W_pt
+{
+    label = "W-pt";
+    position = (310 190);
+    states = ("putt" "miss");
+}
+
+node C_pt
+{
+    label = "C-pt";
+    position = (440 190);
+    states = ("putt" "miss");
+}
+
+node Bd_pt
+{
+    label = "Bd-pt";
+    position = (620 190);
+    states = ("putt" "miss");
+}
+
+node CBd_pt
+{
+    label = "CBd-pt";
+    position = (510 110);
+    states = ("putt" "miss");
+}
+
+node RW_pt
+{
+    label = "RW-pt";
+    position = (220 110);
+    states = ("putt" "miss");
+}
+
+node Prev
+{
+    position = (360 60);
+    states = ("putt" "miss");
+}
+
+node Result1
+{
+    label = "Result";
+    position = (220 0);
+    states = ("putt" "miss");
+}
+
+potential (Birdie_1)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (Curved_1)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (Wind_1)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (Rain_1)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (Background_1)
+{
+    data = ( 1 );
+}
+
+potential (B_pt | Background_1)
+{
+    data
+     = (( 0.9 0.1 ));	%  Background_1=state
+}
+
+potential (R_pt | Rain_1)
+{
+    data
+     = (( 0.857143 0.142857 )	%  Rain_1=y
+	( 1 0 ));	%  Rain_1=n
+}
+
+potential (W_pt | Wind_1)
+{
+    data
+     = (( 0.75 0.25 )	%  Wind_1=y
+	( 1 0 ));	%  Wind_1=n
+}
+
+potential (C_pt | Curved_1)
+{
+    data
+     = (( 0.666667 0.333333 )	%  Curved_1=y
+	( 1 0 ));	%  Curved_1=n
+}
+
+potential (Bd_pt | Birdie_1)
+{
+    data
+     = (( 0.5 0.5 )	%  Birdie_1=y
+	( 1 0 ));	%  Birdie_1=n
+}
+
+potential (CBd_pt | C_pt Bd_pt)
+{
+    data
+     = ((( 1 0 )	%  C_pt=putt  Bd_pt=putt
+	 ( 0 1 ))	%  C_pt=putt  Bd_pt=miss
+	(( 0 1 )	%  C_pt=miss  Bd_pt=putt
+	 ( 0 1 )));	%  C_pt=miss  Bd_pt=miss
+}
+
+potential (RW_pt | W_pt R_pt)
+{
+    data
+     = ((( 1 0 )	%  W_pt=putt  R_pt=putt
+	 ( 0 1 ))	%  W_pt=putt  R_pt=miss
+	(( 0 1 )	%  W_pt=miss  R_pt=putt
+	 ( 0 1 )));	%  W_pt=miss  R_pt=miss
+}
+
+potential (Prev | CBd_pt RW_pt)
+{
+    data
+     = ((( 1 0 )	%  CBd_pt=putt  RW_pt=putt
+	 ( 0 1 ))	%  CBd_pt=putt  RW_pt=miss
+	(( 0 1 )	%  CBd_pt=miss  RW_pt=putt
+	 ( 0 1 )));	%  CBd_pt=miss  RW_pt=miss
+}
+
+potential (Result1 | Prev B_pt)
+{
+    data
+     = ((( 1 0 )	%  Prev=putt  B_pt=putt
+	 ( 0 1 ))	%  Prev=putt  B_pt=miss
+	(( 0 1 )	%  Prev=miss  B_pt=putt
+	 ( 0 1 )));	%  Prev=miss  B_pt=miss
+}

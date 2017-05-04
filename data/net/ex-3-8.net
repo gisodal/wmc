@@ -1,0 +1,68 @@
+net
+{
+    node_size = (100 40);
+    HRUNTIME_Monitor_InitStates = "5";
+    HRUNTIME_Monitor_OpenGraph = "0";
+    HRUNTIME_Monitor_GraphPrecision = "100";
+    HRUNTIME_Monitor_AutoUpdGraph = "0";
+    HRUNTIME_Compile_ApproxEpsilon = "0.00001";
+    HRUNTIME_Compile_Approximate = "0";
+    HRUNTIME_Compile_Compress = "0";
+    HRUNTIME_Compile_TriangMethod = "0";
+    HRUNTIME_Propagate_AutoNormal = "1";
+    HRUNTIME_Propagate_AutoSum = "1";
+    HRUNTIME_Propagate_Auto = "0";
+    HRUNTIME_Font_Italic = "0";
+    HRUNTIME_Font_Weight = "400";
+    HRUNTIME_Font_Size = "-12";
+    HRUNTIME_Font_Name = "Arial";
+    HRUNTIME_Grid_GridShow = "0";
+    HRUNTIME_Grid_GridSnap = "1";
+    HRUNTIME_Grid_Y = "10";
+    HRUNTIME_Grid_X = "10";
+}
+
+node Gold
+{
+    label = "";
+    position = (0 154);
+    states = ("a" "b" "c");
+}
+
+node Your_D
+{
+    label = "";
+    position = (200 150);
+    states = ("a" "b" "c");
+}
+
+node Ofcl_D
+{
+    label = "";
+    position = (90 0);
+    states = ("a" "b" "c");
+}
+
+potential (Gold)
+{
+    data = ( 0.333333 0.333333 0.333333 );
+}
+
+potential (Your_D)
+{
+    data = ( 0.333333 0.333333 0.333333 );
+}
+
+potential (Ofcl_D | Gold Your_D)
+{
+    data
+     = ((( 0 0.5 0.5 )	%  Gold=a  Your_D=a
+	 ( 0 0 1 )	%  Gold=a  Your_D=b
+	 ( 0 1 0 ))	%  Gold=a  Your_D=c
+	(( 0 0 1 )	%  Gold=b  Your_D=a
+	 ( 0.5 0 0.5 )	%  Gold=b  Your_D=b
+	 ( 1 0 0 ))	%  Gold=b  Your_D=c
+	(( 0 1 0 )	%  Gold=c  Your_D=a
+	 ( 1 0 0 )	%  Gold=c  Your_D=b
+	 ( 0.5 0.5 0 )));	%  Gold=c  Your_D=c
+}

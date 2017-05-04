@@ -1,0 +1,144 @@
+net
+{
+    node_size = (80 40);
+    HR_Node_Label_Style = "0";
+    HR_Desc = "Another version of the oil wildcatter example.";
+    HR_OOBN_FitExpand = "1";
+    HR_Zoom_ZoomFactor = "100";
+    HR_Color_Interface = "21";
+    HR_Color_Instance = "0";
+    HR_Color_ContinuousChance = "32";
+    HR_Compile_MaxMinimalSeparators = "100000";
+    HR_Grid_X = "10";
+    HR_Grid_Y = "10";
+    HR_Grid_GridSnap = "1";
+    HR_Grid_GridShow = "0";
+    HR_Font_Name = "Arial";
+    HR_Font_Size = "-12";
+    HR_Font_Weight = "400";
+    HR_Font_Italic = "0";
+    HR_Propagate_Auto = "0";
+    HR_Propagate_AutoSum = "1";
+    HR_Propagate_AutoNormal = "1";
+    HR_Compile_TriangMethod = "0";
+    HR_Compile_Compress = "0";
+    HR_Compile_Approximate = "0";
+    HR_Compile_ApproxEpsilon = "0.00001";
+    HR_Monitor_AutoUpdGraph = "0";
+    HR_Monitor_GraphPrecision = "100";
+    HR_Monitor_OpenGraph = "0";
+    HR_Monitor_InitStates = "5";
+    HR_Monitor_InitSD = "2";
+    HR_Color_DiscreteChance = "16";
+    HR_Color_ContinuosChance = "48";
+    HR_Color_Utility = "36";
+    HR_Color_Decision = "17";
+    HR_Groups_UserGroupsNo = "0";
+    HR_Groups_GroupNames = "test\t";
+    HR_Groups_GroupColors = "47";
+    HRUNTIME_Monitor_InitStates = "5";
+    HRUNTIME_Monitor_OpenGraph = "0";
+    HRUNTIME_Monitor_GraphPrecision = "100";
+    HRUNTIME_Monitor_AutoUpdGraph = "0";
+    HRUNTIME_Compile_ApproxEpsilon = "0.00001";
+    HRUNTIME_Compile_Approximate = "0";
+    HRUNTIME_Compile_Compress = "0";
+    HRUNTIME_Compile_TriangMethod = "0";
+    HRUNTIME_Propagate_AutoNormal = "1";
+    HRUNTIME_Propagate_AutoSum = "1";
+    HRUNTIME_Propagate_Auto = "0";
+    HRUNTIME_Font_Italic = "0";
+    HRUNTIME_Font_Weight = "400";
+    HRUNTIME_Font_Size = "-12";
+    HRUNTIME_Font_Name = "Arial";
+    HRUNTIME_Grid_GridShow = "0";
+    HRUNTIME_Grid_GridSnap = "1";
+    HRUNTIME_Grid_Y = "10";
+    HRUNTIME_Grid_X = "10";
+}
+
+utility U6
+{
+    label = "Profit";
+    position = (280 30);
+}
+
+decision D5
+{
+    label = "Drill?";
+    position = (280 110);
+    states = ("drill" "do not drill");
+}
+
+decision D4
+{
+    label = "Test?";
+    position = (400 110);
+    states = ("do test" "no test");
+}
+
+node C3
+{
+    label = "Test result";
+    position = (280 180);
+    states = ("none" "open" "closed" "no result");
+}
+
+node C2
+{
+    label = "Seismic structure";
+    position = (170 180);
+    states = ("none" "open" "closed");
+}
+
+node C1
+{
+    label = "Amount of oil";
+    position = (50 180);
+    states = ("dry" "wet" "soaking");
+}
+
+potential (U6 | D5 C1 D4)
+{
+    data
+     = ((( -80	%  D5=drill  C1=dry  D4=do test
+	   -70 )	%  D5=drill  C1=dry  D4=no test
+	 ( 40	%  D5=drill  C1=wet  D4=do test
+	   50 )	%  D5=drill  C1=wet  D4=no test
+	 ( 190	%  D5=drill  C1=soaking  D4=do test
+	   200 ))	%  D5=drill  C1=soaking  D4=no test
+	(( -10	%  D5=do not drill  C1=dry  D4=do test
+	   0 )	%  D5=do not drill  C1=dry  D4=no test
+	 ( -10	%  D5=do not drill  C1=wet  D4=do test
+	   0 )	%  D5=do not drill  C1=wet  D4=no test
+	 ( -10	%  D5=do not drill  C1=soaking  D4=do test
+	   0 )));	%  D5=do not drill  C1=soaking  D4=no test
+}
+
+potential (D5 | D4 C3) {}
+
+potential (D4) {}
+
+potential (C3 | C2 D4)
+{
+    data
+     = ((( 1 0 0 0 )	%  C2=none  D4=do test
+	 ( 0 0 0 1 ))	%  C2=none  D4=no test
+	(( 0 1 0 0 )	%  C2=open  D4=do test
+	 ( 0 0 0 1 ))	%  C2=open  D4=no test
+	(( 0 0 1 0 )	%  C2=closed  D4=do test
+	 ( 0 0 0 1 )));	%  C2=closed  D4=no test
+}
+
+potential (C2 | C1)
+{
+    data
+     = (( 0.6 0.3 0.1 )	%  C1=dry
+	( 0.3 0.4 0.3 )	%  C1=wet
+	( 0.1 0.4 0.5 ));	%  C1=soaking
+}
+
+potential (C1)
+{
+    data = ( 0.5 0.3 0.2 );
+}

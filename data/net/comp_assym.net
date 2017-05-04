@@ -1,0 +1,393 @@
+net
+{
+    node_size = (100 20);
+    HR_Color_DiscreteChance = "16";
+    HR_Grid_X = "10";
+    HR_Grid_Y = "10";
+    HR_Grid_GridSnap = "1";
+    HR_Grid_GridShow = "0";
+    HR_Font_Name = "Tahoma";
+    HR_Font_Size = "-9";
+    HR_Font_Weight = "400";
+    HR_Font_Italic = "0";
+    HR_Propagate_Auto = "0";
+    HR_Propagate_AutoSum = "1";
+    HR_Propagate_AutoNormal = "1";
+    HR_Compile_TriangMethod = "0";
+    HR_Compile_Compress = "0";
+    HR_Compile_Approximate = "0";
+    HR_Compile_ApproxEpsilon = "0.00001";
+    HR_Monitor_AutoUpdGraph = "0";
+    HR_Monitor_GraphPrecision = "100";
+    HR_Monitor_OpenGraph = "0";
+    HR_Monitor_InitStates = "5";
+    HR_Monitor_InitSD = "2";
+    HR_Color_DescreteChance = "46";
+    HR_Color_ContinuosChance = "48";
+    HR_Color_Utility = "36";
+    HR_Color_Decision = "17";
+    HR_Groups_UserGroupsNo = "3";
+    HR_Groups_GroupNames = "Copyright\tThreats\tEnvironment";
+    HR_Groups_GroupColors = "133428";
+}
+
+node AntiTrustThreat
+{
+    position = (380 160);
+    states = ("Threat of Anti-Trust Case" "No threat");
+    HR_Grp = "1";
+}
+
+node NYU
+{
+    label = "(c) Baumard, 1997";
+    states = ("Competitive Analysis Belief Network");
+    HR_Grp = "0";
+    HR_Desc = "This network is part of series published in a CD-Rom, with\r\na book entitled \"Competitivite des Systemes d'Information\"\r\n(Paris: masson, fortchoming 1998).\r\nWeb access : www.masson.fr\r\nIt aims at assessing the the anti-trust threat in a given market. The other networks in the book assess the competitiveness of information systems and technologies.";
+    HR_State_0 = "For more info : Philippe.Baumard@dauphine.fr\r\n";
+}
+
+decision Territory
+{
+    position = (0 170);
+    states = ("Saturation" "No saturation");
+    HR_Grp = "2";
+}
+
+node Options
+{
+    position = (120 170);
+    states = ("Move to a new territory" "Defend current territory" "Increase distinction");
+}
+
+node Cashflow
+{
+    position = (120 230);
+    states = ("High" "Moderate" "Negative");
+}
+
+node Action
+{
+    position = (260 200);
+    states = ("Agression" "Persuasion" "Defense" "Dissuasion");
+}
+
+node Relations
+{
+    position = (120 200);
+    states = ("Conflict" "Cooperation" "Avoidance");
+}
+
+decision Market
+{
+    position = (0 230);
+    states = ("New" "Growth" "Maturity" "Decline");
+    HR_Grp = "2";
+}
+
+decision RMS
+{
+    position = (0 210);
+    states = ("Inf 10%leader" "10/40% leader" ">40% leader" "Leader");
+    HR_Grp = "2";
+}
+
+decision Competencies
+{
+    position = (0 190);
+    states = ("Uncomparable" "Distinctive" "Differentiated" "No distinction");
+    HR_Grp = "2";
+}
+
+utility IncreaseDistinction
+{
+    position = (240 50);
+}
+
+node Interdepency
+{
+    position = (130 120);
+    states = ("Domination" "Symbiosis" "Dependancy" "FreePlayers");
+}
+
+decision NumberOfBuyers
+{
+    position = (0 130);
+    states = ("One" "Few" "Many");
+    HR_Grp = "2";
+}
+
+node Asymetry
+{
+    position = (240 100);
+    states = ("High" "Moderate" "None");
+}
+
+decision Information
+{
+    position = (0 70);
+    states = ("Proprietary" "Restricted" "Perfect Avaibility");
+    HR_Grp = "2";
+}
+
+decision ProductDifferentiation
+{
+    position = (0 50);
+    states = ("Extensive" "Moderate" "Low" "None");
+    HR_Grp = "2";
+}
+
+decision EntryExitBarriers
+{
+    position = (0 90);
+    states = ("Legal" "High" "Significant" "None");
+    HR_Grp = "2";
+}
+
+node Competition
+{
+    label = "Competition";
+    position = (130 70);
+    states = ("Intense" "Limited");
+}
+
+decision NumberOfCompetitors
+{
+    position = (0 110);
+    states = ("One" "Two" "Few" "Many");
+    HR_Grp = "2";
+}
+
+node MoveCredibility
+{
+    position = (260 150);
+    states = ("Credible" "Not credible");
+}
+
+potential (AntiTrustThreat | Asymetry RMS)
+{
+    data
+     = ((( 0.25 0.75 )	%  Asymetry=High  RMS=Inf 10%leader
+	 ( 0.6 0.4 )	%  Asymetry=High  RMS=10/40% leader
+	 ( 0.87 0.13 )	%  Asymetry=High  RMS=>40% leader
+	 ( 0.99 0.01 ))	%  Asymetry=High  RMS=Leader
+	(( 0.31 0.69 )	%  Asymetry=Moderate  RMS=Inf 10%leader
+	 ( 0.4 0.6 )	%  Asymetry=Moderate  RMS=10/40% leader
+	 ( 0.78 0.22 )	%  Asymetry=Moderate  RMS=>40% leader
+	 ( 0.85 0.15 ))	%  Asymetry=Moderate  RMS=Leader
+	(( 0.01 0.99 )	%  Asymetry=None  RMS=Inf 10%leader
+	 ( 0.15 0.85 )	%  Asymetry=None  RMS=10/40% leader
+	 ( 0.25 0.75 )	%  Asymetry=None  RMS=>40% leader
+	 ( 0.45 0.55 )));	%  Asymetry=None  RMS=Leader
+}
+
+potential (NYU)
+{
+    data = ( 1 );
+}
+
+potential (Territory | Competencies) {}
+
+potential (Options | Territory Relations)
+{
+    data
+     = ((( 0.05 0.33 0.62 )	%  Territory=Saturation  Relations=Conflict
+	 ( 0.19 0.01 0.8 )	%  Territory=Saturation  Relations=Cooperation
+	 ( 0.33 0.66 0.01 ))	%  Territory=Saturation  Relations=Avoidance
+	(( 0.01 0.66 0.33 )	%  Territory=No saturation  Relations=Conflict
+	 ( 0.8 0.01 0.19 )	%  Territory=No saturation  Relations=Cooperation
+	 ( 0.62 0.33 0.05 )));	%  Territory=No saturation  Relations=Avoidance
+}
+
+potential (Cashflow | Market RMS)
+{
+    data
+     = ((( 0 0 1 )	%  Market=New  RMS=Inf 10%leader
+	 ( 0.04 0.095 0.865 )	%  Market=New  RMS=10/40% leader
+	 ( 0.085 0.18 0.735 )	%  Market=New  RMS=>40% leader
+	 ( 0.125 0.275 0.6 ))	%  Market=New  RMS=Leader
+	(( 0.1625 0.375 0.4625 )	%  Market=Growth  RMS=Inf 10%leader
+	 ( 0.2 0.475 0.325 )	%  Market=Growth  RMS=10/40% leader
+	 ( 0.23 0.59 0.18 )	%  Market=Growth  RMS=>40% leader
+	 ( 0.29 0.665 0.045 ))	%  Market=Growth  RMS=Leader
+	(( 0.045 0.665 0.29 )	%  Market=Maturity  RMS=Inf 10%leader
+	 ( 0.175 0.6 0.225 )	%  Market=Maturity  RMS=10/40% leader
+	 ( 0.325 0.475 0.2 )	%  Market=Maturity  RMS=>40% leader
+	 ( 0.4625 0.375 0.1625 ))	%  Market=Maturity  RMS=Leader
+	(( 0.595 0.285 0.12 )	%  Market=Decline  RMS=Inf 10%leader
+	 ( 0.73 0.19 0.08 )	%  Market=Decline  RMS=10/40% leader
+	 ( 0.865 0.095 0.04 )	%  Market=Decline  RMS=>40% leader
+	 ( 1 0 0 )));	%  Market=Decline  RMS=Leader
+}
+
+potential (Action | Options Cashflow)
+{
+    data
+     = ((( 1 0 0 0 )	%  Options=Move to a new territory  Cashflow=High
+	 ( 0.85 0.15 0 0 )	%  Options=Move to a new territory  Cashflow=Moderate
+	 ( 0.1 0.9 0 0 ))	%  Options=Move to a new territory  Cashflow=Negative
+	(( 0 0 1 0 )	%  Options=Defend current territory  Cashflow=High
+	 ( 0 0 0.6 0.4 )	%  Options=Defend current territory  Cashflow=Moderate
+	 ( 0 0 0 1 ))	%  Options=Defend current territory  Cashflow=Negative
+	(( 0.32 0.34 0.25 0.09 )	%  Options=Increase distinction  Cashflow=High
+	 ( 0 0.35 0.4 0.25 )	%  Options=Increase distinction  Cashflow=Moderate
+	 ( 0 0.48 0 0.52 )));	%  Options=Increase distinction  Cashflow=Negative
+}
+
+potential (Relations | Competencies RMS)
+{
+    data
+     = ((( 0 0 1 )	%  Competencies=Uncomparable  RMS=Inf 10%leader
+	 ( 0.04 0.095 0.865 )	%  Competencies=Uncomparable  RMS=10/40% leader
+	 ( 0.08 0.19 0.73 )	%  Competencies=Uncomparable  RMS=>40% leader
+	 ( 0.1 0.3 0.6 ))	%  Competencies=Uncomparable  RMS=Leader
+	(( 0.16 0.38 0.46 )	%  Competencies=Distinctive  RMS=Inf 10%leader
+	 ( 0.2 0.475 0.325 )	%  Competencies=Distinctive  RMS=10/40% leader
+	 ( 0.24 0.57 0.19 )	%  Competencies=Distinctive  RMS=>40% leader
+	 ( 0.29 0.665 0.045 ))	%  Competencies=Distinctive  RMS=Leader
+	(( 0.045 0.665 0.29 )	%  Competencies=Differentiated  RMS=Inf 10%leader
+	 ( 0.19 0.57 0.24 )	%  Competencies=Differentiated  RMS=10/40% leader
+	 ( 0.325 0.475 0.2 )	%  Competencies=Differentiated  RMS=>40% leader
+	 ( 0.46 0.38 0.16 ))	%  Competencies=Differentiated  RMS=Leader
+	(( 0.6 0.3 0.1 )	%  Competencies=No distinction  RMS=Inf 10%leader
+	 ( 0.73 0.19 0.08 )	%  Competencies=No distinction  RMS=10/40% leader
+	 ( 0.865 0.095 0.04 )	%  Competencies=No distinction  RMS=>40% leader
+	 ( 1 0 0 )));	%  Competencies=No distinction  RMS=Leader
+}
+
+potential (Market) {}
+
+potential (RMS | Market) {}
+
+potential (Competencies | RMS) {}
+
+potential (IncreaseDistinction | ProductDifferentiation Asymetry)
+{
+    data
+     = (( 2	%  ProductDifferentiation=Extensive  Asymetry=High
+	  1	%  ProductDifferentiation=Extensive  Asymetry=Moderate
+	  -3 )	%  ProductDifferentiation=Extensive  Asymetry=None
+	( 4	%  ProductDifferentiation=Moderate  Asymetry=High
+	  3	%  ProductDifferentiation=Moderate  Asymetry=Moderate
+	  -7 )	%  ProductDifferentiation=Moderate  Asymetry=None
+	( 6	%  ProductDifferentiation=Low  Asymetry=High
+	  5	%  ProductDifferentiation=Low  Asymetry=Moderate
+	  -11 )	%  ProductDifferentiation=Low  Asymetry=None
+	( 8	%  ProductDifferentiation=None  Asymetry=High
+	  7	%  ProductDifferentiation=None  Asymetry=Moderate
+	  -15 ));	%  ProductDifferentiation=None  Asymetry=None
+}
+
+potential (Interdepency | NumberOfCompetitors NumberOfBuyers)
+{
+    data
+     = ((( 0.05 0.9 0.05 0 )	%  NumberOfCompetitors=One  NumberOfBuyers=One
+	 ( 0.6 0.08 0.22 0.1 )	%  NumberOfCompetitors=One  NumberOfBuyers=Few
+	 ( 0.98 0 0.01 0.01 ))	%  NumberOfCompetitors=One  NumberOfBuyers=Many
+	(( 0.02 0.43 0.5 0.05 )	%  NumberOfCompetitors=Two  NumberOfBuyers=One
+	 ( 0.3 0.38 0.17 0.15 )	%  NumberOfCompetitors=Two  NumberOfBuyers=Few
+	 ( 0.6 0.1 0 0.3 ))	%  NumberOfCompetitors=Two  NumberOfBuyers=Many
+	(( 0 0.2 0.6 0.2 )	%  NumberOfCompetitors=Few  NumberOfBuyers=One
+	 ( 0.14 0.5 0.05 0.31 )	%  NumberOfCompetitors=Few  NumberOfBuyers=Few
+	 ( 0.25 0.05 0.05 0.65 ))	%  NumberOfCompetitors=Few  NumberOfBuyers=Many
+	(( 0.01 0.01 0.98 0 )	%  NumberOfCompetitors=Many  NumberOfBuyers=One
+	 ( 0.05 0.3 0.32 0.33 )	%  NumberOfCompetitors=Many  NumberOfBuyers=Few
+	 ( 0 0.05 0.05 0.9 )));	%  NumberOfCompetitors=Many  NumberOfBuyers=Many
+}
+
+potential (NumberOfBuyers | Territory) {}
+
+potential (Asymetry | Competition Interdepency)
+{
+    data
+     = ((( 0.1 0.6 0.3 )	%  Competition=Intense  Interdepency=Domination
+	 ( 0 0.43 0.57 )	%  Competition=Intense  Interdepency=Symbiosis
+	 ( 0 0.3 0.7 )	%  Competition=Intense  Interdepency=Dependancy
+	 ( 0 0 1 ))	%  Competition=Intense  Interdepency=FreePlayers
+	(( 1 0 0 )	%  Competition=Limited  Interdepency=Domination
+	 ( 0.7 0.3 0 )	%  Competition=Limited  Interdepency=Symbiosis
+	 ( 0.57 0.43 0 )	%  Competition=Limited  Interdepency=Dependancy
+	 ( 0.3 0.6 0.1 )));	%  Competition=Limited  Interdepency=FreePlayers
+}
+
+potential (Information | EntryExitBarriers) {}
+
+potential (ProductDifferentiation | Information) {}
+
+potential (EntryExitBarriers | NumberOfCompetitors) {}
+
+potential (Competition | ProductDifferentiation EntryExitBarriers Information)
+{
+    data
+     = (((( 0.02 0.98 )	%  ProductDifferentiation=Extensive  EntryExitBarriers=Legal  Information=Proprietary
+	  ( 0.04 0.96 )	%  ProductDifferentiation=Extensive  EntryExitBarriers=Legal  Information=Restricted
+	  ( 0.06 0.94 ))	%  ProductDifferentiation=Extensive  EntryExitBarriers=Legal  Information=Perfect Avaibility
+	 (( 0.08 0.92 )	%  ProductDifferentiation=Extensive  EntryExitBarriers=High  Information=Proprietary
+	  ( 0.1 0.9 )	%  ProductDifferentiation=Extensive  EntryExitBarriers=High  Information=Restricted
+	  ( 0.12 0.88 ))	%  ProductDifferentiation=Extensive  EntryExitBarriers=High  Information=Perfect Avaibility
+	 (( 0.14 0.86 )	%  ProductDifferentiation=Extensive  EntryExitBarriers=Significant  Information=Proprietary
+	  ( 0.16 0.84 )	%  ProductDifferentiation=Extensive  EntryExitBarriers=Significant  Information=Restricted
+	  ( 0.18 0.82 ))	%  ProductDifferentiation=Extensive  EntryExitBarriers=Significant  Information=Perfect Avaibility
+	 (( 0.2 0.8 )	%  ProductDifferentiation=Extensive  EntryExitBarriers=None  Information=Proprietary
+	  ( 0.22 0.78 )	%  ProductDifferentiation=Extensive  EntryExitBarriers=None  Information=Restricted
+	  ( 0.24 0.76 )))	%  ProductDifferentiation=Extensive  EntryExitBarriers=None  Information=Perfect Avaibility
+	((( 0.26 0.74 )	%  ProductDifferentiation=Moderate  EntryExitBarriers=Legal  Information=Proprietary
+	  ( 0.28 0.72 )	%  ProductDifferentiation=Moderate  EntryExitBarriers=Legal  Information=Restricted
+	  ( 0.3 0.7 ))	%  ProductDifferentiation=Moderate  EntryExitBarriers=Legal  Information=Perfect Avaibility
+	 (( 0.32 0.68 )	%  ProductDifferentiation=Moderate  EntryExitBarriers=High  Information=Proprietary
+	  ( 0.34 0.66 )	%  ProductDifferentiation=Moderate  EntryExitBarriers=High  Information=Restricted
+	  ( 0.36 0.64 ))	%  ProductDifferentiation=Moderate  EntryExitBarriers=High  Information=Perfect Avaibility
+	 (( 0.38 0.62 )	%  ProductDifferentiation=Moderate  EntryExitBarriers=Significant  Information=Proprietary
+	  ( 0.4 0.6 )	%  ProductDifferentiation=Moderate  EntryExitBarriers=Significant  Information=Restricted
+	  ( 0.42 0.58 ))	%  ProductDifferentiation=Moderate  EntryExitBarriers=Significant  Information=Perfect Avaibility
+	 (( 0.44 0.56 )	%  ProductDifferentiation=Moderate  EntryExitBarriers=None  Information=Proprietary
+	  ( 0.46 0.54 )	%  ProductDifferentiation=Moderate  EntryExitBarriers=None  Information=Restricted
+	  ( 0.48 0.52 )))	%  ProductDifferentiation=Moderate  EntryExitBarriers=None  Information=Perfect Avaibility
+	((( 0.52 0.48 )	%  ProductDifferentiation=Low  EntryExitBarriers=Legal  Information=Proprietary
+	  ( 0.54 0.46 )	%  ProductDifferentiation=Low  EntryExitBarriers=Legal  Information=Restricted
+	  ( 0.56 0.44 ))	%  ProductDifferentiation=Low  EntryExitBarriers=Legal  Information=Perfect Avaibility
+	 (( 0.58 0.42 )	%  ProductDifferentiation=Low  EntryExitBarriers=High  Information=Proprietary
+	  ( 0.6 0.4 )	%  ProductDifferentiation=Low  EntryExitBarriers=High  Information=Restricted
+	  ( 0.62 0.38 ))	%  ProductDifferentiation=Low  EntryExitBarriers=High  Information=Perfect Avaibility
+	 (( 0.64 0.36 )	%  ProductDifferentiation=Low  EntryExitBarriers=Significant  Information=Proprietary
+	  ( 0.66 0.34 )	%  ProductDifferentiation=Low  EntryExitBarriers=Significant  Information=Restricted
+	  ( 0.68 0.32 ))	%  ProductDifferentiation=Low  EntryExitBarriers=Significant  Information=Perfect Avaibility
+	 (( 0.7 0.3 )	%  ProductDifferentiation=Low  EntryExitBarriers=None  Information=Proprietary
+	  ( 0.72 0.28 )	%  ProductDifferentiation=Low  EntryExitBarriers=None  Information=Restricted
+	  ( 0.74 0.26 )))	%  ProductDifferentiation=Low  EntryExitBarriers=None  Information=Perfect Avaibility
+	((( 0.76 0.24 )	%  ProductDifferentiation=None  EntryExitBarriers=Legal  Information=Proprietary
+	  ( 0.78 0.22 )	%  ProductDifferentiation=None  EntryExitBarriers=Legal  Information=Restricted
+	  ( 0.8 0.2 ))	%  ProductDifferentiation=None  EntryExitBarriers=Legal  Information=Perfect Avaibility
+	 (( 0.82 0.18 )	%  ProductDifferentiation=None  EntryExitBarriers=High  Information=Proprietary
+	  ( 0.84 0.16 )	%  ProductDifferentiation=None  EntryExitBarriers=High  Information=Restricted
+	  ( 0.86 0.14 ))	%  ProductDifferentiation=None  EntryExitBarriers=High  Information=Perfect Avaibility
+	 (( 0.88 0.12 )	%  ProductDifferentiation=None  EntryExitBarriers=Significant  Information=Proprietary
+	  ( 0.9 0.1 )	%  ProductDifferentiation=None  EntryExitBarriers=Significant  Information=Restricted
+	  ( 0.92 0.08 ))	%  ProductDifferentiation=None  EntryExitBarriers=Significant  Information=Perfect Avaibility
+	 (( 0.94 0.06 )	%  ProductDifferentiation=None  EntryExitBarriers=None  Information=Proprietary
+	  ( 0.96 0.04 )	%  ProductDifferentiation=None  EntryExitBarriers=None  Information=Restricted
+	  ( 0.98 0.02 ))));	%  ProductDifferentiation=None  EntryExitBarriers=None  Information=Perfect Avaibility
+}
+
+potential (NumberOfCompetitors | NumberOfBuyers) {}
+
+potential (MoveCredibility | Interdepency Action)
+{
+    data
+     = ((( 1 0 )	%  Interdepency=Domination  Action=Agression
+	 ( 0.9375 0.0625 )	%  Interdepency=Domination  Action=Persuasion
+	 ( 0.875 0.125 )	%  Interdepency=Domination  Action=Defense
+	 ( 0.8125 0.1875 ))	%  Interdepency=Domination  Action=Dissuasion
+	(( 0.125 0.875 )	%  Interdepency=Symbiosis  Action=Agression
+	 ( 0.5625 0.4375 )	%  Interdepency=Symbiosis  Action=Persuasion
+	 ( 0.28125 0.71875 )	%  Interdepency=Symbiosis  Action=Defense
+	 ( 0.625 0.375 ))	%  Interdepency=Symbiosis  Action=Dissuasion
+	(( 0 1 )	%  Interdepency=Dependancy  Action=Agression
+	 ( 0.0625 0.9375 )	%  Interdepency=Dependancy  Action=Persuasion
+	 ( 0.125 0.875 )	%  Interdepency=Dependancy  Action=Defense
+	 ( 0.1875 0.8125 ))	%  Interdepency=Dependancy  Action=Dissuasion
+	(( 0.75 0.25 )	%  Interdepency=FreePlayers  Action=Agression
+	 ( 0.5 0.5 )	%  Interdepency=FreePlayers  Action=Persuasion
+	 ( 0.6875 0.3125 )	%  Interdepency=FreePlayers  Action=Defense
+	 ( 0.4375 0.5625 )));	%  Interdepency=FreePlayers  Action=Dissuasion
+}

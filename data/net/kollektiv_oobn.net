@@ -1,0 +1,312 @@
+class kollektiv_person_oobn
+{
+    inputs = (fpg fmg mpg mmg);
+    outputs = (pg mg);
+    node_size = (80 40);
+    HR_Groups_GroupColors = "";
+    HR_Groups_GroupNames = "";
+    HR_Groups_UserGroupsNo = "0";
+    HR_Color_Decision = "17";
+    HR_Color_Utility = "36";
+    HR_Color_ContinuosChance = "48";
+    HR_Color_DiscreteChance = "16";
+    HR_Monitor_InitSD = "2";
+    HR_Monitor_InitStates = "5";
+    HR_Monitor_OpenGraph = "0";
+    HR_Monitor_GraphPrecision = "100";
+    HR_Monitor_AutoUpdGraph = "0";
+    HR_Compile_ApproxEpsilon = "0.00001";
+    HR_Compile_Approximate = "0";
+    HR_Compile_Compress = "0";
+    HR_Compile_TriangMethod = "0";
+    HR_Propagate_AutoNormal = "1";
+    HR_Propagate_AutoSum = "1";
+    HR_Propagate_Auto = "0";
+    HR_Font_Italic = "0";
+    HR_Font_Weight = "400";
+    HR_Font_Size = "-12";
+    HR_Font_Name = "Arial";
+    HR_Grid_GridShow = "0";
+    HR_Grid_GridSnap = "1";
+    HR_Grid_Y = "10";
+    HR_Grid_X = "10";
+    HR_Zoom_ZoomFactor = "100";
+
+    node gt
+    {
+	label = "";
+	position = (260 290);
+	states = ("AA" "AB" "A0" "BB" "B0" "00");
+	HR_Grp = "";
+	HR_State_5 = "";
+	HR_State_4 = "";
+	HR_State_3 = "";
+	HR_State_2 = "";
+	HR_State_1 = "";
+	HR_State_0 = "";
+    }
+
+    node pg
+    {
+	label = "";
+	position = (210 220);
+	states = ("A" "B" "0");
+	HR_State_2 = "";
+	HR_State_1 = "";
+	HR_State_0 = "";
+	HR_Grp = "";
+    }
+
+    node mg
+    {
+	label = "";
+	position = (320 220);
+	states = ("A" "B" "0");
+	HR_State_2 = "";
+	HR_State_1 = "";
+	HR_State_0 = "";
+	HR_Grp = "";
+    }
+
+    node BT
+    {
+	label = "";
+	position = (260 360);
+	states = ("A" "B" "O" "AB");
+	HR_Grp = "";
+	HR_State_3 = "";
+	HR_State_2 = "";
+	HR_State_1 = "";
+	HR_State_0 = "";
+    }
+
+    node mmg
+    {
+	label = "";
+	position = (480 130);
+	states = ("A" "B" "0");
+	HR_State_2 = "";
+	HR_State_1 = "";
+	HR_State_0 = "";
+	HR_Grp = "";
+    }
+
+    node mpg
+    {
+	label = "";
+	position = (360 130);
+	states = ("A" "B" "0");
+	HR_State_2 = "";
+	HR_State_1 = "";
+	HR_State_0 = "";
+	HR_Grp = "";
+    }
+
+    node fmg
+    {
+	label = "";
+	position = (210 140);
+	states = ("A" "B" "0");
+	HR_State_2 = "";
+	HR_State_1 = "";
+	HR_State_0 = "";
+	HR_Grp = "";
+    }
+
+    node fpg
+    {
+	label = "";
+	position = (90 140);
+	states = ("A" "B" "0");
+	HR_State_2 = "";
+	HR_State_1 = "";
+	HR_State_0 = "";
+	HR_Grp = "";
+    }
+
+    potential (gt | mg pg)
+    {
+	data = ((( 1 0 0 0 0 0 )	%  mg=A  pg=A
+		 ( 0 1 0 0 0 0 )	%  mg=A  pg=B
+		 ( 0 0 1 0 0 0 ))	%  mg=A  pg=0
+		(( 0 1 0 0 0 0 )	%  mg=B  pg=A
+		 ( 0 0 0 1 0 0 )	%  mg=B  pg=B
+		 ( 0 0 0 0 1 0 ))	%  mg=B  pg=0
+		(( 0 0 1 0 0 0 )	%  mg=0  pg=A
+		 ( 0 0 0 0 1 0 )	%  mg=0  pg=B
+		 ( 0 0 0 0 0 1 )));	%  mg=0  pg=0
+    }
+
+    potential (pg | fmg fpg)
+    {
+	data = ((( 1 0 0 )	%  fmg=A  fpg=A
+		 ( 0.5 0.5 0 )	%  fmg=A  fpg=B
+		 ( 0.5 0 0.5 ))	%  fmg=A  fpg=0
+		(( 0.5 0.5 0 )	%  fmg=B  fpg=A
+		 ( 0 1 0 )	%  fmg=B  fpg=B
+		 ( 0 0.5 0.5 ))	%  fmg=B  fpg=0
+		(( 0.5 0 0.5 )	%  fmg=0  fpg=A
+		 ( 0 0.5 0.5 )	%  fmg=0  fpg=B
+		 ( 0 0 1 )));	%  fmg=0  fpg=0
+    }
+
+    potential (mg | mmg mpg)
+    {
+	data = ((( 1 0 0 )	%  mmg=A  mpg=A
+		 ( 0.5 0.5 0 )	%  mmg=A  mpg=B
+		 ( 0.5 0 0.5 ))	%  mmg=A  mpg=0
+		(( 0.5 0.5 0 )	%  mmg=B  mpg=A
+		 ( 0 1 0 )	%  mmg=B  mpg=B
+		 ( 0 0.5 0.5 ))	%  mmg=B  mpg=0
+		(( 0.5 0 0.5 )	%  mmg=0  mpg=A
+		 ( 0 0.5 0.5 )	%  mmg=0  mpg=B
+		 ( 0 0 1 )));	%  mmg=0  mpg=0
+    }
+
+    potential (BT | gt)
+    {
+	data = (( 1 0 0 0 )	%  gt=AA
+		( 0 0 0 1 )	%  gt=AB
+		( 1 0 0 0 )	%  gt=A0
+		( 0 1 0 0 )	%  gt=BB
+		( 0 1 0 0 )	%  gt=B0
+		( 0 0 1 0 ));	%  gt=00
+    }
+
+    potential (mmg)
+    {
+	data = ( 0.46 0.13 0.41 );
+    }
+
+    potential (mpg)
+    {
+	data = ( 0.46 0.13 0.41 );
+    }
+
+    potential (fmg)
+    {
+	data = ( 0.46 0.13 0.41 );
+    }
+
+    potential (fpg)
+    {
+	data = ( 0.46 0.13 0.41 );
+    }
+} % class kollektiv_person_oobn
+
+class kollektiv_oobn
+{
+    inputs = ();
+    outputs = ();
+    node_size = (80 40);
+    HR_Grid_X = "40";
+    HR_Grid_Y = "40";
+    HR_Grid_GridSnap = "0";
+    HR_Grid_GridShow = "0";
+    HR_Font_Name = "Arial";
+    HR_Font_Size = "-12";
+    HR_Font_Weight = "400";
+    HR_Font_Italic = "0";
+    HR_Propagate_Auto = "1";
+    HR_Propagate_AutoSum = "1";
+    HR_Propagate_AutoNormal = "1";
+    HR_Compile_TriangMethod = "0";
+    HR_Compile_Compress = "0";
+    HR_Compile_Approximate = "0";
+    HR_Compile_ApproxEpsilon = "1.0E-5";
+    HR_Monitor_AutoUpdGraph = "0";
+    HR_Monitor_GraphPrecision = "100";
+    HR_Monitor_OpenGraph = "0";
+    HR_Monitor_InitStates = "5";
+    HR_Monitor_InitSD = "2";
+    HR_Color_DiscreteChance = "16";
+    HR_Color_ContinuousChance = "48";
+    HR_Color_Decision = "36";
+    HR_Color_Utility = "17";
+    HR_Color_Instance = "0";
+    HR_Color_Interface = "21";
+    HR_Groups_UserGroupsNo = "0";
+    HR_Groups_GroupNames = "";
+    HR_Groups_GroupColors = "";
+    HR_Zoom_ZoomFactor = "75";
+    HR_Desc = "";
+
+    node tf
+    {
+	label = "";
+	position = (36 136);
+	states = ("Bengt" "Carsten");
+	HR_State_0 = "";
+	HR_State_1 = "";
+	HR_Grp = "";
+    }
+
+    node fmg
+    {
+	label = "";
+	position = (227 181);
+	states = ("A" "B" "0");
+	subtype = label;
+	HR_State_2 = "";
+	HR_State_1 = "";
+	HR_State_0 = "";
+	HR_Grp = "";
+    }
+
+    node fpg
+    {
+	label = "";
+	position = (125 183);
+	states = ("A" "B" "0");
+	subtype = label;
+	HR_State_2 = "";
+	HR_State_1 = "";
+	HR_State_0 = "";
+	HR_Grp = "";
+    }
+
+    instance Erik : kollektiv_person_oobn (fpg = fpg, fmg = fmg, mpg = Anne_pg, mmg = Anne_mg)
+    {
+	label = "";
+	position = (244 376);
+	HR_Grp = "";
+    }
+
+    instance Anne : kollektiv_person_oobn (; Anne_pg = pg, Anne_mg = mg)
+    {
+	label = "";
+	position = (481 215);
+	HR_Grp = "";
+    }
+
+    instance Carsten : kollektiv_person_oobn (; Carsten_pg = pg, Carsten_mg = mg)
+    {
+	label = "";
+	position = (453 53);
+	HR_Grp = "";
+    }
+
+    instance Bengt : kollektiv_person_oobn (; Bengt_pg = pg, Bengt_mg = mg)
+    {
+	label = "";
+	position = (138 53);
+	HR_Grp = "";
+    }
+
+    potential (tf)
+    {
+	data = ( 1 1 );
+    }
+
+    potential (fmg | tf Bengt_mg Carsten_mg)
+    {
+	model_nodes = ();
+	model_data = ( if (tf == "Bengt", Bengt_mg, Carsten_mg) );
+    }
+
+    potential (fpg | tf Bengt_pg Carsten_pg)
+    {
+	model_nodes = ();
+	model_data = ( if (tf == "Bengt", Bengt_pg, Carsten_pg) );
+    }
+} % class kollektiv_oobn

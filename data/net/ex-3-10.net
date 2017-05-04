@@ -1,0 +1,173 @@
+net
+{
+    node_size = (100 40);
+    HRUNTIME_Grid_X = "10";
+    HRUNTIME_Grid_Y = "10";
+    HRUNTIME_Grid_GridSnap = "1";
+    HRUNTIME_Grid_GridShow = "0";
+    HRUNTIME_Font_Name = "Arial";
+    HRUNTIME_Font_Size = "-12";
+    HRUNTIME_Font_Weight = "400";
+    HRUNTIME_Font_Italic = "0";
+    HRUNTIME_Propagate_Auto = "0";
+    HRUNTIME_Propagate_AutoSum = "1";
+    HRUNTIME_Propagate_AutoNormal = "1";
+    HRUNTIME_Compile_TriangMethod = "0";
+    HRUNTIME_Compile_Compress = "0";
+    HRUNTIME_Compile_Approximate = "0";
+    HRUNTIME_Compile_ApproxEpsilon = "0.00001";
+    HRUNTIME_Monitor_AutoUpdGraph = "0";
+    HRUNTIME_Monitor_GraphPrecision = "100";
+    HRUNTIME_Monitor_OpenGraph = "0";
+    HRUNTIME_Monitor_InitStates = "5";
+}
+
+node C_length
+{
+    label = "";
+    position = (140 157);
+    states = ("180" "200" "220" "240");
+}
+
+node Club
+{
+    label = "";
+    position = (12 271);
+    states = ("spn" "dvr");
+}
+
+node Wind
+{
+    label = "";
+    position = (175 276);
+    states = ("0" "+" "-");
+}
+
+node W_length
+{
+    label = "";
+    position = (303 148);
+    states = ("160" "180" "200" "220" "240" "265");
+}
+
+node Slope
+{
+    label = "";
+    position = (370 264);
+    states = ("0" "+" "-");
+}
+
+node Miss
+{
+    label = "";
+    position = (0 59);
+    states = ("y" "n");
+}
+
+node Length
+{
+    label = "";
+    position = (465 152);
+    states = ("145" "160" "180" "200" "220" "240" "265" "290");
+}
+
+node Result
+{
+    label = "";
+    position = (249 0);
+    states = ("miss" "145" "160" "180" "200" "220" "240" "265" "290");
+}
+
+potential (C_length | Club)
+{
+    data
+     = (( 0.25 0.5 0.25 0 )	%  Club=spn
+	( 0 0.25 0.5 0.25 ));	%  Club=dvr
+}
+
+potential (Club)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (Wind)
+{
+    data = ( 0.333333 0.333333 0.333333 );
+}
+
+potential (W_length | C_length Wind)
+{
+    data
+     = ((( 0 1 0 0 0 0 )	%  C_length=180  Wind=0
+	 ( 0 0 1 0 0 0 )	%  C_length=180  Wind=+
+	 ( 1 0 0 0 0 0 ))	%  C_length=180  Wind=-
+	(( 0 0 1 0 0 0 )	%  C_length=200  Wind=0
+	 ( 0 0 0 1 0 0 )	%  C_length=200  Wind=+
+	 ( 0 1 0 0 0 0 ))	%  C_length=200  Wind=-
+	(( 0 0 0 1 0 0 )	%  C_length=220  Wind=0
+	 ( 0 0 0 0 1 0 )	%  C_length=220  Wind=+
+	 ( 0 0 1 0 0 0 ))	%  C_length=220  Wind=-
+	(( 0 0 0 0 1 0 )	%  C_length=240  Wind=0
+	 ( 0 0 0 0 0 1 )	%  C_length=240  Wind=+
+	 ( 0 0 0 1 0 0 )));	%  C_length=240  Wind=-
+}
+
+potential (Slope)
+{
+    data = ( 0.5 0.25 0.25 );
+}
+
+potential (Miss | Club Wind)
+{
+    data
+     = ((( 0.02 0.98 )	%  Club=spn  Wind=0
+	 ( 0.04 0.96 )	%  Club=spn  Wind=+
+	 ( 0.04 0.96 ))	%  Club=spn  Wind=-
+	(( 0.06 0.94 )	%  Club=dvr  Wind=0
+	 ( 0.12 0.88 )	%  Club=dvr  Wind=+
+	 ( 0.12 0.88 )));	%  Club=dvr  Wind=-
+}
+
+potential (Length | W_length Slope)
+{
+    data
+     = ((( 0 1 0 0 0 0 0 0 )	%  W_length=160  Slope=0
+	 ( 1 0 0 0 0 0 0 0 )	%  W_length=160  Slope=+
+	 ( 0 0 1 0 0 0 0 0 ))	%  W_length=160  Slope=-
+	(( 0 0 1 0 0 0 0 0 )	%  W_length=180  Slope=0
+	 ( 0 1 0 0 0 0 0 0 )	%  W_length=180  Slope=+
+	 ( 0 0 0 1 0 0 0 0 ))	%  W_length=180  Slope=-
+	(( 0 0 0 1 0 0 0 0 )	%  W_length=200  Slope=0
+	 ( 0 0 1 0 0 0 0 0 )	%  W_length=200  Slope=+
+	 ( 0 0 0 0 1 0 0 0 ))	%  W_length=200  Slope=-
+	(( 0 0 0 0 1 0 0 0 )	%  W_length=220  Slope=0
+	 ( 0 0 0 1 0 0 0 0 )	%  W_length=220  Slope=+
+	 ( 0 0 0 0 0 1 0 0 ))	%  W_length=220  Slope=-
+	(( 0 0 0 0 0 1 0 0 )	%  W_length=240  Slope=0
+	 ( 0 0 0 0 1 0 0 0 )	%  W_length=240  Slope=+
+	 ( 0 0 0 0 0 0 1 0 ))	%  W_length=240  Slope=-
+	(( 0 0 0 0 0 0 1 0 )	%  W_length=265  Slope=0
+	 ( 0 0 0 0 0 1 0 0 )	%  W_length=265  Slope=+
+	 ( 0 0 0 0 0 0 0 1 )));	%  W_length=265  Slope=-
+}
+
+potential (Result | Miss Length)
+{
+    data
+     = ((( 1 0 0 0 0 0 0 0 0 )	%  Miss=y  Length=145
+	 ( 1 0 0 0 0 0 0 0 0 )	%  Miss=y  Length=160
+	 ( 1 0 0 0 0 0 0 0 0 )	%  Miss=y  Length=180
+	 ( 1 0 0 0 0 0 0 0 0 )	%  Miss=y  Length=200
+	 ( 1 0 0 0 0 0 0 0 0 )	%  Miss=y  Length=220
+	 ( 1 0 0 0 0 0 0 0 0 )	%  Miss=y  Length=240
+	 ( 1 0 0 0 0 0 0 0 0 )	%  Miss=y  Length=265
+	 ( 1 0 0 0 0 0 0 0 0 ))	%  Miss=y  Length=290
+	(( 0 1 0 0 0 0 0 0 0 )	%  Miss=n  Length=145
+	 ( 0 0 1 0 0 0 0 0 0 )	%  Miss=n  Length=160
+	 ( 0 0 0 1 0 0 0 0 0 )	%  Miss=n  Length=180
+	 ( 0 0 0 0 1 0 0 0 0 )	%  Miss=n  Length=200
+	 ( 0 0 0 0 0 1 0 0 0 )	%  Miss=n  Length=220
+	 ( 0 0 0 0 0 0 1 0 0 )	%  Miss=n  Length=240
+	 ( 0 0 0 0 0 0 0 1 0 )	%  Miss=n  Length=265
+	 ( 0 0 0 0 0 0 0 0 1 )));	%  Miss=n  Length=290
+}

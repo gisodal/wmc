@@ -1,0 +1,318 @@
+net
+{
+    node_size = (80 40);
+    HR_Node_Label_Style = "0";
+    HR_Desc = "\nConsider the following simplified version of the dice game Think-box. Two players named Arne and Bente (typical Danish names) participate in the game. Each player holds a two sided-dice (with the labels \"1\" and \"2\").\n\nTo begin with both players roll their dice without showing the result to each other. The goal of the game is to guess how many equal dice are present based upon knowledge of one's own dice. The following bids are possible:\n1 (at least one \"1\")\n2 (at least one \"2\")\n2-1 (both dice show \"1\")\n2-2 (both dice show \"2\")\n\nAssume Arne starts the game. He has to choose between one of the above 4 bids. After Arne's bid, Bente has to decide whether to believe in Arne's bid and hence bid up or to call. If Bente doesn't call it is Arne's turn to consider Bente's last bid. The game continues until one of the players decides to call. A call results in both players revealing their dice thus resolving whether the bid which was called upon was present on the table or not. This process determines winner and loser of the game. \n\nThis example is dealt with in great detail at:\nhttp://developer.hugin.com/Samples/Think_box/Think_box.article";
+    HR_OOBN_FitExpand = "1";
+    HR_Zoom_ZoomFactor = "100";
+    HR_Color_Interface = "21";
+    HR_Color_Instance = "0";
+    HR_Color_ContinuousChance = "32";
+    HR_Compile_MaxMinimalSeparators = "100000";
+    HR_Color_DiscreteChance = "16";
+    HR_Groups_GroupColors = "47";
+    HR_Groups_GroupNames = "test\t";
+    HR_Groups_UserGroupsNo = "0";
+    HR_Color_Decision = "17";
+    HR_Color_Utility = "36";
+    HR_Color_ContinuosChance = "48";
+    HR_Color_DescreteChance = "16";
+    HR_Monitor_InitSD = "2";
+    HR_Monitor_InitStates = "5";
+    HR_Monitor_OpenGraph = "0";
+    HR_Monitor_GraphPrecision = "100";
+    HR_Monitor_AutoUpdGraph = "0";
+    HR_Compile_ApproxEpsilon = "0.00001";
+    HR_Compile_Approximate = "0";
+    HR_Compile_Compress = "0";
+    HR_Compile_TriangMethod = "0";
+    HR_Propagate_AutoNormal = "1";
+    HR_Propagate_AutoSum = "1";
+    HR_Propagate_Auto = "0";
+    HR_Font_Italic = "0";
+    HR_Font_Weight = "400";
+    HR_Font_Size = "-12";
+    HR_Font_Name = "Arial";
+    HR_Grid_GridShow = "0";
+    HR_Grid_GridSnap = "1";
+    HR_Grid_Y = "10";
+    HR_Grid_X = "10";
+}
+
+node AD
+{
+    label = "Arne's dice";
+    position = (50 190);
+    states = ("1" "2");
+}
+
+node BD
+{
+    label = "Bente's dice";
+    position = (720 190);
+    states = ("1" "2");
+}
+
+node AB1
+{
+    label = "AB1";
+    position = (210 340);
+    states = ("1" "2" "2*1" "2*2");
+}
+
+decision BB1
+{
+    position = (570 340);
+    states = ("2" "2*1" "2*2" "call");
+}
+
+utility U4
+{
+    label = "U1U4";
+    position = (370 380);
+}
+
+node AB2
+{
+    position = (200 190);
+    states = ("2*1" "2*2" "call");
+}
+
+decision BB2
+{
+    label = "BB2";
+    position = (570 190);
+    states = ("2*2" "call");
+}
+
+utility U5
+{
+    label = "U5";
+    position = (330 300);
+}
+
+utility U6
+{
+    label = "U2U6";
+    position = (330 150);
+}
+
+node AB3
+{
+    label = "";
+    position = (200 30);
+    states = ("call");
+}
+
+utility U7
+{
+    label = "U7";
+    position = (410 90);
+}
+
+potential (AD)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (BD)
+{
+    data = ( 0.5 0.5 );
+}
+
+potential (AB1 | AD)
+{
+    data
+     = (( 1 0 0 0 )	%  AD=1
+	( 0 1 0 0 ));	%  AD=2
+}
+
+potential (BB1 | AB1 BD) {}
+
+potential (U4 | BD AD AB1 BB1)
+{
+    data
+     = (((( 0	%  BD=1  AD=1  AB1=1  BB1=2
+	    0	%  BD=1  AD=1  AB1=1  BB1=2*1
+	    0	%  BD=1  AD=1  AB1=1  BB1=2*2
+	    -1 )	%  BD=1  AD=1  AB1=1  BB1=call
+	  ( -10	%  BD=1  AD=1  AB1=2  BB1=2
+	    0	%  BD=1  AD=1  AB1=2  BB1=2*1
+	    0	%  BD=1  AD=1  AB1=2  BB1=2*2
+	    1 )	%  BD=1  AD=1  AB1=2  BB1=call
+	  ( -10	%  BD=1  AD=1  AB1=2*1  BB1=2
+	    -10	%  BD=1  AD=1  AB1=2*1  BB1=2*1
+	    0	%  BD=1  AD=1  AB1=2*1  BB1=2*2
+	    -1 )	%  BD=1  AD=1  AB1=2*1  BB1=call
+	  ( -10	%  BD=1  AD=1  AB1=2*2  BB1=2
+	    -10	%  BD=1  AD=1  AB1=2*2  BB1=2*1
+	    -10	%  BD=1  AD=1  AB1=2*2  BB1=2*2
+	    1 ))	%  BD=1  AD=1  AB1=2*2  BB1=call
+	 (( 0	%  BD=1  AD=2  AB1=1  BB1=2
+	    0	%  BD=1  AD=2  AB1=1  BB1=2*1
+	    0	%  BD=1  AD=2  AB1=1  BB1=2*2
+	    -1 )	%  BD=1  AD=2  AB1=1  BB1=call
+	  ( -10	%  BD=1  AD=2  AB1=2  BB1=2
+	    0	%  BD=1  AD=2  AB1=2  BB1=2*1
+	    0	%  BD=1  AD=2  AB1=2  BB1=2*2
+	    -1 )	%  BD=1  AD=2  AB1=2  BB1=call
+	  ( -10	%  BD=1  AD=2  AB1=2*1  BB1=2
+	    -10	%  BD=1  AD=2  AB1=2*1  BB1=2*1
+	    0	%  BD=1  AD=2  AB1=2*1  BB1=2*2
+	    1 )	%  BD=1  AD=2  AB1=2*1  BB1=call
+	  ( -10	%  BD=1  AD=2  AB1=2*2  BB1=2
+	    -10	%  BD=1  AD=2  AB1=2*2  BB1=2*1
+	    -10	%  BD=1  AD=2  AB1=2*2  BB1=2*2
+	    1 )))	%  BD=1  AD=2  AB1=2*2  BB1=call
+	((( 0	%  BD=2  AD=1  AB1=1  BB1=2
+	    0	%  BD=2  AD=1  AB1=1  BB1=2*1
+	    0	%  BD=2  AD=1  AB1=1  BB1=2*2
+	    -1 )	%  BD=2  AD=1  AB1=1  BB1=call
+	  ( -10	%  BD=2  AD=1  AB1=2  BB1=2
+	    0	%  BD=2  AD=1  AB1=2  BB1=2*1
+	    0	%  BD=2  AD=1  AB1=2  BB1=2*2
+	    -1 )	%  BD=2  AD=1  AB1=2  BB1=call
+	  ( -10	%  BD=2  AD=1  AB1=2*1  BB1=2
+	    -10	%  BD=2  AD=1  AB1=2*1  BB1=2*1
+	    0	%  BD=2  AD=1  AB1=2*1  BB1=2*2
+	    1 )	%  BD=2  AD=1  AB1=2*1  BB1=call
+	  ( -10	%  BD=2  AD=1  AB1=2*2  BB1=2
+	    -10	%  BD=2  AD=1  AB1=2*2  BB1=2*1
+	    -10	%  BD=2  AD=1  AB1=2*2  BB1=2*2
+	    1 ))	%  BD=2  AD=1  AB1=2*2  BB1=call
+	 (( 0	%  BD=2  AD=2  AB1=1  BB1=2
+	    0	%  BD=2  AD=2  AB1=1  BB1=2*1
+	    0	%  BD=2  AD=2  AB1=1  BB1=2*2
+	    1 )	%  BD=2  AD=2  AB1=1  BB1=call
+	  ( -10	%  BD=2  AD=2  AB1=2  BB1=2
+	    0	%  BD=2  AD=2  AB1=2  BB1=2*1
+	    0	%  BD=2  AD=2  AB1=2  BB1=2*2
+	    -1 )	%  BD=2  AD=2  AB1=2  BB1=call
+	  ( -10	%  BD=2  AD=2  AB1=2*1  BB1=2
+	    -10	%  BD=2  AD=2  AB1=2*1  BB1=2*1
+	    0	%  BD=2  AD=2  AB1=2*1  BB1=2*2
+	    1 )	%  BD=2  AD=2  AB1=2*1  BB1=call
+	  ( -10	%  BD=2  AD=2  AB1=2*2  BB1=2
+	    -10	%  BD=2  AD=2  AB1=2*2  BB1=2*1
+	    -10	%  BD=2  AD=2  AB1=2*2  BB1=2*2
+	    -1 ))));	%  BD=2  AD=2  AB1=2*2  BB1=call
+}
+
+potential (AB2 | BB1 AD)
+{
+    data
+     = ((( 0 0 1 )	%  BB1=2  AD=1
+	 ( 0 1 0 ))	%  BB1=2  AD=2
+	(( 0 0 1 )	%  BB1=2*1  AD=1
+	 ( 0 0 1 ))	%  BB1=2*1  AD=2
+	(( 0 0 1 )	%  BB1=2*2  AD=1
+	 ( 0 0 1 ))	%  BB1=2*2  AD=2
+	(( 0 0 1 )	%  BB1=call  AD=1
+	 ( 0 0 1 )));	%  BB1=call  AD=2
+}
+
+potential (BB2 | AB2 BD) {}
+
+potential (U5 | AD BD BB1 AB2)
+{
+    data
+     = (((( 0	%  AD=1  BD=1  BB1=2  AB2=2*1
+	    0	%  AD=1  BD=1  BB1=2  AB2=2*2
+	    -1 )	%  AD=1  BD=1  BB1=2  AB2=call
+	  ( 0	%  AD=1  BD=1  BB1=2*1  AB2=2*1
+	    0	%  AD=1  BD=1  BB1=2*1  AB2=2*2
+	    1 )	%  AD=1  BD=1  BB1=2*1  AB2=call
+	  ( 0	%  AD=1  BD=1  BB1=2*2  AB2=2*1
+	    0	%  AD=1  BD=1  BB1=2*2  AB2=2*2
+	    -1 )	%  AD=1  BD=1  BB1=2*2  AB2=call
+	  ( 0	%  AD=1  BD=1  BB1=call  AB2=2*1
+	    0	%  AD=1  BD=1  BB1=call  AB2=2*2
+	    0 ))	%  AD=1  BD=1  BB1=call  AB2=call
+	 (( 0	%  AD=1  BD=2  BB1=2  AB2=2*1
+	    0	%  AD=1  BD=2  BB1=2  AB2=2*2
+	    1 )	%  AD=1  BD=2  BB1=2  AB2=call
+	  ( 0	%  AD=1  BD=2  BB1=2*1  AB2=2*1
+	    0	%  AD=1  BD=2  BB1=2*1  AB2=2*2
+	    -1 )	%  AD=1  BD=2  BB1=2*1  AB2=call
+	  ( 0	%  AD=1  BD=2  BB1=2*2  AB2=2*1
+	    0	%  AD=1  BD=2  BB1=2*2  AB2=2*2
+	    -1 )	%  AD=1  BD=2  BB1=2*2  AB2=call
+	  ( 0	%  AD=1  BD=2  BB1=call  AB2=2*1
+	    0	%  AD=1  BD=2  BB1=call  AB2=2*2
+	    0 )))	%  AD=1  BD=2  BB1=call  AB2=call
+	((( 0	%  AD=2  BD=1  BB1=2  AB2=2*1
+	    0	%  AD=2  BD=1  BB1=2  AB2=2*2
+	    1 )	%  AD=2  BD=1  BB1=2  AB2=call
+	  ( 0	%  AD=2  BD=1  BB1=2*1  AB2=2*1
+	    0	%  AD=2  BD=1  BB1=2*1  AB2=2*2
+	    -1 )	%  AD=2  BD=1  BB1=2*1  AB2=call
+	  ( 0	%  AD=2  BD=1  BB1=2*2  AB2=2*1
+	    0	%  AD=2  BD=1  BB1=2*2  AB2=2*2
+	    -1 )	%  AD=2  BD=1  BB1=2*2  AB2=call
+	  ( 0	%  AD=2  BD=1  BB1=call  AB2=2*1
+	    0	%  AD=2  BD=1  BB1=call  AB2=2*2
+	    0 ))	%  AD=2  BD=1  BB1=call  AB2=call
+	 (( 0	%  AD=2  BD=2  BB1=2  AB2=2*1
+	    0	%  AD=2  BD=2  BB1=2  AB2=2*2
+	    1 )	%  AD=2  BD=2  BB1=2  AB2=call
+	  ( 0	%  AD=2  BD=2  BB1=2*1  AB2=2*1
+	    0	%  AD=2  BD=2  BB1=2*1  AB2=2*2
+	    -1 )	%  AD=2  BD=2  BB1=2*1  AB2=call
+	  ( 0	%  AD=2  BD=2  BB1=2*2  AB2=2*1
+	    0	%  AD=2  BD=2  BB1=2*2  AB2=2*2
+	    1 )	%  AD=2  BD=2  BB1=2*2  AB2=call
+	  ( 0	%  AD=2  BD=2  BB1=call  AB2=2*1
+	    0	%  AD=2  BD=2  BB1=call  AB2=2*2
+	    0 ))));	%  AD=2  BD=2  BB1=call  AB2=call
+}
+
+potential (U6 | BD AD AB2 BB2)
+{
+    data
+     = (((( 0	%  BD=1  AD=1  AB2=2*1  BB2=2*2
+	    -1 )	%  BD=1  AD=1  AB2=2*1  BB2=call
+	  ( -10	%  BD=1  AD=1  AB2=2*2  BB2=2*2
+	    1 )	%  BD=1  AD=1  AB2=2*2  BB2=call
+	  ( -10	%  BD=1  AD=1  AB2=call  BB2=2*2
+	    0 ))	%  BD=1  AD=1  AB2=call  BB2=call
+	 (( 0	%  BD=1  AD=2  AB2=2*1  BB2=2*2
+	    -1 )	%  BD=1  AD=2  AB2=2*1  BB2=call
+	  ( -10	%  BD=1  AD=2  AB2=2*2  BB2=2*2
+	    1 )	%  BD=1  AD=2  AB2=2*2  BB2=call
+	  ( -10	%  BD=1  AD=2  AB2=call  BB2=2*2
+	    0 )))	%  BD=1  AD=2  AB2=call  BB2=call
+	((( 0	%  BD=2  AD=1  AB2=2*1  BB2=2*2
+	    1 )	%  BD=2  AD=1  AB2=2*1  BB2=call
+	  ( -10	%  BD=2  AD=1  AB2=2*2  BB2=2*2
+	    1 )	%  BD=2  AD=1  AB2=2*2  BB2=call
+	  ( -10	%  BD=2  AD=1  AB2=call  BB2=2*2
+	    0 ))	%  BD=2  AD=1  AB2=call  BB2=call
+	 (( 0	%  BD=2  AD=2  AB2=2*1  BB2=2*2
+	    1 )	%  BD=2  AD=2  AB2=2*1  BB2=call
+	  ( -10	%  BD=2  AD=2  AB2=2*2  BB2=2*2
+	    -1 )	%  BD=2  AD=2  AB2=2*2  BB2=call
+	  ( -10	%  BD=2  AD=2  AB2=call  BB2=2*2
+	    0 ))));	%  BD=2  AD=2  AB2=call  BB2=call
+}
+
+potential (AB3 | BB2 AD)
+{
+    data
+     = ((( 1 )	%  BB2=2*2  AD=1
+	 ( 1 ))	%  BB2=2*2  AD=2
+	(( 1 )	%  BB2=call  AD=1
+	 ( 1 )));	%  BB2=call  AD=2
+}
+
+potential (U7 | BD AD BB2 AB3)
+{
+    data
+     = (((( -1 )	%  BD=1  AD=1  BB2=2*2  AB3=call
+	  ( 0 ))	%  BD=1  AD=1  BB2=call  AB3=call
+	 (( -1 )	%  BD=1  AD=2  BB2=2*2  AB3=call
+	  ( 0 )))	%  BD=1  AD=2  BB2=call  AB3=call
+	((( -1 )	%  BD=2  AD=1  BB2=2*2  AB3=call
+	  ( 0 ))	%  BD=2  AD=1  BB2=call  AB3=call
+	 (( -1 )	%  BD=2  AD=2  BB2=2*2  AB3=call
+	  ( 0 ))));	%  BD=2  AD=2  BB2=call  AB3=call
+}
