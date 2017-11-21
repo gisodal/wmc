@@ -75,7 +75,11 @@ reset:
 
 %:
 	@for PROJECT in $(PROJECTS); do     						\
-		echo "REPOSITORY $${PROJECT}"; 							\
-		$(MAKE) -s -C $${PROJECT} $@ || exit 1;					\
+		echo "REPOSITORY $${PROJECT}"; 						    \
+		if [ $${PROJECT} == "bddc" ]; then                      \
+			echo "ignoring $@ for $$PROJECT";					\
+		else                                                    \
+			$(MAKE) -s -C $${PROJECT} $@ || exit 1;				\
+		fi;														\
 	done
 
