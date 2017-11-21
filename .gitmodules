@@ -23,3 +23,8 @@
     url = github:gisodal/bnmc
     ignore = all
     branch = master
+[submodule "src/bddc"]
+	path = src/bddc
+    url = git@github.com:gisodal/bddc.git
+    ignore = all
+    branch = master

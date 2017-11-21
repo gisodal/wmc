@@ -1,4 +1,4 @@
-PROJECTS = exception quine-mccluskey bn-to-cnf bnc bnmc
+PROJECTS = exception quine-mccluskey bn-to-cnf bddc bnc bnmc
 OPTIONS  = all static install
 SHELL    = /bin/bash
 MAKEFILE = ~/trunk/gpm/Makefile
@@ -12,15 +12,23 @@ all: build
 build: OPTIONS = build static install
 build:
 	@for PROJECT in $(PROJECTS); do     						\
-		echo "REPOSITORY $${PROJECT}"; 							\
-		$(MAKE) -s -C $${PROJECT} $(OPTIONS) || exit 1;			\
+		echo "REPOSITORY $${PROJECT}"; 						    \
+		if [ $${PROJECT} == "bddc" ]; then                      \
+		    (cd $${PROJECT} && ./install);                      \
+		else                                                    \
+			$(MAKE) -s -C $${PROJECT} $(OPTIONS) || exit 1;		\
+		fi;                                                     \
 	done
 
 debug: OPTIONS = debug debug-static install
 debug:
 	@for PROJECT in $(PROJECTS); do     						\
-		echo "REPOSITORY $${PROJECT}"; 							\
-		$(MAKE) -s -C $${PROJECT} $(OPTIONS) || exit 1;			\
+		echo "REPOSITORY $${PROJECT}"; 						    \
+		if [ $${PROJECT} == "bddc" ]; then                      \
+		    (cd $${PROJECT} && ./install);                      \
+		else                                                    \
+			$(MAKE) -s -C $${PROJECT} $(OPTIONS) || exit 1;		\
+		fi;														\
 	done
 
 lines:
