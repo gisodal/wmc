@@ -25,7 +25,7 @@ debug:
 	@for PROJECT in $(PROJECTS); do     						\
 		echo "REPOSITORY $${PROJECT}"; 						    \
 		if [ $${PROJECT} == "bddc" ]; then                      \
-		    (cd $${PROJECT} && ./install);                      \
+		    (cd $${PROJECT} && ./install debug);                \
 		else                                                    \
 			$(MAKE) -s -C $${PROJECT} $(OPTIONS) || exit 1;		\
 		fi;														\
