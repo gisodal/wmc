@@ -1,0 +1,5 @@
+Type:
+
+> ./test_compiler <NET>
+
+where <NET> could be 'example', 'asia', etc.
