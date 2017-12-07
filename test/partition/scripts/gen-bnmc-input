@@ -1,0 +1,30 @@
+#!/bin/bash
+
+ROOT=$(git rev-parse --show-toplevel)
+DEST=$ROOT/tmp
+
+gen-input(){
+    NET=$1
+    local NUM=$2
+    BASE=$NET.$NUM
+    DEST=$ROOT/tmp
+    OUTFILE="$DEST/bnmc-input.$NUM"
+    echo "creating $OUTFILE"
+    echo "\
+load net $DEST/$BASE.net
+load map $DEST/$BASE.map
+load pwpbdd $DEST/$BASE.0.ac $DEST/$BASE.part
+load wpbdd $DEST/$NET.ac
+verify" > "$OUTFILE"
+
+    echo "file '$OUTFILE' created"
+}
+
+NET=$1
+NUM=$2
+
+
+for ((i=1; i <= $NUM; i++)); do
+    gen-input "$NET" "${i}"
+done
+

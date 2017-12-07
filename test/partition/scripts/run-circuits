@@ -1,0 +1,16 @@
+#!/bin/bash
+
+trap '
+  trap - INT # restore default INT handler
+  kill -s INT "$$"
+' INT
+
+NUM=$1
+
+ROOT=$(git rev-parse --show-toplevel)
+DEST=$ROOT/tmp
+
+for ((i=1; i <= $NUM; i++)); do
+    echo "============================== Running $i ==============================="
+    $ROOT/bin/bnmc < $DEST/bnmc-input.${i}
+done

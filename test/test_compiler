@@ -1,0 +1,56 @@
+#!/bin/bash
+
+if [ $# -ne 1 ]; then
+    echo "Usage: test_sylvan <NET>" 1>&2
+    exit 1
+fi
+
+NET=$1
+ROOT=$(git rev-parse --show-toplevel)
+NUM="$ROOT/data/num/$NET.num"
+if [ ! -f "$NUM" ]; then
+    echo "Expecting one of the following NETs:"
+    for NET in $(find ${ROOT}/data/num -type f -name "*.num"); do
+        echo "    $(basename $NET | sed 's:.num::')"
+    done
+    exit 1
+fi
+
+DEST=$ROOT/tmp
+mkdir -p $DEST
+
+cp $ROOT/data/net/$NET.net $DEST
+if [ ! $? ]; then
+    echo "FATAL: $ROOT/data/net/$NET.net does not exist"
+    exit 1
+fi
+
+WPBDDCIRCUIT="$DEST/$NET.ac"
+HUGIN="$ROOT/data/net/$NET.net"
+echo "=========== creating WPBDD ==========="
+$ROOT/bin/bnc ${HUGIN} -r elim=${NUM} -w circuit=${WPBDDCIRCUIT} -o collapse=0
+if [ ! $? ]; then
+    echo "FATAL: compiler could not create WPBDD" 1>&2
+    exit 1
+fi
+
+SYLVANCIRCUIT="$DEST/$NET.sylvan.ac"
+echo "=========== creating WPBDD with sylvan ==========="
+$ROOT/bin/bnc ${HUGIN} -r elim=$NUM -w circuit=${SYLVANCIRCUIT} -p
+if [ ! $? ]; then
+    echo "FATAL: compiler could not create WPBDD with sylvan" 1>&2
+    exit 1
+fi
+
+echo "=========== checking for difference ==========="
+diff ${SYLVANCIRCUIT} ${WPBDDCIRCUIT}
+
+if [ ! $? ]; then
+    echo "Differences detected!" 1>&2
+    exit 1
+else
+    echo "The output is the same!"
+    exit 0
+fi
+
+
