@@ -15,4 +15,4 @@
     url = git@github.com:gisodal/bnmc
 [submodule "src/bddc"]
 	path = src/bddc
-    url = git@git@github.com.com:gisodal/bddc.git
+    url = git@git@github.com:gisodal/bddc.git
