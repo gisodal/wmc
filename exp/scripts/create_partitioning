@@ -1,0 +1,31 @@
+#!/bin/bash
+
+if ! [ $# -ge 1 ]; then
+    echo "Usage: create_partitioning <NET> [ARGS]" 1>&2
+    exit 1
+fi
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $DIR/environment $1
+
+
+ARGS=""
+[ -f "$NUM" ] && ARGS="-r elim=$NUM"
+
+CMD="$COMPILER ${NET} $ARGS -o ordering_only=1 -w part=${PART} ${@:2}"
+
+rm -f $PART
+while [ ! -f "$PART" ]; do
+    if [ -f "$SOURCEPART" ]; then
+        read -p "Use exisiting partitioning '$SOURCEPART'? (Y/n)? " -n 1 -r INPUT 2>&1; echo
+        case "$INPUT" in
+            y|Y|'' ) cp $SOURCEPART $PART; break ;;
+            n|N )
+                $CMD
+                break ;;
+        esac
+    else
+        $CMD
+    fi
+done
+

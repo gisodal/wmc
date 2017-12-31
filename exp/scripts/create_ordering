@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ $# -ne 1 ]; then
+    echo "Usage: create_ordering <NET>" 1>&2
+    exit 1
+fi
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $DIR/environment $1
+
+$COMPILER ${NET} -o ordering_only=1 -w elim=${NUM}
+

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+NETS=networks
+echo "=== compile all pwpbdds ==="
+for NET in $(cat $NETS); do
+    echo "=== network $NET ==="
+    scripts/compile_pwpbdd $NET
+done
+

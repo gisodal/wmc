@@ -1,0 +1,29 @@
+#!/bin/bash
+
+if ! [ $# -ge 1 ]; then
+    echo "Usage: compile_wpbdd <NET> [ARGS]" 1>&2
+    exit 1
+fi
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $DIR/environment $1
+
+ARGS=""
+[ -f "$NUM" ] && ARGS="-r elim=$NUM"
+
+if [[ "${@:2}" == *"part="* ]] && [[ "${@:2}" == *"circuit="* ]]; then
+    OUTFILE="$DEST/${NET}.circuit.part.out"
+elif [[ "${@:2}" == *"part="* ]] && [[ "${@:2}" != *"circuit="* ]]; then
+    OUTFILE="$DEST/${NET}.part.out"
+elif [[ "${@:2}" != *"part="* ]] && [[ "${@:2}" == *"circuit="* ]]; then
+    OUTFILE="$DEST/${NET}.circuit.out"
+else
+    OUTFILE="$DEST/${NET}.out"
+fi
+
+CMD="$BNC ${HUGIN} $ARGS ${@:2}"
+echo "== $CMD =="
+echo "output: $OUTFILE"
+
+limit_time 3600 stdbuf -o 0 $CMD -o resources=0.8  2>&1 | tee $OUTFILE
+

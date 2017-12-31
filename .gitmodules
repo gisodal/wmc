@@ -1,18 +1,18 @@
 [submodule "src/exception"]
 	path = src/exception
-    url = git@github.com:gisodal/exception
+    url = github:gisodal/exception
 [submodule "src/quine-mccluskey"]
 	path = src/quine-mccluskey
-    url = git@github.com:gisodal/quine-mccluskey
+    url = github:gisodal/quine-mccluskey
 [submodule "src/bn-to-cnf"]
 	path = src/bn-to-cnf
-    url = git@github.com:gisodal/bn-to-cnf
+    url = github:gisodal/bn-to-cnf
 [submodule "src/bnc"]
 	path = src/bnc
-    url = git@github.com:gisodal/bnc
+    url = github:gisodal/bnc
 [submodule "src/bnmc"]
 	path = src/bnmc
-    url = git@github.com:gisodal/bnmc
+    url = github:gisodal/bnmc
 [submodule "src/bddc"]
 	path = src/bddc
-    url = git@git@github.com:gisodal/bddc.git
+    url = github:gisodal/bddc.git
