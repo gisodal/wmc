@@ -11,14 +11,18 @@ source $DIR/environment $1
 ARGS=""
 [ -f "$NUM" ] && ARGS="-r elim=$NUM"
 
-if [[ "${@:2}" == *"part="* ]] && [[ "${@:2}" == *"circuit="* ]]; then
-    OUTFILE="$DEST/${NET}.circuit.part.out"
+if [[ "${@:2}" == *"sdd"* ]]; then
+    OUTFILE="$SDD_OUTFILE"
+elif [[ "${@:2}" == *"obdd"* ]]; then
+    OUTFILE="$OBDD_OUTFILE"
+elif [[ "${@:2}" == *"part="* ]] && [[ "${@:2}" == *"circuit="* ]]; then
+    OUTFILE="$PART_CIRCUIT_OUTFILE"
 elif [[ "${@:2}" == *"part="* ]] && [[ "${@:2}" != *"circuit="* ]]; then
-    OUTFILE="$DEST/${NET}.part.out"
+    OUTFILE="$PART_OUTFILE"
 elif [[ "${@:2}" != *"part="* ]] && [[ "${@:2}" == *"circuit="* ]]; then
-    OUTFILE="$DEST/${NET}.circuit.out"
+    OUTFILE="$CIRCUIT_OUTFILE"
 else
-    OUTFILE="$DEST/${NET}.out"
+    OUTFILE="$DEFAULT_OUTFILE"
 fi
 
 CMD="$BNC ${HUGIN} $ARGS ${@:2}"

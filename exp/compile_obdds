@@ -3,7 +3,7 @@
 NETS=networks
 echo "=== compile all pwpbdds ==="
 for NET in $(cat $NETS); do
-    echo "=== network $NET to pwpbdds ==="
-    scripts/compile_pwpbdd $NET
+    echo "=== network $NET to obdd ==="
+    scripts/compile_obdd $NET
 done
 

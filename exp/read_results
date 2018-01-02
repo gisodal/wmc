@@ -1,0 +1,83 @@
+#!/bin/bash
+
+NETS=networks
+
+trim()
+{
+    local trimmed="$1"
+
+    # Strip leading space.
+    trimmed="${trimmed## }"
+    # Strip trailing space.
+    trimmed="${trimmed%% }"
+
+    echo "$trimmed"
+}
+
+function clear_results(){
+    NODES=""
+    OPERATORS=""
+    TIME_CPTS=""
+    TIME_CONJOINED=""
+    TIME_TOTAL=""
+}
+
+function read_results(){
+    FILE=$1
+    NODES=$(trim $(cat $FILE | command grep -i "total.*nodes" | cut -d : -f2))
+    OPERATORS=$(trim $(cat $FILE | command grep -i "total.*operators" | cut -d : -f2))
+    TIME_CPTS=$(trim $(cat $FILE | command grep -i "compiled cpts" | cut -d : -f2) | tail -1)
+    TIME_CONJOINED=$(trim $(cat $FILE | command grep -i "conjoined cpts" | cut -d : -f2))
+    TIME_TOTAL=$(trim $(cat $FILE | command grep -i "total time" | cut -d : -f2))
+}
+
+function write_header(){
+    echo "BN & OPERATORS & CPT TIME & CONJOIN TIME & TOTAL TIME"
+}
+
+function write_results(){
+    echo "$NET & $OPERATORS & $TIME_CPTS & $TIME_CONJOINED & $TIME_TOTAL"
+}
+
+function print_results(){
+
+    write_header
+    for NET in $(cat $NETS); do
+        source scripts/environment $NET
+
+        clear_results
+        FILE=$(eval echo "\$$1")
+        if [ -f $FILE ]; then
+            read_results $FILE
+        else
+            echo "'$FILE' does not exist"
+        fi
+        write_results
+    done
+}
+
+
+RESULTS_OUTFILE="results.out"
+echo == collapsed WPBDD ==  | tee $RESULTS_OUTFILE
+print_results DEFAULT_OUTFILE | tee $RESULTS_OUTFILE
+
+echo
+echo == collapsed Partitioned WPBDD ==  | tee $RESULTS_OUTFILE
+print_results PART_OUTFILE  | tee $RESULTS_OUTFILE
+
+echo
+echo == uncollapsed WPBDD ==  | tee $RESULTS_OUTFILE
+print_results CIRCUIT_OUTFILE  | tee $RESULTS_OUTFILE
+
+echo
+echo == uncollapsed Partitioned WPBDD ==  | tee $RESULTS_OUTFILE
+print_results PART_CIRCUIT_OUTFILE  | tee $RESULTS_OUTFILE
+
+echo
+echo == OBDD ==  | tee $RESULTS_OUTFILE
+print_results OBDD_OUTFILE  | tee $RESULTS_OUTFILE
+
+echo
+echo == SDD ==  | tee $RESULTS_OUTFILE
+print_results SDD_OUTFILE  | tee $RESULTS_OUTFILE
+

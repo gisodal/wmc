@@ -4,7 +4,7 @@ NETS=networks
 
 echo "=== compile all wpbdds ==="
 for NET in $(cat $NETS); do
-    echo "=== network $NET ==="
+    echo "=== network $NET to wpbdd ==="
     scripts/compile_wpbdd $NET
 done
 

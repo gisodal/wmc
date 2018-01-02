@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if ! [ $# -ge 1 ]; then
+    echo "Usage: compile_opbdd <NET> [ARGS]" 1>&2
+    exit 1
+fi
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $DIR/environment $1
+
+ARGS=""
+[ -f "$NUM" ] && ARGS="-r elim=$NUM"
+
+$COMPILER $NET -t obdd $ARGS ${@:2}
+

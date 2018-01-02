@@ -19,7 +19,7 @@ while [ ! -f "$PART" ]; do
     esac
 done
 
-[ -f "$PART" ] && ARGS="$ARGS -r part=$PART"
+[ -f "$PART" ] && ARGS="$ARGS -r part=$PART" || ARGS="$ARGS -o partitions=2"
 
-$COMPILER $NET $ARGS ${@:2}
+$COMPILER $NET -d partitioned $ARGS ${@:2}
 

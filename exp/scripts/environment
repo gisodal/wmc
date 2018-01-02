@@ -30,6 +30,13 @@ INFERENCEINPUT="${DEST}/${NET}.bnmc"
 INFERENCE="${ROOT}/bin/bnmc"
 INFERENCEOUTPUT="${DEST}/${NET}.bnmc.out"
 
+PART_CIRCUIT_OUTFILE="$DEST/${NET}.circuit.part.out"
+PART_OUTFILE="$DEST/${NET}.part.out"
+CIRCUIT_OUTFILE="$DEST/${NET}.circuit.out"
+DEFAULT_OUTFILE="$DEST/${NET}.out"
+SDD_OUTFILE="$DEST/${NET}.sdd.out"
+OBDD_OUTFILE="$DEST/${NET}.obdd.out"
+
 CALLER=$(ps -o comm=$PPID)
 if [[ "$CALLER" != *"create_ordering"* ]]; then
     while [ ! -f "$NUM" ]; do
