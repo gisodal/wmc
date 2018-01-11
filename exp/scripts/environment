@@ -19,6 +19,7 @@ cp $SOURCEHUGIN $HUGIN
 
 SOURCEPART="$ROOT/data/part/${NET}.part"
 PART="$DEST/${NET}.part"
+COMP="$DEST/${NET}.comp"
 
 NUM="$DEST/${NET}.num"
 CIRCUIT="$DEST/${NET}.ac"

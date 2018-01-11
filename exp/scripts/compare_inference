@@ -21,7 +21,7 @@ fi
 echo "\
 load net $HUGIN
 load map $MAP
-load pwpbdd $PARTCIRCUIT $PART
+load pwpbdd $PARTCIRCUIT $PART $([ -f $COMP ] && echo $COMP)
 load wpbdd $CIRCUIT
 compare
 " > $INFERENCEINPUT
