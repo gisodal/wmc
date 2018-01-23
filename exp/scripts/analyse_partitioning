@@ -1,0 +1,83 @@
+#!/bin/bash
+
+if ! [ $# -ge 1 ]; then
+    echo "Usage: $(basename "$0") <NET> [ARGS]" 1>&2
+    exit 1
+fi
+
+NET=$1
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $DIR/environment $1
+
+function get_max_partitions(){
+    if [ -f "$NUM" ]; then
+        local ORDER=($(cat $NUM))
+        echo ${#ORDER[@]}
+    else
+        echo "Could not determine max partitions, '$NUM' is missing" 1>&2
+        exit 1
+    fi
+}
+
+function create_partitioning(){
+    local k=$1
+    if [ $k -ge 2 ]; then
+        local PARTK="$DEST/${NET}.$k.part"
+        local CMD="$BNC ${HUGIN} -r elim=$NUM -o ordering_only=1 -w part=${PARTK} ${@:2} -o partitions=$k"
+        echo "> $CMD"
+        $CMD
+    fi
+}
+
+function compile_partition(){
+    local k=$1
+    local KPART="${DEST}/${NET}.${k}.part"
+    local KPARTCIRCUIT="${DEST}/${NET}.${k}.ac"
+
+    if [ $k -eq 1 ]; then
+        local CMD="$BNC ${HUGIN} -r elim=$NUM -w circuit=$KPARTCIRCUIT -o collapse=0"
+    else
+        local CMD="$BNC ${HUGIN} -r elim=$NUM -r part=${KPART} -w circuit=$KPARTCIRCUIT -o collapse=0"
+    fi
+
+    local KOUTPUT="${DEST}/${NET}.${k}.out"
+    echo "> $CMD"
+    stdbuf -o 0 $CMD | tee $KOUTPUT
+    echo " == written to $KOUTPUT =="
+}
+
+function compare_inference(){
+    local k=$1
+
+    local KPART="${DEST}/${NET}.${k}.part"
+    local KPARTCIRCUIT="${DEST}/${NET}.${k}.0.ac"
+    local KINFERENCEINPUT="${DEST}/${NET}.${k}.bnmc"
+    local KINFERENCEOUTPUT="${DEST}/${NET}.${k}.bnmc.out"
+    echo "\
+    load net $HUGIN
+    load map $MAP
+    load pwpbdd $KPARTCIRCUIT $KPART
+    load wpbdd $CIRCUIT
+    compare
+    " > $KINFERENCEINPUT
+
+    echo "Running inference for partition $k..."
+    echo "> $INFERENCE < $KINFERENCEINPUT"
+    limit_time 600 $INFERENCE < $KINFERENCEINPUT 2>&1 > $KINFERENCEOUTPUT
+    echo "Inference done."
+    echo " == written to '$KINFERENCEOUTPUT' == "
+}
+
+echo -e "\n== compiling monolithically ============================================"
+compile_partition 1
+PARTITIONS=$(get_max_partitions)
+for((k = 2; k <= $PARTITIONS; k++)); do
+    echo -e "\n== creating $k partitions ============================================"
+    create_partitioning $k
+    echo -e "\n== compiling $k partitions ============================================"
+    compile_partition $k
+    echo -e "\n== inference $k partitions ============================================"
+    compare_inference $k
+done
+

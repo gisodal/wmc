@@ -1,6 +1,13 @@
 #!/bin/bash
 
-NETS=networks
+SCRIPT=$(basename "$0")
+if [ $# -ne 1 ]; then
+    echo "Usage: ./$SCRIPT <newline separated networks file>" 1>&2
+    exit 1
+fi
+
+NETS=$1
+
 
 trim()
 {
@@ -26,17 +33,17 @@ function read_results(){
     FILE=$1
     NODES=$(trim $(cat $FILE | command grep -i "total.*nodes" | cut -d : -f2))
     OPERATORS=$(trim $(cat $FILE | command grep -i "total.*operators" | cut -d : -f2))
-    TIME_CPTS=$(trim $(cat $FILE | command grep -i "compiled cpts" | cut -d : -f2) | tail -1)
-    TIME_CONJOINED=$(trim $(cat $FILE | command grep -i "conjoined cpts" | cut -d : -f2))
-    TIME_TOTAL=$(trim $(cat $FILE | command grep -i "total time" | cut -d : -f2))
+    TIME_CPTS=$(trim $(cat $FILE | command grep -i "compiled cpts" | cut -d : -f2) | tail -1 | sed 's:s::')
+    TIME_CONJOINED=$(trim $(cat $FILE | command grep -i "conjoined cpts" | cut -d : -f2 | sed 's:s::'))
+    TIME_TOTAL=$(trim $(cat $FILE | command grep -i "total time" | cut -d : -f2 | sed 's:s::'))
 }
 
 function write_header(){
-    echo "BN & OPERATORS & CPT TIME & CONJOIN TIME & TOTAL TIME"
+    echo "BN & OPERATORS & CPT_TIME & CONJOIN_TIME & TOTAL_TIME"
 }
 
 function write_results(){
-    echo "$NET & $OPERATORS & $TIME_CPTS & $TIME_CONJOINED & $TIME_TOTAL"
+    echo "$NET & ${OPERATORS:--} & ${TIME_CPTS:--} & ${TIME_CONJOINED:--} & ${TIME_TOTAL:--}"
 }
 
 function print_results(){
@@ -56,28 +63,30 @@ function print_results(){
     done
 }
 
+function print_all_results(){
+    echo -e "WPBDD"
+    print_results DEFAULT_OUTFILE
+
+    echo -e "\nPWPBDD"
+    print_results PART_OUTFILE
+
+    echo -e "\nWPBDD-nc"
+    print_results CIRCUIT_OUTFILE
+
+    echo -e "\nPWPBDD-nc"
+    print_results PART_CIRCUIT_OUTFILE
+
+    echo -e "\nOBDD"
+    print_results OBDD_OUTFILE
+
+    echo -e "\nSDD"
+    print_results SDD_OUTFILE
+}
 
 RESULTS_OUTFILE="results.out"
-echo == collapsed WPBDD ==  | tee $RESULTS_OUTFILE
-print_results DEFAULT_OUTFILE | tee $RESULTS_OUTFILE
+> $RESULTS_OUTFILE
 
-echo
-echo == collapsed Partitioned WPBDD ==  | tee $RESULTS_OUTFILE
-print_results PART_OUTFILE  | tee $RESULTS_OUTFILE
+print_all_results | tee >(column -t > $RESULTS_OUTFILE)
 
-echo
-echo == uncollapsed WPBDD ==  | tee $RESULTS_OUTFILE
-print_results CIRCUIT_OUTFILE  | tee $RESULTS_OUTFILE
-
-echo
-echo == uncollapsed Partitioned WPBDD ==  | tee $RESULTS_OUTFILE
-print_results PART_CIRCUIT_OUTFILE  | tee $RESULTS_OUTFILE
-
-echo
-echo == OBDD ==  | tee $RESULTS_OUTFILE
-print_results OBDD_OUTFILE  | tee $RESULTS_OUTFILE
-
-echo
-echo == SDD ==  | tee $RESULTS_OUTFILE
-print_results SDD_OUTFILE  | tee $RESULTS_OUTFILE
+echo -e "\nResults written to file '$RESULTS_OUTFILE'"
 

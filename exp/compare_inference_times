@@ -1,6 +1,14 @@
 #!/bin/bash
 
-NETS=networks
+
+SCRIPT=$(basename "$0")
+if [ $# -ne 1 ]; then
+    echo "Usage: ./$SCRIPT <newline separated networks file>" 1>&2
+    exit 1
+fi
+
+NETS=$1
+
 
 echo "=== compare inference times ==="
 for NET in $(cat $NETS); do

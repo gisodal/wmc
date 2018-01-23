@@ -1,0 +1,22 @@
+#!/bin/bash
+
+if ! [ $# -ge 1 ]; then
+    echo "Usage: create_partitioning <NET> [ARGS]" 1>&2
+    exit 1
+fi
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $DIR/environment $1
+
+ARGS=""
+[ -f "$NUM" ] && ARGS="-r elim=$NUM"
+
+CMD="$COMPILER ${NET} -o ordering_only=1 ${ARGS} -r part=${PART} -w comp=${COMP} ${@:2}"
+
+if [ ! -f "$PART" ]; then
+    echo "No partitioning found" 1>&2
+    exit 1
+fi
+
+$CMD
+

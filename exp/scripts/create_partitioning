@@ -8,11 +8,10 @@ fi
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source $DIR/environment $1
 
-
 ARGS=""
 [ -f "$NUM" ] && ARGS="-r elim=$NUM"
 
-CMD="$COMPILER ${NET} $ARGS -o ordering_only=1 -w part=${PART} ${@:2} -w comp=${COMP}"
+CMD="$COMPILER ${NET} -o ordering_only=1 ${ARGS} -w part=${PART} ${@:2}"
 
 rm -f $PART
 while [ ! -f "$PART" ]; do

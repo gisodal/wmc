@@ -21,5 +21,5 @@ done
 
 [ -f "$PART" ] && ARGS="$ARGS -r part=$PART"
 
-$COMPILER $NET $ARGS -w circuit=${CIRCUIT} -o collapse=0 -w comp=${COMP} ${@:2}
+$COMPILER $NET $ARGS -w circuit=${CIRCUIT} -o collapse=0 ${@:2}
 
