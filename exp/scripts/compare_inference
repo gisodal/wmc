@@ -27,6 +27,6 @@ compare
 " > $INFERENCEINPUT
 
 echo "Running inference..."
-limit_time 3600 $INFERENCE < $INFERENCEINPUT 2>&1 > $INFERENCEOUTPUT
+limit_time 3600 $INFERENCE < $INFERENCEINPUT
 echo "Inference done."
 
