@@ -1,7 +1,7 @@
 #!/bin/bash
 
-if ! [ $# -eq 1 ]; then
-    echo "Usage: compare_inference <NET>" 1>&2
+if ! [ $# -ge 1 ]; then
+    echo "Usage: verify_inference <NET> [args]" 1>&2
     exit 1
 fi
 
@@ -26,5 +26,5 @@ load wpbdd $CIRCUIT
 verify
 " > $INFERENCEINPUT
 
-$INFERENCE < $INFERENCEINPUT
+$INFERENCE ${@:2} < $INFERENCEINPUT
 

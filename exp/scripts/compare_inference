@@ -1,7 +1,7 @@
 #!/bin/bash
 
-if ! [ $# -eq 1 ]; then
-    echo "Usage: compare_inference <NET>" 1>&2
+if [ $# -lt 1 ]; then
+    echo "Usage: compare_inference <NET> [args]" 1>&2
     exit 1
 fi
 
@@ -27,6 +27,6 @@ compare
 " > $INFERENCEINPUT
 
 echo "Running inference..."
-limit_time 3600 $INFERENCE < $INFERENCEINPUT
+limit_time 3600 $INFERENCE ${@:2} < $INFERENCEINPUT
 echo "Inference done."
 
