@@ -45,6 +45,7 @@ if [[ "$CALLER" != *"create_ordering"* ]]; then
         case "$INPUT" in
             y|Y|'' ) $DIR/create_ordering $NET; break ;;
             n|N ) break;;
+            *) echo "Unknown option '$INPUT' was given";;
         esac
     done
 fi
