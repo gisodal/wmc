@@ -40,7 +40,7 @@ class Bdd:
     def set_partitions(partitions):
         this.partitions = partitions
 
-    def set_hugin_network(this,hugin)
+    def set_hugin_network(this,hugin):
         hugin_ne,ext = os.path.splitext(hugin)
         if ext is not "net":
             print("'{}' is not a hugin file".format(hugin))

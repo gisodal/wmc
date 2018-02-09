@@ -29,8 +29,10 @@ def list_bayesian_networks():
     bns = [ os.path.splitext(os.path.basename(bn))[0] for bn in bns_glob ]
     bns = sorted(bns, key=str.lower)
 
-    print_list(bns)
-
+    if len(bns) > 0:
+        print_list(bns)
+    else:
+        print("No Bayesian networks found in '{}'".format(g.NET_DIR))
 
 def execute_find(this, cmd, infile, expressions, timeout):
     term.write("    [RUNNING]\r")
