@@ -24,7 +24,6 @@ def print_list(lst):
 
 
 def list_bayesian_networks():
-    print(g.NET_DIR)
     bns_glob = glob.glob(os.path.join(g.NET_DIR,"*.net"), recursive=False)
     bns = [ os.path.splitext(os.path.basename(bn))[0] for bn in bns_glob ]
     bns = sorted(bns, key=str.lower)
