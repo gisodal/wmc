@@ -1,9 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import time
+import fcntl
+import subprocess
 import glob
 import os
 import test.globals as g
+import sys
+from time import sleep
+import re
+term = sys.stdout
+
 
 def print_list(lst):
     entries = len(lst)
@@ -33,7 +41,7 @@ def list_bayesian_networks():
     else:
         print("No Bayesian networks found in '{}'".format(g.NET_DIR))
 
-def execute_find(this, cmd, infile, expressions, timeout):
+def execute_find(cmd, infile, expressions, timeout):
     term.write("    [RUNNING]\r")
 
     # start cmd and pipe to tee
@@ -83,7 +91,7 @@ def execute_find(this, cmd, infile, expressions, timeout):
 
     return matches
 
-def execute_find2(this, command, expressions):
+def execute_find2(command, expressions):
     term.write("    [RUNNING]\r")
     pipe = subprocess.Popen(command, stdout=subprocess.PIPE,bufsize=1,shell=True)
     lines_iterator = iter(pipe.stdout.readline, b"")
@@ -106,7 +114,7 @@ def execute_find2(this, command, expressions):
 
     return matches
 
-def call(this,command):
+def call(command):
     term.write("    [RUNNING]\r")
     failed = subprocess.call(command,shell=True,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
     if failed:
@@ -115,12 +123,12 @@ def call(this,command):
     else:
         term.write("    [COMPLETE]\n")
 
-def header(this,name):
+def header(name):
     term_green="\x1B[32m"
     term_reset="\x1B[0m"
     term.write("{:s}{:s}{:s}\n".format(term_green,name,term_reset))
 
-def require(this,file):
+def require(file):
     try:
         os.stat(file)
     except:

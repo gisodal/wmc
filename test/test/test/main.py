@@ -16,9 +16,10 @@ def process(options):
             if options.test == "inference":
                 inference(options)
             elif options.test == "compilation":
-                compilation(options)
+                compare_compilation(options.bdds,options.networks,options.partitions,options.overwrite)
             else:
-                encoding(options)
+                pass
+
 
 
 def main():
@@ -27,11 +28,13 @@ def main():
     parser.add_argument('--help',action='help',help='Show this help message and exit')
 
     test_options = ["compilation","inference","encoding"]
-    parser.add_argument('--test',dest='test',nargs=1,choices=test_options, help='Choose what to test. Choices are ' + ', '.join(test_options), required=False,metavar='TEST')
+    parser.add_argument('--test',dest='test',choices=test_options, help='Choose what to test. Choices are ' + ', '.join(test_options), required=False,metavar='TEST')
 
     bdd_options = ["wpbdd","parallel-wpbdd","pwpbdd","parallel-pwpbdd","sdd","rsdd","obdd"]
-    parser.add_argument('--bdd',dest='bdd',nargs='+', help='Type of BDD. Choices are ' + ', '.join(bdd_options), choices=bdd_options,required=False,default=None,metavar='BDD')
-    parser.add_argument('--network',dest='network',nargs='+', help='Bayesian network(s) used for testing')
+    parser.add_argument('--bdd',dest='bdds',nargs='+', help='Type of BDD. Choices are ' + ', '.join(bdd_options), choices=bdd_options,required=False,default=None,metavar='BDD')
+    parser.add_argument('--network',dest='networks',nargs='+', help='Bayesian network(s) used for testing')
+    parser.add_argument('--partitions',dest='partitions',help='Set number of partitions',default=2,type=int)
+    parser.add_argument('--overwrite',dest='overwrite',action='store_true', help='Overwrite ordering, partitioning, etc.')
     parser.add_argument('--list', dest='list', action='store_true', help='Print list of available Bayesian networks', required=False)
 
     if len(sys.argv)==1:
@@ -39,7 +42,6 @@ def main():
         sys.exit(0)
 
     options = parser.parse_args()
-    print(options)
     process(options)
 
 if __name__ == "__main__":

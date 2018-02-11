@@ -2,36 +2,36 @@
 
 import test.misc as misc
 import test.globals as g
+from test.bdd import *
 
-
-def compare_inference(options):
-    is_hugin = True
-    data = options.hugin
-    if len(options.hugin) == 0:
-        is_hugin = False
-        data = options.networks
-
-    for i in range(len(data)):
-        bdd = Bdd()
-        if is_hugin:
-            bdd.set_hugin_network(data[i])
-        else:
-            bdd.set_bayesian_network(data[i])
-
-        overwrite = False
-        bdd.create_ordering(overwrite)
-        bdd.create_circuit(overwrite)
-        if 'pwpbdd' in bdds or 'parallel-pwpbdds' in bdds:
-            bdd.create_partitioning(overwrite)
-            bdd.create_composition_ordering(overwrite)
-            bdd.create_partitioned_circuit(overwrite)
-
-        bdd.set_timeout(5)
-        bdd.compare_inference()
-        bdd.set_timeout(None)
-
-        bdd.print_inference_results()
-
+#def compare_inference(options):
+#    is_hugin = True
+#    data = options.hugin
+#    if len(options.hugin) == 0:
+#        is_hugin = False
+#        data = options.networks
+#
+#    for i in range(len(data)):
+#        bdd = Bdd()
+#        if is_hugin:
+#            bdd.set_hugin_network(data[i])
+#        else:
+#            bdd.set_bayesian_network(data[i])
+#
+#        overwrite = False
+#        bdd.create_ordering(overwrite)
+#        bdd.create_circuit(overwrite)
+#        if 'pwpbdd' in bdds or 'parallel-pwpbdds' in bdds:
+#            bdd.create_partitioning(overwrite)
+#            bdd.create_composition_ordering(overwrite)
+#            bdd.create_partitioned_circuit(overwrite)
+#
+#        bdd.set_timeout(5)
+#        bdd.compare_inference()
+#        bdd.set_timeout(None)
+#
+#        bdd.print_inference_results()
+#
 
 
 def compare_inference(this,bdds):
@@ -73,35 +73,15 @@ def compare_inference(this,bdds):
 
 
 
-def compare_compilation(this):
-        #misc.header("\n* Compile WPBDD")
-        #cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num),"-o","collapse=0"]
-        #this.compile("WPBDD",cmd)
+def compare_compilation(bdds,networks,partitions,overwrite):
 
-        #misc.header("\n* Compile partitioned WPBDD")
-        #cmd = [this.compiler,this.hugin,"-r","part={:s}".format(this.part),"-o","collapse=0"]
-        #this.compile("PWPBDD",cmd)
+    for network in networks:
+        bdd = Bdd()
+        bdd.set_bayesian_network(network)
+        bdd.set_partitions(partitions)
+        bdd.create_ordering(overwrite)
+        bdd.create_partitioning(overwrite)
+        bdd.compilation(bdds)
+        bdd.print_compilation_results()
 
-        MAX_CORES = multiprocessing.cpu_count()
-        CORES = [2**exp for exp in range(0,10) if 2**exp <= MAX_CORES]
-        for cores in CORES:
-            misc.header("\n* Compile WPBDD - sylvan {:d} core(s)".format(cores))
-            cmd = [this.compiler,this.hugin,"-p","-r","elim={:s}".format(this.num),"-o","workers={:d}".format(cores)]
-            this.compile("parallel WPBDD {:d} core(s)".format(cores),cmd)
-
-            misc.header("\n* compile partitioned WPBDD - silvan {:d} core(s)".format(cores))
-            cmd = [this.compiler,this.hugin,"-p","-r","part={:s}".format(this.part),"-o","workers={:d}".format(cores)]
-            this.compile("Parallel PWPBDD {:d} core(s)".format(cores),cmd)
-
-            misc.header("\n* Compile partitioned PWPBDD - silvan (+1) {:d} core(s)".format(cores))
-            cmd = [this.compiler,this.hugin,"-p","-r","part={:s}".format(this.part),"-o","workers={:d}".format(cores),"-o","parallel_partition=1" ]
-            this.compile("Parallel PWPBDD +1opt {:d} core(s)".format(cores),cmd)
-
-            misc.header("\n* Compile partitioned PWPBDD - silvan (+2) {:d} core(s)".format(cores))
-            cmd = [this.compiler,this.hugin,"-p","-r","part={:s}".format(this.part),"-o","workers={:d}".format(cores),"-o","parallel_partition=1","-o","parallel_conjoin=1" ]
-            this.compile("Parallel PWPBDD +2opt {:d} core(s)".format(cores),cmd)
-
-            misc.header("\n* Compile partitioned PWPBDD - silvan (+3 opt) {:d} core(s)".format(cores))
-            cmd = [this.compiler,this.hugin,"-p","-r","part={:s}".format(this.part),"-o","workers={:d}".format(cores),"-o","parallel_partition=1","-o","parallel_conjoin=1","-o","parallel_cpt=1"]
-            this.compile("Parallel PWPBDD +3opt {:d} core(s)".format(cores),cmd)
 
