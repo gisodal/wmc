@@ -60,7 +60,7 @@ class Bdd:
         this.circuit = this.dir + "/" + this.net + ".ac"
         this.map     = this.dir + "/" + this.net + ".map"
         this.inf     = this.dir + "/" + this.net + ".inf"
-        this.inference_out = this.dir + "/" + this.net + ".inf.out"
+        this.inference_out   = this.dir + "/" + this.net + ".inf.out"
         this.compilation_out = this.dir + "/" + this.net + ".comp.out"
         this.part_circuit = this.dir + "/" + this.net + ".0.ac"
 
@@ -113,7 +113,7 @@ class Bdd:
         header = "\n{:>3} | {:>6s} | {:>12s} | {:>12s} | {:>12}\n".format("nr","cores","queries","seconds","speed-down")
         hline  = "-"*4 + "|-" + "-"*7 + "|-" + "-"*13 + "|-" + "-"*13 + "|-" + "-"*13 + "\n"
 
-        f = open(this.compilation_out, 'w')
+        f = open(this.inference_out, 'w')
         term.write(header)
         f.write(header)
         term.write(hline)
@@ -170,7 +170,7 @@ class Bdd:
             f.write(frow)
 
         f.close()
-        term.write("\nResults written to '{}'\n".format(this.inference_out))
+        term.write("\nResults written to '{}'\n".format(this.compilation_out))
 
     def create_ordering(this,overwrite):
         misc.header("\n* Create ordering")
