@@ -14,7 +14,7 @@ def process(options):
     else:
         if options.test != None:
             if options.test == "inference":
-                inference(options)
+                compare_inference(options.bdds,options.networks,options.partitions,options.overwrite)
             elif options.test == "compilation":
                 compare_compilation(options.bdds,options.networks,options.partitions,options.overwrite)
             else:

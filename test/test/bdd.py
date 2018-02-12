@@ -29,6 +29,7 @@ class Bdd:
         this.inference_result = []
         this.repeat = 3
         this.partitions = 4
+        this.overwrite = False
         this.compiler  = os.path.join(g.WMC_DIR,"bin/bnc")
         this.inference = os.path.join(g.WMC_DIR,"bin/bnmc")
         this.encoder   = os.path.join(g.WMC_DIR,"bin/bn-to-cnf")
@@ -36,6 +37,9 @@ class Bdd:
         this.dir = os.path.join(g.SCRIPT_DIR,"output")
         if not os.path.exists(this.dir):
             os.makedirs(this.dir)
+
+    def set_overwrite(this,overwrite):
+        this.overwrite = overwrite
 
     def set_partitions(this,partitions):
         this.partitions = partitions
@@ -74,12 +78,16 @@ class Bdd:
         this.timeout = timeout
 
     def create_inference_input(this,bdds):
-        print("load net {:s}\nload map {:s}\nload pwpbdd {:s} {:s} {:s}\ncompare".format(
-            this.hugin,
-            this.map,
-            this.part_circuit,
-            this.part,
-            this.comp), file=open(this.inf, "w"))
+        f = open(this.inf, "w")
+        f.write("load net {:s}\n".format(this.hugin))
+        f.write("load map {:s}\n".format(this.map))
+        if 'wpbdd' in bdds:
+            f.write("load wpbdd {:s}\n".format(this.circuit))
+        if 'pwpbdd' in bdds or 'parallel-pwpbdd' in bdds:
+            f.write("load pwpbdd {:s} {:s} {:s}\n".format(this.part_circuit,this.part,this.comp))
+
+        f.write("compare\n")
+        f.close()
 
     def compile(this,name,cmd):
         regex_seconds=r"Total time[: ]+([0-9.]+)s"
@@ -138,6 +146,10 @@ class Bdd:
 
     def print_compilation_results(this):
         misc.header("\n* Compilation results ({})".format(this.net))
+        if len(this.compile_result) == 0:
+            print("Inference table is empty")
+            return
+
         header = "\n{:3s} | {:34s} | {:>12s} | {:>12s} | {:>12s}\n"
         hline  = "-"*4 + "|-" + "-"*35 + "|-" + "-"*13 + "|-" + "-"*13 + "|-" + "-"*13 + "\n"
         f = open(this.compilation_out, 'w')
@@ -172,53 +184,110 @@ class Bdd:
         f.close()
         term.write("\nResults written to '{}'\n".format(this.compilation_out))
 
-    def create_ordering(this,overwrite):
+    def create_ordering(this):
         misc.header("\n* Create ordering")
-        if overwrite or not os.path.exists(this.num):
+        if this.overwrite or not os.path.exists(this.num):
             cmd = "{:s} {:s} -o ordering_only=1 -w elim={:s}".format(this.compiler,this.hugin,this.num)
             misc.call(cmd)
         else:
             term.write("    [SKIPPED]  \n")
 
-    def create_partitioning(this,overwrite):
+    def create_partitioning(this):
         misc.header("\n* Create partitioning")
         misc.require(this.num)
-        if overwrite or not os.path.exists(this.part):
+        if this.overwrite or not os.path.exists(this.part):
             cmd = "{:s} {:s} -o ordering_only=1 -r elim={:s} -o partitions={:d} -w part={:s}".format(this.compiler,this.hugin,this.num,this.partitions,this.part)
             misc.call(cmd)
         else:
             term.write("    [SKIPPED]  \n")
 
-    def create_composition_ordering(this,overwrite):
+    def create_composition_ordering(this,):
         misc.header("\n* Create componsition ordering")
         misc.require(this.num)
         misc.require(this.part)
-        if overwrite or not os.path.exists(this.comp):
+        if this.overwrite or not os.path.exists(this.comp):
             cmd = "{:s} {:s} -o ordering_only=1 -r elim={:s} -r part={:s} -w comp={:s}".format(this.compiler,this.hugin,this.num,this.part,this.comp)
             misc.call(cmd)
         else:
             term.write("    [SKIPPED]  \n")
 
-    def create_circuit(this,overwrite):
+    def create_circuit(this):
         misc.header("\n* Create circuit")
         misc.require(this.num)
-        if overwrite or not os.path.exists(this.circuit):
+        if this.overwrite or not os.path.exists(this.circuit):
             cmd = "{:s} {:s} -r elim={:s} -w map={:s} -w circuit={:s}".format(this.compiler,this.hugin,this.num,this.map,this.circuit)
             misc.call(cmd)
         else:
             term.write("    [SKIPPED]  \n")
 
-    def create_partitioned_circuit(this,overwrite):
+    def create_partitioned_circuit(this):
         misc.header("\n* Create partitioned circuit")
         misc.require(this.num)
         misc.require(this.part)
-        if overwrite or not os.path.exists(this.part_circuit):
+        if this.overwrite or not os.path.exists(this.part_circuit):
             cmd = "{:s} {:s} -r part={:s} -w map={:s} -w circuit={:s}".format(this.compiler,this.hugin,this.part,this.map,this.circuit)
             misc.call(cmd)
         else:
             term.write("    [SKIPPED]  \n")
 
-    def compilation(this,bdds):
+    def run_inference(this,bdds):
+        misc.header("\n* Compare inference")
+
+        allowed = set(['wpbdd','parallel_pwpbdd','pwpbdd'])
+        if not set(bdds).issubset(allowed):
+            print("Bdd(s) not supported for inference: ",set(bdds)-allowed)
+            sys.exit(1)
+
+        this.create_ordering()
+        if 'wpbdd' in bdds:
+            this.create_circuit()
+        if 'pwpbdd' in bdds or 'parallel-pwpbdd' in bdds:
+            this.create_partitioning()
+            this.create_partitioned_circuit()
+            this.create_composition_ordering()
+
+        this.create_inference_input(bdds)
+        misc.require(this.inf)
+
+        MAX_CORES = multiprocessing.cpu_count()
+        CORES = [2**exp for exp in range(0,10) if 2**exp <= MAX_CORES]
+
+        cmd = [this.inference]
+        regex_query=r"Query[ ]+[0-9]+[( ]+([0-9]+)\)"
+        regex_time = []
+        regex_time.append(r"\)[ ]+WPBDD[0-9]*[ ]+\(([.0-9]+)\)")
+        regex_time.append(r"\)[ ]+PWPBDD[0-9]*[ ]+\(([.0-9]+)\)")
+        for cores in CORES:
+            regex_time.append(r"\)[ ]+PPWPBDD[0-9]-{}[ ]+\(([.0-9]+)\)".format(cores))
+
+        matches = misc.execute_find(cmd, this.inf, [regex_query] + regex_time, this.timeout)
+        result = []
+        queries = 0
+        if matches[0] != None:
+            queries = int(matches[0].group(1))
+
+            # wpbdd
+            key = 1
+            if matches[key] != None:
+                this.inference_result.append([queries,1,float(matches[key].group(1))])
+
+            # pwpbdd
+            key = 2
+            if matches[key] != None:
+                this.inference_result.append([queries,1,float(matches[key].group(1))])
+
+            # ppwpbdd
+            key = 3
+            for cores in CORES:
+                if matches[key] != None:
+                    this.inference_result.append([queries,cores,float(matches[key].group(1))])
+                key = key + 1
+
+
+    def run_compilation(this,bdds):
+        this.create_ordering()
+        if 'pwpbdd' in bdds or 'parallel-pwpbdd' in bdds:
+            this.create_partitioning()
         misc.require(this.num)
 
         if 'sdd' in bdds:
