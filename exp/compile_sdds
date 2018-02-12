@@ -1,9 +1,0 @@
-#!/bin/bash
-
-NETS=networks
-echo "=== compile all sdd ==="
-for NET in $(cat $NETS); do
-    echo "=== network $NET to sdd ==="
-    scripts/compile_sdd $NET
-done
-

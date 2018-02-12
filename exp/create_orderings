@@ -1,7 +1,0 @@
-#!/bin/bash
-
-NETS=networks
-
-for NET in $(cat $NETS); do
-    scripts/create_ordering $NET
-done
