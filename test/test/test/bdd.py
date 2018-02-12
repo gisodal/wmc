@@ -200,7 +200,6 @@ class Bdd:
 
     def compilation(this,bdds):
         misc.require(this.num)
-        print("bdds:",bdds)
 
         if 'sdd' in bdds:
             misc.header("\n* Compile balanced vtree SDD (SDD compiler)")
