@@ -21,7 +21,6 @@ def process(options):
                 pass
 
 
-
 def main():
     parser = argparse.ArgumentParser(description='WMC testing suite',add_help=False)
 

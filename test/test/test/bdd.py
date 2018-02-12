@@ -60,6 +60,8 @@ class Bdd:
         this.circuit = this.dir + "/" + this.net + ".ac"
         this.map     = this.dir + "/" + this.net + ".map"
         this.inf     = this.dir + "/" + this.net + ".inf"
+        this.inference_out = this.dir + "/" + this.net + ".inf.out"
+        this.compilation_out = this.dir + "/" + this.net + ".comp.out"
         this.part_circuit = this.dir + "/" + this.net + ".0.ac"
 
     def clean(this):
@@ -103,33 +105,46 @@ class Bdd:
             print("Inference table is empty")
             return
 
-        header = "\n{:>3} | {:>6s} | {:>12s} | {:>12s} | {:>12}\n".format("nr","cores","queries","seconds","speed-down")
-        hline  = "-"*4 + "|-" + "-"*7 + "|-" + "-"*13 + "|-" + "-"*13 + "|-" + "-"*13 + "\n"
-        term.write(header)
-        term.write(hline)
-
         keys = []
         for i in range(len(this.inference_result)):
             keys.append((this.inference_result[i][2],i))
         keys = sorted(keys)
 
+        header = "\n{:>3} | {:>6s} | {:>12s} | {:>12s} | {:>12}\n".format("nr","cores","queries","seconds","speed-down")
+        hline  = "-"*4 + "|-" + "-"*7 + "|-" + "-"*13 + "|-" + "-"*13 + "|-" + "-"*13 + "\n"
+
+        f = open(this.compilation_out, 'w')
+        term.write(header)
+        f.write(header)
+        term.write(hline)
+        f.write(hline)
+
         row = "{:3d} | {:6d} | {:12d} | {:12.4f} | {:12.2f}\n"
         base_key = keys[0][1]
         for i in range(len(this.inference_result)):
             key = keys[i][1]
-            term.write(row.format(
+            frow = row.format(
                 i,
                 this.inference_result[key][1],
                 this.inference_result[key][0],
                 this.inference_result[key][2],
-                this.inference_result[key][2]/this.inference_result[base_key][2]))
+                this.inference_result[key][2]/this.inference_result[base_key][2])
+
+            term.write(frow)
+            f.write(frow)
+
+        f.close()
+        term.write("\nResults written to '{}'\n".format(this.inference_out))
 
     def print_compilation_results(this):
         misc.header("\n* Compilation results ({})".format(this.net))
         header = "\n{:3s} | {:34s} | {:>12s} | {:>12s} | {:>12s}\n"
         hline  = "-"*4 + "|-" + "-"*35 + "|-" + "-"*13 + "|-" + "-"*13 + "|-" + "-"*13 + "\n"
+        f = open(this.compilation_out, 'w')
         term.write(header.format("nr","type","seconds","milliseconds","size"))
+        f.write(header.format("nr","type","seconds","milliseconds","size"))
         term.write(hline)
+        f.write(hline)
 
         keys = []
         for i in range(len(this.compile_result)):
@@ -145,12 +160,17 @@ class Bdd:
             key = keys[i][1]
             avg_seconds = sum(this.compile_result[key][1]) / float(len(this.compile_result[key][1]))
             avg_milliseconds = sum(this.compile_result[key][2]) / float(len(this.compile_result[key][2]))
-            term.write(row.format(
+            frow = row.format(
                 i,
                 this.compile_result[key][0],
                 avg_seconds,
                 avg_milliseconds,
-                this.compile_result[key][3]))
+                this.compile_result[key][3])
+            term.write(frow)
+            f.write(frow)
+
+        f.close()
+        term.write("\nResults written to '{}'\n".format(this.inference_out))
 
     def create_ordering(this,overwrite):
         misc.header("\n* Create ordering")
