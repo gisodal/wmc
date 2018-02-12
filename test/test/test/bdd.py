@@ -203,9 +203,19 @@ class Bdd:
         print("bdds:",bdds)
 
         if 'sdd' in bdds:
-            misc.header("\n* Compile SDD (SDD compiler)")
+            misc.header("\n* Compile balanced vtree SDD (SDD compiler)")
             cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num),"-t","sdd"]
             this.compile("SDD (SDD compiler)",cmd)
+
+        if 'sddr' in bdds:
+            misc.header("\n* Compile right aligned vtree SDD (SDD compiler)")
+            cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num),"-t","sddr"]
+            this.compile("rSDD (SDD compiler)",cmd)
+
+        if 'zbdd' in bdds:
+            misc.header("\n* Compile ZBDD (CUDD)")
+            cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num),"-t","zbdd"]
+            this.compile("ZBDD (CUDD)",cmd)
 
         if 'obdd' in bdds:
             misc.header("\n* Compile OBDD (CUDD)")

@@ -30,7 +30,7 @@ def main():
     test_options = ["compilation","inference","encoding"]
     parser.add_argument('--test',dest='test',choices=test_options, help='Choose what to test. Choices are ' + ', '.join(test_options), required=False,metavar='TEST')
 
-    bdd_options = ["wpbdd","parallel-wpbdd","pwpbdd","parallel-pwpbdd","sdd","rsdd","obdd"]
+    bdd_options = ["wpbdd","parallel-wpbdd","pwpbdd","parallel-pwpbdd","sdd","sddr","obdd","zbdd"]
     parser.add_argument('--bdd',dest='bdds',nargs='+', help='Type of BDD. Choices are ' + ', '.join(bdd_options), choices=bdd_options,required=False,default=None,metavar='BDD')
     parser.add_argument('--network',dest='networks',nargs='+', help='Bayesian network(s) used for testing')
     parser.add_argument('--partitions',dest='partitions',help='Set number of partitions',default=2,type=int)
