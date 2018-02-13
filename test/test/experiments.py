@@ -25,4 +25,13 @@ def compare_compilation(bdds,networks,partitions,overwrite):
         bdd.run_compilation(bdds)
         bdd.print_compilation_results()
 
+def compare_encoding(networks,help_arg,args):
+    if help_arg:
+        bdd = Bdd()
+        bdd.help_encoding()
+    else:
+        for network in networks:
+            bdd = Bdd()
+            bdd.set_bayesian_network(network)
+            bdd.run_encoding(args)
 

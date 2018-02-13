@@ -188,7 +188,7 @@ class Bdd:
         misc.header("\n* Create ordering")
         if this.overwrite or not os.path.exists(this.num):
             cmd = "{:s} {:s} -o ordering_only=1 -w elim={:s}".format(this.compiler,this.hugin,this.num)
-            misc.call(cmd)
+            misc.call(cmd,True)
         else:
             term.write("    [SKIPPED]  \n")
 
@@ -197,7 +197,7 @@ class Bdd:
         misc.require(this.num)
         if this.overwrite or not os.path.exists(this.part):
             cmd = "{:s} {:s} -o ordering_only=1 -r elim={:s} -o partitions={:d} -w part={:s}".format(this.compiler,this.hugin,this.num,this.partitions,this.part)
-            misc.call(cmd)
+            misc.call(cmd,True)
         else:
             term.write("    [SKIPPED]  \n")
 
@@ -207,7 +207,7 @@ class Bdd:
         misc.require(this.part)
         if this.overwrite or not os.path.exists(this.comp):
             cmd = "{:s} {:s} -o ordering_only=1 -r elim={:s} -r part={:s} -w comp={:s}".format(this.compiler,this.hugin,this.num,this.part,this.comp)
-            misc.call(cmd)
+            misc.call(cmd,True)
         else:
             term.write("    [SKIPPED]  \n")
 
@@ -216,7 +216,7 @@ class Bdd:
         misc.require(this.num)
         if this.overwrite or not os.path.exists(this.circuit):
             cmd = "{:s} {:s} -r elim={:s} -w map={:s} -w circuit={:s}".format(this.compiler,this.hugin,this.num,this.map,this.circuit)
-            misc.call(cmd)
+            misc.call(cmd,True)
         else:
             term.write("    [SKIPPED]  \n")
 
@@ -226,7 +226,7 @@ class Bdd:
         misc.require(this.part)
         if this.overwrite or not os.path.exists(this.part_circuit):
             cmd = "{:s} {:s} -r part={:s} -w map={:s} -w circuit={:s}".format(this.compiler,this.hugin,this.part,this.map,this.circuit)
-            misc.call(cmd)
+            misc.call(cmd,True)
         else:
             term.write("    [SKIPPED]  \n")
 
@@ -283,6 +283,16 @@ class Bdd:
                     this.inference_result.append([queries,cores,float(matches[key].group(1))])
                 key = key + 1
 
+    def help_encoding(this):
+        cmd = "{:s} -h".format(this.encoder)
+        misc.call(cmd,False)
+
+    def run_encoding(this,args):
+        if args == None:
+            cmd = "{:s} -i {:s} -s".format(this.encoder,this.hugin)
+        else:
+            cmd = "{:s} -i {:s} -s {:s}".format(this.encoder,this.hugin," ".join(args))
+        misc.call(cmd,False)
 
     def run_compilation(this,bdds):
         this.create_ordering()

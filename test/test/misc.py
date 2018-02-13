@@ -114,14 +114,18 @@ def execute_find2(command, expressions):
 
     return matches
 
-def call(command):
-    term.write("    [RUNNING]\r")
-    failed = subprocess.call(command,shell=True,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
-    if failed:
-        term.write("    [FAILED]  \n")
-        sys.exit(1)
+def call(command,silent):
+    if silent:
+        term.write("    [RUNNING]\r")
+        failed = subprocess.call(command,shell=True,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+        if failed:
+            term.write("    [FAILED]  \n")
+            sys.exit(1)
+        else:
+            term.write("    [COMPLETE]\n")
     else:
-        term.write("    [COMPLETE]\n")
+        failed = subprocess.call(command,shell=True)
+
 
 def header(name):
     term_green="\x1B[32m"
