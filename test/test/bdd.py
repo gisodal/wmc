@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 import fcntl
 import sys
 import subprocess
@@ -20,15 +21,18 @@ def signal_handler(signal, frame):
 
 signal.signal(signal.SIGINT, signal_handler)
 
-
 term = sys.stdout
+
+MAX_CORES = multiprocessing.cpu_count()
+CORES = [2**exp for exp in range(0,10) if 2**exp <= MAX_CORES]
 
 class Bdd:
     def __init__(this):
         this.compile_result = []
         this.inference_result = []
         this.repeat = 3
-        this.partitions = 4
+        this.partitions = 2
+        this.cores = CORES
         this.overwrite = False
         this.compiler  = os.path.join(g.WMC_DIR,"bin/bnc")
         this.inference = os.path.join(g.WMC_DIR,"bin/bnmc")
@@ -43,6 +47,17 @@ class Bdd:
 
     def set_partitions(this,partitions):
         this.partitions = partitions
+
+    def set_cores(this,cores):
+        this.cores = cores
+
+    def get_partition_count():
+        try:
+            f = open(this.part, 'rb')
+            f_gen = _make_gen(f.raw.read)
+            return sum( buf.count(b'\n') for buf in f_gen )
+        except:
+            return 0
 
     def set_bayesian_network(this,hugin):
         if not os.path.exists(hugin):
@@ -147,7 +162,7 @@ class Bdd:
     def print_compilation_results(this):
         misc.header("\n* Compilation results ({})".format(this.net))
         if len(this.compile_result) == 0:
-            print("Inference table is empty")
+            print("Compilation table is empty")
             return
 
         header = "\n{:3s} | {:34s} | {:>12s} | {:>12s} | {:>12s}\n"
@@ -322,19 +337,17 @@ class Bdd:
 
         if 'wpbdd' in bdds:
             misc.header("\n* Compile WPBDD")
-            cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num),"-o","collapse=0"]
+            cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num)]
             this.compile("WPBDD",cmd)
 
         if 'pwpbdd' in bdds:
             misc.require(this.part)
             misc.header("\n* Compile partitioned WPBDD")
-            cmd = [this.compiler,this.hugin,"-r","part={:s}".format(this.part),"-o","collapse=0"]
+            cmd = [this.compiler,this.hugin,"-r","part={:s}".format(this.part)]
             this.compile("PWPBDD",cmd)
 
         if 'parallel-wpbdd' in bdds or 'parallel-pwpbdd' in bdds:
-            MAX_CORES = multiprocessing.cpu_count()
-            CORES = [2**exp for exp in range(0,10) if 2**exp <= MAX_CORES]
-            for cores in CORES:
+            for cores in this.cores:
                 if 'parallel-wpbdd' in bdds:
                     misc.header("\n* Compile WPBDD - sylvan {:d} core(s)".format(cores))
                     cmd = [this.compiler,this.hugin,"-p","-r","elim={:s}".format(this.num),"-o","workers={:d}".format(cores)]

@@ -4,9 +4,10 @@ import test.misc as misc
 import test.globals as g
 from test.bdd import *
 
-def compare_inference(bdds,networks,partitions,overwrite):
+def compare_inference(bdds,networks,partitions,cores,overwrite):
     for network in networks:
         bdd = Bdd()
+        bdd.set_cores(cores)
         bdd.set_overwrite(overwrite)
         bdd.set_bayesian_network(network)
         bdd.set_partitions(partitions)
@@ -16,9 +17,10 @@ def compare_inference(bdds,networks,partitions,overwrite):
         bdd.print_inference_results()
 
 
-def compare_compilation(bdds,networks,partitions,overwrite):
+def compare_compilation(bdds,networks,partitions,cores,overwrite):
     for network in networks:
         bdd = Bdd()
+        bdd.set_cores(cores)
         bdd.set_overwrite(overwrite)
         bdd.set_bayesian_network(network)
         bdd.set_partitions(partitions)

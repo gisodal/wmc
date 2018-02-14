@@ -6,6 +6,7 @@ import sys
 from test.misc import *
 from test.bdd import *
 from test.experiments import *
+import multiprocessing
 
 def process(options):
     if options.list == True:
@@ -14,18 +15,22 @@ def process(options):
     else:
         if options.test != None:
             if options.test == "inference":
-                compare_inference(options.bdds,options.networks,options.partitions,options.overwrite)
+                compare_inference(options.bdds,options.networks,options.partitions,options.cores,options.overwrite)
             elif options.test == "compilation":
-                compare_compilation(options.bdds,options.networks,options.partitions,options.overwrite)
+                compare_compilation(options.bdds,options.networks,options.partitions,options.cores,options.overwrite)
             else:
                 compare_encoding(options.networks,options.help,options.args)
 
 
 def main():
+    MAX_CORES = multiprocessing.cpu_count()
+    CORES = [2**exp for exp in range(0,10) if 2**exp <= MAX_CORES]
+
     parser = argparse.ArgumentParser(description='WMC testing suite',add_help=False)
 
     parser.add_argument('--help',action='help',help='Show this help message and exit')
     parser.add_argument('--list', dest='list', action='store_true', help='Print list of available Bayesian networks', required=False)
+    parser.add_argument('--cores', dest='cores', nargs='+', help='Number of cores to use during parallel execution', required=False, default=CORES,metavar="#CORES",type=int)
     test_options = ["compilation","inference","encoding"]
     parser.add_argument('--test',dest='test',choices=test_options, help='Choose what to test. Options are ' + ', '.join(test_options), required=False,metavar='TEST')
     parser.add_argument('--network',dest='networks',nargs='+', help='Bayesian network(s) used for testing',metavar="NETWORK")
