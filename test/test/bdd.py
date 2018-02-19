@@ -230,7 +230,7 @@ class Bdd:
         misc.header("\n* Create circuit")
         misc.require(this.num)
         if this.overwrite or not os.path.exists(this.circuit):
-            cmd = "{:s} {:s} -r elim={:s} -w map={:s} -w circuit={:s}".format(this.compiler,this.hugin,this.num,this.map,this.circuit)
+            cmd = "{:s} {:s} -r elim={:s} -w map={:s} -w circuit={:s} -o collapse=0".format(this.compiler,this.hugin,this.num,this.map,this.circuit)
             misc.call(cmd,True)
         else:
             term.write("    [SKIPPED]  \n")
@@ -240,7 +240,7 @@ class Bdd:
         misc.require(this.num)
         misc.require(this.part)
         if this.overwrite or not os.path.exists(this.part_circuit):
-            cmd = "{:s} {:s} -r part={:s} -w map={:s} -w circuit={:s}".format(this.compiler,this.hugin,this.part,this.map,this.circuit)
+            cmd = "{:s} {:s} -r part={:s} -w map={:s} -w circuit={:s} -o collapse=0".format(this.compiler,this.hugin,this.part,this.map,this.circuit)
             misc.call(cmd,True)
         else:
             term.write("    [SKIPPED]  \n")
