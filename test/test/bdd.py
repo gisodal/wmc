@@ -246,8 +246,6 @@ class Bdd:
             term.write("    [SKIPPED]  \n")
 
     def run_inference(this,bdds):
-        misc.header("\n* Compare inference")
-
         allowed = set(['wpbdd','parallel_pwpbdd','pwpbdd'])
         if not set(bdds).issubset(allowed):
             print("Bdd(s) not supported for inference: ",set(bdds)-allowed)
@@ -275,6 +273,7 @@ class Bdd:
         for cores in CORES:
             regex_time.append(r"\)[ ]+PPWPBDD[0-9]-{}[ ]+\(([.0-9]+)\)".format(cores))
 
+        misc.header("\n* Run Inference")
         matches = misc.execute_find(cmd, this.inf, [regex_query] + regex_time, this.timeout)
         result = []
         queries = 0
