@@ -11,9 +11,9 @@ def compare_inference(bdds,networks,partitions,cores,overwrite):
         bdd.set_overwrite(overwrite)
         bdd.set_bayesian_network(network)
         bdd.set_partitions(partitions)
-        bdd.set_timeout(5)
+        #bdd.set_timeout(5)
         bdd.run_inference(bdds)
-        bdd.set_timeout(None)
+        #bdd.set_timeout(None)
         bdd.print_inference_results()
 
 

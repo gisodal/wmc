@@ -101,7 +101,7 @@ class Bdd:
         if 'pwpbdd' in bdds or 'parallel-pwpbdd' in bdds:
             f.write("load pwpbdd {:s} {:s} {:s}\n".format(this.part_circuit,this.part,this.comp))
 
-        f.write("compare\n")
+        f.write("compare 2\n")
         f.close()
 
     def compile(this,name,cmd):
