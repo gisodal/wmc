@@ -262,10 +262,13 @@ class Bdd:
         this.create_inference_input(bdds)
         misc.require(this.inf)
 
-        MAX_CORES = multiprocessing.cpu_count()
-        CORES = [2**exp for exp in range(0,10) if 2**exp <= MAX_CORES]
+        cores_arg = []
+        for cores in this.cores:
+            cores_arg += ['-w','{}'.format(cores)]
 
-        cmd = [this.inference]
+
+        cmd = [this.inference] + cores_arg
+        print("cmd:",cmd)
         regex_query=r"Query[ ]+[0-9]+[( ]+([0-9]+)\)"
         regex_time = []
         regex_time.append(r"\)[ ]+WPBDD[0-9]*[ ]+\(([.0-9]+)\)")
