@@ -485,15 +485,24 @@ namespace moodycamel
 		    Semaphore& operator=(const Semaphore& other);
 
 		public:
+
+            void init(int initialCount = 0){
+                assert(initialCount >= 0);
+		        sem_init(&m_sema, 0, initialCount);
+            }
+
+            void destroy(){
+                sem_destroy(&m_sema);
+            }
+
 		    Semaphore(int initialCount = 0)
 		    {
-		        assert(initialCount >= 0);
-		        sem_init(&m_sema, 0, initialCount);
+		        init(initialCount);
 		    }
 
 		    ~Semaphore()
 		    {
-		        sem_destroy(&m_sema);
+		        destroy();
 		    }
 
 		    void wait()
@@ -619,6 +628,8 @@ namespace moodycamel
             void init()
             {
                 m_count = 0;
+                m_sema.destroy();
+                m_sema.init();
             }
 
 		    bool tryWait()
