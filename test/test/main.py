@@ -15,7 +15,7 @@ def process(options):
     else:
         if options.test != None:
             if options.test == "inference":
-                compare_inference(options.bdds,options.networks,options.partitions,options.cores,options.overwrite)
+                compare_inference(options.bdds,options.networks,options.partitions,options.cores,options.overwrite,options.verify)
             elif options.test == "compilation":
                 compare_compilation(options.bdds,options.networks,options.partitions,options.cores,options.overwrite)
             else:
@@ -35,11 +35,12 @@ def main():
     parser.add_argument('--test',dest='test',choices=test_options, help='Choose what to test. Options are ' + ', '.join(test_options), required=False,metavar='TEST')
     parser.add_argument('--network',dest='networks',nargs='+', help='Bayesian network(s) used for testing',metavar="NETWORK")
 
-    bdd_options = ["wpbdd","parallel-wpbdd","pwpbdd","parallel-pwpbdd","sdd","sddr","obdd","zbdd"]
+    bdd_options = ["wpbdd","parallel-wpbdd","pwpbdd","parallel-pwpbdd","sdd","sddr","obdd","zbdd","dlib","ace"]
     group = parser.add_argument_group('inference and compilation arguments')
     group.add_argument('--bdd',dest='bdds',nargs='+', help='Type of BDD. Options are ' + ', '.join(bdd_options), choices=bdd_options,required=False,default=None,metavar='BDD')
     group.add_argument('--partitions',dest='partitions',help='Set number of partitions',default=2,type=int,metavar='#PARTITIONS')
     group.add_argument('--overwrite',dest='overwrite',action='store_true', help='Overwrite ordering, partitioning, etc.')
+    group.add_argument('--verify', dest='verify', action='store_true', help='Verify inference answers', required=False)
 
     group = parser.add_argument_group('encoding arguments')
     group.add_argument('--encoding-help',dest='help',action='store_true',help='Show help for encoding')

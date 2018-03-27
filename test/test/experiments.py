@@ -4,11 +4,12 @@ import test.misc as misc
 import test.globals as g
 from test.bdd import *
 
-def compare_inference(bdds,networks,partitions,cores,overwrite):
+def compare_inference(bdds,networks,partitions,cores,overwrite,verify):
     for network in networks:
         bdd = Bdd()
         bdd.set_cores(cores)
         bdd.set_overwrite(overwrite)
+        bdd.set_verify(verify)
         bdd.set_bayesian_network(network)
         bdd.set_partitions(partitions)
         #bdd.set_timeout(5)

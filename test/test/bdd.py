@@ -34,6 +34,7 @@ class Bdd:
         this.partitions = 2
         this.cores = CORES
         this.overwrite = False
+        this.verify = False
         this.compiler  = os.path.join(g.WMC_DIR,"bin/bnc")
         this.inference = os.path.join(g.WMC_DIR,"bin/bnmc")
         this.encoder   = os.path.join(g.WMC_DIR,"bin/bn-to-cnf")
@@ -41,6 +42,9 @@ class Bdd:
         this.dir = os.path.join(g.SCRIPT_DIR,"output")
         if not os.path.exists(this.dir):
             os.makedirs(this.dir)
+
+    def set_verify(this,verify):
+        this.verify = verify
 
     def set_overwrite(this,overwrite):
         this.overwrite = overwrite
@@ -100,8 +104,15 @@ class Bdd:
             f.write("load wpbdd {:s}\n".format(this.circuit))
         if 'pwpbdd' in bdds or 'parallel-pwpbdd' in bdds:
             f.write("load pwpbdd {:s} {:s} {:s}\n".format(this.part_circuit,this.part,this.comp))
+        if 'dlib' in bdds:
+            f.write("initdlib\n");
+        if 'ace' in bdds:
+            f.write("ace\n");
 
-        f.write("compare 2\n")
+        if this.verify:
+            f.write("verify 2\n");
+        else:
+            f.write("compare 2\n")
         f.close()
 
     def compile(this,name,cmd):
@@ -246,7 +257,7 @@ class Bdd:
             term.write("    [SKIPPED]  \n")
 
     def run_inference(this,bdds):
-        allowed = set(['wpbdd','parallel_pwpbdd','pwpbdd'])
+        allowed = set(['wpbdd','parallel_pwpbdd','pwpbdd','dlib','ace'])
         if not set(bdds).issubset(allowed):
             print("Bdd(s) not supported for inference: ",set(bdds)-allowed)
             sys.exit(1)
