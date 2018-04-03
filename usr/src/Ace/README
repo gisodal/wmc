@@ -1,0 +1,5 @@
+ace.py usage:
+
+to compute P(lung = yes | bronc = no) in network 'asia.net', type:
+
+> ./ace.py --network ../../data/asia.net --query 'lung = yes | bronc = no'

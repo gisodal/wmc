@@ -29,3 +29,16 @@ obj
 lib*
 /include
 core*
+
+
+# aux files   #
+###############
+
+*.dot
+*.map
+*.net.lmap
+*.net.ac
+*.net.marginals
+*.pdf
+*.ps
+
