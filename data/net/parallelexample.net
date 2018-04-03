@@ -1,0 +1,29 @@
+net
+{
+}
+node a
+{
+  states = ( "1" "2" "3" );
+}
+node b
+{
+  states = ( "1" "2" );
+}
+node c
+{
+  states = ( "1" "2" );
+}
+
+potential ( a )
+{
+  data = ( 0.6 0.2 0.2 );
+}
+potential ( b | a )
+{
+  data = ((0 1)(0.5 0.5)(0.5 0.5)) ;
+}
+potential ( c | a )
+{
+  data = ((0 1)(0 1)(0.5 0.5)) ;
+}
+
