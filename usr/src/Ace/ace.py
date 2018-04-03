@@ -166,7 +166,7 @@ class Ace():
 
     def compile_c2d(self,hugin,overwrite):
         if overwrite or not self.is_compiled(hugin):
-            cmd = [self.compiler,hugin,'-forceC2d','-noEclause']
+            cmd = [self.compiler,'-forceC2d','-noEclause',hugin]
             print("> {}".format(" ".join(cmd)))
             subprocess.call(cmd)
 
