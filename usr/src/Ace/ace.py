@@ -188,11 +188,12 @@ class Ace():
 
         regex_probability = r'Pr\(e\) = ([\+\-E.0-9]+)'
         regex_time = r'Total Inference Time \(ms\) : ([.0-9]+)'
-        matches = execute_find(cmd, [regex_probability,regex_time])
+        regex_init = r'Total Initialization Time \(ms\) : ([.0-9]+)'
+        matches = execute_find(cmd, [regex_probability,regex_time,regex_init])
 
         first = float(matches[0][0].groups()[0])
         second = 1
-        time = matches[1][0].groups()[0]
+        time = float(matches[1][0].groups()[0]) + float(matches[2][0].groups()[0])
         if len(matches[0]) == 2:
             second = float(matches[0][1].groups()[0])
             return first/second,time
