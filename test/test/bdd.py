@@ -279,7 +279,7 @@ class Bdd:
 
 
         cmd = [this.inference] + cores_arg
-        print("cmd:",cmd)
+
         regex_query=r"Query[ ]+[0-9]+[( ]+([0-9]+)\)"
         regex_time = []
         regex_time.append(r"\)[ ]+WPBDD[0-9]*[ ]+\(([.0-9]+)\)")
