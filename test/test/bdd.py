@@ -157,12 +157,18 @@ class Bdd:
         base_key = keys[0][1]
         for i in range(len(this.inference_result)):
             key = keys[i][1]
+
+            try:
+                final = this.inference_result[key][2]/this.inference_result[base_key][2]
+            except:
+                final = float("nan")
+
             frow = row.format(
                 i,
                 this.inference_result[key][1],
                 this.inference_result[key][0],
                 this.inference_result[key][2],
-                this.inference_result[key][2]/this.inference_result[base_key][2])
+                final)
 
             term.write(frow)
             f.write(frow)
@@ -279,7 +285,6 @@ class Bdd:
 
 
         cmd = [this.inference] + cores_arg
-
         regex_query=r"Query[ ]+[0-9]+[( ]+([0-9]+)\)"
         regex_time = []
         regex_time.append(r"\)[ ]+WPBDD[0-9]*[ ]+\(([.0-9]+)\)")
