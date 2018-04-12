@@ -83,12 +83,13 @@ class Bdd:
         this.circuit = this.dir + "/" + this.net + ".ac"
         this.map     = this.dir + "/" + this.net + ".map"
         this.inf     = this.dir + "/" + this.net + ".inf"
-        this.inference_out   = this.dir + "/" + this.net + ".inf.out"
-        this.compilation_out = this.dir + "/" + this.net + ".comp.out"
-        this.part_circuit = this.dir + "/" + this.net + ".0.ac"
+        this.inference_out      = this.dir + "/" + this.net + ".inf.out"
+        this.compilation_out    = this.dir + "/" + this.net + ".comp.out"
+        this.part_circuit       = this.dir + "/" + this.net + ".0.ac"
+        this.multigraph_circuit = this.dir + "/" + this.net + ".mc"
 
     def clean(this):
-        files = [ this.part, this.num, this.comp, this.circuit, this.map, this.inf, this.part_ciruit]
+        files = [ this.part, this.num, this.comp, this.circuit, this.map, this.inf, this.part_ciruit, this.multigraph_circuit]
         for f in files:
             if os.path.exists(f):
                 os.remove(f)
@@ -104,6 +105,8 @@ class Bdd:
             f.write("load wpbdd {:s}\n".format(this.circuit))
         if 'pwpbdd' in bdds or 'parallel-pwpbdd' in bdds:
             f.write("load pwpbdd {:s} {:s} {:s}\n".format(this.part_circuit,this.part,this.comp))
+        if 'multigraph' in bdds:
+            f.write("load multigraph {:s}\n".format(this.multigraph_circuit))
         if 'dlib' in bdds:
             f.write("initdlib\n");
         if 'ace' in bdds:
@@ -144,8 +147,8 @@ class Bdd:
             keys.append((this.inference_result[i][2],i))
         keys = sorted(keys)
 
-        header = "\n{:>3} | {:>6s} | {:>12s} | {:>12s} | {:>12}\n".format("nr","cores","queries","seconds","speed-down")
-        hline  = "-"*4 + "|-" + "-"*7 + "|-" + "-"*13 + "|-" + "-"*13 + "|-" + "-"*13 + "\n"
+        header = "\n{:>3} | {:>12s} | {:>6s} | {:>12s} | {:>12s} | {:>12}\n".format("nr","type","cores","queries","seconds","speed-down")
+        hline  = "-"*4 + "|-" + "-"*13 + "|-" + "-"*7 + "|-" + "-"*13 + "|-" + "-"*13 + "|-" + "-"*13 + "\n"
 
         f = open(this.inference_out, 'w')
         term.write(header)
@@ -153,7 +156,7 @@ class Bdd:
         term.write(hline)
         f.write(hline)
 
-        row = "{:3d} | {:6d} | {:12d} | {:12.4f} | {:12.2f}\n"
+        row = "{:3d} | {:12s} | {:6d} | {:12d} | {:12.4f} | {:12.2f}\n"
         base_key = keys[0][1]
         for i in range(len(this.inference_result)):
             key = keys[i][1]
@@ -165,6 +168,7 @@ class Bdd:
 
             frow = row.format(
                 i,
+                this.inference_result[key][3],
                 this.inference_result[key][1],
                 this.inference_result[key][0],
                 this.inference_result[key][2],
@@ -262,8 +266,17 @@ class Bdd:
         else:
             term.write("    [SKIPPED]  \n")
 
+    def create_multigraph_circuit(this):
+        misc.header("\n* Create multigraph circuit")
+        misc.require(this.num)
+        if this.overwrite or not os.path.exists(this.multigraph_circuit):
+            cmd = "{:s} {:s} -m -r elim={:s} -w map={:s} -w circuit={:s}".format(this.compiler,this.hugin,this.num,this.map,this.multigraph_circuit)
+            misc.call(cmd,True)
+        else:
+            term.write("    [SKIPPED]  \n")
+
     def run_inference(this,bdds):
-        allowed = set(['wpbdd','parallel_pwpbdd','pwpbdd','dlib','ace'])
+        allowed = set(['multigraph','wpbdd','parallel_pwpbdd','pwpbdd','dlib','ace'])
         if not set(bdds).issubset(allowed):
             print("Bdd(s) not supported for inference: ",set(bdds)-allowed)
             sys.exit(1)
@@ -271,6 +284,8 @@ class Bdd:
         this.create_ordering()
         if 'wpbdd' in bdds:
             this.create_circuit()
+        if 'multigraph' in bdds:
+            this.create_multigraph_circuit()
         if 'pwpbdd' in bdds or 'parallel-pwpbdd' in bdds:
             this.create_partitioning()
             this.create_partitioned_circuit()
@@ -288,6 +303,7 @@ class Bdd:
         regex_query=r"Query[ ]+[0-9]+[( ]+([0-9]+)\)"
         regex_time = []
         regex_time.append(r"\)[ ]+WPBDD[0-9]*[ ]+\(([.0-9]+)\)")
+        regex_time.append(r"\)[ ]+MULTIGRAPH[0-9]*[ ]+\(([.0-9]+)\)")
         regex_time.append(r"\)[ ]+PWPBDD[0-9]*[ ]+\(([.0-9]+)\)")
         for cores in CORES:
             regex_time.append(r"\)[ ]+PPWPBDD[0-9]-{}[ ]+\(([.0-9]+)\)".format(cores))
@@ -302,18 +318,23 @@ class Bdd:
             # wpbdd
             key = 1
             if matches[key] != None:
-                this.inference_result.append([queries,1,float(matches[key].group(1))])
+                this.inference_result.append([queries,1,float(matches[key].group(1)),"WPBDD"])
 
-            # pwpbdd
+            # multigraph
             key = 2
             if matches[key] != None:
-                this.inference_result.append([queries,1,float(matches[key].group(1))])
+                this.inference_result.append([queries,1,float(matches[key].group(1)),"MULTIGRAPH"])
+
+            # pwpbdd
+            key = 3
+            if matches[key] != None:
+                this.inference_result.append([queries,1,float(matches[key].group(1)),"PWPBDD"])
 
             # ppwpbdd
-            key = 3
+            key = 4
             for cores in CORES:
                 if matches[key] != None:
-                    this.inference_result.append([queries,cores,float(matches[key].group(1))])
+                    this.inference_result.append([queries,cores,float(matches[key].group(1)), "PPWPBDD"])
                 key = key + 1
 
     def help_encoding(this):
@@ -357,6 +378,11 @@ class Bdd:
             misc.header("\n* Compile WPBDD")
             cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num)]
             this.compile("WPBDD",cmd)
+
+        if 'multigraph' in bdds:
+            misc.header("\n* Compile MULTIGRAPH")
+            cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num),"-m"]
+            this.compile("MULTIGRAPH",cmd)
 
         if 'pwpbdd' in bdds:
             misc.require(this.part)
