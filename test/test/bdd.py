@@ -113,7 +113,7 @@ class Bdd:
             f.write("ace\n");
 
         if this.verify:
-            f.write("verify 2\n");
+            f.write("verify\n");
         else:
             f.write("compare 2\n")
         f.close()
@@ -131,10 +131,18 @@ class Bdd:
 
             if matches[0] != None:
                 this.compile_result[-1][1].append(float(matches[0].group(1)))
+            else:
+                this.compile_result[-1][1].append(float('inf'))
+
             if matches[1] != None:
                 this.compile_result[-1][2].append(float(matches[1].group(1)))
+            else:
+                this.compile_result[-1][2].append(float('inf'))
+
             if matches[2] != None:
                 this.compile_result[-1][3] = int(matches[2].group(1))
+            else:
+                this.compile_result[-1][3] = int('inf')
 
     def print_inference_results(this):
         misc.header("\n* Inference results ({})".format(this.net))
@@ -271,7 +279,8 @@ class Bdd:
         misc.require(this.num)
         if this.overwrite or not os.path.exists(this.multigraph_circuit):
             cmd = "{:s} {:s} -m -r elim={:s} -w map={:s} -w circuit={:s}".format(this.compiler,this.hugin,this.num,this.map,this.multigraph_circuit)
-            misc.call(cmd,True)
+            print(">",cmd)
+            misc.call(cmd,False)
         else:
             term.write("    [SKIPPED]  \n")
 
@@ -385,6 +394,12 @@ class Bdd:
             this.compile("MULTIGRAPH",cmd)
 
         if 'pwpbdd' in bdds:
+            misc.require(this.part)
+            misc.header("\n* Compile partitioned WPBDD")
+            cmd = [this.compiler,this.hugin,"-r","part={:s}".format(this.part)]
+            this.compile("PWPBDD",cmd)
+
+        if 'ace' in bdds:
             misc.require(this.part)
             misc.header("\n* Compile partitioned WPBDD")
             cmd = [this.compiler,this.hugin,"-r","part={:s}".format(this.part)]

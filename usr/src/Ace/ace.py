@@ -158,17 +158,28 @@ class Ace():
     def is_compiled(self,hugin):
         return os.path.exists("{0}.{1}".format(hugin,"ac")) and os.path.exists("{0}.{1}".format(hugin,"lmap"))
 
-    def compile(self,hugin,overwrite):
-        if overwrite or not self.is_compiled(hugin):
-            cmd = [self.compiler,hugin]
-            print("> {}".format(" ".join(cmd)))
-            subprocess.call(cmd)
 
-    def compile_c2d(self,hugin,overwrite):
-        if overwrite or not self.is_compiled(hugin):
-            cmd = [self.compiler,'-forceC2d','-noEclause',hugin]
-            print("> {}".format(" ".join(cmd)))
-            subprocess.call(cmd)
+    def compile_cmd(self,cmd):
+        print("> {}".format(" ".join(cmd)))
+
+        regex_time = r'Compile Time \(s\) : ([.0-9]+)'
+        regex_init = r'Initialization Time \(s\) : ([.0-9]+)'
+        matches = execute_find(cmd, [regex_time,regex_init])
+
+        init = float(matches[1][0].groups()[0])
+        time = float(matches[0][0].groups()[0])
+        return time + init
+
+    def compile(self,options):
+        if options.compile or options.overwrite or not self.is_compiled(options.hugin):
+            cmd = [self.compiler,hugin]
+            return self.compile_cmd(cmd);
+
+
+    def compile_c2d(self,options):
+        if options.compile or options.overwrite or not self.is_compiled(options.hugin):
+            cmd = [self.compiler,'-forceC2d','-noEclause',options.hugin]
+            return self.compile_cmd(cmd);
 
     def posterior(self,hugin,query_str):
         instfile = []
@@ -205,9 +216,10 @@ def main():
     parser = argparse.ArgumentParser(description='ACE interface',add_help=False)
 
     parser.add_argument('--help',action='help',help='Show this help message and exit')
-    parser.add_argument('--network',dest='network', help='Bayesian network(s) used for testing',metavar="HUGIN")
+    parser.add_argument('--network',dest='hugin', help='Bayesian network(s) used for testing',metavar="HUGIN")
     parser.add_argument('--overwrite',dest='overwrite',action='store_true', help='Overwrite compiled circuit')
-    parser.add_argument('--no-c2d',dest='noc2d',action='store_true', help='Do not compile to c2d')
+    parser.add_argument('--compile',dest='compile',action='store_true', help='Only compile')
+    parser.add_argument('--no-c2d',dest='noc2d',action='store_true', help='Do not compile with c2d')
     parser.add_argument('--query',dest='query',nargs=argparse.REMAINDER, help="Query of the form VAR = VALUE [[|,] VAR = VALUE [, ...]]")
 
     if len(sys.argv)==1:
@@ -215,27 +227,36 @@ def main():
         sys.exit(0)
 
     options = parser.parse_args()
-    if options.network == None:
+    print(options)
+    if options.hugin == None:
         parser.error('{} requires --network'.format(options.test))
 
     if options.query != None:
         options.query = " ".join(options.query)
 
-    if not os.path.exists(options.network):
-        parser.error('network "{}" not found'.format(options.network))
+    if not os.path.exists(options.hugin):
+        parser.error('network "{}" not found'.format(options.hugin))
 
     ace = Ace()
     if options.noc2d:
-        ace.compile(options.network,options.overwrite)
+        compile_time = ace.compile(options)
     else:
-        ace.compile_c2d(options.network,options.overwrite)
+        compile_time = ace.compile_c2d(options)
 
-    probability,time = ace.posterior(options.network,options.query)
+    if options.compile:
+        print("Compilation result:")
+        print("===================")
+        print("Total time: {0}s".format(compile_time))
+        print("Total time: {0}ms".format(float(compile_time)*1000))
+    else:
+        probability,time = ace.posterior(options.hugin,options.query)
+        print("Result for P({0})".format(options.query))
+        print("===================")
+        print("Prob : {0}".format(probability))
+        print("Time : {0} s".format(float(time)*0.001))
 
-    print("Result for P({0})".format(options.query))
-    print("===================")
-    print("Prob : {0}".format(probability))
-    print("Time : {0} s".format(float(time)*0.001))
+
+
 
 
 main();
