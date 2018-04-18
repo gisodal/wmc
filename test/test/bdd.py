@@ -142,7 +142,7 @@ class Bdd:
             if matches[2] != None:
                 this.compile_result[-1][3] = int(matches[2].group(1))
             else:
-                this.compile_result[-1][3] = int('inf')
+                this.compile_result[-1][3] = -1
 
     def print_inference_results(this):
         misc.header("\n* Inference results ({})".format(this.net))
@@ -401,9 +401,9 @@ class Bdd:
 
         if 'ace' in bdds:
             misc.require(this.part)
-            misc.header("\n* Compile partitioned WPBDD")
+            misc.header("\n* Compile d-DNNF")
             cmd = [this.compiler,this.hugin,"-r","part={:s}".format(this.part)]
-            this.compile("PWPBDD",cmd)
+            this.compile("ACE",cmd)
 
         if 'parallel-wpbdd' in bdds or 'parallel-pwpbdd' in bdds:
             for cores in this.cores:
