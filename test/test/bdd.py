@@ -35,6 +35,7 @@ class Bdd:
         this.cores = CORES
         this.overwrite = False
         this.verify = False
+        this.ace       = os.path.join(g.WMC_DIR,"usr/bin/ace")
         this.compiler  = os.path.join(g.WMC_DIR,"bin/bnc")
         this.inference = os.path.join(g.WMC_DIR,"bin/bnmc")
         this.encoder   = os.path.join(g.WMC_DIR,"bin/bn-to-cnf")
@@ -402,7 +403,8 @@ class Bdd:
         if 'ace' in bdds:
             misc.require(this.part)
             misc.header("\n* Compile d-DNNF")
-            cmd = [this.compiler,this.hugin,"-r","part={:s}".format(this.part)]
+            cmd = [this.ace,"--network {}".format(this.hugin),"--compile"]
+            print("cmd:"," ".join(cmd))
             this.compile("ACE",cmd)
 
         if 'parallel-wpbdd' in bdds or 'parallel-pwpbdd' in bdds:
