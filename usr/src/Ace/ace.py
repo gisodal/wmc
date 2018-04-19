@@ -65,7 +65,7 @@ class QueryParser():
     t_GIVEN = r'\|'
     t_EQUALS = r'='
     t_AND = r','
-    t_NAME = r'[a-zA-Z0-9_ ]+'
+    t_NAME = r'[^\|^=^,]+'
 
     def t_error(self,t):
         print("Illegal character '%s'" % t.value[0])
@@ -160,15 +160,13 @@ class Ace():
 
 
     def compile_cmd(self,cmd):
-        print("> {}".format(" ".join(cmd)))
-
         regex_time = r'Compile Time \(s\) : ([.0-9]+)'
         regex_init = r'Initialization Time \(s\) : ([.0-9]+)'
         matches = execute_find(cmd, [regex_time,regex_init])
 
-        init = float(matches[1][0].groups()[0])
-        time = float(matches[0][0].groups()[0])
-        return time + init
+        init_time = float(matches[1][0].groups()[0])
+        compile_time = float(matches[0][0].groups()[0])
+        return compile_time # + init_time
 
     def compile(self,options):
         if options.compile or options.overwrite or not self.is_compiled(options.hugin):
@@ -192,10 +190,16 @@ class Ace():
             if len(query[0]) > 0:
                 instfile.append("{0}.{1}".format(hugin,"1.inst"))
                 self.write_query(instfile[1], query,False)
+            elif len(query[1]) == 1:
+                bquery = query
+                bquery[0] = bquery[1]
+                bquery[1] = {}
+                instfile.append("{0}.{1}".format(hugin,"1.inst"))
+                self.write_query(instfile[1], bquery,False)
+
 
         cmd = [self.inference,hugin]
         cmd.extend(instfile)
-        print("> {}".format(" ".join(cmd)))
 
         regex_probability = r'Pr\(e\) = ([\+\-E.0-9]+)'
         regex_time = r'Total Inference Time \(ms\) : ([.0-9]+)'
@@ -203,8 +207,9 @@ class Ace():
         matches = execute_find(cmd, [regex_probability,regex_time,regex_init])
 
         first = float(matches[0][0].groups()[0])
-        second = 1
-        time = float(matches[1][0].groups()[0]) + float(matches[2][0].groups()[0])
+        compile_time = float(matches[1][0].groups()[0])
+        init_time = float(matches[2][0].groups()[0])
+        time = compile_time
         if len(matches[0]) == 2:
             second = float(matches[0][1].groups()[0])
             return first/second,time
@@ -227,7 +232,6 @@ def main():
         sys.exit(0)
 
     options = parser.parse_args()
-    print(options)
     if options.hugin == None:
         parser.error('{} requires --network'.format(options.test))
 

@@ -44,6 +44,9 @@ class Bdd:
         if not os.path.exists(this.dir):
             os.makedirs(this.dir)
 
+    def set_repeat(this,repeat):
+        this.repeat = repeat
+
     def set_verify(this,verify):
         this.verify = verify
 
@@ -130,18 +133,18 @@ class Bdd:
                 misc.header("  - Run {} of {}".format(i+1,this.repeat))
             matches = misc.execute_find(cmd, None, [regex_seconds, regex_milliseconds, regex_operators], this.timeout)
 
-            if matches[0] != None:
-                this.compile_result[-1][1].append(float(matches[0].group(1)))
+            if len(matches[0]) != 0:
+                this.compile_result[-1][1].append(float(matches[0][0]))
             else:
                 this.compile_result[-1][1].append(float('inf'))
 
-            if matches[1] != None:
-                this.compile_result[-1][2].append(float(matches[1].group(1)))
+            if len(matches[1]) != 0:
+                this.compile_result[-1][2].append(float(matches[1][0]))
             else:
                 this.compile_result[-1][2].append(float('inf'))
 
-            if matches[2] != None:
-                this.compile_result[-1][3] = int(matches[2].group(1))
+            if len(matches[2]) != 0:
+                this.compile_result[-1][3] = int(matches[2][0])
             else:
                 this.compile_result[-1][3] = -1
 
@@ -156,8 +159,8 @@ class Bdd:
             keys.append((this.inference_result[i][2],i))
         keys = sorted(keys)
 
-        header = "\n{:>3} | {:>12s} | {:>6s} | {:>12s} | {:>12s} | {:>12}\n".format("nr","type","cores","queries","seconds","speed-down")
-        hline  = "-"*4 + "|-" + "-"*13 + "|-" + "-"*7 + "|-" + "-"*13 + "|-" + "-"*13 + "|-" + "-"*13 + "\n"
+        header = "\n{:>3} | {:>12s} | {:>6s} | {:>12s} | {:>12s} | {:>12s} | {:>12}\n".format("nr","type","cores","queries","milliseconds","ms/q","speed-down")
+        hline  = "-"*4 + "|-" + "-"*13 + "|-" + "-"*7 + "|-" + "-"*13 + "|-" + "-"*13 + "|-" + "-"*13 + "|-" + "-"*13 + "\n"
 
         f = open(this.inference_out, 'w')
         term.write(header)
@@ -165,7 +168,7 @@ class Bdd:
         term.write(hline)
         f.write(hline)
 
-        row = "{:3d} | {:12s} | {:6d} | {:12d} | {:12.4f} | {:12.2f}\n"
+        row = "{:3d} | {:12s} | {:6d} | {:12d} | {:12.4f} | {:12.4f} | {:12.2f}\n"
         base_key = keys[0][1]
         for i in range(len(this.inference_result)):
             key = keys[i][1]
@@ -181,6 +184,7 @@ class Bdd:
                 this.inference_result[key][1],
                 this.inference_result[key][0],
                 this.inference_result[key][2],
+                float(this.inference_result[key][2])/int(this.inference_result[key][0]),
                 final)
 
             term.write(frow)
@@ -281,7 +285,7 @@ class Bdd:
         if this.overwrite or not os.path.exists(this.multigraph_circuit):
             cmd = "{:s} {:s} -m -r elim={:s} -w map={:s} -w circuit={:s}".format(this.compiler,this.hugin,this.num,this.map,this.multigraph_circuit)
             print(">",cmd)
-            misc.call(cmd,False)
+            misc.call(cmd,True)
         else:
             term.write("    [SKIPPED]  \n")
 
@@ -312,40 +316,23 @@ class Bdd:
         cmd = [this.inference] + cores_arg
         regex_query=r"Query[ ]+[0-9]+[( ]+([0-9]+)\)"
         regex_time = []
-        regex_time.append(r"\)[ ]+WPBDD[0-9]*[ ]+\(([.0-9]+)\)")
-        regex_time.append(r"\)[ ]+MULTIGRAPH[0-9]*[ ]+\(([.0-9]+)\)")
-        regex_time.append(r"\)[ ]+PWPBDD[0-9]*[ ]+\(([.0-9]+)\)")
-        for cores in CORES:
-            regex_time.append(r"\)[ ]+PPWPBDD[0-9]-{}[ ]+\(([.0-9]+)\)".format(cores))
+        regex_time.append(r"([a-zA-Z][^\ ]*)[ ]+\(([.0-9]+)\)")
 
         misc.header("\n* Run Inference")
         matches = misc.execute_find(cmd, this.inf, [regex_query] + regex_time, this.timeout)
         result = []
         queries = 0
-        if matches[0] != None:
-            queries = int(matches[0].group(1))
+        if len(matches[0]) != 0:
+            queries = int(matches[0][0])
 
             # wpbdd
             key = 1
-            if matches[key] != None:
-                this.inference_result.append([queries,1,float(matches[key].group(1)),"WPBDD"])
+            for match in matches[key]:
+                algorithm = match[0]
+                time = float(match[1])
+                this.inference_result.append([queries,1,time,algorithm])
 
-            # multigraph
-            key = 2
-            if matches[key] != None:
-                this.inference_result.append([queries,1,float(matches[key].group(1)),"MULTIGRAPH"])
 
-            # pwpbdd
-            key = 3
-            if matches[key] != None:
-                this.inference_result.append([queries,1,float(matches[key].group(1)),"PWPBDD"])
-
-            # ppwpbdd
-            key = 4
-            for cores in CORES:
-                if matches[key] != None:
-                    this.inference_result.append([queries,cores,float(matches[key].group(1)), "PPWPBDD"])
-                key = key + 1
 
     def help_encoding(this):
         cmd = "{:s} -h".format(this.encoder)
@@ -403,8 +390,7 @@ class Bdd:
         if 'ace' in bdds:
             misc.require(this.part)
             misc.header("\n* Compile d-DNNF")
-            cmd = [this.ace,"--network {}".format(this.hugin),"--compile"]
-            print("cmd:"," ".join(cmd))
+            cmd = [this.ace,"--network","{}".format(this.hugin),"--compile"]
             this.compile("ACE",cmd)
 
         if 'parallel-wpbdd' in bdds or 'parallel-pwpbdd' in bdds:

@@ -51,35 +51,38 @@ def execute_find(cmd, infile, expressions, timeout):
     else:
         input = open(infile,'rb')
 
-    command = subprocess.Popen(cmd,stdout=subprocess.PIPE,stdin=input)
-    tee = subprocess.Popen(["tee", "/proc/{}/fd/{}".format(os.getpid(),fd_w)],
-        stdin=command.stdout)
+    try:
+        command = subprocess.Popen(cmd,stdout=subprocess.PIPE,stdin=input)
+        tee = subprocess.Popen(["tee", "/proc/{}/fd/{}".format(os.getpid(),fd_w)],
+            stdin=command.stdout)
 
-    fl = fcntl.fcntl(fd_r, fcntl.F_GETFL)
-    fcntl.fcntl(fd_r, fcntl.F_SETFL, fl | os.O_NONBLOCK)
-    output = os.fdopen(fd_r)
+        fl = fcntl.fcntl(fd_r, fcntl.F_GETFL)
+        fcntl.fcntl(fd_r, fcntl.F_SETFL, fl | os.O_NONBLOCK)
+        output = os.fdopen(fd_r)
 
-    matches = [ None ] * len(expressions)
-    start = time.time()
-    timedout = False
-    while tee.poll() is None:
-        sleep(0.001)
-        if timeout is not None and time.time() - start >= timeout:
-            timedout = True
-            command.kill()
+        matches = [ [] ] * len(expressions)
+        start = time.time()
+        timedout = False
+        while tee.poll() is None:
+            sleep(0.001)
+            if timeout is not None and time.time() - start >= timeout:
+                timedout = True
+                command.kill()
 
-        while True:
-            line = output.readline()
-            if line == '':
-                break
+            while True:
+                line = output.readline()
+                if line == '':
+                    break
 
-            for i in range(len(expressions)):
-                match = re.search(expressions[i],line)
-                if match != None:
-                    matches[i] = match
+                for i in range(len(expressions)):
+                    match = re.findall(expressions[i],line)
+                    if len(match) != 0:
+                        matches[i] = match
 
-    os.close(fd_r)
-    os.close(fd_w)
+        os.close(fd_r)
+        os.close(fd_w)
+    except:
+        pass
 
     command.communicate()
     if timedout:

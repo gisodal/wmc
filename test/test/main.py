@@ -15,11 +15,11 @@ def process(options):
     else:
         if options.test != None:
             if options.test == "inference":
-                compare_inference(options.bdds,options.networks,options.partitions,options.cores,options.overwrite,options.verify)
+                compare_inference(options)
             elif options.test == "compilation":
-                compare_compilation(options.bdds,options.networks,options.partitions,options.cores,options.overwrite)
+                compare_compilation(options)
             else:
-                compare_encoding(options.networks,options.help,options.args)
+                compare_encoding(options)
 
 
 def main():
@@ -41,6 +41,7 @@ def main():
     group.add_argument('--partitions',dest='partitions',help='Set number of partitions',default=2,type=int,metavar='#PARTITIONS')
     group.add_argument('--overwrite',dest='overwrite',action='store_true', help='Overwrite ordering, partitioning, etc.')
     group.add_argument('--verify', dest='verify', action='store_true', help='Verify inference answers', required=False)
+    group.add_argument('--repeat',dest='repeat',help='Set number of compilation repeats',default=3,type=int, required=False)
 
     group = parser.add_argument_group('encoding arguments')
     group.add_argument('--encoding-help',dest='help',action='store_true',help='Show help for encoding')
