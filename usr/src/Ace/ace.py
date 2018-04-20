@@ -14,32 +14,39 @@ sys.path.append(os.path.dirname(os.path.realpath(__file__)))
 import ply.lex as lex
 import ply.yacc as yacc
 
+import signal
+def signal_handler(signal, frame):
+    print('\n    [TERMINATED]')
+
 def execute_find(cmd, expressions):
+    try:
+        fd_r, fd_w = os.pipe()
+        command = subprocess.Popen(cmd,stdout=subprocess.PIPE)
+        tee = subprocess.Popen(["tee", "/proc/{}/fd/{}".format(os.getpid(),fd_w)],
+            stdin=command.stdout)
 
-    fd_r, fd_w = os.pipe()
-    command = subprocess.Popen(cmd,stdout=subprocess.PIPE)
-    tee = subprocess.Popen(["tee", "/proc/{}/fd/{}".format(os.getpid(),fd_w)],
-        stdin=command.stdout)
+        fl = fcntl.fcntl(fd_r, fcntl.F_GETFL)
+        fcntl.fcntl(fd_r, fcntl.F_SETFL, fl | os.O_NONBLOCK)
+        output = os.fdopen(fd_r)
 
-    fl = fcntl.fcntl(fd_r, fcntl.F_GETFL)
-    fcntl.fcntl(fd_r, fcntl.F_SETFL, fl | os.O_NONBLOCK)
-    output = os.fdopen(fd_r)
+        matches = [[] for _ in range(len(expressions))]
+        while tee.poll() is None:
+            sleep(0.001)
+            while True:
+                line = output.readline()
+                if line == '':
+                    break
 
-    matches = [[] for _ in range(len(expressions))]
-    while tee.poll() is None:
-        sleep(0.001)
-        while True:
-            line = output.readline()
-            if line == '':
-                break
+                for i in range(len(expressions)):
+                    match = re.findall(expressions[i],line)
+                    if len(match) != 0:
+                        matches[i].extend(match)
 
-            for i in range(len(expressions)):
-                match = re.search(expressions[i],line)
-                if match != None:
-                    matches[i].append(match)
+        os.close(fd_r)
+        os.close(fd_w)
 
-    os.close(fd_r)
-    os.close(fd_w)
+    except:
+        pass
 
     command.communicate()
     if command.returncode != 0:
@@ -159,46 +166,88 @@ class Ace():
         return os.path.exists("{0}.{1}".format(hugin,"ac")) and os.path.exists("{0}.{1}".format(hugin,"lmap"))
 
 
-    def compile_cmd(self,cmd):
+    def compile_cmd(self,cmd,options):
         regex_time = r'Compile Time \(s\) : ([.0-9]+)'
         regex_init = r'Initialization Time \(s\) : ([.0-9]+)'
-        matches = execute_find(cmd, [regex_time,regex_init])
+        regex_node = r'Number of Nodes : ([0-9]+)'
+        regex_edge = r'Number of Edges : ([0-9]+)'
+        matches = execute_find(cmd, [regex_time,regex_init,regex_node,regex_edge])
 
-        init_time = float(matches[1][0].groups()[0])
-        compile_time = float(matches[0][0].groups()[0])
-        return compile_time # + init_time
+        compile_time = float(matches[0][0])
+        init_time = float(matches[1][0])
+
+        if options.init:
+            time = compile_time + init_time
+        else:
+            time = compile_time
+
+        try:
+            if len(matches[2]) > 0 and len(matches[3]) > 0:
+                nodes = int(matches[2][0])
+                edges = int(matches[3][0])
+                variables = int(matches[3][0])
+                operators = edges / 2  # assuming binary operators
+            else:
+                operators = 0
+                with open("{0}.ac".format(options.hugin)) as f:
+                    first_line = f.readline()
+                    # nnf format:
+                    # PREAMBLE: nnf <total_nr_nodes> <total_nr_edges> <total_nr_variables>
+                    # LEAF : L <leaf variable>
+                    # OR   : O <variable?> <nr_edges> [edge1 [edge2] ... ]
+                    # AND  : A <nr_edges> [edge1 [edge2] ...]
+                    # node : <AND | OR | LEAF>
+                    for line in f.readlines():
+                        line = line.split()
+                        if line[0] == 'O':
+                            operators += int(line[2]) + int(line[2])
+                        if line[0] == 'A':
+                            operators += int(line[1])-1
+
+                nodes = int(first_line.split()[1])
+                edges = int(first_line.split()[2])
+                variables = int(first_line.split()[3])
+        except:
+            nodes = -1
+            edges = -1
+            variables = -1
+            operators = -1
+
+        return time, nodes, edges, variables, operators
 
     def compile(self,options):
         if options.compile or options.overwrite or not self.is_compiled(options.hugin):
-            cmd = [self.compiler,hugin]
-            return self.compile_cmd(cmd);
+            cmd = [self.compiler,options.hugin]
+            return self.compile_cmd(cmd,options);
+        return -1,-1,-1,-1,-1
 
 
     def compile_c2d(self,options):
         if options.compile or options.overwrite or not self.is_compiled(options.hugin):
             cmd = [self.compiler,'-forceC2d','-noEclause',options.hugin]
-            return self.compile_cmd(cmd);
+            return self.compile_cmd(cmd,options);
+        return -1,-1,-1,-1,-1
 
-    def posterior(self,hugin,query_str):
+    def posterior(self,options):
         instfile = []
-        query = self.parse(query_str)
+        query = self.parse(options.query)
 
         if len(query[0]) > 0 or len(query[1]) > 0:
-            print("## compute P({})".format(query_str))
-            instfile.append("{0}.{1}".format(hugin,"0.inst"))
+            print("## compute P({})".format(options.query))
+            instfile.append("{0}.{1}".format(options.hugin,"0.inst"))
             self.write_query(instfile[0], query,True)
             if len(query[0]) > 0:
-                instfile.append("{0}.{1}".format(hugin,"1.inst"))
+                instfile.append("{0}.{1}".format(options.hugin,"1.inst"))
                 self.write_query(instfile[1], query,False)
             elif len(query[1]) == 1:
                 bquery = query
                 bquery[0] = bquery[1]
                 bquery[1] = {}
-                instfile.append("{0}.{1}".format(hugin,"1.inst"))
+                instfile.append("{0}.{1}".format(options.hugin,"1.inst"))
                 self.write_query(instfile[1], bquery,False)
 
 
-        cmd = [self.inference,hugin]
+        cmd = [self.inference,options.hugin]
         cmd.extend(instfile)
 
         regex_probability = r'Pr\(e\) = ([\+\-E.0-9]+)'
@@ -206,12 +255,16 @@ class Ace():
         regex_init = r'Total Initialization Time \(ms\) : ([.0-9]+)'
         matches = execute_find(cmd, [regex_probability,regex_time,regex_init])
 
-        first = float(matches[0][0].groups()[0])
-        compile_time = float(matches[1][0].groups()[0])
-        init_time = float(matches[2][0].groups()[0])
-        time = compile_time
-        if len(matches[0]) == 2:
-            second = float(matches[0][1].groups()[0])
+        first = float(matches[0][0])
+        compile_time = float(matches[1][0])
+        init_time = float(matches[2][0])
+        if options.init:
+            time = compile_time + init_time
+        else:
+            time = compile_time
+
+        if len(matches[0]) > 1:
+            second = float(matches[0][1])
             return first/second,time
         else:
             return first,time
@@ -224,6 +277,7 @@ def main():
     parser.add_argument('--network',dest='hugin', help='Bayesian network(s) used for testing',metavar="HUGIN")
     parser.add_argument('--overwrite',dest='overwrite',action='store_true', help='Overwrite compiled circuit')
     parser.add_argument('--compile',dest='compile',action='store_true', help='Only compile')
+    parser.add_argument('--with-init',dest='init',action='store_true', help='Add init time total time')
     parser.add_argument('--no-c2d',dest='noc2d',action='store_true', help='Do not compile with c2d')
     parser.add_argument('--query',dest='query',nargs=argparse.REMAINDER, help="Query of the form VAR = VALUE [[|,] VAR = VALUE [, ...]]")
 
@@ -243,24 +297,25 @@ def main():
 
     ace = Ace()
     if options.noc2d:
-        compile_time = ace.compile(options)
+        compile_time,nodes,edges,variables,operators = ace.compile(options)
     else:
-        compile_time = ace.compile_c2d(options)
+        compile_time,nodes,edges,variables,operators = ace.compile_c2d(options)
 
     if options.compile:
         print("Compilation result:")
         print("===================")
         print("Total time: {0}s".format(compile_time))
         print("Total time: {0}ms".format(float(compile_time)*1000))
+        print("Total #nodes: {0}".format(nodes))
+        print("Total #edges: {0}".format(edges))
+        print("Total #variables : {0}".format(variables))
+        print("Total #operators : {0}".format(operators))
     else:
-        probability,time = ace.posterior(options.hugin,options.query)
+        probability,time = ace.posterior(options)
         print("Result for P({0})".format(options.query))
         print("===================")
         print("Prob : {0}".format(probability))
         print("Time : {0} s".format(float(time)*0.001))
-
-
-
 
 
 main();

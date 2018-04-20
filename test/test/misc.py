@@ -11,7 +11,7 @@ import sys
 from time import sleep
 import re
 term = sys.stdout
-
+import traceback
 
 def print_list(lst):
     entries = len(lst)
@@ -140,6 +140,10 @@ def require(file):
         os.stat(file)
     except:
         print("required file '{:s}' not found".format(file))
+        print("-"*60)
+        exc_type, exc_value, exc_traceback = sys.exc_info()
+        traceback.print_tb(exc_traceback, limit=1, file=sys.stdout)
+        print("-"*60)
         sys.exit(1)
 
 

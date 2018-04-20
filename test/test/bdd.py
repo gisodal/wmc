@@ -11,7 +11,7 @@ import signal
 import mmap
 from threading import Timer
 import time
-
+import traceback
 import test.misc as misc
 import test.globals as g
 
@@ -284,7 +284,6 @@ class Bdd:
         misc.require(this.num)
         if this.overwrite or not os.path.exists(this.multigraph_circuit):
             cmd = "{:s} {:s} -m -r elim={:s} -w map={:s} -w circuit={:s}".format(this.compiler,this.hugin,this.num,this.map,this.multigraph_circuit)
-            print(">",cmd)
             misc.call(cmd,True)
         else:
             term.write("    [SKIPPED]  \n")
@@ -388,7 +387,6 @@ class Bdd:
             this.compile("PWPBDD",cmd)
 
         if 'ace' in bdds:
-            misc.require(this.part)
             misc.header("\n* Compile d-DNNF")
             cmd = [this.ace,"--network","{}".format(this.hugin),"--compile"]
             this.compile("ACE",cmd)
