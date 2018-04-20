@@ -203,11 +203,11 @@ class Bdd:
             print("Compilation table is empty")
             return
 
-        header = "\n{:3s} | {:34s} | {:>12s} | {:>12s} | {:>12s}\n"
-        hline  = "-"*4 + "|-" + "-"*35 + "|-" + "-"*13 + "|-" + "-"*13 + "|-" + "-"*13 + "\n"
+        header = "\n{:3s} | {:34s} | {:>12s} | {:>12s} | {:>12s} | {:>12s}\n"
+        hline  = "-"*4 + "|-" + "-"*35 + "|-" + "-"*13 + "|-" + "-"*13 + "|-" + "-"*13 + "|-" + "-"*13 + "\n"
         f = open(this.compilation_out, 'w')
-        term.write(header.format("nr","type","seconds","milliseconds","size"))
-        f.write(header.format("nr","type","seconds","milliseconds","size"))
+        term.write(header.format("nr","type","seconds","milliseconds","speed-down","size"))
+        f.write(header.format("nr","type","seconds","milliseconds","speed-down","size"))
         term.write(hline)
         f.write(hline)
 
@@ -220,16 +220,21 @@ class Bdd:
 
         keys = sorted(keys)
 
-        row = "{:3d} | {:34s}" + " | " + "{:12.3f}" + " | " + "{:12.3f}" + " | " + "{:12d}" + "\n"
+        row = "{:3d} | {:34s}" + " | " + "{:12.3f}" + " | " + "{:12.3f}" + " | " + "{:12.3f}" + " | " + "{:12d}" + "\n"
+        avg_milliseconds_fast = -1
         for i in range(len(keys)):
             key = keys[i][1]
             avg_seconds = sum(this.compile_result[key][1]) / float(len(this.compile_result[key][1]))
             avg_milliseconds = sum(this.compile_result[key][2]) / float(len(this.compile_result[key][2]))
+            if avg_milliseconds_fast == -1:
+                avg_milliseconds_fast = float(avg_milliseconds)
+
             frow = row.format(
                 i,
                 this.compile_result[key][0],
                 avg_seconds,
                 avg_milliseconds,
+                avg_milliseconds/avg_milliseconds_fast,
                 this.compile_result[key][3])
             term.write(frow)
             f.write(frow)

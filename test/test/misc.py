@@ -94,7 +94,6 @@ def execute_find(cmd, infile, expressions, timeout,verbose):
 
     command.communicate()
     sys.stdout.flush()
-    print("hell: ",command.returncode);
     if timedout:
         term.write("    [TIMEDOUT]\n")
     elif command.returncode == -signal.SIGSEGV:
