@@ -134,6 +134,7 @@ def execute_find2(command, expressions,verbose):
 
 def call(command,verbose):
     if verbose:
+        print(">",command)
         failed = subprocess.call(command,shell=True)
     else:
         term.write("    [RUNNING]\r")
