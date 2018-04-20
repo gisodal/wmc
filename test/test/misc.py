@@ -12,6 +12,8 @@ from time import sleep
 import re
 term = sys.stdout
 import traceback
+import types
+import signal
 
 def print_list(lst):
     entries = len(lst)
@@ -41,20 +43,23 @@ def list_bayesian_networks():
     else:
         print("No Bayesian networks found in '{}'".format(g.NET_DIR))
 
-def execute_find(cmd, infile, expressions, timeout):
-    term.write("    [RUNNING]\r")
+def execute_find(cmd, infile, expressions, timeout,verbose):
+    if verbose:
+        print(">"," ".join(cmd))
+    else:
+        term.write("    [RUNNING]\r")
 
     # start cmd and pipe to tee
-    fd_r, fd_w = os.pipe()
-    if infile == None:
-        input = None
-    else:
-        input = open(infile,'rb')
-
     try:
+        if infile == None:
+            input = None
+        else:
+            input = open(infile,'rb')
+
+        fd_r, fd_w = os.pipe()
         command = subprocess.Popen(cmd,stdout=subprocess.PIPE,stdin=input)
         tee = subprocess.Popen(["tee", "/proc/{}/fd/{}".format(os.getpid(),fd_w)],
-            stdin=command.stdout)
+            stdin=command.stdout,stderr=subprocess.STDOUT)
 
         fl = fcntl.fcntl(fd_r, fcntl.F_GETFL)
         fcntl.fcntl(fd_r, fcntl.F_SETFL, fl | os.O_NONBLOCK)
@@ -82,11 +87,18 @@ def execute_find(cmd, infile, expressions, timeout):
         os.close(fd_r)
         os.close(fd_w)
     except:
-        pass
+        if verbose:
+            tee.stdout.flush()
+            raise
+
 
     command.communicate()
+    sys.stdout.flush()
+    print("hell: ",command.returncode);
     if timedout:
         term.write("    [TIMEDOUT]\n")
+    elif command.returncode == -signal.SIGSEGV:
+        term.write("    [SEGFAULT]  \n")
     elif command.returncode != 0:
         term.write("    [FAILED]  \n")
     else:
@@ -94,8 +106,12 @@ def execute_find(cmd, infile, expressions, timeout):
 
     return matches
 
-def execute_find2(command, expressions):
-    term.write("    [RUNNING]\r")
+def execute_find2(command, expressions,verbose):
+    if verbose:
+        print(">",command)
+    else:
+        term.write("    [RUNNING]\r")
+
     pipe = subprocess.Popen(command, stdout=subprocess.PIPE,bufsize=1,shell=True)
     lines_iterator = iter(pipe.stdout.readline, b"")
     matches = [ None ] * len(expressions)
@@ -117,8 +133,10 @@ def execute_find2(command, expressions):
 
     return matches
 
-def call(command,silent):
-    if silent:
+def call(command,verbose):
+    if verbose:
+        failed = subprocess.call(command,shell=True)
+    else:
         term.write("    [RUNNING]\r")
         failed = subprocess.call(command,shell=True,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
         if failed:
@@ -126,9 +144,6 @@ def call(command,silent):
             sys.exit(1)
         else:
             term.write("    [COMPLETE]\n")
-    else:
-        failed = subprocess.call(command,shell=True)
-
 
 def header(name):
     term_green="\x1B[32m"

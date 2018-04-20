@@ -35,6 +35,7 @@ class Bdd:
         this.cores = CORES
         this.overwrite = False
         this.verify = False
+        this.verbose = False
         this.ace       = os.path.join(g.WMC_DIR,"usr/bin/ace")
         this.compiler  = os.path.join(g.WMC_DIR,"bin/bnc")
         this.inference = os.path.join(g.WMC_DIR,"bin/bnmc")
@@ -43,6 +44,9 @@ class Bdd:
         this.dir = os.path.join(g.SCRIPT_DIR,"output")
         if not os.path.exists(this.dir):
             os.makedirs(this.dir)
+
+    def set_verbose(this,verbose):
+        this.verbose = verbose
 
     def set_repeat(this,repeat):
         this.repeat = repeat
@@ -131,7 +135,7 @@ class Bdd:
         for i in range(this.repeat):
             if this.repeat > 1:
                 misc.header("  - Run {} of {}".format(i+1,this.repeat))
-            matches = misc.execute_find(cmd, None, [regex_seconds, regex_milliseconds, regex_operators], this.timeout)
+            matches = misc.execute_find(cmd, None, [regex_seconds, regex_milliseconds, regex_operators], this.timeout, this.verbose)
 
             if len(matches[0]) != 0:
                 this.compile_result[-1][1].append(float(matches[0][0]))
@@ -237,7 +241,7 @@ class Bdd:
         misc.header("\n* Create ordering")
         if this.overwrite or not os.path.exists(this.num):
             cmd = "{:s} {:s} -o ordering_only=1 -w elim={:s}".format(this.compiler,this.hugin,this.num)
-            misc.call(cmd,True)
+            misc.call(cmd,this.verbose)
         else:
             term.write("    [SKIPPED]  \n")
 
@@ -246,7 +250,7 @@ class Bdd:
         misc.require(this.num)
         if this.overwrite or not os.path.exists(this.part):
             cmd = "{:s} {:s} -o ordering_only=1 -r elim={:s} -o partitions={:d} -w part={:s}".format(this.compiler,this.hugin,this.num,this.partitions,this.part)
-            misc.call(cmd,True)
+            misc.call(cmd,this.verbose)
         else:
             term.write("    [SKIPPED]  \n")
 
@@ -256,7 +260,7 @@ class Bdd:
         misc.require(this.part)
         if this.overwrite or not os.path.exists(this.comp):
             cmd = "{:s} {:s} -o ordering_only=1 -r elim={:s} -r part={:s} -w comp={:s}".format(this.compiler,this.hugin,this.num,this.part,this.comp)
-            misc.call(cmd,True)
+            misc.call(cmd,this.verbose)
         else:
             term.write("    [SKIPPED]  \n")
 
@@ -265,7 +269,7 @@ class Bdd:
         misc.require(this.num)
         if this.overwrite or not os.path.exists(this.circuit):
             cmd = "{:s} {:s} -r elim={:s} -w map={:s} -w circuit={:s} -o collapse=0".format(this.compiler,this.hugin,this.num,this.map,this.circuit)
-            misc.call(cmd,True)
+            misc.call(cmd,this.verbose)
         else:
             term.write("    [SKIPPED]  \n")
 
@@ -275,7 +279,7 @@ class Bdd:
         misc.require(this.part)
         if this.overwrite or not os.path.exists(this.part_circuit):
             cmd = "{:s} {:s} -r part={:s} -w map={:s} -w circuit={:s} -o collapse=0".format(this.compiler,this.hugin,this.part,this.map,this.circuit)
-            misc.call(cmd,True)
+            misc.call(cmd,this.verbose)
         else:
             term.write("    [SKIPPED]  \n")
 
@@ -284,7 +288,7 @@ class Bdd:
         misc.require(this.num)
         if this.overwrite or not os.path.exists(this.multigraph_circuit):
             cmd = "{:s} {:s} -m -r elim={:s} -w map={:s} -w circuit={:s}".format(this.compiler,this.hugin,this.num,this.map,this.multigraph_circuit)
-            misc.call(cmd,True)
+            misc.call(cmd,this.verbose)
         else:
             term.write("    [SKIPPED]  \n")
 
@@ -318,7 +322,7 @@ class Bdd:
         regex_time.append(r"([a-zA-Z][^\ ]*)[ ]+\(([.0-9]+)\)")
 
         misc.header("\n* Run Inference")
-        matches = misc.execute_find(cmd, this.inf, [regex_query] + regex_time, this.timeout)
+        matches = misc.execute_find(cmd, this.inf, [regex_query] + regex_time, this.timeout, this.verbose)
         result = []
         queries = 0
         if len(matches[0]) != 0:
@@ -352,22 +356,22 @@ class Bdd:
 
         if 'sdd' in bdds:
             misc.header("\n* Compile balanced vtree SDD (SDD compiler)")
-            cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num),"-t","sdd"]
+            cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num),"-t","sdd","-o","determinism=0"]
             this.compile("SDD (SDD compiler)",cmd)
 
         if 'sddr' in bdds:
             misc.header("\n* Compile right aligned vtree SDD (SDD compiler)")
-            cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num),"-t","sddr"]
+            cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num),"-t","sddr","-o","determinism=0"]
             this.compile("rSDD (SDD compiler)",cmd)
 
         if 'zbdd' in bdds:
             misc.header("\n* Compile ZBDD (CUDD)")
-            cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num),"-t","zbdd"]
+            cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num),"-t","zbdd","-o","determinism=0"]
             this.compile("ZBDD (CUDD)",cmd)
 
         if 'obdd' in bdds:
             misc.header("\n* Compile OBDD (CUDD)")
-            cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num),"-t","obdd"]
+            cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num),"-t","obdd","-o","determinism=0"]
             this.compile("OBDD (CUDD)",cmd)
 
         if 'wpbdd' in bdds:

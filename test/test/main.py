@@ -41,6 +41,7 @@ def main():
     group.add_argument('--partitions',dest='partitions',help='Set number of partitions',default=2,type=int,metavar='#PARTITIONS')
     group.add_argument('--overwrite',dest='overwrite',action='store_true', help='Overwrite ordering, partitioning, etc.')
     group.add_argument('--verify', dest='verify', action='store_true', help='Verify inference answers', required=False)
+    group.add_argument('--verbose', dest='verbose', action='store_true', help=argparse.SUPPRESS, required=False)
     group.add_argument('--repeat',dest='repeat',help='Set number of compilation repeats',default=3,type=int, required=False)
 
     group = parser.add_argument_group('encoding arguments')

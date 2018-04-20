@@ -12,6 +12,7 @@ def compare_inference(options):
         bdd.set_verify(options.verify)
         bdd.set_bayesian_network(network)
         bdd.set_partitions(options.partitions)
+        bdd.set_verbose(options.verbose)
         #bdd.set_timeout(5)
         bdd.run_inference(options.bdds)
         #bdd.set_timeout(None)
@@ -25,6 +26,7 @@ def compare_compilation(options):
         bdd.set_overwrite(options.overwrite)
         bdd.set_bayesian_network(network)
         bdd.set_repeat(options.repeat);
+        bdd.set_verbose(options.verbose)
         bdd.set_partitions(options.partitions)
         bdd.run_compilation(options.bdds)
         bdd.print_compilation_results()
@@ -37,5 +39,6 @@ def compare_encoding(options):
         for network in options.networks:
             bdd = Bdd()
             bdd.set_bayesian_network(network)
+            bdd.set_verbose(options.verbose)
             bdd.run_encoding(options.args)
 
