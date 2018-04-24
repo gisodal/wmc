@@ -1,0 +1,10 @@
+libdir=/home/gdal/trunk/wmc/usr/lib64
+includedir=/home/gdal/trunk/wmc/usr/include/bddc
+
+Name: Bddc
+Description: Sylvan, a parallel decision diagram library
+URL: https://github.com/gisodal/bddc
+Version: 1.4.0
+Cflags: -I${includedir}
+Libs: -L${libdir} -lbddc -lgmp -lpthread -lm
+Requires: hwloc

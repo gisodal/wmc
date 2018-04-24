@@ -1,0 +1,11 @@
+prefix=/home/gdal/trunk/wmc/usr
+exec_prefix=/home/gdal/trunk/wmc/usr
+libdir=/home/gdal/trunk/wmc/usr/lib
+includedir=/home/gdal/trunk/wmc/usr/include
+GSL_CBLAS_LIB=-lgslcblas
+
+Name: GSL
+Description: GNU Scientific Library
+Version: 2.4
+Libs: -L/home/gdal/trunk/wmc/usr/lib -lgsl ${GSL_CBLAS_LIB} -lm -lm 
+Cflags: -I/home/gdal/trunk/wmc/usr/include
