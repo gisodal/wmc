@@ -16,3 +16,6 @@
 [submodule "src/bddc"]
 	path = src/bddc
     url = github:gisodal/bddc.git
+[submodule "src/pseudotree"]
+	path = src/pseudotree
+	url = git@github.com:gisodal/daoopt.git

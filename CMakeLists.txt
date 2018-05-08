@@ -68,6 +68,22 @@ ExternalProject_Add(bddc
         -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
 )
 
+ExternalProject_Add(pseudotree
+    SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}/src/pseudotree"
+    DEPENDS exception quine-mccluskey bn-to-cnf
+    INSTALL_DIR ${CMAKE_INSTALL_PREFIX}
+    CMAKE_ARGS
+        -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
+        -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+)
+
+file(GLOB_RECURSE SOURCES "${CMAKE_CURRENT_LIST_DIR}/src/pseudotree/include/*" "${CMAKE_CURRENT_LIST_DIR}/src/pseudotree/source/*")
+ExternalProject_Add_Step(pseudotree forceconfigure
+    COMMAND ${CMAKE_COMMAND} -E echo -n "-- Reconfigure"
+    DEPENDS ${SOURCES}
+    DEPENDERS configure
+)
+
 ExternalProject_Add(bnc
     SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}/src/bnc"
     DEPENDS exception quine-mccluskey bn-to-cnf bddc
