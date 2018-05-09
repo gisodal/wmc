@@ -26,8 +26,11 @@ ExternalProject_Add_Step(exception forceconfigure
     DEPENDERS configure
 )
 
-ExternalProject_Add(quine-mccluskey
-    SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}/src/quine-mccluskey"
+
+# ==============================================================================
+set(PROJECT quine-mccluskey)
+ExternalProject_Add(${PROJECT}
+    SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}/src/${PROJECT}"
     DEPENDS exception
     INSTALL_DIR ${CMAKE_INSTALL_PREFIX}
     CMAKE_ARGS
@@ -35,15 +38,21 @@ ExternalProject_Add(quine-mccluskey
         -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
 )
 
-file(GLOB_RECURSE SOURCES "${CMAKE_CURRENT_LIST_DIR}/src/quine-mccluskey/include/*" "${CMAKE_CURRENT_LIST_DIR}/src/quine-mccluskey/src/*")
+file(GLOB_RECURSE SOURCES "${CMAKE_CURRENT_LIST_DIR}/src/${PROJECT}/include/*" "${CMAKE_CURRENT_LIST_DIR}/src/${PROJECT}/src/*")
 ExternalProject_Add_Step(quine-mccluskey forceconfigure
     COMMAND ${CMAKE_COMMAND} -E echo -n "-- Reconfigure"
     DEPENDS ${SOURCES}
     DEPENDERS configure
 )
 
-ExternalProject_Add(bn-to-cnf
-    SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}/src/bn-to-cnf"
+set(BIN ${CMAKE_BINARY_DIR}/${PROJECT}-prefix/src/${PROJECT}-build/${PROJECT})
+install(FILES "${BIN}" DESTINATION "${CMAKE_INSTALL_PREFIX}/bin")
+
+
+# ==============================================================================
+set(PROJECT bn-to-cnf)
+ExternalProject_Add(${PROJECT}
+    SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}/src/${PROJECT}"
     DEPENDS exception quine-mccluskey
     INSTALL_DIR ${CMAKE_INSTALL_PREFIX}
     CMAKE_ARGS
@@ -51,25 +60,33 @@ ExternalProject_Add(bn-to-cnf
         -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
 )
 
-file(GLOB_RECURSE SOURCES "${CMAKE_CURRENT_LIST_DIR}/src/bn-to-cnf/include/*" "${CMAKE_CURRENT_LIST_DIR}/src/bn-to-cnf/src/*")
-ExternalProject_Add_Step(bn-to-cnf forceconfigure
+file(GLOB_RECURSE SOURCES "${CMAKE_CURRENT_LIST_DIR}/src/${PROJECT}/include/*" "${CMAKE_CURRENT_LIST_DIR}/src/${PROJECT}/src/*")
+ExternalProject_Add_Step(${PROJECT} forceconfigure
     COMMAND ${CMAKE_COMMAND} -E echo -n "-- Reconfigure"
     DEPENDS ${SOURCES}
     DEPENDERS configure
 )
 
-ExternalProject_Add(bddc
-    SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}/src/bddc"
+set(BIN ${CMAKE_BINARY_DIR}/${PROJECT}-prefix/src/${PROJECT}-build/${PROJECT})
+install(FILES "${BIN}" DESTINATION "${CMAKE_INSTALL_PREFIX}/bin")
+
+
+# ==============================================================================
+set(PROJECT bddc)
+ExternalProject_Add(${PROJECT}
+    SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}/src/${PROJECT}"
     INSTALL_DIR ${CMAKE_INSTALL_PREFIX}
     CMAKE_ARGS
         -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
-        -DCMAKE_INSTALL_INCLUDEDIR:PATH=${CMAKE_INSTALL_PREFIX}/include/bddc
+        -DCMAKE_INSTALL_INCLUDEDIR:PATH=${CMAKE_INSTALL_PREFIX}/include/${PROJECT}
         -DCMAKE_INSTALL_LIBDIR:PATH=${CMAKE_INSTALL_PREFIX}/lib
         -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
 )
 
-ExternalProject_Add(pseudotree
-    SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}/src/pseudotree"
+# ==============================================================================
+set(PROJECT pseudotree)
+ExternalProject_Add(${PROJECT}
+    SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}/src/${PROJECT}"
     DEPENDS exception quine-mccluskey bn-to-cnf
     INSTALL_DIR ${CMAKE_INSTALL_PREFIX}
     CMAKE_ARGS
@@ -77,32 +94,44 @@ ExternalProject_Add(pseudotree
         -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
 )
 
-file(GLOB_RECURSE SOURCES "${CMAKE_CURRENT_LIST_DIR}/src/pseudotree/include/*" "${CMAKE_CURRENT_LIST_DIR}/src/pseudotree/source/*")
-ExternalProject_Add_Step(pseudotree forceconfigure
+file(GLOB_RECURSE SOURCES "${CMAKE_CURRENT_LIST_DIR}/src/${PROJECT}/include/*" "${CMAKE_CURRENT_LIST_DIR}/src/${PROJECT}/source/*")
+ExternalProject_Add_Step(${PROJECT} forceconfigure
     COMMAND ${CMAKE_COMMAND} -E echo -n "-- Reconfigure"
     DEPENDS ${SOURCES}
     DEPENDERS configure
 )
 
+set(BIN ${CMAKE_BINARY_DIR}/${PROJECT}-prefix/src/${PROJECT}-build/daoopt)
+install(FILES "${BIN}" DESTINATION "${CMAKE_INSTALL_PREFIX}/bin")
+
+
+# ==============================================================================
+set(PROJECT bnc)
 ExternalProject_Add(bnc
-    SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}/src/bnc"
-    DEPENDS exception quine-mccluskey bn-to-cnf bddc
+    SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}/src/${PROJECT}"
+    DEPENDS exception quine-mccluskey bn-to-cnf bddc pseudotree
     INSTALL_DIR ${CMAKE_INSTALL_PREFIX}
     CMAKE_ARGS
         -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}
         -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
 )
 
-file(GLOB_RECURSE SOURCES "${CMAKE_CURRENT_LIST_DIR}/src/bnc/include/*" "${CMAKE_CURRENT_LIST_DIR}/src/bnc/src/*")
-ExternalProject_Add_Step(bnc forceconfigure
+file(GLOB_RECURSE SOURCES "${CMAKE_CURRENT_LIST_DIR}/src/${PROJECT}/include/*" "${CMAKE_CURRENT_LIST_DIR}/src/${PROJECT}/src/*")
+ExternalProject_Add_Step(${PROJECT} forceconfigure
     COMMAND ${CMAKE_COMMAND} -E echo -n "-- Reconfigure"
     DEPENDS ${SOURCES}
     DEPENDERS configure
 )
 
-ExternalProject_Add(bnmc
-    SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}/src/bnmc"
-    DEPENDS exception quine-mccluskey bn-to-cnf bnc
+set(BIN ${CMAKE_BINARY_DIR}/${PROJECT}-prefix/src/${PROJECT}-build/${PROJECT})
+install(FILES "${BIN}" DESTINATION "${CMAKE_INSTALL_PREFIX}/bin")
+
+
+# ==============================================================================
+set(PROJECT bnmc)
+ExternalProject_Add(${PROJECT}
+    SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}/src/${PROJECT}"
+    DEPENDS exception quine-mccluskey bn-to-cnf bnc pseudotree
     INSTALL_DIR ${CMAKE_INSTALL_PREFIX}
     UPDATE_COMMAND ""
     CMAKE_ARGS
@@ -110,10 +139,13 @@ ExternalProject_Add(bnmc
         -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
 )
 
-file(GLOB_RECURSE SOURCES "${CMAKE_CURRENT_LIST_DIR}/src/bnmc/include/*" "${CMAKE_CURRENT_LIST_DIR}/src/bnmc/src/*")
-ExternalProject_Add_Step(bnmc forceconfigure
+file(GLOB_RECURSE SOURCES "${CMAKE_CURRENT_LIST_DIR}/src/${PROJECT}/include/*" "${CMAKE_CURRENT_LIST_DIR}/src/${PROJECT}/src/*")
+ExternalProject_Add_Step(${PROJECT} forceconfigure
     COMMAND ${CMAKE_COMMAND} -E echo -n "-- Reconfigure"
     DEPENDS ${SOURCES}
     DEPENDERS configure
 )
+
+set(BIN ${CMAKE_BINARY_DIR}/${PROJECT}-prefix/src/${PROJECT}-build/${PROJECT})
+install(FILES "${BIN}" DESTINATION "${CMAKE_INSTALL_PREFIX}/bin")
 
