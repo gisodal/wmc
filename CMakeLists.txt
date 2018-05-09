@@ -46,7 +46,7 @@ ExternalProject_Add_Step(quine-mccluskey forceconfigure
 )
 
 set(BIN ${CMAKE_BINARY_DIR}/${PROJECT}-prefix/src/${PROJECT}-build/${PROJECT})
-install(FILES "${BIN}" DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" PERMISSIONS OWNER_EXECUTE)
+install(PROGRAMS "${BIN}" DESTINATION "${CMAKE_INSTALL_PREFIX}/bin")
 
 
 # ==============================================================================
@@ -68,7 +68,7 @@ ExternalProject_Add_Step(${PROJECT} forceconfigure
 )
 
 set(BIN ${CMAKE_BINARY_DIR}/${PROJECT}-prefix/src/${PROJECT}-build/${PROJECT})
-install(FILES "${BIN}" DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" PERMISSIONS OWNER_EXECUTE)
+install(PROGRAMS "${BIN}" DESTINATION "${CMAKE_INSTALL_PREFIX}/bin")
 
 
 # ==============================================================================
@@ -102,7 +102,7 @@ ExternalProject_Add_Step(${PROJECT} forceconfigure
 )
 
 set(BIN ${CMAKE_BINARY_DIR}/${PROJECT}-prefix/src/${PROJECT}-build/daoopt)
-install(FILES "${BIN}" DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" PERMISSIONS OWNER_EXECUTE)
+install(PROGRAMS "${BIN}" DESTINATION "${CMAKE_INSTALL_PREFIX}/bin")
 
 
 # ==============================================================================
@@ -124,7 +124,7 @@ ExternalProject_Add_Step(${PROJECT} forceconfigure
 )
 
 set(BIN ${CMAKE_BINARY_DIR}/${PROJECT}-prefix/src/${PROJECT}-build/${PROJECT})
-install(FILES "${BIN}" DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" PERMISSIONS OWNER_EXECUTE)
+install(PROGRAMS "${BIN}" DESTINATION "${CMAKE_INSTALL_PREFIX}/bin")
 
 
 # ==============================================================================
@@ -147,5 +147,5 @@ ExternalProject_Add_Step(${PROJECT} forceconfigure
 )
 
 set(BIN ${CMAKE_BINARY_DIR}/${PROJECT}-prefix/src/${PROJECT}-build/${PROJECT})
-install(FILES "${BIN}" DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" PERMISSIONS OWNER_EXECUTE)
+install(PROGRAMS "${BIN}" DESTINATION "${CMAKE_INSTALL_PREFIX}/bin")
 
