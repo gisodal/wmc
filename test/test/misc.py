@@ -45,7 +45,10 @@ def list_bayesian_networks():
 
 def execute_find(cmd, infile, expressions, timeout,verbose):
     if verbose:
-        print(">"," ".join(cmd))
+        if infile == None:
+            print(">"," ".join(cmd))
+        else:
+            print(">"," ".join(cmd), "<",infile)
     else:
         term.write("    [RUNNING]\r")
 

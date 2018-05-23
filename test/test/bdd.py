@@ -94,7 +94,8 @@ class Bdd:
         this.inference_out      = this.dir + "/" + this.net + ".inf.out"
         this.compilation_out    = this.dir + "/" + this.net + ".comp.out"
         this.part_circuit       = this.dir + "/" + this.net + ".0.ac"
-        this.multigraph_circuit = this.dir + "/" + this.net + ".mc"
+        this.multigraph_circuit = this.dir + "/" + this.net + ".mc.ac"
+        this.tdmultigraph_circuit = this.dir + "/" + this.net + ".tdmc.ac"
 
     def clean(this):
         files = [ this.part, this.num, this.comp, this.circuit, this.map, this.inf, this.part_ciruit, this.multigraph_circuit]
@@ -113,8 +114,10 @@ class Bdd:
             f.write("load wpbdd {:s}\n".format(this.circuit))
         if 'pwpbdd' in bdds or 'parallel-pwpbdd' in bdds:
             f.write("load pwpbdd {:s} {:s} {:s}\n".format(this.part_circuit,this.part,this.comp))
-        if 'multigraph' in bdds:
-            f.write("load multigraph {:s}\n".format(this.multigraph_circuit))
+        if 'tdmg' in bdds:
+            f.write("load tdmg {:s}\n".format(this.tdmultigraph_circuit))
+        if 'mg' in bdds:
+            f.write("load mg {:s}\n".format(this.multigraph_circuit))
         if 'dlib' in bdds:
             f.write("initdlib\n");
         if 'ace' in bdds:
@@ -288,17 +291,26 @@ class Bdd:
         else:
             term.write("    [SKIPPED]  \n")
 
+    def create_tdmultigraph_circuit(this):
+        misc.header("\n* Create tdmultigraph circuit")
+        if this.overwrite or not os.path.exists(this.multigraph_circuit):
+            cmd = "{:s} {:s} -w map={:s} -w circuit={:s} -t tdmg".format(this.compiler,this.hugin,this.map,this.tdmultigraph_circuit)
+            misc.call(cmd,this.verbose)
+        else:
+            term.write("    [SKIPPED]  \n")
+
+
     def create_multigraph_circuit(this):
         misc.header("\n* Create multigraph circuit")
         misc.require(this.num)
         if this.overwrite or not os.path.exists(this.multigraph_circuit):
-            cmd = "{:s} {:s} -m -r elim={:s} -w map={:s} -w circuit={:s}".format(this.compiler,this.hugin,this.num,this.map,this.multigraph_circuit)
+            cmd = "{:s} {:s} -r elim={:s} -w map={:s} -w circuit={:s} -t mg".format(this.compiler,this.hugin,this.num,this.map,this.multigraph_circuit)
             misc.call(cmd,this.verbose)
         else:
             term.write("    [SKIPPED]  \n")
 
     def run_inference(this,bdds):
-        allowed = set(['multigraph','wpbdd','parallel_pwpbdd','pwpbdd','dlib','ace'])
+        allowed = set(['tdmg','mg','wpbdd','parallel_pwpbdd','pwpbdd','dlib','ace'])
         if not set(bdds).issubset(allowed):
             print("Bdd(s) not supported for inference: ",set(bdds)-allowed)
             sys.exit(1)
@@ -306,8 +318,10 @@ class Bdd:
         this.create_ordering()
         if 'wpbdd' in bdds:
             this.create_circuit()
-        if 'multigraph' in bdds:
+        if 'mg' in bdds:
             this.create_multigraph_circuit()
+        if 'tdmg' in bdds:
+            this.create_tdmultigraph_circuit()
         if 'pwpbdd' in bdds or 'parallel-pwpbdd' in bdds:
             this.create_partitioning()
             this.create_partitioned_circuit()
@@ -316,12 +330,14 @@ class Bdd:
         this.create_inference_input(bdds)
         misc.require(this.inf)
 
-        cores_arg = []
-        for cores in this.cores:
-            cores_arg += ['-w','{}'.format(cores)]
+        if 'parallel-pwpbdd' in bdds:
+            cores_arg = []
+            for cores in this.cores:
+                cores_arg += ['-w','{}'.format(cores)]
+            cmd = [this.inference] + cores_arg
+        else:
+            cmd = [this.inference]
 
-
-        cmd = [this.inference] + cores_arg
         regex_query=r"Query[ ]+[0-9]+[( ]+([0-9]+)\)"
         regex_time = []
         regex_time.append(r"([a-zA-Z][^\ ]*)[ ]+\(([.0-9]+)\)")
@@ -384,10 +400,15 @@ class Bdd:
             cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num)]
             this.compile("WPBDD",cmd)
 
-        if 'multigraph' in bdds:
+        if 'mg' in bdds:
             misc.header("\n* Compile MULTIGRAPH")
-            cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num),"-m"]
-            this.compile("MULTIGRAPH",cmd)
+            cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num),"-t","mg"]
+            this.compile("MG",cmd)
+
+        if 'tdmg' in bdds:
+            misc.header("\n* Compile TDMULTIGRAPH")
+            cmd = [this.compiler,this.hugin,"-t","tdmg"]
+            this.compile("TDMG",cmd)
 
         if 'pwpbdd' in bdds:
             misc.require(this.part)
