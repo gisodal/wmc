@@ -1,22 +1,42 @@
+
+DEFAULTBUILDDIR := build
+DEBUGBUILDDIR	:= debug
+RELEASEBUILDDIR	:= release
+CURRENTDIR 		:= $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
+SOURCEDIR 		:= $(CURRENTDIR)
+
 MAKEFLAGS += --no-print-directory
 
+.PHONY: build debug release clean help
 
-DIR  = $(shell cd "$( dirname "$0" )" && pwd)
+build: $(DEFAULTBUILDDIR)/CMakeCache.txt
+	@$(MAKE) -C $(DEFAULTBUILDDIR) install
 
-SDIR = src
-IDIR = include
-BDIR = bin
-LDIR = lib
+release: CMAKEFLAGS += -DCMAKE_BUILD_TYPE=Release
+release: $(RELEASEBUILDDIR)/CMakeCache.txt
+	@$(MAKE) -C $(RELEASEBUILDDIR) install
 
-.PHONY: wmc clean
+debug: CMAKEFLAGS += -DCMAKE_BUILD_TYPE=Debug
+debug: $(DEBUGBUILDDIR)/CMakeCache.txt
+	@$(MAKE) -C $(DEBUGBUILDDIR) install
 
-wmc: build
+%/CMakeCache.txt:
+	@mkdir -p $*
+	@cd $* && cmake $(CMAKEFLAGS) $(SOURCEDIR)
 
 clean:
-	@echo "RM $(LDIR)* $(IDIR) $(BDIR)"
-	@$(RM) -r $(LDIR)* $(IDIR) $(BDIR)
-	@$(MAKE) -s -C $(SDIR) clean
+	@rm -rf $(DEBUGBUILDDIR) $(DEFAULTBUILDDIR) $(RELEASEBUILDDIR)
 
-%:
-	@$(MAKE) -C $(SDIR) $@
+help:
+	@echo "Usage:"
+	@echo "    make [option]"
+	@echo ""
+	@echo "Options:"
+	@echo "    build*    : create build directory (cmake) and compile"
+	@echo "    release   : same as 'build', but with NDEBUG"
+	@echo "    debug     : same as 'build', but with debug symbols"
+	@echo "    clean     : remove build directories"
+	@echo ""
+	@echo "    * = default"
+	@echo ""
 

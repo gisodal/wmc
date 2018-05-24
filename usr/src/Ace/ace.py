@@ -59,7 +59,7 @@ class QueryParser():
 
     def __init__(self):
         lex.lex(module=self)
-        yacc.yacc(module=self)
+        yacc.yacc(debug=0, write_tables=0,module=self)
 
         self.variables = {}
         self.query_variable = {}
