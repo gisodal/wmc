@@ -26,7 +26,6 @@ ExternalProject_Add_Step(exception forceconfigure
     DEPENDERS configure
 )
 
-
 # ==============================================================================
 set(PROJECT quine-mccluskey)
 ExternalProject_Add(${PROJECT}
