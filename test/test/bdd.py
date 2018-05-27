@@ -133,12 +133,14 @@ class Bdd:
         regex_seconds=r"Total time[: ]+([0-9.]+)s"
         regex_milliseconds=r"Total time[: ]+([0-9.]+)ms"
         regex_operators=r"Total #oper[a-z :]+([0-9]+)"
+        regex_nodes=r"Total #nodes[ :]+([0-9]+)"
+        regex_edges=r"Total #edges[ :]+([0-9]+)"
 
-        this.compile_result.append([name,[],[],0])
+        this.compile_result.append([name,[],[],0,0,0])
         for i in range(this.repeat):
             if this.repeat > 1:
                 misc.header("  - Run {} of {}".format(i+1,this.repeat))
-            matches = misc.execute_find(cmd, None, [regex_seconds, regex_milliseconds, regex_operators], this.timeout, this.verbose)
+            matches = misc.execute_find(cmd, None, [regex_seconds, regex_milliseconds, regex_operators,regex_nodes,regex_edges], this.timeout, this.verbose)
 
             if len(matches[0]) != 0:
                 this.compile_result[-1][1].append(float(matches[0][0]))
@@ -154,6 +156,17 @@ class Bdd:
                 this.compile_result[-1][3] = int(matches[2][0])
             else:
                 this.compile_result[-1][3] = -1
+
+            if len(matches[3]) != 0:
+                this.compile_result[-1][4] = int(matches[3][0])
+            else:
+                this.compile_result[-1][4] = -1
+
+
+            if len(matches[4]) != 0:
+                this.compile_result[-1][5] = int(matches[4][0])
+            else:
+                this.compile_result[-1][5] = -1
 
     def print_inference_results(this):
         misc.header("\n* Inference results ({})".format(this.net))
@@ -206,11 +219,11 @@ class Bdd:
             print("Compilation table is empty")
             return
 
-        header = "\n{:3s} | {:34s} | {:>12s} | {:>12s} | {:>12s} | {:>12s}\n"
-        hline  = "-"*4 + "|-" + "-"*35 + "|-" + "-"*13 + "|-" + "-"*13 + "|-" + "-"*13 + "|-" + "-"*13 + "\n"
+        header = "\n{:3s} | {:34s} | {:>12s} | {:>12s} | {:>12s} | {:>12s} | {:>12s} | {:>12s}\n"
+        hline  = "-"*4 + "|-" + "-"*35 + "|-" + "-"*13 + "|-" + "-"*13 + "|-" + "-"*13 + "|-" + "-"*13 + "|-" + "-"*13 +"|-" + "-"*13 + "\n"
         f = open(this.compilation_out, 'w')
-        term.write(header.format("nr","type","seconds","milliseconds","speed-down","size"))
-        f.write(header.format("nr","type","seconds","milliseconds","speed-down","size"))
+        term.write(header.format("nr","type","seconds","milliseconds","speed-down","operators","nodes","edges"))
+        f.write(header.format("nr","type","seconds","milliseconds","speed-down","operators","nodes","edges"))
         term.write(hline)
         f.write(hline)
 
@@ -223,7 +236,7 @@ class Bdd:
 
         keys = sorted(keys)
 
-        row = "{:3d} | {:34s}" + " | " + "{:12.3f}" + " | " + "{:12.3f}" + " | " + "{:12.3f}" + " | " + "{:12d}" + "\n"
+        row = "{:3d} | {:34s}" + " | " + "{:12.3f}" + " | " + "{:12.3f}" + " | " + "{:12.3f}" + " | " + "{:12d}"  + " | " + "{:12d}" + " | " + "{:12d}" + "\n"
         avg_milliseconds_fast = -1
         for i in range(len(keys)):
             key = keys[i][1]
@@ -238,7 +251,9 @@ class Bdd:
                 avg_seconds,
                 avg_milliseconds,
                 avg_milliseconds/avg_milliseconds_fast,
-                this.compile_result[key][3])
+                this.compile_result[key][3],
+                this.compile_result[key][4],
+                this.compile_result[key][5])
             term.write(frow)
             f.write(frow)
 
@@ -248,7 +263,7 @@ class Bdd:
     def create_ordering(this):
         misc.header("\n* Create ordering")
         if this.overwrite or not os.path.exists(this.num):
-            cmd = "{:s} {:s} -o ordering_only=1 -w elim={:s}".format(this.compiler,this.hugin,this.num)
+            cmd = "{:s} {:s} -t wpbdd -o ordering_only=1 -w elim={:s}".format(this.compiler,this.hugin,this.num)
             misc.call(cmd,this.verbose)
         else:
             term.write("    [SKIPPED]  \n")
@@ -257,7 +272,7 @@ class Bdd:
         misc.header("\n* Create partitioning")
         misc.require(this.num)
         if this.overwrite or not os.path.exists(this.part):
-            cmd = "{:s} {:s} -o ordering_only=1 -r elim={:s} -o partitions={:d} -w part={:s}".format(this.compiler,this.hugin,this.num,this.partitions,this.part)
+            cmd = "{:s} {:s} -t wpbdd -o ordering_only=1 -r elim={:s} -o partitions={:d} -w part={:s}".format(this.compiler,this.hugin,this.num,this.partitions,this.part)
             misc.call(cmd,this.verbose)
         else:
             term.write("    [SKIPPED]  \n")
@@ -267,7 +282,7 @@ class Bdd:
         misc.require(this.num)
         misc.require(this.part)
         if this.overwrite or not os.path.exists(this.comp):
-            cmd = "{:s} {:s} -o ordering_only=1 -r elim={:s} -r part={:s} -w comp={:s}".format(this.compiler,this.hugin,this.num,this.part,this.comp)
+            cmd = "{:s} {:s} -t wpbdd -o ordering_only=1 -r elim={:s} -r part={:s} -w comp={:s}".format(this.compiler,this.hugin,this.num,this.part,this.comp)
             misc.call(cmd,this.verbose)
         else:
             term.write("    [SKIPPED]  \n")
@@ -276,7 +291,7 @@ class Bdd:
         misc.header("\n* Create circuit")
         misc.require(this.num)
         if this.overwrite or not os.path.exists(this.circuit):
-            cmd = "{:s} {:s} -r elim={:s} -w map={:s} -w circuit={:s} -o collapse=0".format(this.compiler,this.hugin,this.num,this.map,this.circuit)
+            cmd = "{:s} {:s} -t wpbdd -r elim={:s} -w map={:s} -w circuit={:s} -o collapse=0".format(this.compiler,this.hugin,this.num,this.map,this.circuit)
             misc.call(cmd,this.verbose)
         else:
             term.write("    [SKIPPED]  \n")
@@ -286,7 +301,7 @@ class Bdd:
         misc.require(this.num)
         misc.require(this.part)
         if this.overwrite or not os.path.exists(this.part_circuit):
-            cmd = "{:s} {:s} -r part={:s} -w map={:s} -w circuit={:s} -o collapse=0".format(this.compiler,this.hugin,this.part,this.map,this.circuit)
+            cmd = "{:s} {:s} -t wpbdd -r part={:s} -w map={:s} -w circuit={:s} -o collapse=0".format(this.compiler,this.hugin,this.part,this.map,this.circuit)
             misc.call(cmd,this.verbose)
         else:
             term.write("    [SKIPPED]  \n")
@@ -397,7 +412,7 @@ class Bdd:
 
         if 'wpbdd' in bdds:
             misc.header("\n* Compile WPBDD")
-            cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num)]
+            cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num),"-t","wpbdd"]
             this.compile("WPBDD",cmd)
 
         if 'mg' in bdds:
@@ -413,7 +428,7 @@ class Bdd:
         if 'pwpbdd' in bdds:
             misc.require(this.part)
             misc.header("\n* Compile partitioned WPBDD")
-            cmd = [this.compiler,this.hugin,"-r","part={:s}".format(this.part)]
+            cmd = [this.compiler,this.hugin,"-r","part={:s}".format(this.part),"-t","wpbdd","-d","partitioned"]
             this.compile("PWPBDD",cmd)
 
         if 'ace' in bdds:
@@ -425,25 +440,25 @@ class Bdd:
             for cores in this.cores:
                 if 'parallel-wpbdd' in bdds:
                     misc.header("\n* Compile WPBDD - sylvan {:d} core(s)".format(cores))
-                    cmd = [this.compiler,this.hugin,"-p","-r","elim={:s}".format(this.num),"-o","workers={:d}".format(cores)]
+                    cmd = [this.compiler,this.hugin,"-t","sylvan","-r","elim={:s}".format(this.num),"-o","workers={:d}".format(cores)]
                     this.compile("parallel WPBDD {:d} core(s)".format(cores),cmd)
 
                 if 'parallel-pwpbdd' in bdds:
                     misc.require(this.part)
                     misc.header("\n* Compile partitioned WPBDD - silvan {:d} core(s)".format(cores))
-                    cmd = [this.compiler,this.hugin,"-p","-r","part={:s}".format(this.part),"-o","workers={:d}".format(cores)]
+                    cmd = [this.compiler,this.hugin,"-d","partitioned","-t","sylvan","-p","-r","part={:s}".format(this.part),"-o","workers={:d}".format(cores)]
                     this.compile("Parallel PWPBDD {:d} core(s)".format(cores),cmd)
 
                     misc.header("\n* Compile partitioned PWPBDD - silvan (+1) {:d} core(s)".format(cores))
-                    cmd = [this.compiler,this.hugin,"-p","-r","part={:s}".format(this.part),"-o","workers={:d}".format(cores),"-o","parallel_partition=1" ]
+                    cmd = [this.compiler,this.hugin,"-d","partitioned","-t","sylvan","-p","-r","part={:s}".format(this.part),"-o","workers={:d}".format(cores),"-o","parallel_partition=1","-o","parallel_conjoin=0","-o","parallel_cpt=0" ]
                     this.compile("Parallel PWPBDD +1opt {:d} core(s)".format(cores),cmd)
 
                     misc.header("\n* Compile partitioned PWPBDD - silvan (+2) {:d} core(s)".format(cores))
-                    cmd = [this.compiler,this.hugin,"-p","-r","part={:s}".format(this.part),"-o","workers={:d}".format(cores),"-o","parallel_partition=1","-o","parallel_conjoin=1" ]
+                    cmd = [this.compiler,this.hugin,"-d","partitioned","-t","sylvan","-p","-r","part={:s}".format(this.part),"-o","workers={:d}".format(cores),"-o","parallel_partition=1","-o","parallel_conjoin=1","-o","parallel_cpt=0" ]
                     this.compile("Parallel PWPBDD +2opt {:d} core(s)".format(cores),cmd)
 
                     misc.header("\n* Compile partitioned PWPBDD - silvan (+3 opt) {:d} core(s)".format(cores))
-                    cmd = [this.compiler,this.hugin,"-p","-r","part={:s}".format(this.part),"-o","workers={:d}".format(cores),"-o","parallel_partition=1","-o","parallel_conjoin=1","-o","parallel_cpt=1"]
+                    cmd = [this.compiler,this.hugin,"-d","partitioned","-t","sylvan","-p","-r","part={:s}".format(this.part),"-o","workers={:d}".format(cores),"-o","parallel_partition=1","-o","parallel_conjoin=1","-o","parallel_cpt=1" ]
                     this.compile("Parallel PWPBDD +3opt {:d} core(s)".format(cores),cmd)
 
 
