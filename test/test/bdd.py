@@ -440,25 +440,25 @@ class Bdd:
             for cores in this.cores:
                 if 'parallel-wpbdd' in bdds:
                     misc.header("\n* Compile WPBDD - sylvan {:d} core(s)".format(cores))
-                    cmd = [this.compiler,this.hugin,"-t","sylvan","-r","elim={:s}".format(this.num),"-o","workers={:d}".format(cores)]
+                    cmd = [this.compiler,this.hugin,"-t","sylvan","-o","determinism=0","-r","elim={:s}".format(this.num),"-o","workers={:d}".format(cores)]
                     this.compile("parallel WPBDD {:d} core(s)".format(cores),cmd)
 
                 if 'parallel-pwpbdd' in bdds:
                     misc.require(this.part)
                     misc.header("\n* Compile partitioned WPBDD - silvan {:d} core(s)".format(cores))
-                    cmd = [this.compiler,this.hugin,"-d","partitioned","-t","sylvan","-p","-r","part={:s}".format(this.part),"-o","workers={:d}".format(cores)]
+                    cmd = [this.compiler,this.hugin,"-d","partitioned","-t","sylvan","-o","determinism=0","-p","-r","part={:s}".format(this.part),"-o","workers={:d}".format(cores)]
                     this.compile("Parallel PWPBDD {:d} core(s)".format(cores),cmd)
 
                     misc.header("\n* Compile partitioned PWPBDD - silvan (+1) {:d} core(s)".format(cores))
-                    cmd = [this.compiler,this.hugin,"-d","partitioned","-t","sylvan","-p","-r","part={:s}".format(this.part),"-o","workers={:d}".format(cores),"-o","parallel_partition=1","-o","parallel_conjoin=0","-o","parallel_cpt=0" ]
+                    cmd = [this.compiler,this.hugin,"-d","partitioned","-t","sylvan","-o","determinism=0","-p","-r","part={:s}".format(this.part),"-o","workers={:d}".format(cores),"-o","parallel_partition=1","-o","parallel_conjoin=0","-o","parallel_cpt=0" ]
                     this.compile("Parallel PWPBDD +1opt {:d} core(s)".format(cores),cmd)
 
                     misc.header("\n* Compile partitioned PWPBDD - silvan (+2) {:d} core(s)".format(cores))
-                    cmd = [this.compiler,this.hugin,"-d","partitioned","-t","sylvan","-p","-r","part={:s}".format(this.part),"-o","workers={:d}".format(cores),"-o","parallel_partition=1","-o","parallel_conjoin=1","-o","parallel_cpt=0" ]
+                    cmd = [this.compiler,this.hugin,"-d","partitioned","-t","sylvan","-o","determinism=0","-p","-r","part={:s}".format(this.part),"-o","workers={:d}".format(cores),"-o","parallel_partition=1","-o","parallel_conjoin=1","-o","parallel_cpt=0" ]
                     this.compile("Parallel PWPBDD +2opt {:d} core(s)".format(cores),cmd)
 
                     misc.header("\n* Compile partitioned PWPBDD - silvan (+3 opt) {:d} core(s)".format(cores))
-                    cmd = [this.compiler,this.hugin,"-d","partitioned","-t","sylvan","-p","-r","part={:s}".format(this.part),"-o","workers={:d}".format(cores),"-o","parallel_partition=1","-o","parallel_conjoin=1","-o","parallel_cpt=1" ]
+                    cmd = [this.compiler,this.hugin,"-d","partitioned","-t","sylvan","-o","determinism=0","-p","-r","part={:s}".format(this.part),"-o","workers={:d}".format(cores),"-o","parallel_partition=1","-o","parallel_conjoin=1","-o","parallel_cpt=1" ]
                     this.compile("Parallel PWPBDD +3opt {:d} core(s)".format(cores),cmd)
 
 
