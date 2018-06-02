@@ -375,14 +375,14 @@ class Bdd:
 
     def help_encoding(this):
         cmd = "{:s} -h".format(this.encoder)
-        misc.call(cmd,False)
+        misc.call(cmd,True)
 
     def run_encoding(this,args):
         if args == None:
             cmd = "{:s} -i {:s} -s".format(this.encoder,this.hugin)
         else:
             cmd = "{:s} -i {:s} -s {:s}".format(this.encoder,this.hugin," ".join(args))
-        misc.call(cmd,False)
+        misc.call(cmd,True)
 
     def run_compilation(this,bdds):
         this.create_ordering()
@@ -430,6 +430,11 @@ class Bdd:
             misc.header("\n* Compile partitioned WPBDD")
             cmd = [this.compiler,this.hugin,"-r","part={:s}".format(this.part),"-t","wpbdd","-d","partitioned"]
             this.compile("PWPBDD",cmd)
+
+        if 'acei' in bdds:
+            misc.header("\n* Compile d-DNNF")
+            cmd = [this.ace,"--network","{}".format(this.hugin),"--compile","--with-init"]
+            this.compile("ACEI",cmd)
 
         if 'ace' in bdds:
             misc.header("\n* Compile d-DNNF")
