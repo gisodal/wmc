@@ -126,7 +126,7 @@ class Bdd:
         if this.verify:
             f.write("verify\n");
         else:
-            f.write("compare 2\n")
+            f.write("compare 1\n")
         f.close()
 
     def compile(this,name,cmd):
@@ -308,7 +308,7 @@ class Bdd:
 
     def create_tdmultigraph_circuit(this):
         misc.header("\n* Create tdmultigraph circuit")
-        if this.overwrite or not os.path.exists(this.multigraph_circuit):
+        if this.overwrite or not os.path.exists(this.tdmultigraph_circuit):
             cmd = "{:s} {:s} -w map={:s} -w circuit={:s} -t tdmg".format(this.compiler,this.hugin,this.map,this.tdmultigraph_circuit)
             misc.call(cmd,this.verbose)
         else:
@@ -325,7 +325,7 @@ class Bdd:
             term.write("    [SKIPPED]  \n")
 
     def run_inference(this,bdds):
-        allowed = set(['tdmg','mg','wpbdd','parallel_pwpbdd','pwpbdd','dlib','ace'])
+        allowed = set(['tdmg','mg','wpbdd','parallel-pwpbdd','pwpbdd','dlib','ace'])
         if not set(bdds).issubset(allowed):
             print("Bdd(s) not supported for inference: ",set(bdds)-allowed)
             sys.exit(1)
