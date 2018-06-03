@@ -390,31 +390,6 @@ class Bdd:
             this.create_partitioning()
         misc.require(this.num)
 
-        if 'sdd' in bdds:
-            misc.header("\n* Compile balanced vtree SDD (SDD compiler)")
-            cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num),"-t","sdd","-o","determinism=0"]
-            this.compile("SDD (SDD compiler)",cmd)
-
-        if 'sddr' in bdds:
-            misc.header("\n* Compile right aligned vtree SDD (SDD compiler)")
-            cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num),"-t","sddr","-o","determinism=0"]
-            this.compile("rSDD (SDD compiler)",cmd)
-
-        if 'zbdd' in bdds:
-            misc.header("\n* Compile ZBDD (CUDD)")
-            cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num),"-t","zbdd","-o","determinism=0"]
-            this.compile("ZBDD (CUDD)",cmd)
-
-        if 'obdd' in bdds:
-            misc.header("\n* Compile OBDD (CUDD)")
-            cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num),"-t","obdd","-o","determinism=0"]
-            this.compile("OBDD (CUDD)",cmd)
-
-        if 'wpbdd' in bdds:
-            misc.header("\n* Compile WPBDD")
-            cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num),"-t","wpbdd"]
-            this.compile("WPBDD",cmd)
-
         if 'mg' in bdds:
             misc.header("\n* Compile MULTIGRAPH")
             cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num),"-t","mg"]
@@ -425,21 +400,46 @@ class Bdd:
             cmd = [this.compiler,this.hugin,"-t","tdmg"]
             this.compile("TDMG",cmd)
 
+        if 'wpbdd' in bdds:
+            misc.header("\n* Compile WPBDD")
+            cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num),"-t","wpbdd"]
+            this.compile("WPBDD",cmd)
+
         if 'pwpbdd' in bdds:
             misc.require(this.part)
             misc.header("\n* Compile partitioned WPBDD")
             cmd = [this.compiler,this.hugin,"-r","part={:s}".format(this.part),"-t","wpbdd","-d","partitioned"]
             this.compile("PWPBDD",cmd)
 
+        if 'ace' in bdds:
+            misc.header("\n* Compile d-DNNF")
+            cmd = [this.ace,"--network","{}".format(this.hugin),"--compile"]
+            this.compile("ACE",cmd)
+
         if 'acei' in bdds:
             misc.header("\n* Compile d-DNNF")
             cmd = [this.ace,"--network","{}".format(this.hugin),"--compile","--with-init"]
             this.compile("ACEI",cmd)
 
-        if 'ace' in bdds:
-            misc.header("\n* Compile d-DNNF")
-            cmd = [this.ace,"--network","{}".format(this.hugin),"--compile"]
-            this.compile("ACE",cmd)
+        if 'obdd' in bdds:
+            misc.header("\n* Compile OBDD (CUDD)")
+            cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num),"-t","obdd","-o","determinism=0"]
+            this.compile("OBDD (CUDD)",cmd)
+
+        if 'zbdd' in bdds:
+            misc.header("\n* Compile ZBDD (CUDD)")
+            cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num),"-t","zbdd","-o","determinism=0"]
+            this.compile("ZBDD (CUDD)",cmd)
+
+        if 'sddr' in bdds:
+            misc.header("\n* Compile right aligned vtree SDD (SDD compiler)")
+            cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num),"-t","sddr","-o","determinism=0"]
+            this.compile("rSDD (SDD compiler)",cmd)
+
+        if 'sdd' in bdds:
+            misc.header("\n* Compile balanced vtree SDD (SDD compiler)")
+            cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num),"-t","sdd","-o","determinism=0"]
+            this.compile("SDD (SDD compiler)",cmd)
 
         if 'parallel-wpbdd' in bdds or 'parallel-pwpbdd' in bdds:
             for cores in this.cores:
