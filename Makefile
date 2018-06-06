@@ -5,6 +5,10 @@ RELEASEBUILDDIR	:= release
 CURRENTDIR 		:= $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 SOURCEDIR 		:= $(CURRENTDIR)
 
+export GCC_COLORS='error=01;31:warning=01;38;5;172:caret=01;38;5;172:locus=01:quote=:note=01;32:range1=:range2=:fixit-insert=:fixit-delete=:diff-filename=:diff-hunk=:diff-delete=:diff-insert=:type-diff='
+export CMAKE_CXX_FLAGS += -fdiagnostics-color=auto
+export CMAKE_C_FLAGS += -fdiagnostics-color=auto
+
 MAKEFLAGS += --no-print-directory
 
 .PHONY: build debug release clean help
