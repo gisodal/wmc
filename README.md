@@ -9,18 +9,18 @@ This package contains:
 * BN to OBDD compiler (using CUDD)
 * BN to ZBDD compiler (using CUDD)
 * BN to SDD compiler (using SDD)
+* BN to d-DNNF compiler (using ACE)
 * Model Counter for inference
+* A testing suite
 
-Note: the repositories for the compilers and model counter will soon be made publically accessible.
+Note: binaries can be found in `bin` and `usr/bin`.
 
 ## Installation
 
 In order to retreive (and update) all neccesary repositories, type:
-> ./scripts/git-pull
+> git submodule update --init --recursive
 
 To build, type:
 > make
-
-Binaries will be installed in the `<path/to/source>/bin` folder.
 
 
