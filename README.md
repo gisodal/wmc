@@ -13,14 +13,19 @@ This package contains:
 * Model Counter for inference
 * A testing suite
 
-Note: binaries can be found in `bin` and `usr/bin`.
-
 ## Installation
 
-In order to retreive (and update) all neccesary repositories, type:
+Binaries can be found in directory `bin`, so building is not necessary.
+
+Regardless, in order to retreive (and update) all neccesary repositories, type:
 > git submodule update --init --recursive
 
 To build, type:
 > make
+
+## Testing
+
+To test the compilers use test script `run.py` in directory `test`, for example:
+> ./test/run.py --test compilation --network asia --bdd tdmg ace
 
 
