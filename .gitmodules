@@ -19,3 +19,6 @@
 [submodule "src/pseudotree"]
 	path = src/pseudotree
 	url = git@github.com:gisodal/daoopt.git
+[submodule "src/dlib"]
+	path = src/dlib
+	url = git@github.com:gisodal/dlib.git
