@@ -87,6 +87,7 @@ class Bdd:
         this.net     = net
         this.part    = this.dir + "/" + this.net + ".part"
         this.num     = this.dir + "/" + this.net + ".num"
+        this.part_num = this.dir + "/" + this.net + ".0.num"
         this.comp    = this.dir + "/" + this.net + ".comp"
         this.circuit = this.dir + "/" + this.net + ".ac"
         this.map     = this.dir + "/" + this.net + ".map"
@@ -263,26 +264,32 @@ class Bdd:
     def create_ordering(this):
         misc.header("\n* Create ordering")
         if this.overwrite or not os.path.exists(this.num):
-            cmd = "{:s} {:s} -t wpbdd -o ordering_only=1 -w elim={:s}".format(this.compiler,this.hugin,this.num)
+            cmd = "{:s} {:s} -t wpbdd -o no_compile=1 -w elim={:s}".format(this.compiler,this.hugin,this.num)
+            misc.call(cmd,this.verbose)
+        else:
+            term.write("    [SKIPPED]  \n")
+
+    def create_partition_ordering(this):
+        misc.header("\n* Create partition ordering")
+        if this.overwrite or not os.path.exists(this.part_num):
+            cmd = "{:s} {:s} -t wpbdd -o no_compile=1 -r part={:s} -w elim={:s}".format(this.compiler,this.hugin,this.part,this.num)
             misc.call(cmd,this.verbose)
         else:
             term.write("    [SKIPPED]  \n")
 
     def create_partitioning(this):
         misc.header("\n* Create partitioning")
-        misc.require(this.num)
         if this.overwrite or not os.path.exists(this.part):
-            cmd = "{:s} {:s} -t wpbdd -o ordering_only=1 -r elim={:s} -o partitions={:d} -w part={:s}".format(this.compiler,this.hugin,this.num,this.partitions,this.part)
+            cmd = "{:s} {:s} -t wpbdd -o no_compile=1 -o no_ordering=1 -o partitions={:d} -w part={:s}".format(this.compiler,this.hugin,this.partitions,this.part)
             misc.call(cmd,this.verbose)
         else:
             term.write("    [SKIPPED]  \n")
 
     def create_composition_ordering(this,):
         misc.header("\n* Create componsition ordering")
-        misc.require(this.num)
         misc.require(this.part)
         if this.overwrite or not os.path.exists(this.comp):
-            cmd = "{:s} {:s} -t wpbdd -o ordering_only=1 -r elim={:s} -r part={:s} -w comp={:s}".format(this.compiler,this.hugin,this.num,this.part,this.comp)
+            cmd = "{:s} {:s} -t wpbdd -o no_compile=1 -o no_ordering=1 -r part={:s} -w comp={:s}".format(this.compiler,this.hugin,this.part,this.comp)
             misc.call(cmd,this.verbose)
         else:
             term.write("    [SKIPPED]  \n")
@@ -298,10 +305,10 @@ class Bdd:
 
     def create_partitioned_circuit(this):
         misc.header("\n* Create partitioned circuit")
-        misc.require(this.num)
+        misc.require(this.part_num)
         misc.require(this.part)
         if this.overwrite or not os.path.exists(this.part_circuit):
-            cmd = "{:s} {:s} -t wpbdd -r part={:s} -w map={:s} -w circuit={:s} -o collapse=0".format(this.compiler,this.hugin,this.part,this.map,this.circuit)
+            cmd = "{:s} {:s} -t wpbdd -r part={:s} -r elim={:s} -w map={:s} -w circuit={:s} -o collapse=0".format(this.compiler,this.hugin,this.part,this.num,this.map,this.circuit)
             misc.call(cmd,this.verbose)
         else:
             term.write("    [SKIPPED]  \n")
@@ -330,15 +337,20 @@ class Bdd:
             print("Bdd(s) not supported for inference: ",set(bdds)-allowed)
             sys.exit(1)
 
-        this.create_ordering()
+        if 'pwpbdd' in bdds or 'parallel-pwpbdd' in bdds or 'pmg' in bdds or 'ptdmg' in bdds:
+            this.create_partitioning()
+            this.create_partition_ordering()
+
+        if 'wpbdd' in bdds or 'mg' in bdds or 'tdmg' in bdds:
+            this.create_ordering()
+
         if 'wpbdd' in bdds:
             this.create_circuit()
         if 'mg' in bdds:
             this.create_multigraph_circuit()
         if 'tdmg' in bdds:
             this.create_tdmultigraph_circuit()
-        if 'pwpbdd' in bdds or 'parallel-pwpbdd' in bdds:
-            this.create_partitioning()
+        if 'pwpbdd' in bdds or 'parallel-pwpbdd' in bdds or 'pmg' in bdds or 'ptdmg' in bdds:
             this.create_partitioned_circuit()
             this.create_composition_ordering()
 
