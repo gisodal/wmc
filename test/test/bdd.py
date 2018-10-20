@@ -57,6 +57,9 @@ class Bdd:
     def set_overwrite(this,overwrite):
         this.overwrite = overwrite
 
+    def set_ratio(this,ratio):
+        this.ratio = ratio
+
     def set_partitions(this,partitions):
         this.partitions = partitions
 
@@ -280,7 +283,11 @@ class Bdd:
     def create_partitioning(this):
         misc.header("\n* Create partitioning")
         if this.overwrite or not os.path.exists(this.part):
-            cmd = "{:s} {:s} -t wpbdd -o no_compile=1 -o no_ordering=1 -o partitions={:d} -w part={:s}".format(this.compiler,this.hugin,this.partitions,this.part)
+            ratio = ""
+            if float(this.ratio) != 2.0:
+                ratio = "-o sa_score_ratio={:.2f}".format(this.ratio)
+
+            cmd = "{:s} {:s} -t wpbdd -o no_compile=1 -o no_ordering=1 -o partitions={:d} -w part={:s} {:s}".format(this.compiler,this.hugin,this.partitions,this.part,ratio)
             misc.call(cmd,this.verbose)
         else:
             term.write("    [SKIPPED]  \n")

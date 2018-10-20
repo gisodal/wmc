@@ -18,6 +18,8 @@ def process(options):
                 compare_inference(options)
             elif options.test == "compilation":
                 compare_compilation(options)
+            elif options.test == "partitioning":
+                create_partitions(options)
             else:
                 compare_encoding(options)
 
@@ -31,7 +33,7 @@ def main():
     parser.add_argument('--help',action='help',help='Show this help message and exit')
     parser.add_argument('--list', dest='list', action='store_true', help='Print list of available Bayesian networks', required=False)
     parser.add_argument('--cores', dest='cores', nargs='+', help='Number of cores to use during parallel execution', required=False, default=CORES,metavar="#CORES",type=int)
-    test_options = ["compilation","inference","encoding"]
+    test_options = ["compilation","inference","encoding","partitioning"]
     parser.add_argument('--test',dest='test',choices=test_options, help='Choose what to test. Options are ' + ', '.join(test_options), required=False,metavar='TEST')
     parser.add_argument('--network',dest='networks',nargs='+', help='Bayesian network(s) used for testing',metavar="NETWORK")
 
@@ -39,6 +41,7 @@ def main():
     group = parser.add_argument_group('inference and compilation arguments')
     group.add_argument('--bdd',dest='bdds',nargs='+', help='Type of BDD. Options are ' + ', '.join(bdd_options), choices=bdd_options,required=False,default=None,metavar='BDD')
     group.add_argument('--partitions',dest='partitions',help='Set number of partitions',default=2,type=int,metavar='#PARTITIONS')
+    group.add_argument('--ratio',dest='ratio',help='Ratio between cutset size and partition balance',default=2.0,type=float,metavar='RATIO')
     group.add_argument('--overwrite',dest='overwrite',action='store_true', help='Overwrite ordering, partitioning, etc.')
     group.add_argument('--verify', dest='verify', action='store_true', help='Verify inference answers', required=False)
     group.add_argument('--verbose', dest='verbose', action='store_true', help=argparse.SUPPRESS, required=False)

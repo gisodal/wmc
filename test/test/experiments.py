@@ -4,6 +4,16 @@ import test.misc as misc
 import test.globals as g
 from test.bdd import *
 
+def create_partitions(options):
+    for network in options.networks:
+        bdd = Bdd()
+        bdd.set_overwrite(options.overwrite)
+        bdd.set_bayesian_network(network)
+        bdd.set_partitions(options.partitions)
+        bdd.set_ratio(options.ratio)
+        bdd.set_verbose(options.verbose)
+        bdd.create_partitioning()
+
 def compare_inference(options):
     for network in options.networks:
         bdd = Bdd()
