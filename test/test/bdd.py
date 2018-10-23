@@ -80,7 +80,7 @@ class Bdd:
             net = os.path.basename(net)
             nhugin = os.path.join(g.NET_DIR,"{}.net".format(net))
             if not os.path.exists(nhugin):
-                sys.stderr.write("Bayesian network '{hugin}' not found".format(hugin))
+                sys.stderr.write("Bayesian network '{}' not found".format(hugin))
                 sys.exit(1)
             else:
                 hugin = nhugin
