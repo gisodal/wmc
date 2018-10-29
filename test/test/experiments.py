@@ -38,7 +38,9 @@ def compare_compilation(options):
         bdd.set_repeat(options.repeat);
         bdd.set_verbose(options.verbose)
         bdd.set_partitions(options.partitions)
+        bdd.set_timeout(900)
         bdd.run_compilation(options.bdds)
+        bdd.set_timeout(None)
         bdd.print_compilation_results()
 
 def compare_encoding(options):

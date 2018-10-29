@@ -30,6 +30,7 @@ class Bdd:
     def __init__(this):
         this.compile_result = []
         this.inference_result = []
+        this.ratio = 2.0
         this.repeat = 3
         this.partitions = 2
         this.cores = CORES
@@ -86,15 +87,17 @@ class Bdd:
                 hugin = nhugin
 
         misc.require(hugin)
-        this.hugin   = hugin
-        this.net     = net
-        this.part    = this.dir + "/" + this.net + ".part"
-        this.num     = this.dir + "/" + this.net + ".num"
-        this.part_num = this.dir + "/" + this.net + ".0.num"
-        this.comp    = this.dir + "/" + this.net + ".comp"
-        this.circuit = this.dir + "/" + this.net + ".ac"
-        this.map     = this.dir + "/" + this.net + ".map"
-        this.inf     = this.dir + "/" + this.net + ".inf"
+        this.hugin       = hugin
+        this.net         = net
+        this.part        = this.dir + "/" + this.net + ".part"
+        this.td_num      = this.dir + "/" + this.net + ".td.num"
+        this.td_part_num = this.dir + "/" + this.net + ".td.0.num"
+        this.num         = this.dir + "/" + this.net + ".num"
+        this.part_num    = this.dir + "/" + this.net + ".0.num"
+        this.comp        = this.dir + "/" + this.net + ".comp"
+        this.circuit     = this.dir + "/" + this.net + ".ac"
+        this.map         = this.dir + "/" + this.net + ".map"
+        this.inf         = this.dir + "/" + this.net + ".inf"
         this.inference_out      = this.dir + "/" + this.net + ".inf.out"
         this.compilation_out    = this.dir + "/" + this.net + ".comp.out"
         this.part_circuit       = this.dir + "/" + this.net + ".0.ac"
@@ -264,10 +267,26 @@ class Bdd:
         f.close()
         term.write("\nResults written to '{}'\n".format(this.compilation_out))
 
+    def create_td_ordering(this):
+        misc.header("\n* Create td ordering")
+        if this.overwrite or not os.path.exists(this.td_num):
+            cmd = "{:s} -o resources=0.85 {:s} -t wpbdd -o no_compile=1 -o order=9 -w elim={:s}".format(this.compiler,this.hugin,this.td_num)
+            misc.call(cmd,this.verbose)
+        else:
+            term.write("    [SKIPPED]  \n")
+
+    def create_td_partition_ordering(this):
+        misc.header("\n* Create td partition ordering")
+        if this.overwrite or not os.path.exists(this.td_part_num):
+            cmd = "{:s} -o resources=0.85 {:s} -t wpbdd -o no_compile=1 -o order=9 -r part={:s} -w elim={:s}".format(this.compiler,this.hugin,this.part,this.td_num)
+            misc.call(cmd,this.verbose)
+        else:
+            term.write("    [SKIPPED]  \n")
+
     def create_ordering(this):
         misc.header("\n* Create ordering")
         if this.overwrite or not os.path.exists(this.num):
-            cmd = "{:s} {:s} -t wpbdd -o no_compile=1 -w elim={:s}".format(this.compiler,this.hugin,this.num)
+            cmd = "{:s} -o resources=0.85 {:s} -t wpbdd -o no_compile=1 -w elim={:s}".format(this.compiler,this.hugin,this.num)
             misc.call(cmd,this.verbose)
         else:
             term.write("    [SKIPPED]  \n")
@@ -275,7 +294,7 @@ class Bdd:
     def create_partition_ordering(this):
         misc.header("\n* Create partition ordering")
         if this.overwrite or not os.path.exists(this.part_num):
-            cmd = "{:s} {:s} -t wpbdd -o no_compile=1 -r part={:s} -w elim={:s}".format(this.compiler,this.hugin,this.part,this.num)
+            cmd = "{:s} -o resources=0.85 {:s} -t wpbdd -o no_compile=1 -r part={:s} -w elim={:s}".format(this.compiler,this.hugin,this.part,this.num)
             misc.call(cmd,this.verbose)
         else:
             term.write("    [SKIPPED]  \n")
@@ -287,16 +306,16 @@ class Bdd:
             if float(this.ratio) != 2.0:
                 ratio = "-o sa_score_ratio={:.2f}".format(this.ratio)
 
-            cmd = "{:s} {:s} -t wpbdd -o no_compile=1 -o no_ordering=1 -o partitions={:d} -w part={:s} {:s}".format(this.compiler,this.hugin,this.partitions,this.part,ratio)
+            cmd = "{:s} -o resources=0.85 {:s} -t wpbdd -o no_compile=1 -o no_ordering=1 -o partitions={:d} -w part={:s} {:s}".format(this.compiler,this.hugin,this.partitions,this.part,ratio)
             misc.call(cmd,this.verbose)
         else:
             term.write("    [SKIPPED]  \n")
 
     def create_composition_ordering(this,):
-        misc.header("\n* Create componsition ordering")
+        misc.header("\n* Create composition ordering")
         misc.require(this.part)
         if this.overwrite or not os.path.exists(this.comp):
-            cmd = "{:s} {:s} -t wpbdd -o no_compile=1 -o no_ordering=1 -r part={:s} -w comp={:s}".format(this.compiler,this.hugin,this.part,this.comp)
+            cmd = "{:s} -o resources=0.85 {:s} -t wpbdd -o no_compile=1 -o no_ordering=1 -r part={:s} -w comp={:s}".format(this.compiler,this.hugin,this.part,this.comp)
             misc.call(cmd,this.verbose)
         else:
             term.write("    [SKIPPED]  \n")
@@ -305,7 +324,7 @@ class Bdd:
         misc.header("\n* Create circuit")
         misc.require(this.num)
         if this.overwrite or not os.path.exists(this.circuit):
-            cmd = "{:s} {:s} -t wpbdd -r elim={:s} -w map={:s} -w circuit={:s} -o collapse=0".format(this.compiler,this.hugin,this.num,this.map,this.circuit)
+            cmd = "{:s} -o resources=0.85 {:s} -t wpbdd -r elim={:s} -w map={:s} -w circuit={:s} -o collapse=0".format(this.compiler,this.hugin,this.num,this.map,this.circuit)
             misc.call(cmd,this.verbose)
         else:
             term.write("    [SKIPPED]  \n")
@@ -315,7 +334,7 @@ class Bdd:
         misc.require(this.part_num)
         misc.require(this.part)
         if this.overwrite or not os.path.exists(this.part_circuit):
-            cmd = "{:s} {:s} -t wpbdd -r part={:s} -r elim={:s} -w map={:s} -w circuit={:s} -o collapse=0".format(this.compiler,this.hugin,this.part,this.num,this.map,this.circuit)
+            cmd = "{:s} -o resources=0.85 {:s} -t wpbdd -r part={:s} -r elim={:s} -w map={:s} -w circuit={:s} -o collapse=0".format(this.compiler,this.hugin,this.part,this.num,this.map,this.circuit)
             misc.call(cmd,this.verbose)
         else:
             term.write("    [SKIPPED]  \n")
@@ -323,7 +342,7 @@ class Bdd:
     def create_tdmultigraph_circuit(this):
         misc.header("\n* Create tdmultigraph circuit")
         if this.overwrite or not os.path.exists(this.tdmultigraph_circuit):
-            cmd = "{:s} {:s} -w map={:s} -w circuit={:s} -t tdmg".format(this.compiler,this.hugin,this.map,this.tdmultigraph_circuit)
+            cmd = "{:s} -o resources=0.85 {:s} -w map={:s} -w circuit={:s} -t tdmg".format(this.compiler,this.hugin,this.map,this.tdmultigraph_circuit)
             misc.call(cmd,this.verbose)
         else:
             term.write("    [SKIPPED]  \n")
@@ -333,23 +352,36 @@ class Bdd:
         misc.header("\n* Create multigraph circuit")
         misc.require(this.num)
         if this.overwrite or not os.path.exists(this.multigraph_circuit):
-            cmd = "{:s} {:s} -r elim={:s} -w map={:s} -w circuit={:s} -t mg".format(this.compiler,this.hugin,this.num,this.map,this.multigraph_circuit)
+            cmd = "{:s} -o resources=0.85 {:s} -r elim={:s} -w map={:s} -w circuit={:s} -t mg".format(this.compiler,this.hugin,this.num,this.map,this.multigraph_circuit)
             misc.call(cmd,this.verbose)
         else:
             term.write("    [SKIPPED]  \n")
 
+    def create_partitioning_and_ordering(this,bdds):
+        # create partitioning
+        if 'pwpbdd' in bdds or 'parallel-pwpbdd' in bdds or 'pmg' in bdds or 'ptdmg' in bdds:
+            this.create_partitioning()
+
+        # create orderings
+        if 'wpbdd' in bdds or 'mg' in bdds:
+            this.create_ordering()
+
+        if 'pwpbdd' in bdds or 'parallel-pwpbdd' in bdds or 'pmg' in bdds:
+            this.create_partition_ordering()
+
+        if 'ptdmg' in bdds:
+            this.create_td_partition_ordering()
+
+        if 'tdmg' in bdds or 'tdsdd' in bdds:
+            this.create_td_ordering()
+
     def run_inference(this,bdds):
-        allowed = set(['tdmg','mg','wpbdd','parallel-pwpbdd','pwpbdd','dlib','ace'])
+        allowed = set(['tdmg','mg','ptdmg','pmg','wpbdd','parallel-pwpbdd','pwpbdd','dlib','ace'])
         if not set(bdds).issubset(allowed):
             print("Bdd(s) not supported for inference: ",set(bdds)-allowed)
             sys.exit(1)
 
-        if 'pwpbdd' in bdds or 'parallel-pwpbdd' in bdds or 'pmg' in bdds or 'ptdmg' in bdds:
-            this.create_partitioning()
-            this.create_partition_ordering()
-
-        if 'wpbdd' in bdds or 'mg' in bdds or 'tdmg' in bdds:
-            this.create_ordering()
+        this.create_partitioning_and_ordering(bdds)
 
         if 'wpbdd' in bdds:
             this.create_circuit()
@@ -404,30 +436,37 @@ class Bdd:
         misc.call(cmd,True)
 
     def run_compilation(this,bdds):
-        this.create_ordering()
-        if 'pwpbdd' in bdds or 'parallel-pwpbdd' in bdds:
-            this.create_partitioning()
-        misc.require(this.num)
+        this.create_partitioning_and_ordering(bdds)
 
         if 'mg' in bdds:
             misc.header("\n* Compile MULTIGRAPH")
-            cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num),"-t","mg"]
+            cmd = [this.compiler,"-o","resources=0.85",this.hugin,"-r","elim={:s}".format(this.num),"-t","mg"]
             this.compile("MG",cmd)
 
         if 'tdmg' in bdds:
             misc.header("\n* Compile TDMULTIGRAPH")
-            cmd = [this.compiler,this.hugin,"-t","tdmg"]
+            cmd = [this.compiler,"-o","resources=0.85",this.hugin,"-r","elim={:s}".format(this.td_num),"-t","tdmg"]
             this.compile("TDMG",cmd)
+
+        if 'pmg' in bdds:
+            misc.header("\n* Compile partitioned MULTIGRAPH")
+            cmd = [this.compiler,"-o","resources=0.85",this.hugin,"-r","part={:s}".format(this.part),"-r","elim={:s}".format(this.num),"-t","mg","-d","partitioned"]
+            this.compile("PMG",cmd)
+
+        if 'ptdmg' in bdds:
+            misc.header("\n* Compile partitioned TDMULTIGRAPH")
+            cmd = [this.compiler,"-o","resources=0.85",this.hugin,"-r","part={:s}".format(this.part),"-r","elim={:s}".format(this.td_num),"-t","tdmg","-d","partitioned"]
+            this.compile("PTDMG",cmd)
 
         if 'wpbdd' in bdds:
             misc.header("\n* Compile WPBDD")
-            cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num),"-t","wpbdd"]
+            cmd = [this.compiler,"-o","resources=0.85",this.hugin,"-r","elim={:s}".format(this.num),"-t","wpbdd"]
             this.compile("WPBDD",cmd)
 
         if 'pwpbdd' in bdds:
             misc.require(this.part)
             misc.header("\n* Compile partitioned WPBDD")
-            cmd = [this.compiler,this.hugin,"-r","part={:s}".format(this.part),"-t","wpbdd","-d","partitioned"]
+            cmd = [this.compiler,"-o","resources=0.85",this.hugin,"-r","part={:s}".format(this.part),"-r","elim={:s}".format(this.num),"-t","wpbdd","-d","partitioned"]
             this.compile("PWPBDD",cmd)
 
         if 'ace' in bdds:
@@ -442,47 +481,52 @@ class Bdd:
 
         if 'obdd' in bdds:
             misc.header("\n* Compile OBDD (CUDD)")
-            cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num),"-t","obdd","-o","determinism=0"]
+            cmd = [this.compiler,"-o","resources=0.85",this.hugin,"-r","elim={:s}".format(this.num),"-t","obdd","-o","determinism=0"]
             this.compile("OBDD (CUDD)",cmd)
 
         if 'zbdd' in bdds:
             misc.header("\n* Compile ZBDD (CUDD)")
-            cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num),"-t","zbdd","-o","determinism=0"]
+            cmd = [this.compiler,"-o","resources=0.85",this.hugin,"-r","elim={:s}".format(this.num),"-t","zbdd","-o","determinism=0"]
             this.compile("ZBDD (CUDD)",cmd)
+
+        if 'tdsdd' in bdds:
+            misc.header("\n* Compile balanced vtree SDD from tree ordering (SDD compiler)")
+            cmd = [this.compiler,"-o","resources=0.85",this.hugin,"-r","elim={:s}".format(this.td_num),"-t","sdd","-o","determinism=0"]
+            this.compile("tdSDD (SDD compiler)",cmd)
 
         if 'sddr' in bdds:
             misc.header("\n* Compile right aligned vtree SDD (SDD compiler)")
-            cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num),"-t","sddr","-o","determinism=0"]
+            cmd = [this.compiler,"-o","resources=0.85",this.hugin,"-r","elim={:s}".format(this.num),"-t","sddr","-o","determinism=0"]
             this.compile("rSDD (SDD compiler)",cmd)
 
         if 'sdd' in bdds:
             misc.header("\n* Compile balanced vtree SDD (SDD compiler)")
-            cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num),"-t","sdd","-o","determinism=0"]
+            cmd = [this.compiler,"-o","resources=0.85",this.hugin,"-r","elim={:s}".format(this.num),"-t","sdd","-o","determinism=0"]
             this.compile("SDD (SDD compiler)",cmd)
 
         if 'parallel-wpbdd' in bdds or 'parallel-pwpbdd' in bdds:
             for cores in this.cores:
                 if 'parallel-wpbdd' in bdds:
                     misc.header("\n* Compile WPBDD - sylvan {:d} core(s)".format(cores))
-                    cmd = [this.compiler,this.hugin,"-t","sylvan","-o","determinism=0","-r","elim={:s}".format(this.num),"-o","workers={:d}".format(cores)]
+                    cmd = [this.compiler,"-o","resources=0.85",this.hugin,"-t","sylvan","-o","determinism=0","-r","elim={:s}".format(this.num),"-o","workers={:d}".format(cores)]
                     this.compile("parallel WPBDD {:d} core(s)".format(cores),cmd)
 
                 if 'parallel-pwpbdd' in bdds:
                     misc.require(this.part)
                     misc.header("\n* Compile partitioned WPBDD - silvan {:d} core(s)".format(cores))
-                    cmd = [this.compiler,this.hugin,"-d","partitioned","-t","sylvan","-o","determinism=0","-p","-r","part={:s}".format(this.part),"-o","workers={:d}".format(cores)]
+                    cmd = [this.compiler,"-o","resources=0.85",this.hugin,"-d","partitioned","-t","sylvan","-o","determinism=0","-p","-r","part={:s}".format(this.part),"-o","workers={:d}".format(cores)]
                     this.compile("Parallel PWPBDD {:d} core(s)".format(cores),cmd)
 
                     misc.header("\n* Compile partitioned PWPBDD - silvan (+1) {:d} core(s)".format(cores))
-                    cmd = [this.compiler,this.hugin,"-d","partitioned","-t","sylvan","-o","determinism=0","-p","-r","part={:s}".format(this.part),"-o","workers={:d}".format(cores),"-o","parallel_partition=1","-o","parallel_conjoin=0","-o","parallel_cpt=0" ]
+                    cmd = [this.compiler,"-o","resources=0.85",this.hugin,"-d","partitioned","-t","sylvan","-o","determinism=0","-p","-r","part={:s}".format(this.part),"-o","workers={:d}".format(cores),"-o","parallel_partition=1","-o","parallel_conjoin=0","-o","parallel_cpt=0" ]
                     this.compile("Parallel PWPBDD +1opt {:d} core(s)".format(cores),cmd)
 
                     misc.header("\n* Compile partitioned PWPBDD - silvan (+2) {:d} core(s)".format(cores))
-                    cmd = [this.compiler,this.hugin,"-d","partitioned","-t","sylvan","-o","determinism=0","-p","-r","part={:s}".format(this.part),"-o","workers={:d}".format(cores),"-o","parallel_partition=1","-o","parallel_conjoin=1","-o","parallel_cpt=0" ]
+                    cmd = [this.compiler,"-o","resources=0.85",this.hugin,"-d","partitioned","-t","sylvan","-o","determinism=0","-p","-r","part={:s}".format(this.part),"-o","workers={:d}".format(cores),"-o","parallel_partition=1","-o","parallel_conjoin=1","-o","parallel_cpt=0" ]
                     this.compile("Parallel PWPBDD +2opt {:d} core(s)".format(cores),cmd)
 
                     misc.header("\n* Compile partitioned PWPBDD - silvan (+3 opt) {:d} core(s)".format(cores))
-                    cmd = [this.compiler,this.hugin,"-d","partitioned","-t","sylvan","-o","determinism=0","-p","-r","part={:s}".format(this.part),"-o","workers={:d}".format(cores),"-o","parallel_partition=1","-o","parallel_conjoin=1","-o","parallel_cpt=1" ]
+                    cmd = [this.compiler,"-o","resources=0.85",this.hugin,"-d","partitioned","-t","sylvan","-o","determinism=0","-p","-r","part={:s}".format(this.part),"-o","workers={:d}".format(cores),"-o","parallel_partition=1","-o","parallel_conjoin=1","-o","parallel_cpt=1" ]
                     this.compile("Parallel PWPBDD +3opt {:d} core(s)".format(cores),cmd)
 
 
