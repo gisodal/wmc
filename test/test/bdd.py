@@ -263,7 +263,7 @@ class Bdd:
     def create_ordering(this):
         misc.header("\n* Create ordering")
         if this.overwrite or not os.path.exists(this.num):
-            cmd = "{:s} {:s} -t wpbdd -o ordering_only=1 -w elim={:s}".format(this.compiler,this.hugin,this.num)
+            cmd = "{:s} {:s} -t wpbdd -o no_compile=1 -w elim={:s}".format(this.compiler,this.hugin,this.num)
             misc.call(cmd,this.verbose)
         else:
             term.write("    [SKIPPED]  \n")
