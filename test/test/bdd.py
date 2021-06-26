@@ -35,6 +35,7 @@ class Bdd:
         this.cores = CORES
         this.overwrite = False
         this.verify = False
+        this.comparelimit = -1
         this.verbose = False
         this.ace       = os.path.join(g.WMC_DIR,"usr/bin/ace")
         this.compiler  = os.path.join(g.WMC_DIR,"bin/bnc")
@@ -53,6 +54,9 @@ class Bdd:
 
     def set_verify(this,verify):
         this.verify = verify
+
+    def set_compare(this,compare):
+        this.comparelimit = compare
 
     def set_overwrite(this,overwrite):
         this.overwrite = overwrite
@@ -120,13 +124,19 @@ class Bdd:
             f.write("load mg {:s}\n".format(this.multigraph_circuit))
         if 'dlib' in bdds:
             f.write("initdlib\n");
+        if 'agrum' in bdds:
+            f.write("initagrum\n");
         if 'ace' in bdds:
             f.write("ace\n");
 
         if this.verify:
             f.write("verify\n");
+
+        elif this.comparelimit > 0:
+            f.write("compare {}\n".format(this.comparelimit))
         else:
-            f.write("compare 1\n")
+            f.write("compare\n")
+
         f.close()
 
     def compile(this,name,cmd):
@@ -325,9 +335,9 @@ class Bdd:
             term.write("    [SKIPPED]  \n")
 
     def run_inference(this,bdds):
-        allowed = set(['tdmg','mg','wpbdd','parallel-pwpbdd','pwpbdd','dlib','ace'])
+        allowed = set(['tdmg','mg','wpbdd','parallel-pwpbdd','pwpbdd','dlib','ace', 'agrum'])
         if not set(bdds).issubset(allowed):
-            print("Bdd(s) not supported for inference: ",set(bdds)-allowed)
+            print("Option(s) not supported for inference: ",set(bdds)-allowed)
             sys.exit(1)
 
         this.create_ordering()
@@ -385,11 +395,19 @@ class Bdd:
         misc.call(cmd,True)
 
     def run_compilation(this,bdds):
+        # precondition for allowed languages: 
+        allowed = set(['pwpbdd', 'parallel-pwpbdd','tdmg','mg','wpbdd','parallel-pwpbdd','pwpbdd','ace', 'acei', 'obdd', 'zbdd','sdd', 'sddr','parallel-wpbdd', 'parallel-pwpbdd'])
+        if not set(bdds).issubset(allowed):
+            print("Option(s) not supported for compilation: ",set(bdds)-allowed)
+            sys.exit(1)
+
+        # first create an ordering
         this.create_ordering()
         if 'pwpbdd' in bdds or 'parallel-pwpbdd' in bdds:
             this.create_partitioning()
         misc.require(this.num)
 
+        # then compile
         if 'mg' in bdds:
             misc.header("\n* Compile MULTIGRAPH")
             cmd = [this.compiler,this.hugin,"-r","elim={:s}".format(this.num),"-t","mg"]

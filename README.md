@@ -28,4 +28,4 @@ To build, type:
 To test the compilers use test script `run.py` in directory `test`, for example:
 > ./test/run.py --test compilation --network asia --bdd tdmg ace
 
-
+> ./test/run.py --test inference --network asia --bdd agrum

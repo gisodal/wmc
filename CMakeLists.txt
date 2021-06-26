@@ -172,6 +172,9 @@ if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/src/bnc/CMakeLists.txt")
     set(BIN ${CMAKE_BINARY_DIR}/${PROJECT}-prefix/src/${PROJECT}-build/${PROJECT})
     install(PROGRAMS "${BIN}" DESTINATION "${CMAKE_INSTALL_PREFIX}/bin")
 
+endif()
+
+if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/src/bnmc/CMakeLists.txt")
 
     # ==============================================================================
     set(PROJECT bnmc)
