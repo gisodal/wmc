@@ -3,66 +3,19 @@ net
 }
 node a
 {
-  states = ( "a0" "a1" );
+  states = ( "a0" "a1" "a2" );
 }
 node b
 {
   states = ( "b0" "b1" );
 }
-node c
+
+potential ( a )
 {
-  states = ( "c0" "c1" );
+  data = ( 0.1 0.1 0.8 );
 }
-node d
+potential ( b | a )
 {
-  states = ( "d0" "d1" );
-}
-node e
-{
-  states = ( "e0" "e1" );
-}
-node f
-{
-  states = ( "f0" "f1" );
-}
-node g
-{
-  states = ( "g0" "g1" );
-}
-node h
-{
-  states = ( "h0" "h1" );
+  data = ((0.2 0.8)(0.3 0.7)(0.4 0.6)) ;
 }
 
-potential ( a | h)
-{
-  data = ( (101 102)(103 104) );
-}
-potential ( b | a)
-{
-  data = ((3 4)(5 6)) ;
-}
-potential ( c )
-{
-  data = ((7 8)) ;
-}
-potential ( d | c b)
-{
-  data = ((11 12)(13 14)(35 36)(38 39)) ;
-}
-potential ( e | c)
-{
-  data = ((25 26)(28 29)) ;
-}
-potential ( f | d)
-{
-  data = ((15 16)(18 19)) ;
-}
-potential ( g | f e)
-{
-  data = ((40 41)(42 44)(75 77)(78 79)) ;
-}
-potential ( h )
-{
-  data = ((55 56)) ;
-}

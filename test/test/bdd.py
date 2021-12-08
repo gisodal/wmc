@@ -124,18 +124,19 @@ class Bdd:
             f.write("load mg {:s}\n".format(this.multigraph_circuit))
         if 'dlib' in bdds:
             f.write("initdlib\n");
-        if 'agrum' in bdds:
-            f.write("initagrum\n");
+        if 'lazy' in bdds:
+            f.write("lazy\n");
+        if 've' in bdds:
+            f.write("ve\n");
+        if 'shafershanoy' in bdds:
+            f.write("shafershanoy\n");
         if 'ace' in bdds:
             f.write("ace\n");
-
+        
         if this.verify:
             f.write("verify\n");
-
-        elif this.comparelimit > 0:
-            f.write("compare {}\n".format(this.comparelimit))
         else:
-            f.write("compare\n")
+            f.write("compare {}\n".format(" ".join(str(x) for x in this.comparelimit)))
 
         f.close()
 
@@ -335,12 +336,16 @@ class Bdd:
             term.write("    [SKIPPED]  \n")
 
     def run_inference(this,bdds):
-        allowed = set(['tdmg','mg','wpbdd','parallel-pwpbdd','pwpbdd','dlib','ace', 'agrum'])
+        allowed = set(['tdmg','mg','wpbdd','parallel-pwpbdd','pwpbdd','ace','dlib', 'lazy', 'shafershanoy', 've'])
         if not set(bdds).issubset(allowed):
             print("Option(s) not supported for inference: ",set(bdds)-allowed)
             sys.exit(1)
 
-        this.create_ordering()
+
+        require_ordering = {'tdmg','mg','wpbdd','parallel-pwpbdd','pwpbdd','ace'}
+        if (len(require_ordering.intersection(bdds)) > 0): 
+            this.create_ordering()
+
         if 'wpbdd' in bdds:
             this.create_circuit()
         if 'mg' in bdds:

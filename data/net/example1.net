@@ -1,0 +1,13 @@
+net
+{
+}
+node a
+{
+  states = ( "a0" "a1" "a2" );
+}
+
+potential ( a )
+{
+  data = ( 0.1 0.2 0.7 );
+}
+

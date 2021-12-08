@@ -35,13 +35,13 @@ def main():
     parser.add_argument('--test',dest='test',choices=test_options, help='Choose what to test. Options are ' + ', '.join(test_options), required=False,metavar='TEST')
     parser.add_argument('--network',dest='networks',nargs='+', help='Bayesian network(s) used for testing',metavar="NETWORK")
 
-    bdd_options = ["wpbdd","parallel-wpbdd","pwpbdd","parallel-pwpbdd","sdd","sddr","obdd","zbdd","agrum","dlib","ace","acei","mg","tdmg"]
+    bdd_options = ["wpbdd","parallel-wpbdd","pwpbdd","parallel-pwpbdd","sdd","sddr","obdd","zbdd","lazy","shafershanoy","ve","dlib","ace","acei","mg","tdmg"]
     group = parser.add_argument_group('inference and compilation arguments')
     group.add_argument('--bdd',dest='bdds',nargs='+', help='Type of BDD. Options are ' + ', '.join(bdd_options), choices=bdd_options,required=False,default=None,metavar='BDD')
     group.add_argument('--partitions',dest='partitions',help='Set number of partitions',default=2,type=int,metavar='#PARTITIONS')
     group.add_argument('--overwrite',dest='overwrite',action='store_true', help='Overwrite ordering, partitioning, etc.')
     group.add_argument('--verify', dest='verify', action='store_true', help='Verify inference answers', required=False)
-    group.add_argument('--compare', dest='compare', type=int, metavar="#OBSERVED", help='Limit number of observerd variables during inference', required=False, default=-1)
+    group.add_argument('--compare', dest='compare', type=str, nargs='?', metavar="#OBSERVED", help='Limit number of observerd variables during inference', required=False, const="", default="")
 
     group.add_argument('--verbose', dest='verbose', action='store_true', help=argparse.SUPPRESS, required=False)
     group.add_argument('--repeat',dest='repeat',help='Set number of compilation repeats',default=3,type=int, required=False)

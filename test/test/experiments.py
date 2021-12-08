@@ -10,7 +10,7 @@ def compare_inference(options):
         bdd.set_cores(options.cores)
         bdd.set_overwrite(options.overwrite)
         bdd.set_verify(options.verify)
-        bdd.set_compare(options.compare)
+        bdd.set_compare(options.compare.split(','))
         bdd.set_bayesian_network(network)
         bdd.set_partitions(options.partitions)
         bdd.set_verbose(options.verbose)
