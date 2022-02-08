@@ -1,0 +1,9 @@
+libdir=build/lib
+includedir=build/include
+
+Name: aGrUM 0.20.3.9 (RELEASE)
+Description: C++ library designed for easily building applications using graphical models.
+Requires: 
+Version: 0.20.3.9
+Libs: -lagrum
+Cflags: 

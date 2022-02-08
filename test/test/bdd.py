@@ -81,7 +81,7 @@ class Bdd:
             net = os.path.basename(net)
             nhugin = os.path.join(g.NET_DIR,"{}.net".format(net))
             if not os.path.exists(nhugin):
-                sys.stderr.write("Bayesian network '{hugin}' not found".format(hugin))
+                sys.stderr.write("Bayesian network '" + nhugin + "' not found")
                 sys.exit(1)
             else:
                 hugin = nhugin
@@ -132,7 +132,7 @@ class Bdd:
             f.write("shafershanoy\n");
         if 'ace' in bdds:
             f.write("ace\n");
-        
+
         if this.verify:
             f.write("verify\n");
         else:
@@ -343,7 +343,7 @@ class Bdd:
 
 
         require_ordering = {'tdmg','mg','wpbdd','parallel-pwpbdd','pwpbdd','ace'}
-        if (len(require_ordering.intersection(bdds)) > 0): 
+        if (len(require_ordering.intersection(bdds)) > 0):
             this.create_ordering()
 
         if 'wpbdd' in bdds:
@@ -400,7 +400,7 @@ class Bdd:
         misc.call(cmd,True)
 
     def run_compilation(this,bdds):
-        # precondition for allowed languages: 
+        # precondition for allowed languages:
         allowed = set(['pwpbdd', 'parallel-pwpbdd','tdmg','mg','wpbdd','parallel-pwpbdd','pwpbdd','ace', 'acei', 'obdd', 'zbdd','sdd', 'sddr','parallel-wpbdd', 'parallel-pwpbdd'])
         if not set(bdds).issubset(allowed):
             print("Option(s) not supported for compilation: ",set(bdds)-allowed)
